@@ -56,11 +56,12 @@ class _LoginState extends State<Login> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Card(
+                                color: Color.fromARGB(30, 173, 205, 219),
                                 child: Text(
                                   AppStrings.loginNowText,
                                   style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 16,
+                                    fontSize: 40,
                                     color: hexToColor("#0091E6"),
                                   ),
                                 ),
@@ -113,8 +114,8 @@ class _LoginState extends State<Login> {
                                   border: InputBorder.none,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                      color: Color(0x50ADDBC0),
+                                    borderSide: BorderSide(
+                                      color: hexToColor("#0065A0"),
                                       width: 1.0,
                                     ),
                                   ),
@@ -166,8 +167,8 @@ class _LoginState extends State<Login> {
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                    color: Color(0x50ADDBC0),
+                                  borderSide: BorderSide(
+                                    color: hexToColor("#0065A0"),
                                     width: 1.0,
                                   ),
                                 ),
@@ -244,8 +245,8 @@ class AppStrings {
   static const String userName = 'Username';
   static const String userPassword = 'Password';
   static const String loginButtonText = 'Login';
-  static const String loginText = "Hey! Admin, please go ahead!";
-  static const String userEmailHintText = "person0@email.com";
-  static const String userPasswordHintText = "Must have at least 8 characters";
+  static const String loginText = "Heading goes here";
+  static const String userEmailHintText = "Eg. person0@email.com";
+  static const String userPasswordHintText = "Eg. xyZab@23";
   static const String dashboardText = "Dashboard";
 }
