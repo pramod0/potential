@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
                             Align(
