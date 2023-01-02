@@ -49,199 +49,257 @@ class _DashboardState extends State<Dashboard> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         backgroundColor: hexToColor("#121212"),
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 10),
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Investments",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white, fontSize: 15.0),
-                                  ),
-                                  Text(
-                                    " (9)",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70,
-                                        fontSize: 13.0,
-                                        fontWeight: FontWeight.w100),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Card(
-                              color: hexToColor("#1D1D1D"),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 20),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "Invested",
-                                                style:
-                                                    kGoogleStyleTexts.copyWith(
-                                                        color: Colors.white70,
-                                                        fontSize: 12.0),
-                                              ),
-                                              Text(
-                                                "\u{20B9} 236324",
-                                                style:
-                                                    kGoogleStyleTexts.copyWith(
-                                                        color: Colors.white,
-                                                        fontSize: 15.0),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "Current",
-                                                style:
-                                                    kGoogleStyleTexts.copyWith(
-                                                        color: Colors.white70,
-                                                        fontSize: 12.0),
-                                              ),
-                                              Text(
-                                                "\u{20B9} 762242",
-                                                style:
-                                                    kGoogleStyleTexts.copyWith(
-                                                        color: Colors.white,
-                                                        fontSize: 15.0),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    width: 4,
-                                                    height: 4,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          hexToColor("#FCAF23"),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    " Total Returns",
-                                                    style: kGoogleStyleTexts
-                                                        .copyWith(
-                                                            color:
-                                                                Colors.white70,
-                                                            fontSize: 12.0),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text(
-                                                "\u{20B9} ${762242 + 236324}",
-                                                style:
-                                                    kGoogleStyleTexts.copyWith(
-                                                        color: Colors.white,
-                                                        fontSize: 15.0),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
+                child: Column(
                   children: [
-                    Row(
+                    Column(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Investments",
+                                  style: kGoogleStyleTexts.copyWith(
+                                      color: Colors.white, fontSize: 15.0),
+                                ),
+                                Text(
+                                  " (9)",
+                                  style: kGoogleStyleTexts.copyWith(
+                                      color: Colors.white70,
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w100),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                         Container(
-                          width: MediaQuery.of(context).size.width/3*2+5,
+                          width: MediaQuery.of(context).size.width,
                           decoration: const BoxDecoration(
                               color: Colors.transparent,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          padding: EdgeInsets.only(left: 20),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Sort",
-                                style: kGoogleStyleTexts.copyWith(
-                                    color: Colors.white70, fontSize: 17.0),
-                              ),
-                              const Icon(
-                                Icons.sort,
-                                color: Colors.white60,
-                              )
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                          child: const Text('Select Me'),
-                          onPressed: () {
-                            showModalBottomSheet<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Container(
-                                  height: 200,
-                                  color: Colors.amber,
-                                  child: Center(
-                                    child: Column(
+                          child: Card(
+                            color: hexToColor("#1D1D1D"),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 20),
+                                child: Column(
+                                  children: [
+                                    Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const <Widget>[
-                                        Text('Modal BottomSheet'),
-
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "Invested",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 12.0),
+                                            ),
+                                            Text(
+                                              "\u{20B9} 236324",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "Current",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 12.0),
+                                            ),
+                                            Text(
+                                              "\u{20B9} 762242",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 4,
+                                                  height: 4,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        hexToColor("#FCAF23"),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  " Total Returns",
+                                                  style: kGoogleStyleTexts
+                                                      .copyWith(
+                                                          color: Colors.white70,
+                                                          fontSize: 12.0),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              "\u{20B9} ${762242 + 236324}",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 15.0),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3 * 2 + 5,
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        padding: EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Sort",
+                              style: kGoogleStyleTexts.copyWith(
+                                  color: Colors.white70, fontSize: 17.0),
+                            ),
+                            const Icon(
+                              Icons.sort,
+                              color: Colors.white60,
+                            )
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        child: Text('Select Me'),
+                        onPressed: () {
+                          showModalBottomSheet<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                color: hexToColor("#121212"),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Sort Investments By',
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 17.0),
+                                        ),
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: userList.length,
+                                      itemBuilder: (context, i) {
+                                        return ListTile(
+                                          title: Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(10))),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  userList[i].name,
+                                                  style:
+                                                      kGoogleStyleTexts.copyWith(
+                                                          color: Colors.white70,
+                                                          fontSize: 17.0),
+                                                ),
+                                                Checkbox(
+                                                  checkColor: Colors.white,
+                                                  fillColor: MaterialStateProperty
+                                                      .resolveWith(getColor),
+                                                  value: userList[i].isSelected,
+                                                  onChanged: (bool? value) {
+                                                    setState(() {
+                                                      userList[i].isSelected =
+                                                          value!;
+                                                      for (var k = 0;
+                                                          k < userList.length;
+                                                          k++) {
+                                                        if (i != k) {
+                                                          userList[k].isSelected =
+                                                              false;
+                                                        }
+                                                      }
+                                                    }
+                                                    );
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),
     );
+  }
+
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.red;
+    }
+    return Colors.lightBlue;
   }
 }
 
@@ -314,7 +372,6 @@ class ExitDialogue extends StatelessWidget {
                               //     await SharedPreferences.getInstance();
                               // //Return String
                               // prefs.clear();
-                              context = BuildContext as BuildContext;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const Login()));
                             },
