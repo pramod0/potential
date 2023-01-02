@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Login(),
+      home: const Dashboard(),
       builder: EasyLoading.init(),
     );
   }
