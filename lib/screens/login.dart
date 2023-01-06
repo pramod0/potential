@@ -1,7 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:potential/models/investor.dart';
+import 'package:potential/screens/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../util/appTools.dart';
+import '../ApiService.dart';
+import '../util/network_util.dart';
 import '../util/styleConstants.dart';
 
 class Login extends StatefulWidget {
@@ -12,6 +19,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final prefs = SharedPreferences.getInstance();
   bool _showPassword = false;
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
@@ -21,19 +29,101 @@ class _LoginState extends State<Login> {
   late String _password;
 
   final TextEditingController userNameController =
-      TextEditingController(text: ""); // for quick testing
+  TextEditingController(text: "HYS076"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "");
+  TextEditingController(text: "gsh#RH3jA");
+
+  late String _username;
+  late String _password;
 
   @override
   void initState() {
     super.initState();
+    isLoggedIn();
+  }
+
+  void isLoggedIn() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? expiryDate = pref.getString('expiry');
+    if (expiryDate != null) {
+      int? expired = DateTime.tryParse(expiryDate)?.compareTo(DateTime.now());
+      if (expired! > 0) {
+        String? studentJson = pref.getString('student');
+        Student.fromJson(jsonDecode(studentJson!));
+        String? token = pref.getString('token');
+        Token(token!); // initialize toke
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+      }
+    }
   }
 
   void _toggleVisibility() {
     setState(() {
       _showPassword = !_showPassword;
     });
+  }
+
+  showSnackBar(String text, Color color) {
+    _scaffoldKey.currentState
+        ?.showSnackBar(SnackBar(content: Text(text), backgroundColor: color));
+  }
+
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => ExitDialogue()) ??
+        false;
+  }
+
+  login() async {
+    bool connectionResult = await NetWorkUtil().checkInternetConnection();
+    if (!connectionResult) {
+      showSnackBar("No Internet Connection", Colors.red);
+      return;
+    }
+
+    _formKey.currentState!.save();
+    EasyLoading.show(status: 'loading...');
+
+    final String userName = userNameController.text;
+    final String password = passwordController.text;
+
+    var responseBody = jsonDecode(
+        await ApiService().processLogin(userName, password, context));
+    EasyLoading.dismiss();
+
+    if (responseBody?['status_code'] == 1000) {
+
+      String s = json.encode("../util/loginData.json");
+      Investor.fromJson(jsonDecode(s));
+      String token = responseBody['token'].toString();
+      //Token(token); // initialize token
+
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+
+      prefs.then((pref) =>
+          pref.setString('student', json.encode(responseBody['student'])));
+      prefs.then((pref) =>
+          pref.setString('userId', responseBody['user_id'].toString()));
+      prefs.then(
+              (pref) => pref.setString('token', responseBody['token'].toString()));
+      prefs.then((pref) =>
+          pref.setString('expiry', responseBody['expiry'].toString()));
+    } else {
+      var message = responseBody['message'] ?? "Failed to login";
+      if (userName.isEmpty && password.isEmpty) {
+        showSnackBar("Please enter username & password", Colors.red);
+      } else if (userName.isEmpty) {
+        showSnackBar("Username is required", Colors.red);
+      } else if (password.isEmpty) {
+        showSnackBar("Password is required", Colors.red);
+      } else {
+        showSnackBar(message, Colors.red);
+      }
+    }
   }
 
   @override
@@ -217,7 +307,7 @@ class _LoginState extends State<Login> {
                           backgroundColor: hexToColor("#0065A0"),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0))),
-                      onPressed: () => {},
+                      onPressed: login,
                       child: Text(
                         AppStrings.loginButtonText,
                         style: kGoogleStyleTexts.copyWith(
