@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:potential/models/investor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../util/appTools.dart';
@@ -14,6 +18,18 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<Modal> userList = <Modal>[];
+  final prefs = SharedPreferences.getInstance();
+  Investor? investorData;
+
+  Future<String> getData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? studentJson = pref.getString('investorData');
+    investorData=Investor.fromJson(jsonDecode(studentJson!));
+    if (kDebugMode) {
+      print(investorData?.investmentData?.current);
+    }
+    return Future.value("DataDownloaded Sucessfully");
+  }
 
   @override
   void initState() {
@@ -21,6 +37,9 @@ class _DashboardState extends State<Dashboard> {
     userList.add(Modal(name: 'Returns %', isSelected: false));
     userList.add(Modal(name: 'XIRR %', isSelected: false));
     userList.add(Modal(name: 'Alphabetical', isSelected: false));
+    getData().whenComplete(() {
+      setState(() {});
+    });
     super.initState();
   }
 

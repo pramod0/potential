@@ -9,7 +9,7 @@ class Investor {
     id = json['id'];
     name = json['name'];
     investmentData = json['investment_data'] != null
-        ? new InvestmentData.fromJson(json['investment_data'])
+        ? InvestmentData.fromJson(json['investment_data'])
         : null;
   }
 

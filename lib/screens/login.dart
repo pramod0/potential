@@ -33,30 +33,27 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController =
   TextEditingController(text: "gsh#RH3jA");
 
-  late String _username;
-  late String _password;
-
   @override
   void initState() {
     super.initState();
-    isLoggedIn();
+    // isLoggedIn();
   }
 
-  void isLoggedIn() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? expiryDate = pref.getString('expiry');
-    if (expiryDate != null) {
-      int? expired = DateTime.tryParse(expiryDate)?.compareTo(DateTime.now());
-      if (expired! > 0) {
-        String? studentJson = pref.getString('student');
-        Student.fromJson(jsonDecode(studentJson!));
-        String? token = pref.getString('token');
-        Token(token!); // initialize toke
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const Dashboard()));
-      }
-    }
-  }
+  // void isLoggedIn() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? expiryDate = pref.getString('expiry');
+  //   if (expiryDate != null) {
+  //     int? expired = DateTime.tryParse(expiryDate)?.compareTo(DateTime.now());
+  //     if (expired! > 0) {
+  //       String? studentJson = pref.getString('investmentData');
+  //       Investor.fromJson(jsonDecode(studentJson!));
+  //       String? token = pref.getString('token');
+  //       //Token(token!); // initialize toke
+  //       Navigator.of(context)
+  //           .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+  //     }
+  //   }
+  // }
 
   void _toggleVisibility() {
     setState(() {
@@ -93,25 +90,25 @@ class _LoginState extends State<Login> {
     var responseBody = jsonDecode(
         await ApiService().processLogin(userName, password, context));
     EasyLoading.dismiss();
-
     if (responseBody?['status_code'] == 1000) {
 
-      String s = json.encode("../util/loginData.json");
+      String s = json.encode(responseBody['investorData']);
+      print(s);
       Investor.fromJson(jsonDecode(s));
       String token = responseBody['token'].toString();
       //Token(token); // initialize token
+      prefs.then((pref) =>
+          pref.setString('investorData', json.encode(responseBody['investorData'])));
+      prefs.then((pref) =>
+          pref.setString('userId', responseBody['user_id'].toString()));
 
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const Dashboard()));
 
-      prefs.then((pref) =>
-          pref.setString('student', json.encode(responseBody['student'])));
-      prefs.then((pref) =>
-          pref.setString('userId', responseBody['user_id'].toString()));
-      prefs.then(
-              (pref) => pref.setString('token', responseBody['token'].toString()));
-      prefs.then((pref) =>
-          pref.setString('expiry', responseBody['expiry'].toString()));
+      // prefs.then(
+      //         (pref) => pref.setString('token', responseBody['token'].toString()));
+      // prefs.then((pref) =>
+      //     pref.setString('expiry', responseBody['expiry'].toString()));
     } else {
       var message = responseBody['message'] ?? "Failed to login";
       if (userName.isEmpty && password.isEmpty) {
