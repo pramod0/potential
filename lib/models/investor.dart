@@ -1,16 +1,16 @@
 class Investor {
   String? id;
   String? name;
-  InvestmentData? investmentData;
+  late InvestmentData investmentData;
 
-  Investor({this.id, this.name, this.investmentData});
+  Investor({this.id, this.name, required this.investmentData});
 
   Investor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    investmentData = json['investment_data'] != null
+    investmentData = (json['investment_data'] != null
         ? InvestmentData.fromJson(json['investment_data'])
-        : null;
+        : null)!;
   }
 
   Map<String, dynamic> toJson() {
@@ -25,11 +25,11 @@ class Investor {
 }
 
 class InvestmentData {
-  String? invested;
-  String? current;
+  late String invested;
+  late String current;
   List<FundData>? fundData;
 
-  InvestmentData({this.invested, this.current, this.fundData});
+  InvestmentData({required this.invested, required this.current, this.fundData});
 
   InvestmentData.fromJson(Map<String, dynamic> json) {
     invested = json['invested'];
@@ -51,6 +51,10 @@ class InvestmentData {
     }
     return data;
   }
+
+  int getReturns(){
+    return int.parse(current) - int.parse(invested);
+}
 }
 
 class FundData {

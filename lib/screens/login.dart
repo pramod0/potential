@@ -94,16 +94,16 @@ class _LoginState extends State<Login> {
 
       String s = json.encode(responseBody['investorData']);
       print(s);
-      Investor.fromJson(jsonDecode(s));
+      Investor i = Investor.fromJson(jsonDecode(s));
       String token = responseBody['token'].toString();
       //Token(token); // initialize token
       prefs.then((pref) =>
-          pref.setString('investorData', json.encode(responseBody['investorData'])));
+          pref.setString('investorData', json.encode(responseBody['investment_data'])));
       prefs.then((pref) =>
           pref.setString('userId', responseBody['user_id'].toString()));
 
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+          .push(MaterialPageRoute(builder: (context) => Dashboard(investor:i)));
 
       // prefs.then(
       //         (pref) => pref.setString('token', responseBody['token'].toString()));

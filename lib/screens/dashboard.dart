@@ -10,7 +10,8 @@ import '../util/styleConstants.dart';
 import 'login.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  Investor investor;
+  Dashboard({required this.investor});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -19,17 +20,16 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<Modal> userList = <Modal>[];
   final prefs = SharedPreferences.getInstance();
-  Investor? investorData;
 
-  Future<String> getData() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? studentJson = pref.getString('investorData');
-    investorData=Investor.fromJson(jsonDecode(studentJson!));
-    if (kDebugMode) {
-      print(investorData?.investmentData?.current);
-    }
-    return Future.value("DataDownloaded Sucessfully");
-  }
+  // Future<String> getData() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? investmentJson = pref.getString('investorData');
+  //   investorData=Investor.fromJson(jsonDecode(investmentJson!));
+  //   if (kDebugMode) {
+  //     print(investorData?.investmentData?.current);
+  //   }
+  //   return Future.value("DataDownloaded Sucessfully");
+  // }
 
   @override
   void initState() {
@@ -37,9 +37,9 @@ class _DashboardState extends State<Dashboard> {
     userList.add(Modal(name: 'Returns %', isSelected: false));
     userList.add(Modal(name: 'XIRR %', isSelected: false));
     userList.add(Modal(name: 'Alphabetical', isSelected: false));
-    getData().whenComplete(() {
-      setState(() {});
-    });
+    // getData().whenComplete(() {
+    //   setState(() {});
+    // });
     super.initState();
   }
 
@@ -128,7 +128,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "\u{20B9} 236324",
+                                              "\u{20B9} ${widget.investor.investmentData.invested}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -174,7 +174,7 @@ class _DashboardState extends State<Dashboard> {
                                               ],
                                             ),
                                             Text(
-                                              "\u{20B9} ${762242 + 236324}",
+                                              "\u{20B9} ${widget.investor.investmentData.getReturns()}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
