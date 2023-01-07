@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
 
     var responseBody = jsonDecode(
         await ApiService().processLogin(userName, password, context));
-    EasyLoading.dismiss();
+    //EasyLoading.dismiss();
     if (responseBody?['status_code'] == 1000) {
 
       String s = json.encode(responseBody['investorData']);

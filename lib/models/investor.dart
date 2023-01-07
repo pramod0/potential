@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:flutter/services.dart';
+
 class Investor {
   String? id;
   String? name;
@@ -15,10 +19,10 @@ class Investor {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.investmentData != null) {
-      data['investment_data'] = this.investmentData!.toJson();
+    data['id'] = id;
+    data['name'] = name;
+    if (investmentData != null) {
+      data['investment_data'] = investmentData!.toJson();
     }
     return data;
   }
@@ -27,6 +31,9 @@ class Investor {
 class InvestmentData {
   String? invested;
   String? current;
+  // XIIR is calculated on historical data
+  // % return current-initial/initial
+
   List<FundData>? fundData;
 
   InvestmentData({this.invested, this.current, this.fundData});
@@ -37,13 +44,13 @@ class InvestmentData {
     if (json['fund_data'] != null) {
       fundData = <FundData>[];
       json['fund_data'].forEach((v) {
-        fundData!.add(new FundData.fromJson(v));
+        fundData!.add(FundData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['invested'] = this.invested;
     data['current'] = this.current;
     if (this.fundData != null) {
