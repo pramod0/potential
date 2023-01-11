@@ -18,7 +18,7 @@ class Investor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = id;
     data['name'] = name;
     if (investmentData != null) {
@@ -29,8 +29,8 @@ class Investor {
 }
 
 class InvestmentData {
-  String? invested;
-  String? current;
+  int? invested;
+  int? current;
   // XIIR is calculated on historical data
   // % return current-initial/initial
 
@@ -51,10 +51,10 @@ class InvestmentData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['invested'] = this.invested;
-    data['current'] = this.current;
-    if (this.fundData != null) {
-      data['fund_data'] = this.fundData!.map((v) => v.toJson()).toList();
+    data['invested'] = invested;
+    data['current'] = current;
+    if (fundData != null) {
+      data['fund_data'] = fundData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -62,10 +62,11 @@ class InvestmentData {
 
 class FundData {
   String? fundName;
-  String? invested;
-  String? current;
-  String? currentNav;
-  String? totalUnits;
+  int? invested;
+  int? current;
+  int? currentNav;
+  int? totalUnits;
+  double perReturns=0.0;
 
   FundData(
       {this.fundName,
@@ -80,15 +81,16 @@ class FundData {
     current = json['current'];
     currentNav = json['current_nav'];
     totalUnits = json['total_units'];
+    perReturns= ((current!)-(invested!))/(invested!);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fund_name'] = this.fundName;
-    data['invested'] = this.invested;
-    data['current'] = this.current;
-    data['current_nav'] = this.currentNav;
-    data['total_units'] = this.totalUnits;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['fund_name'] = fundName;
+    data['invested'] = invested;
+    data['current'] = current;
+    data['current_nav'] = currentNav;
+    data['total_units'] = totalUnits;
     return data;
   }
 }

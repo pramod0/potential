@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:potential/models/investor.dart';
@@ -29,9 +30,9 @@ class _DashboardState extends State<Dashboard> {
     String? studentJson = pref.getString('investorData');
     investorData = Investor.fromJson(jsonDecode(studentJson!));
     if (kDebugMode) {
-      String? c = (investorData?.investmentData?.current);
-      String? d = (investorData?.investmentData?.invested);
-      totalRet = (int.parse(c!) + int.parse(d!)).toString();
+      int? c = (investorData?.investmentData?.current);
+      int? d = (investorData?.investmentData?.invested);
+      totalRet = (c! + d!).toString();
     }
     return Future.value("Data Downloaded Successfully");
   }
@@ -52,16 +53,16 @@ class _DashboardState extends State<Dashboard> {
         false;
   }
 
-  _iconControl(bool like) {
-    if (like == false) {
-      return const Icon(Icons.favorite_border);
-    } else {
-      return const Icon(
-        Icons.favorite,
-        color: Colors.red,
-      );
-    }
-  }
+  // _iconControl(bool like) {
+  //   if (like == false) {
+  //     return const Icon(Icons.favorite_border);
+  //   } else {
+  //     return const Icon(
+  //       Icons.favorite,
+  //       color: Colors.red,
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: hexToColor("#121212"),
         body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
@@ -218,8 +219,7 @@ class _DashboardState extends State<Dashboard> {
                               Text(
                                 "Sort",
                                 style: kGoogleStyleTexts.copyWith(
-                                    color: Colors.white70,
-                                    fontSize: 17.0),
+                                    color: Colors.white70, fontSize: 17.0),
                               ),
                               IconButton(
                                 icon: AnimatedContainer(
@@ -236,74 +236,11 @@ class _DashboardState extends State<Dashboard> {
                                   showModalBottomSheet(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return Container(
-                                        color: hexToColor("#121212"),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  'Select Order of sorting',
-                                                  style: kGoogleStyleTexts.copyWith(
-                                                      color: Colors.white70,
-                                                      fontSize: 17.0),
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              children: <Widget>[
-                                                RadioListTile(
-                                                  title: Text(
-                                                    'Ascending',
-                                                    style:
-                                                        kGoogleStyleTexts.copyWith(
-                                                            color: Colors.white70,
-                                                            fontSize: 17.0),
-                                                  ),
-                                                  value: "1",
-                                                  groupValue: srt,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      srt = value.toString();
-                                                      Navigator.of(context).pop();
-                                                    });
-                                                  },
-                                                  controlAffinity:
-                                                      ListTileControlAffinity
-                                                          .trailing,
-                                                ),
-                                                RadioListTile(
-                                                  title: Text(
-                                                    'Descending',
-                                                    style:
-                                                        kGoogleStyleTexts.copyWith(
-                                                            color: Colors.white70,
-                                                            fontSize: 17.0),
-                                                  ),
-                                                  value: "0",
-                                                  groupValue: srt,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      srt = value.toString();
-                                                      Navigator.of(context).pop();
-                                                    });
-                                                  },
-                                                  controlAffinity:
-                                                      ListTileControlAffinity
-                                                          .trailing,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      );
+                                      return buildBottomSheetContainerForSorting(
+                                          context);
                                     },
                                   );
+                                  //builderList
                                 },
                               ),
                             ],
@@ -329,114 +266,8 @@ class _DashboardState extends State<Dashboard> {
                             showModalBottomSheet(
                               context: context,
                               builder: (BuildContext context) {
-                                return Container(
-                                  color: hexToColor("#121212"),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Sort Investments By',
-                                            style: kGoogleStyleTexts.copyWith(
-                                                color: Colors.white70,
-                                                fontSize: 17.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Column(
-                                        children: <Widget>[
-                                          RadioListTile(
-                                            title: Text(
-                                              'Current',
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 17.0),
-                                            ),
-                                            selected: true,
-                                            activeColor: hexToColor("#45b6fe"),
-                                            value: "Current",
-                                            groupValue: gender,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                gender = value.toString();
-                                                srt = "0";
-                                                Navigator.of(context).pop();
-                                              });
-                                            },
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                          ),
-                                          RadioListTile(
-                                            title: Text(
-                                              '%xiir',
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 17.0),
-                                            ),
-                                            value: "%xiir",
-                                            groupValue: gender,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                gender = value.toString();
-                                                srt = "0";
-                                                Navigator.of(context).pop();
-                                              });
-                                            },
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                          ),
-                                          RadioListTile(
-                                            title: Text(
-                                              '%returns',
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 17.0),
-                                            ),
-
-                                            value: "%returns",
-                                            groupValue: gender,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                gender = value.toString();
-                                                srt = "0";
-                                                Navigator.of(context).pop();
-                                              });
-                                            },
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                          ),
-                                          RadioListTile(
-                                            title: Text(
-                                              'Alphabetical',
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 17.0),
-                                            ),
-                                            value: "Alphabetical",
-                                            groupValue: gender,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                gender = value.toString();
-                                                srt = "0";
-                                                Navigator.of(context).pop();
-                                              });
-                                            },
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                return buildBottomSheetContainerForFilters(
+                                    context);
                               },
                             );
                           },
@@ -446,65 +277,416 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ],
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                //scrollDirection: Axis.vertical,
-                itemCount: investorData?.investmentData?.fundData?.length,
-                itemBuilder: (context, i) {
-                  return ListTile(
-                    title: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      padding: const EdgeInsets.symmetric(horizontal: 05),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: Text(
-                                    "${investorData?.investmentData?.fundData![i].fundName!}\nRegular Growth",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 15.0),
-                                    //softWrap: true,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    "\u{20B9} ${investorData?.investmentData?.fundData![i].current!}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.blueAccent[400],
-                                        fontSize: 15.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              "(\u{20B9} ${investorData?.investmentData?.fundData![i].invested!})",
-                              style: kGoogleStyleTexts.copyWith(
-                                  color: Colors.white70, fontSize: 12.0),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
+              Expanded(
+                child: BuildList(investorData: investorData, gender: gender),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Container buildBottomSheetContainerForSorting(BuildContext context) {
+    return Container(
+      color: hexToColor("#121212"),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Select Order of sorting',
+                style: kGoogleStyleTexts.copyWith(
+                    color: Colors.white70, fontSize: 17.0),
+              ),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              RadioListTile(
+                title: Text(
+                  'Ascending',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                value: "1",
+                groupValue: srt,
+                onChanged: (value) {
+                  setState(() {
+                    srt = value.toString();
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+              RadioListTile(
+                title: Text(
+                  'Descending',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                value: "0",
+                groupValue: srt,
+                onChanged: (value) {
+                  setState(() {
+                    srt = value.toString();
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildBottomSheetContainerForFilters(BuildContext context) {
+    return Container(
+      color: hexToColor("#121212"),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Sort Investments By',
+                style: kGoogleStyleTexts.copyWith(
+                    color: Colors.white70, fontSize: 17.0),
+              ),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              RadioListTile(
+                title: Text(
+                  'Current',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                selected: true,
+                activeColor: hexToColor("#45b6fe"),
+                value: "Current",
+                groupValue: gender,
+                onChanged: (value) {
+                  setState(() {
+                    gender = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+              RadioListTile(
+                title: Text(
+                  '%xiir',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                value: "%xiir",
+                groupValue: gender,
+                onChanged: (value) {
+                  setState(() {
+                    gender = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+              RadioListTile(
+                title: Text(
+                  '%returns',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                value: "%returns",
+                groupValue: gender,
+                onChanged: (value) {
+                  setState(() {
+                    gender = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+              RadioListTile(
+                title: Text(
+                  'Alphabetical',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                value: "Alphabetical",
+                groupValue: gender,
+                onChanged: (value) {
+                  setState(() {
+                    gender = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BuildList extends StatelessWidget {
+  const BuildList({
+    Key? key,
+    required this.investorData,
+    required this.gender,
+  }) : super(key: key);
+
+  final Investor? investorData;
+  final String gender;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      //scrollDirection: Axis.vertical,
+      itemCount: investorData?.investmentData?.fundData?.length,
+      itemBuilder: (context, i) {
+        if (gender == "Current") {
+          return ListTile(
+            title: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              padding: const EdgeInsets.symmetric(horizontal: 05),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          child: Text(
+                            "${investorData?.investmentData?.fundData![i].fundName!}\nRegular Growth",
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.white70, fontSize: 13.0),
+                            softWrap: true,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "\u{20B9} ${investorData?.investmentData?.fundData![i].current!}",
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.blueAccent[400], fontSize: 15.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "(\u{20B9} ${investorData?.investmentData?.fundData![i].invested!})",
+                      style: kGoogleStyleTexts.copyWith(
+                          color: Colors.white70, fontSize: 12.0),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        } else if (gender == "%returns") {
+          return ListTile(
+            title: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              padding: const EdgeInsets.symmetric(horizontal: 05),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          child: Text(
+                            "${investorData?.investmentData?.fundData![i].fundName!}\nRegular Growth",
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.white70, fontSize: 14.0),
+                            //softWrap: true,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "${investorData?.investmentData?.fundData![i].perReturns.toStringAsFixed(2)}%",
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.blueAccent[400], fontSize: 14.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "(\u{20B9} ${investorData?.investmentData?.fundData![i].invested!})",
+                      style: kGoogleStyleTexts.copyWith(
+                          color: Colors.white70, fontSize: 12.0),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        } else if (gender == "%xiir") {
+          return listTile(investorData: investorData,impText: investorData?.investmentData?.fundData![i].current!.toString(),i:i);
+        } else {
+          return ListTile(
+            title: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              padding: const EdgeInsets.symmetric(horizontal: 05),
+              child: Column(
+                children: [
+                  TextButton(
+                      onPressed: () => {},
+                      child: Text(
+                        "Alphabetical",
+                        style: kGoogleStyleTexts.copyWith(
+                            color: Colors.white70, fontSize: 15.0),
+                      )),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          child: Text(
+                            "${investorData?.investmentData?.fundData![i].fundName!}\nRegular Growth",
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.white70, fontSize: 15.0),
+                            //softWrap: true,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "\u{20B9} ${investorData?.investmentData?.fundData![i].current!}",
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.blueAccent[400], fontSize: 15.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "(\u{20B9} ${investorData?.investmentData?.fundData![i].invested!})",
+                      style: kGoogleStyleTexts.copyWith(
+                          color: Colors.white70, fontSize: 12.0),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
+class listTile extends StatelessWidget {
+  const listTile({
+    Key? key,
+    required this.investorData,
+    required this.impText,
+    required this,i
+  }) : super(key: key);
+
+  final Investor? investorData;
+  final String? impText;
+  final int? i;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        padding: const EdgeInsets.symmetric(horizontal: 05),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(5))),
+                    child: Text(
+                      "${investorData?.investmentData?.fundData![i].fundName!}\nRegular Growth",
+                      style: kGoogleStyleTexts.copyWith(
+                          color: Colors.white70, fontSize: 15.0),
+                      //softWrap: true,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      "\u{20B9} ${impText!}",
+                      style: kGoogleStyleTexts.copyWith(
+                          color: Colors.blueAccent[400], fontSize: 15.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "(\u{20B9} ${investorData?.investmentData?.fundData![i].invested!})",
+                style: kGoogleStyleTexts.copyWith(
+                    color: Colors.white70, fontSize: 12.0),
+              ),
+            )
+          ],
         ),
       ),
     );

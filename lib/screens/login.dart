@@ -70,7 +70,7 @@ class _LoginState extends State<Login> {
     return await showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) => ExitDialogue()) ??
+        builder: (context) => const ExitDialogue()) ??
         false;
   }
 
@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
 
     var responseBody = jsonDecode(
         await ApiService().processLogin(userName, password, context));
-    //EasyLoading.dismiss();
+    EasyLoading.dismiss();
     if (responseBody?['status_code'] == 1000) {
 
       String s = json.encode(responseBody['investorData']);
