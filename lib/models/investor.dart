@@ -27,9 +27,9 @@ class Investor {
 class InvestmentData {
   late String invested;
   late String current;
-  List<FundData>? fundData;
+  late List<FundData> fundData;
 
-  InvestmentData({required this.invested, required this.current, this.fundData});
+  InvestmentData({required this.invested, required this.current, required this.fundData});
 
   InvestmentData.fromJson(Map<String, dynamic> json) {
     invested = json['invested'];
@@ -53,23 +53,25 @@ class InvestmentData {
   }
 
   int getReturns(){
-    return int.parse(current) - int.parse(invested);
+    int returns = int.parse(current) - int.parse(invested);
+    print("return: "+ returns.toString());
+    return returns;
 }
 }
 
 class FundData {
-  String? fundName;
-  String? invested;
-  String? current;
-  String? currentNav;
-  String? totalUnits;
+  late String fundName;
+  late String invested;
+  late String current;
+  late String currentNav;
+  late String totalUnits;
 
   FundData(
-      {this.fundName,
-        this.invested,
-        this.current,
-        this.currentNav,
-        this.totalUnits});
+      {required this.fundName,
+        required this.invested,
+        required this.current,
+        required this.currentNav,
+        required this.totalUnits});
 
   FundData.fromJson(Map<String, dynamic> json) {
     fundName = json['fund_name'];

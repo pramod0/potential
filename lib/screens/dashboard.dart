@@ -90,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                                 Text(
-                                  " (9)",
+                                  " (${widget.investor.investmentData.fundData?.length.toString()})",
                                   style: kGoogleStyleTexts.copyWith(
                                       color: Colors.white70,
                                       fontSize: 13.0,
@@ -144,7 +144,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "\u{20B9} 762242",
+                                              "\u{20B9} ${widget.investor.investmentData.current}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -222,6 +222,7 @@ class _DashboardState extends State<Dashboard> {
                       ElevatedButton(
                         child: Text('Select Me'),
                         onPressed: () {
+                          List<FundData> fundData = widget.investor.investmentData.fundData;
                           showModalBottomSheet<void>(
                             context: context,
                             builder: (BuildContext context) {
@@ -245,7 +246,7 @@ class _DashboardState extends State<Dashboard> {
                                     ),
                                     ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: userList.length,
+                                      itemCount: fundData.length,
                                       itemBuilder: (context, i) {
                                         return ListTile(
                                           title: Container(
@@ -258,7 +259,7 @@ class _DashboardState extends State<Dashboard> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  userList[i].name,
+                                                  fundData[i].fundName,
                                                   style:
                                                       kGoogleStyleTexts.copyWith(
                                                           color: Colors.white70,
