@@ -1,5 +1,9 @@
-import 'dart:convert';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/models/investor.dart';
@@ -25,8 +29,8 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  late String _username;
-  late String _password;
+  late String _username="";
+  late String _password="";
 
   final TextEditingController userNameController =
   TextEditingController(text: "HYS076"); // for quick testing
@@ -80,7 +84,9 @@ class _LoginState extends State<Login> {
       showSnackBar("No Internet Connection", Colors.red);
       return;
     }
-
+    if (kDebugMode) {
+      print(_username+_password);
+    }
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
 
@@ -93,9 +99,8 @@ class _LoginState extends State<Login> {
     if (responseBody?['status_code'] == 1000) {
 
       String s = json.encode(responseBody['investorData']);
-      print(s);
       Investor.fromJson(jsonDecode(s));
-      String token = responseBody['token'].toString();
+      //String token = responseBody['token'].toString();
       //Token(token); // initialize token
       prefs.then((pref) =>
           pref.setString('investorData', json.encode(responseBody['investorData'])));
@@ -141,17 +146,28 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Card(
-                              color: Color.fromARGB(30, 173, 205, 219),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                            child: Align(
                               child: Text(
-                                AppStrings.loginNowText,
+                                AppStrings.qoute,
+                                textAlign: TextAlign.center,
                                 style: kGoogleStyleTexts.copyWith(
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 40,
-                                  color: hexToColor("#0091E6"),
+                                  fontSize: 20,
+                                  color: hexToColor("#91fa78"),//newColor//Bright-green
                                 ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              AppStrings.loginNowText,
+                              style: kGoogleStyleTexts.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 40,
+                                color: hexToColor("#0091E6"),
                               ),
                             ),
                           ),
@@ -320,12 +336,101 @@ class _LoginState extends State<Login> {
   }
 }
 
+class ExitDialogue extends StatelessWidget {
+  const ExitDialogue({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      backgroundColor: hexToColor("#101010"),
+      title: Text(
+        "Exit App",
+        style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
+      ),
+      content: Builder(
+        builder: (context) {
+          return SizedBox(
+            height: 100,
+            width: 200,
+            child: Column(
+              children: [
+                Text(
+                  "Are you sure you want to exit the app?",
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white, fontSize: 15.0),
+                ),
+                Padding(
+                  padding:
+                  const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 90,
+                        height: 45,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                side: const BorderSide(
+                                    width: 0.5, color: Colors.black26)),
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            child: Text(
+                              "Cancel",
+                              style: kGoogleStyleTexts.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black54,
+                                fontSize: 15.0,
+                              ),
+                            )),
+                      ),
+                      SizedBox(
+                        width: 90,
+                        height: 45,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xffC93131),
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0))),
+                            onPressed: () async {
+                              exit(0);
+                            },
+                            child: Text(
+                              "Exit",
+                              style: kGoogleStyleTexts.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                fontSize: 15.0,
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
 class AppStrings {
-  static const String loginNowText = "SignIn";
+  static const String loginNowText = "Login";
   static const String userName = 'Username';
   static const String userPassword = 'Password';
   static const String loginButtonText = 'Login';
   static const String loginText = "Heading goes here";
   static const String userEmailHintText = "Eg. person0@email.com";
   static const String userPasswordHintText = "Eg. xyZab@23";
+  static const String qoute="When you catch a glimpse of your potential, that's when passion is born.";
 }

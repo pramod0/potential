@@ -50,7 +50,7 @@ class InvestmentData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['invested'] = invested;
     data['current'] = current;
     if (fundData != null) {
@@ -85,7 +85,7 @@ class FundData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['fund_name'] = fundName;
     data['invested'] = invested;
     data['current'] = current;
