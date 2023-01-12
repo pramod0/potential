@@ -246,7 +246,7 @@ class _DashboardState extends State<Dashboard> {
                                     ),
                                     ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: fundData.length,
+                                      itemCount: userList.length,
                                       itemBuilder: (context, i) {
                                         return ListTile(
                                           title: Container(
@@ -259,7 +259,7 @@ class _DashboardState extends State<Dashboard> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  fundData[i].fundName,
+                                                  userList[i].name,
                                                   style:
                                                       kGoogleStyleTexts.copyWith(
                                                           color: Colors.white70,
