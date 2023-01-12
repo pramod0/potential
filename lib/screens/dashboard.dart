@@ -175,7 +175,7 @@ class _DashboardState extends State<Dashboard> {
                                               ],
                                             ),
                                             Text(
-                                              "\u{20B9} ${totalRet!}",
+                                              "\u{20B9} ${widget.investorData.investmentData?.totalRet}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),

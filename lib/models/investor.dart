@@ -31,6 +31,7 @@ class Investor {
 class InvestmentData {
   int? invested;
   int? current;
+  int? totalRet;
   // XIIR is calculated on historical data
   // % return current-initial/initial
 
@@ -41,6 +42,7 @@ class InvestmentData {
   InvestmentData.fromJson(Map<String, dynamic> json) {
     invested = json['invested'];
     current = json['current'];
+    totalRet=(invested!+current!);
     if (json['fund_data'] != null) {
       fundData = <FundData>[];
       json['fund_data'].forEach((v) {
