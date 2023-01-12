@@ -45,9 +45,9 @@ class _DashboardState extends State<Dashboard> {
 
   Future<bool> _onBackPressed() async {
     return await showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const ExitDialogue()) ??
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => const ExitDialogue()) ??
         false;
   }
 
@@ -106,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
                           decoration: const BoxDecoration(
                               color: Colors.transparent,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                              BorderRadius.all(Radius.circular(10))),
                           child: Card(
                             color: hexToColor("#1D1D1D"),
                             child: Align(
@@ -118,7 +118,7 @@ class _DashboardState extends State<Dashboard> {
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                           children: [
@@ -161,7 +161,7 @@ class _DashboardState extends State<Dashboard> {
                                                   height: 4,
                                                   decoration: BoxDecoration(
                                                     color:
-                                                        hexToColor("#FCAF23"),
+                                                    hexToColor("#FCAF23"),
                                                     shape: BoxShape.circle,
                                                   ),
                                                 ),
@@ -169,8 +169,8 @@ class _DashboardState extends State<Dashboard> {
                                                   " Total Returns",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
-                                                          color: Colors.white70,
-                                                          fontSize: 12.0),
+                                                      color: Colors.white70,
+                                                      fontSize: 12.0),
                                                 ),
                                               ],
                                             ),
@@ -211,7 +211,7 @@ class _DashboardState extends State<Dashboard> {
                           decoration: const BoxDecoration(
                               color: Colors.transparent,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                              BorderRadius.all(Radius.circular(10))),
                           child: Row(
                             children: [
                               Text(
@@ -280,10 +280,10 @@ class _DashboardState extends State<Dashboard> {
                   shrinkWrap: true,
                   //scrollDirection: Axis.vertical,
                   itemCount:
-                      widget.investorData.investmentData?.fundData?.length,
+                  widget.investorData.investmentData?.fundData?.length,
                   itemBuilder: (context, i) {
                     final data =
-                        widget.investorData.investmentData?.fundData!.toList();
+                    widget.investorData.investmentData?.fundData!.toList();
                     if (gender == "Current") {
                       data?.sort((a, b) => (int.parse(srt) == 1
                           ? a.current?.compareTo(b.current as num)
@@ -294,16 +294,16 @@ class _DashboardState extends State<Dashboard> {
                           : b.perReturns.compareTo(a.perReturns)));
                     } else if (gender == "%xiir") {
                       data?.sort((a, b) => (int.parse(srt) == 1
-                          ? b.fundName
-                              ?.toLowerCase()
-                              .compareTo(a.fundName?.toLowerCase() as String)
+                          ? a.fundName
+                          ?.toLowerCase()
+                          .compareTo(b.fundName?.toLowerCase() as String)
                           : b.fundName?.toLowerCase().compareTo(
-                              a.fundName?.toLowerCase() as String)) as int);
+                          a.fundName?.toLowerCase() as String)) as int);
                     } else {
                       data?.sort((a, b) => (int.parse(srt) == 1
-                          ? b.fundName
+                          ? a.fundName
                           ?.toLowerCase()
-                          .compareTo(a.fundName?.toLowerCase() as String)
+                          .compareTo(b.fundName?.toLowerCase() as String)
                           : b.fundName?.toLowerCase().compareTo(
                           a.fundName?.toLowerCase() as String)) as int);
                     }
@@ -322,7 +322,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: const BoxDecoration(
                                 color: Colors.transparent,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                             padding: const EdgeInsets.symmetric(horizontal: 05),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -331,9 +331,9 @@ class _DashboardState extends State<Dashboard> {
                                   alignment: Alignment.topCenter,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         decoration: const BoxDecoration(
@@ -386,7 +386,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: const BoxDecoration(
                                 color: Colors.transparent,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                             padding: const EdgeInsets.symmetric(horizontal: 05),
                             child: Column(
                               children: [
@@ -394,9 +394,9 @@ class _DashboardState extends State<Dashboard> {
                                   alignment: Alignment.topCenter,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         decoration: const BoxDecoration(
@@ -449,7 +449,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: const BoxDecoration(
                                 color: Colors.transparent,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                             padding: const EdgeInsets.symmetric(horizontal: 05),
                             child: Column(
                               children: [
@@ -457,9 +457,9 @@ class _DashboardState extends State<Dashboard> {
                                   alignment: Alignment.topCenter,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         decoration: const BoxDecoration(
@@ -514,7 +514,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: const BoxDecoration(
                                 color: Colors.transparent,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                             padding: const EdgeInsets.symmetric(horizontal: 05),
                             child: Column(
                               children: [
@@ -522,9 +522,9 @@ class _DashboardState extends State<Dashboard> {
                                   alignment: Alignment.topCenter,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         decoration: const BoxDecoration(
