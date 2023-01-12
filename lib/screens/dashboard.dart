@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:potential/models/investor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,7 +7,9 @@ import '../util/styleConstants.dart';
 import 'login.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  final Investor investorData;
+
+  const Dashboard({super.key, required this.investorData});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -19,29 +18,28 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<Modal> userList = <Modal>[];
   final prefs = SharedPreferences.getInstance();
-  Investor? investorData;
   String? totalRet = "0";
   String gender = "Current";
   String srt = '1';
   late int totalFunds;
 
-  Future<String> getData() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? studentJson = pref.getString('investorData');
-    investorData = Investor.fromJson(jsonDecode(studentJson!));
-    if (kDebugMode) {
-      int? c = (investorData?.investmentData?.current);
-      int? d = (investorData?.investmentData?.invested);
-      totalRet = (c! + d!).toString();
-    }
-    return Future.value("Data Downloaded Successfully");
-  }
+  // Future<String> getData() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? studentJson = pref.getString('investorData');
+  //   investorData = Investor.fromJson(jsonDecode(studentJson!));
+  //   if (kDebugMode) {
+  //     int? c = (investorData?.investmentData?.current);
+  //     int? d = (investorData?.investmentData?.invested);
+  //     totalRet = (c! + d!).toString();
+  //   }
+  //   return Future.value("Data Downloaded Successfully");
+  // }
 
   @override
   void initState() {
-    getData().whenComplete(() {
-      setState(() {});
-    });
+    // getData().whenComplete(() {
+    //   setState(() {});
+    // });
     super.initState();
   }
 
@@ -93,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                                 Text(
-                                  "(${investorData?.investmentData?.fundData?.length})",
+                                  "(${widget.investorData.investmentData?.fundData?.length})",
                                   style: kGoogleStyleTexts.copyWith(
                                       color: Colors.white70,
                                       fontSize: 13.0,
@@ -131,7 +129,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "${investorData?.investmentData?.invested}",
+                                              "${widget.investorData.investmentData?.invested}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -147,7 +145,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "${investorData?.investmentData?.current}",
+                                              "${widget.investorData.investmentData?.current}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -278,7 +276,297 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
               Expanded(
-                child: BuildList(investorData: investorData, gender: gender,order:srt),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  //scrollDirection: Axis.vertical,
+                  itemCount:
+                      widget.investorData.investmentData?.fundData?.length,
+                  itemBuilder: (context, i) {
+                    final data =
+                        widget.investorData.investmentData?.fundData!.toList();
+                    if (gender == "Current") {
+                      data?.sort((a, b) => (int.parse(srt) == 1
+                          ? a.current?.compareTo(b.current as num)
+                          : b.current?.compareTo(a.current as num)) as int);
+                    } else if (gender == "%returns") {
+                      data?.sort((a, b) => (int.parse(srt) == 1
+                          ? a.perReturns.compareTo(b.perReturns)
+                          : b.perReturns.compareTo(a.perReturns)));
+                    } else if (gender == "%xiir") {
+                      data?.sort((a, b) => (int.parse(srt) == 1
+                          ? b.fundName
+                              ?.toLowerCase()
+                              .compareTo(a.fundName?.toLowerCase() as String)
+                          : b.fundName?.toLowerCase().compareTo(
+                              a.fundName?.toLowerCase() as String)) as int);
+                    } else {
+                      data?.sort((a, b) => (int.parse(srt) == 1
+                          ? b.fundName
+                          ?.toLowerCase()
+                          .compareTo(a.fundName?.toLowerCase() as String)
+                          : b.fundName?.toLowerCase().compareTo(
+                          a.fundName?.toLowerCase() as String)) as int);
+                    }
+                    final item = data![i];
+
+                    if (gender == "Current") {
+                      // data?.sort((a, b) =>
+                      //     b.current?.compareTo(a.current as num) as int);
+                      // //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
+
+                      return ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            padding: const EdgeInsets.symmetric(horizontal: 05),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5))),
+                                        child: Text(
+                                          "${item.fundName!}\nRegular Growth",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 14.0),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Text(
+                                          "\u{20B9} ${item.current!}",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[400],
+                                              fontSize: 14.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "(\u{20B9} ${item.invested!})",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 12.0),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    } else if (gender == "%returns") {
+                      // data?.sort(
+                      //     (a, b) => b.perReturns.compareTo(a.perReturns));
+                      // //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
+
+                      return ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            padding: const EdgeInsets.symmetric(horizontal: 05),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5))),
+                                        child: Text(
+                                          "${item.fundName!}\nRegular Growth",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 14.0),
+                                          //softWrap: true,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Text(
+                                          "${item.perReturns.toStringAsFixed(2)}%",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[400],
+                                              fontSize: 14.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "(\u{20B9} ${item.invested!})",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 12.0),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    } else if (gender == "%xiir") {
+                      // data?.sort((a, b) =>
+                      //     b.current?.compareTo(a.current as num) as int);
+                      // //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
+
+                      return ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            padding: const EdgeInsets.symmetric(horizontal: 05),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5))),
+                                        child: Text(
+                                          "${item.fundName!}\nRegular Growth",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 14.0),
+                                          //softWrap: true,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Text(
+                                          "\u{20B9} ${item.current!.toString()}",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[400],
+                                              fontSize: 14.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "(\u{20B9} ${item.invested!})",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 12.0),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      // data?.sort((a, b) => b.fundName
+                      //         ?.toLowerCase()
+                      //         .compareTo(a.fundName?.toLowerCase() as String)
+                      //     as int);
+                      // //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
+
+                      return ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            padding: const EdgeInsets.symmetric(horizontal: 05),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5))),
+                                        child: Text(
+                                          "${item.fundName!}\nRegular Growth",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 14.0),
+                                          //softWrap: true,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Text(
+                                          "\u{20B9} ${item.current!}",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[400],
+                                              fontSize: 14.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "(\u{20B9} ${item.invested!})",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 12.0),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -439,358 +727,6 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class BuildList extends StatelessWidget {
-  const BuildList({
-    Key? key,
-    required this.investorData,
-    required this.gender, required this.order,
-  }) : super(key: key);
-
-  final String order;
-  final Investor? investorData;
-  final String gender;
-
-  @override
-  Widget build(BuildContext context) {
-    return buildListView();
-  }
-
-  ListView buildListView() {
-    return ListView.builder(
-    shrinkWrap: true,
-    //scrollDirection: Axis.vertical,
-    itemCount: investorData?.investmentData?.fundData?.length,
-    itemBuilder: (context, i) {
-      final data=investorData?.investmentData?.fundData!.toList();
-      if (gender == "Current") {
-        data?.sort((a,b)=>b.current?.compareTo(a.current as num) as int);
-        //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
-        final item=data![i];
-        return ListTile(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              padding: const EdgeInsets.symmetric(horizontal: 05),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: Text(
-                            "${item.fundName!}\nRegular Growth",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white70, fontSize: 14.0),
-                            softWrap: true,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            "\u{20B9} ${item.current!}",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.blueAccent[400], fontSize: 14.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "(\u{20B9} ${item.invested!})",
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white70, fontSize: 12.0),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      } else if (gender == "%returns") {
-        data?.sort((a,b)=>b.perReturns.compareTo(a.perReturns));
-        //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
-        final item=data![i];
-        return ListTile(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              padding: const EdgeInsets.symmetric(horizontal: 05),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: Text(
-                            "${item.fundName!}\nRegular Growth",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white70, fontSize: 14.0),
-                            //softWrap: true,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            "${item.perReturns.toStringAsFixed(2)}%",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.blueAccent[400], fontSize: 14.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "(\u{20B9} ${item.invested!})",
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white70, fontSize: 12.0),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      } else if (gender == "%xiir") {
-        data?.sort((a,b)=>b.current?.compareTo(a.current as num) as int);
-        //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
-        final item=data![i];
-        return ListTile(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              padding: const EdgeInsets.symmetric(horizontal: 05),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(5))),
-                          child: Text(
-                            "${item.fundName!}\nRegular Growth",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white70, fontSize: 14.0),
-                            //softWrap: true,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            "\u{20B9} ${item.current!.toString()}",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.blueAccent[400], fontSize: 14.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "(\u{20B9} ${item.invested!})",
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white70, fontSize: 12.0),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      } else {
-        data?.sort((a,b)=>b.fundName?.toLowerCase().compareTo(a.fundName?.toLowerCase() as String) as int);
-        //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
-        final item=data![i];
-        return ListTile(
-
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              padding: const EdgeInsets.symmetric(horizontal: 05),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: Text(
-                            "${item.fundName!}\nRegular Growth",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white70, fontSize: 14.0),
-                            //softWrap: true,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            "\u{20B9} ${item.current!}",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.blueAccent[400], fontSize: 14.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "(\u{20B9} ${item.invested!})",
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white70, fontSize: 12.0),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      }
-    },
-  );
-  }
-}
-
-class ExitDialogue extends StatelessWidget {
-  const ExitDialogue({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      backgroundColor: hexToColor("#101010"),
-      title: Text(
-        "Exit App",
-        style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
-      ),
-      content: Builder(
-        builder: (context) {
-          return SizedBox(
-            height: 100,
-            width: 200,
-            child: Column(
-              children: [
-                Text(
-                  "Are you sure you want to exit the app?",
-                  style: kGoogleStyleTexts.copyWith(
-                      color: Colors.white, fontSize: 15.0),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 90,
-                        height: 45,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                side: const BorderSide(
-                                    width: 0.5, color: Colors.black26)),
-                            onPressed: () {
-                              Navigator.of(context).pop(false);
-                            },
-                            child: Text(
-                              "Cancel",
-                              style: kGoogleStyleTexts.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black54,
-                                fontSize: 15.0,
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        width: 90,
-                        height: 45,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffC93131),
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0))),
-                            onPressed: () async {
-                              // SharedPreferences prefs =
-                              //     await SharedPreferences.getInstance();
-                              // //Return String
-                              // prefs.clear();
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const Login()));
-                            },
-                            child: Text(
-                              "Exit",
-                              style: kGoogleStyleTexts.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                fontSize: 15.0,
-                              ),
-                            )),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
       ),
     );
   }

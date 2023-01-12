@@ -29,13 +29,13 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  late String _username="";
-  late String _password="";
+  late String _username = "";
+  late String _password = "";
 
   final TextEditingController userNameController =
-  TextEditingController(text: "HYS076"); // for quick testing
+      TextEditingController(text: "HYS076"); // for quick testing
   final TextEditingController passwordController =
-  TextEditingController(text: "gsh#RH3jA");
+      TextEditingController(text: "gsh#RH3jA");
 
   @override
   void initState() {
@@ -50,11 +50,11 @@ class _LoginState extends State<Login> {
   //     int? expired = DateTime.tryParse(expiryDate)?.compareTo(DateTime.now());
   //     if (expired! > 0) {
   //       String? studentJson = pref.getString('investmentData');
-  //       Investor.fromJson(jsonDecode(studentJson!));
+  //       Investor investorData =Investor.fromJson(jsonDecode(studentJson!));
   //       String? token = pref.getString('token');
   //       //Token(token!); // initialize toke
   //       Navigator.of(context)
-  //           .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+  //           .push(MaterialPageRoute(builder: (context) => const Dashboard(investorData: investorData,)));
   //     }
   //   }
   // }
@@ -72,9 +72,9 @@ class _LoginState extends State<Login> {
 
   Future<bool> _onBackPressed() async {
     return await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => const ExitDialogue()) ??
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const ExitDialogue()) ??
         false;
   }
 
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
       return;
     }
     if (kDebugMode) {
-      print(_username+_password);
+      print(_username + _password);
     }
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
@@ -97,18 +97,22 @@ class _LoginState extends State<Login> {
         await ApiService().processLogin(userName, password, context));
     EasyLoading.dismiss();
     if (responseBody?['status_code'] == 1000) {
-
       String s = json.encode(responseBody['investorData']);
-      Investor.fromJson(jsonDecode(s));
+      Investor i = Investor.fromJson(jsonDecode(s));
       //String token = responseBody['token'].toString();
       //Token(token); // initialize token
-      prefs.then((pref) =>
-          pref.setString('investorData', json.encode(responseBody['investorData'])));
+      prefs.then((pref) => pref.setString(
+          'investorData', json.encode(responseBody['investorData'])));
       prefs.then((pref) =>
           pref.setString('userId', responseBody['user_id'].toString()));
 
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => Dashboard(
+            investorData: i,
+          ),
+        ),
+      );
 
       // prefs.then(
       //         (pref) => pref.setString('token', responseBody['token'].toString()));
@@ -147,7 +151,8 @@ class _LoginState extends State<Login> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 18.0),
                             child: Align(
                               child: Text(
                                 AppStrings.qoute,
@@ -155,7 +160,8 @@ class _LoginState extends State<Login> {
                                 style: kGoogleStyleTexts.copyWith(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 20,
-                                  color: hexToColor("#91fa78"),//newColor//Bright-green
+                                  color: hexToColor(
+                                      "#91fa78"), //newColor//Bright-green
                                 ),
                               ),
                             ),
@@ -209,12 +215,11 @@ class _LoginState extends State<Login> {
                               onSaved: (val) => _username = val!,
                               keyboardType: TextInputType.emailAddress,
                               style: kGoogleStyleTexts.copyWith(
-                                  color: hexToColor("#0065A0"),
-                                  fontSize: 15.0),
+                                  color: hexToColor("#0065A0"), fontSize: 15.0),
                               maxLines: 1,
                               decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 15),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 border: InputBorder.none,
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -280,8 +285,8 @@ class _LoginState extends State<Login> {
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(5.0)),
-                                  borderSide: BorderSide(
-                                      color: hexToColor("#0065A0"))),
+                                  borderSide:
+                                      BorderSide(color: hexToColor("#0065A0"))),
                               fillColor:
                                   const Color.fromARGB(30, 173, 205, 219),
                               suffixIcon: GestureDetector(
@@ -364,7 +369,7 @@ class ExitDialogue extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
+                      const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -432,5 +437,6 @@ class AppStrings {
   static const String loginText = "Heading goes here";
   static const String userEmailHintText = "Eg. person0@email.com";
   static const String userPasswordHintText = "Eg. xyZab@23";
-  static const String qoute="When you catch a glimpse of your potential, that's when passion is born.";
+  static const String qoute =
+      "When you catch a glimpse of your potential, that's when passion is born.";
 }
