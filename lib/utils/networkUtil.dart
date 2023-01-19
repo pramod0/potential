@@ -1,7 +1,6 @@
 import 'dart:io';
 
 class NetWorkUtil {
-
   NetWorkUtil._sharedInstance();
   static final NetWorkUtil _shared = NetWorkUtil._sharedInstance();
   factory NetWorkUtil() => _shared;
@@ -18,5 +17,4 @@ class NetWorkUtil {
     }
     return internetConnection;
   }
-
 }

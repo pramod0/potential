@@ -39,6 +39,7 @@ dependencies:
   flutter_easyloading: any
   shared_preferences: any
   google_fonts: any
+  intl: any
 
 dev_dependencies:
   flutter_test:

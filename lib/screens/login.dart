@@ -10,10 +10,10 @@ import 'package:potential/models/investor.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../util/appTools.dart';
+import '../utils/appTools.dart';
 import '../ApiService.dart';
-import '../util/network_util.dart';
-import '../util/styleConstants.dart';
+import '../utils/networkUtil.dart';
+import '../utils/styleConstants.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -33,9 +33,9 @@ class _LoginState extends State<Login> {
   late String _password = "";
 
   final TextEditingController userNameController =
-  TextEditingController(text: "HYS076"); // for quick testing
+      TextEditingController(text: "HYS076"); // for quick testing
   final TextEditingController passwordController =
-  TextEditingController(text: "gsh#RH3jA");
+      TextEditingController(text: "gsh#RH3jA");
 
   @override
   void initState() {
@@ -72,9 +72,9 @@ class _LoginState extends State<Login> {
 
   Future<bool> _onBackPressed() async {
     return await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => const ExitDialogue()) ??
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const ExitDialogue()) ??
         false;
   }
 
@@ -150,24 +150,8 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: Align(
-                              child: Text(
-                                AppStrings.qoute,
-                                textAlign: TextAlign.center,
-                                style: kGoogleStyleTexts.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 20,
-                                  color: hexToColor(
-                                      "#91fa78"), //newColor//Bright-green
-                                ),
-                              ),
-                            ),
-                          ),
                           Align(
-                            alignment: Alignment.centerLeft,
+                            alignment: Alignment.center,
                             child: Text(
                               AppStrings.loginNowText,
                               style: kGoogleStyleTexts.copyWith(
@@ -219,7 +203,7 @@ class _LoginState extends State<Login> {
                               maxLines: 1,
                               decoration: InputDecoration(
                                 contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 border: InputBorder.none,
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -234,7 +218,7 @@ class _LoginState extends State<Login> {
                                     borderSide: BorderSide(
                                         color: hexToColor("#0065A0"))),
                                 fillColor:
-                                const Color.fromARGB(30, 173, 205, 219),
+                                    const Color.fromARGB(30, 173, 205, 219),
                                 filled: true,
                                 hintText: AppStrings.userEmailHintText,
                                 hintStyle: kGoogleStyleTexts.copyWith(
@@ -273,7 +257,7 @@ class _LoginState extends State<Login> {
                             obscureText: !_showPassword,
                             decoration: InputDecoration(
                               contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 15),
+                                  const EdgeInsets.symmetric(horizontal: 15),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
@@ -286,9 +270,9 @@ class _LoginState extends State<Login> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(5.0)),
                                   borderSide:
-                                  BorderSide(color: hexToColor("#0065A0"))),
+                                      BorderSide(color: hexToColor("#0065A0"))),
                               fillColor:
-                              const Color.fromARGB(30, 173, 205, 219),
+                                  const Color.fromARGB(30, 173, 205, 219),
                               suffixIcon: GestureDetector(
                                 onTap: () {
                                   _toggleVisibility();
@@ -369,7 +353,7 @@ class ExitDialogue extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
+                      const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

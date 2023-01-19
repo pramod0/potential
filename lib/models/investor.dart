@@ -32,6 +32,7 @@ class InvestmentData {
   int? invested;
   int? current;
   int? totalRet;
+  double perReturns=0.0;
   // XIIR is calculated on historical data
   // % return current-initial/initial
 
@@ -43,6 +44,7 @@ class InvestmentData {
     invested = json['invested'];
     current = json['current'];
     totalRet=(invested!+current!);
+    perReturns= ((current!)-(invested!))/(invested!)*100;
     if (json['fund_data'] != null) {
       fundData = <FundData>[];
       json['fund_data'].forEach((v) {
@@ -83,7 +85,7 @@ class FundData {
     current = json['current'];
     currentNav = json['current_nav'];
     totalUnits = json['total_units'];
-    perReturns= ((current!)-(invested!))/(invested!);
+    perReturns= ((current!)-(invested!))/(invested!)*100;
   }
 
   Map<String, dynamic> toJson() {
