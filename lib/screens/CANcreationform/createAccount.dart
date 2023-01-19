@@ -4,6 +4,7 @@ import 'package:potential/screens/CANcreationform/preLogin.dart';
 //import 'package:potential/screens/CANcreationform/preLogin.dart';
 import 'package:potential/utils/appTools.dart';
 import 'package:potential/utils/noGlowBehaviour.dart';
+import 'package:potential/utils/validations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../app_assets_constants/AppStrings.dart';
 import '../../models/cancreation.dart';
@@ -18,6 +19,7 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
+  Validations validations = Validations();
   final CanIndFillEezzReq _fillEezzReq = CanIndFillEezzReq();
   final prefs = SharedPreferences.getInstance();
   bool _showPassword = false;
@@ -26,15 +28,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   final TextEditingController firstNameController =
-      TextEditingController(text: ""); // for quick testing
+      TextEditingController(text: "Pramod"); // for quick testing
   final TextEditingController lastNameController =
-      TextEditingController(text: ""); // for quick testing
-  final TextEditingController emailIDController =
-      TextEditingController(text: ""); // for quick testing
+      TextEditingController(text: "Gupta"); // for quick testing
+  final TextEditingController emailIDController = TextEditingController(
+      text: "pramodgupta0@gmail.com"); // for quick testing
   final TextEditingController mobileNOController =
-      TextEditingController(text: ""); // for quick testing
+      TextEditingController(text: "8363462346"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "");
+      TextEditingController(text: "pRamod@123");
 
   void _toggleVisibility() {
     setState(() {
@@ -373,21 +375,31 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0))),
                       onPressed: () {
-                        _fillEezzReq.reqBody.holderRecords.holderRecord.name =
-                            "${firstNameController.text} ${lastNameController.text}";
-                        _fillEezzReq.reqBody.holderRecords.holderRecord
-                            .contactDetail.priEmail = emailIDController.text;
-                        _fillEezzReq.reqBody.holderRecords.holderRecord
-                            .contactDetail.priMobNo = mobileNOController.text;
-                        _fillEezzReq.reqBody.holderRecords.holderRecord
-                            .contactDetail.priEmailBelongsto = "S";
-                        _fillEezzReq.reqBody.holderRecords.holderRecord
-                            .contactDetail.priMobBelongsto = "S";
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const PreLoginPage(),
-                          ),
-                        );
+                        String? check = validations.accountValidation(
+                            firstNameController.text,
+                            lastNameController.text,
+                            mobileNOController.text,
+                            emailIDController.text,
+                            passwordController.text);
+                        if (check == null) {
+                          _fillEezzReq.reqBody.holderRecords.holderRecord.name =
+                              "${firstNameController.text} ${lastNameController.text}";
+                          _fillEezzReq.reqBody.holderRecords.holderRecord
+                              .contactDetail.priEmail = emailIDController.text;
+                          _fillEezzReq.reqBody.holderRecords.holderRecord
+                              .contactDetail.priMobNo = mobileNOController.text;
+                          _fillEezzReq.reqBody.holderRecords.holderRecord
+                              .contactDetail.priEmailBelongsto = "S";
+                          _fillEezzReq.reqBody.holderRecords.holderRecord
+                              .contactDetail.priMobBelongsto = "S";
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const PreLoginPage(),
+                            ),
+                          );
+                        } else {
+                          print("hii$check");
+                        }
                       },
                       child: Text(
                         AppStrings.loginButtonText,

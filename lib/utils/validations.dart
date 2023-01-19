@@ -91,18 +91,33 @@ class Validations {
     return null;
   }
 
-  String? validation(String fname, String lname, String mobnum, String email,
-      String password) {
+  String? accountValidation(String fname, String lname, String mobnum,
+      String email, String password) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = RegExp(pattern.toString());
     if (email.isEmpty) {
       return AppStrings.isEmailRequired;
     }
-    if (!email.contains("@")) {
+    if (fname.isEmpty) {
+      return AppStrings.isEmailRequired;
+    }
+    if (lname.isEmpty) {
+      return AppStrings.isEmailRequired;
+    }
+    if (mobnum.isEmpty) {
+      return AppStrings.isEmailRequired;
+    }
+    if (!regex.hasMatch(email)) {
       return AppStrings.emailErrorText;
     }
     if (password.isEmpty) {
       return AppStrings.isPasswordRequired;
     }
-    if (password.length < 5) {
+    if (password.length < 8) {
+      return AppStrings.passwordLengthErrorText;
+    }
+    if (mobnum.length < 10 || mobnum.length > 10) {
       return AppStrings.passwordLengthErrorText;
     }
     return null;

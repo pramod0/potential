@@ -1,274 +1,151 @@
 class CanIndFillEezzReq {
-  late ReqHeader reqHeader;
-  late ReqBody reqBody;
+  late ReqHeader reqHeader = ReqHeader();
+  late ReqBody reqBody = ReqBody();
   static const String xmlnsXsi = "http://www.w3.org/2001/XMLSchema-instance";
   static const String xsiNoNamespaceSchemaLocation = "CANIndFillEezzReq.xsd";
 }
 
 class ReqBody {
-  ReqBody({
-    required this.reqEvent,
-    required this.can,
-    required this.regType,
-    required this.proofUploadByCan,
-    required this.enableOnlineAccessFlag,
-    required this.entityEmailDetails,
-    required this.holdingType,
-    required this.invCategory,
-    required this.taxStatus,
-    required this.holderCount,
-    required this.holderRecords,
-    required this.arnDetails,
-    required this.bankDetails,
-    required this.nomineeDetails,
-  });
-
-  String reqEvent;
-  String can;
-  String regType;
-  String proofUploadByCan;
-  String enableOnlineAccessFlag;
-  EntityEmailDetails entityEmailDetails;
-  String holdingType;
-  String invCategory;
-  String taxStatus;
-  String holderCount;
-  HolderRecords holderRecords;
-  ArnDetails arnDetails;
-  BankDetails bankDetails;
-  NomineeDetails nomineeDetails;
+  late String reqEvent;
+  late String can;
+  late String regType;
+  late String proofUploadByCan;
+  late String enableOnlineAccessFlag;
+  late EntityEmailDetails entityEmailDetails = EntityEmailDetails();
+  late String holdingType;
+  late String invCategory;
+  late String taxStatus;
+  late String holderCount;
+  late HolderRecords holderRecords = HolderRecords();
+  late ArnDetails arnDetails = ArnDetails();
+  late BankDetails bankDetails = BankDetails();
+  late NomineeDetails nomineeDetails = NomineeDetails();
 }
 
 class ArnDetails {
-  ArnDetails({
-    required this.arnNo,
-    required this.riaCode,
-    required this.euinCode,
-  });
-
-  String arnNo;
-  String riaCode;
-  String euinCode;
+  late String arnNo;
+  late String riaCode;
+  late String euinCode;
 }
 
 class BankDetails {
-  BankDetails({
-    required this.bankRecord,
-  });
-
-  BankRecord bankRecord;
+  late BankRecord bankRecord = BankRecord();
 }
 
 class BankRecord {
-  BankRecord({
-    required this.seqNum,
-    required this.defaultAccFlag,
-    required this.accountNo,
-    required this.accountType,
-    required this.bankId,
-    required this.micrCode,
-    required this.ifscCode,
-    required this.proof,
-  });
-
-  String seqNum;
-  String defaultAccFlag;
-  String accountNo;
-  String accountType;
-  String bankId;
-  String micrCode;
-  String ifscCode;
-  String proof;
+  late String seqNum;
+  late String defaultAccFlag;
+  late String accountNo;
+  late String accountType;
+  late String bankId;
+  late String micrCode;
+  late String ifscCode;
+  late String proof;
 }
 
 class EntityEmailDetails {
-  EntityEmailDetails({
-    required this.emailId,
-  });
-
-  List<String> emailId;
+  late List<String> emailId;
 }
 
 class HolderRecords {
-  HolderRecords({
-    required this.holderRecord,
-  });
-
-  HolderRecord holderRecord;
+  late HolderRecord holderRecord = HolderRecord();
 }
 
 class HolderRecord {
-  HolderRecord({
-    required this.holderType,
-    required this.name,
-    required this.dob,
-    required this.panExemptFlag,
-    required this.panPekrnNo,
-    required this.aadhaarNo,
-    required this.relationship,
-    required this.relProof,
-    required this.contactDetail,
-    required this.otherDetail,
-    required this.fatcaDetail,
-  });
-
-  String holderType;
-  String name;
-  DateTime dob;
-  String panExemptFlag;
-  String panPekrnNo;
-  String aadhaarNo;
-  String relationship;
-  String relProof;
-  ContactDetail contactDetail;
-  OtherDetail otherDetail;
-  FatcaDetail fatcaDetail;
+  late String holderType;
+  late String name;
+  late DateTime dob;
+  late String panExemptFlag;
+  late String panPekrnNo;
+  late String aadhaarNo;
+  late String relationship;
+  late String relProof;
+  late ContactDetail contactDetail = ContactDetail();
+  late OtherDetail otherDetail = OtherDetail();
+  late FatcaDetail fatcaDetail = FatcaDetail();
 }
 
 class ContactDetail {
-  ContactDetail({
-    required this.resIsd,
-    required this.resStd,
-    required this.resPhoneNo,
-    required this.mobIsdCode,
-    required this.priMobNo,
-    required this.priMobBelongsto,
-    required this.altMobNo,
-    required this.offIsd,
-    required this.offStd,
-    required this.offPhoneNo,
-    required this.priEmail,
-    required this.priEmailBelongsto,
-    required this.altEmail,
-  });
-
-  String resIsd;
-  String resStd;
-  String resPhoneNo;
-  String mobIsdCode;
-  String priMobNo;
-  String priMobBelongsto;
-  String altMobNo;
-  String offIsd;
-  String offStd;
-  String offPhoneNo;
-  String priEmail;
-  String priEmailBelongsto;
-  String altEmail;
+  late String resIsd;
+  late String resStd;
+  late String resPhoneNo;
+  late String mobIsdCode;
+  late String priMobNo;
+  late String priMobBelongsto;
+  late String altMobNo;
+  late String offIsd;
+  late String offStd;
+  late String offPhoneNo;
+  late String priEmail;
+  late String priEmailBelongsto;
+  late String altEmail;
 }
 
 class FatcaDetail {
-  FatcaDetail({
-    required this.birthCity,
-    required this.birthCountry,
-    required this.birthCountryOth,
-    required this.citizenship,
-    required this.citizenshipOth,
-    required this.nationality,
-    required this.nationalityOth,
-    required this.taxResFlag,
-    required this.taxsRecords,
-  });
-
-  String birthCity;
-  String birthCountry;
-  String birthCountryOth;
-  String citizenship;
-  String citizenshipOth;
-  String nationality;
-  String nationalityOth;
-  String taxResFlag;
-  TaxsRecords taxsRecords;
+  late String birthCity;
+  late String birthCountry;
+  late String birthCountryOth;
+  late String citizenship;
+  late String citizenshipOth;
+  late String nationality;
+  late String nationalityOth;
+  late String taxResFlag;
+  late TaxsRecords taxsRecords = TaxsRecords();
 }
 
 class TaxsRecords {
-  TaxsRecords();
+  late List<TaxsRecord> taxsrecord;
+}
+
+class TaxsRecord {
+  late String seqNum;
+  late String taxCountry;
+  late String taxCountryOth;
+  late String taxRefNo;
+  late String identiType;
+  late String identiTypeOth;
 }
 
 class OtherDetail {
-  OtherDetail({
-    required this.grossIncome,
-    required this.netWorth,
-    required this.netDate,
-    required this.sourceOfWealth,
-    required this.sourceOfWealthOth,
-    required this.kraAddrType,
-    required this.occupation,
-    required this.occupationOth,
-    required this.pep,
-    required this.anyOthInfo,
-  });
-
-  String grossIncome;
-  String netWorth;
-  String netDate;
-  String sourceOfWealth;
-  String sourceOfWealthOth;
-  String kraAddrType;
-  String occupation;
-  String occupationOth;
-  String pep;
-  String anyOthInfo;
+  late String grossIncome;
+  late String netWorth;
+  late String netDate;
+  late String sourceOfWealth;
+  late String sourceOfWealthOth;
+  late String kraAddrType;
+  late String occupation;
+  late String occupationOth;
+  late String pep;
+  late String anyOthInfo;
 }
 
 class NomineeDetails {
-  NomineeDetails({
-    required this.nominOptFlag,
-    required this.nomDeclLvl,
-    required this.nomineesRecords,
-  });
-
-  String nominOptFlag;
-  String nomDeclLvl;
-  NomineesRecords nomineesRecords;
+  late String nominOptFlag;
+  late String nomDeclLvl;
+  late NomineesRecords nomineesRecords = NomineesRecords();
 }
 
 class NomineesRecords {
-  NomineesRecords({
-    required this.nomineeRecord,
-  });
-
-  NomineeRecord nomineeRecord;
+  late NomineeRecord nomineeRecord = NomineeRecord();
 }
 
 class NomineeRecord {
-  NomineeRecord({
-    required this.seqNum,
-    required this.nomineeName,
-    required this.relation,
-    required this.percentage,
-    required this.dob,
-    required this.nomGuriName,
-    required this.nomGuriRel,
-    required this.nomGuriDob,
-  });
-
-  String seqNum;
-  String nomineeName;
-  String relation;
-  String percentage;
-  DateTime dob;
-  String nomGuriName;
-  String nomGuriRel;
-  String nomGuriDob;
+  late String seqNum;
+  late String nomineeName;
+  late String relation;
+  late String percentage;
+  late DateTime dob;
+  late String nomGuriName;
+  late String nomGuriRel;
+  late String nomGuriDob;
 }
 
 class ReqHeader {
-  ReqHeader({
-    required this.entityId,
-    required this.uniqueId,
-    required this.requestType,
-    required this.logUserId,
-    required this.enEncrPassword,
-    required this.versionNo,
-    required this.timestamp,
-  });
-
-  String entityId;
-  String uniqueId;
-  String requestType;
-  String logUserId;
-  String enEncrPassword;
-  String versionNo;
-  DateTime timestamp;
+  late String entityId;
+  late String uniqueId;
+  late String requestType;
+  late String logUserId;
+  late String enEncrPassword;
+  late String versionNo;
+  late DateTime timestamp;
 }

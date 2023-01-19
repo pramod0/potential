@@ -59,7 +59,7 @@ class _PreRegistrationPageState extends State<PreRegistrationPage> {
                         child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Get Started",
+                              "Get Started,",
                               style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 35,
@@ -69,9 +69,6 @@ class _PreRegistrationPageState extends State<PreRegistrationPage> {
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 35,
                 ),
                 SizedBox(
                   height: 55,
