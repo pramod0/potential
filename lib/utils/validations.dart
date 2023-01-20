@@ -2,6 +2,7 @@ import '../app_assets_constants/AppStrings.dart';
 
 class Validations {
   late var data;
+
   String? validatePreRegistrationGender() {
     if (data['gender'] != null && data['gender'] == '') {
       return "Gender is required";
@@ -100,13 +101,13 @@ class Validations {
       return AppStrings.isEmailRequired;
     }
     if (fname.isEmpty) {
-      return AppStrings.isEmailRequired;
+      return AppStrings.isFNameRequired;
     }
     if (lname.isEmpty) {
-      return AppStrings.isEmailRequired;
+      return AppStrings.isLNameRequired;
     }
     if (mobnum.isEmpty) {
-      return AppStrings.isEmailRequired;
+      return AppStrings.isMobNoRequired;
     }
     if (!regex.hasMatch(email)) {
       return AppStrings.emailErrorText;
@@ -115,10 +116,13 @@ class Validations {
       return AppStrings.isPasswordRequired;
     }
     if (password.length < 8) {
-      return AppStrings.passwordLengthErrorText;
+      return AppStrings.passwordLength8ErrorText;
+    }
+    if (password.length > 16) {
+      return AppStrings.passwordLength16ErrorText;
     }
     if (mobnum.length < 10 || mobnum.length > 10) {
-      return AppStrings.passwordLengthErrorText;
+      return AppStrings.mobNoErrorText;
     }
     return null;
   }

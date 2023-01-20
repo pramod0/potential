@@ -49,9 +49,25 @@ class AppStrings {
   // VALIDATION TEXT
   static const String isEmailRequired = "Email is required";
   static const String isPasswordRequired = "Password is required";
-  static const String passwordLengthErrorText =
-      "Password should be more than 6 char long";
-  static const String emailErrorText = "Please enter valid email";
+  static const String isFNameRequired = "First Name is required";
+  static const String isLNameRequired = "Last Name is required";
+  static const String isMobNoRequired = "Mobile Number is required";
+  static const String passwordLength8ErrorText =
+      "Password should be more than 8 char long";
+  static const String passwordLength16ErrorText =
+      "Password should not be more than 16 char long";
+  static const String passwordSmallCaseAlphaErrorText =
+      "Password should contain a Lower Case Alphabet";
+  static const String passwordCapCaseAlphaErrorText =
+      "Password should contain a Upper Case Alphabet";
+  static const String passwordSpecialCharErrorText =
+      "Password should contain a Special Character";
+  static const String passwordNumericalValueErrorText =
+      "Password should contain a numerical character";
+  static const String emailErrorText = "Please enter a valid Email ID";
+  static const String mobNoErrorText = "Please enter a valid Mobile Number";
+  // static const String mobNoErrorText = "Please enter a valid Mobile Number";
+  // static const String mobNoErrorText = "Please enter a valid Mobile Number";
   static const String validationSuccessText = "Success";
 
   // LOGIN SCREEN WELCOME MSG TEXT
@@ -161,4 +177,9 @@ class AppStrings {
   static const String noInternetConnDescriptionTwo =
       "Make sure Wi-Fi is on, Airplane mode is off and try again";
   static const String retryBtnText = "Retry";
+
+  static const String total = "Total";
+  static const String current = 'Current';
+  static const String invested = 'Invested';
+  static const String investments = 'Investments';
 }
