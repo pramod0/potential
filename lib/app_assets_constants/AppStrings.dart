@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String loginNowText = "Hey,\nLogin Now.";
+  static const String loginNowText = "Hey,\nLet's begin Investing.";
   static const String signUptext = "Sign up with Email";
   static const String userName = 'Username';
   static const String fname = 'First Name';
@@ -7,7 +7,7 @@ class AppStrings {
   static const String emailID = 'Email Id';
   static const String mobileNO = 'Mobile Number';
   static const String userPassword = 'Password';
-  static const String loginButtonText = 'Let\'s Begin';
+  static const String loginButtonText = 'Login';
   static const String signInText = "Sign in";
   static const String loginText = "We are happy to see you here!";
   static const String dashboardText = "Dashboard";
@@ -27,7 +27,6 @@ class AppStrings {
   static const String pendingText = "PENDING";
   static const String overdueText = "OVERDUE";
   static const String partialCompleteText = "PARTIAL";
-  static const String assignmentsText = "Assignments";
   static const String assignText = "Assignment";
   static const String attachmentText = "Attachments";
   static const String readMoreText = "read more...";
@@ -72,7 +71,6 @@ class AppStrings {
 
   // LOGIN SCREEN WELCOME MSG TEXT
   static const String helloText = "Hello,";
-  static const String bhulkooText = "\tbhulkoo\n";
   static const String welcomeBackText = "Welcome Back";
 
   // EXIT DIALOG TEXTS
@@ -88,7 +86,6 @@ class AppStrings {
 
   // STEP FORM UI TEXTS
   static const String genderSelection = "Select your gender";
-  static const String bhulkoo = "\nBhulkoo";
   static const String enterFullNameTitleText = "May I have your name,\nplease?";
   static const String firsNameText = "First Name";
   static const String lastNameText = "Last Name";

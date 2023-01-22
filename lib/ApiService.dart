@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '/models/cancreation.dart';
 //import 'utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
   // Pramod: I do not understand the code myself. I wanted to make ApiService class singleton.
   // Apparently there is very little documentation regarding sharedInstance.
+
   ApiService._sharedInstance();
   static final ApiService _shared = ApiService._sharedInstance();
   factory ApiService() => _shared;
@@ -25,7 +27,7 @@ class ApiService {
     // return loginModelFromJson(response.body);
   }
 
-  Future<String> CANCreation(String userName, BuildContext context) async {
+  Future<String> canCreation(String userName, BuildContext context) async {
     // var response = await http.post(
     //     Uri.parse('${Constants.domainURL}${Constants.loginURL}'),
     //     headers: <String, String>{
