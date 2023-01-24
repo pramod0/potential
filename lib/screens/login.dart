@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -35,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  final auth = FirebaseAuth.instance;
 
   final TextEditingController usernameController =
       TextEditingController(text: "pramodgupta0@gmail.com");
@@ -79,6 +81,8 @@ class _LoginPageState extends State<LoginPage> {
           'investorData', json.encode(responseBody['investorData'])));
       prefs.then((pref) =>
           pref.setString('userId', responseBody['user_id'].toString()));
+      auth.signInWithEmailAndPassword(
+          email: usernameController.text, password: passwordController.text);
 
       Track.isMobileNoVerified
           ? Navigator.of(context).push(

@@ -40,6 +40,15 @@ dependencies:
   shared_preferences: any
   google_fonts: any
   intl: any
+  firebase_auth: any
+  firebase_core: any
+  firebase_messaging: any
+  cloud_firestore: any
+  firebase_storage: any
+  flutter_local_notifications: any
+  flutter_background_service: any
+
+
 
 dev_dependencies:
   flutter_test:

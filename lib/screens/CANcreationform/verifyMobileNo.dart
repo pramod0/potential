@@ -1,13 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:potential/utils/appTools.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../app_assets_constants/AppStrings.dart';
 import '../../models/cancreation.dart';
 import '../../utils/styleConstants.dart';
 
 class VerifyMobileNum extends StatefulWidget {
-  late CANIndFillEezzReq fillEezzReq;
-  VerifyMobileNum({Key? key, required this.fillEezzReq}) : super(key: key);
+  final CANIndFillEezzReq fillEezzReq;
+
+  const VerifyMobileNum({Key? key, required this.fillEezzReq})
+      : super(key: key);
 
   @override
   State<VerifyMobileNum> createState() => _CreateVerifyMobileNum();
@@ -17,6 +21,46 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   final maxLines = 2;
   final TextEditingController mobileNOController =
       TextEditingController(text: "");
+  final auth = FirebaseAuth.instance;
+  verifyNo() async {
+    await auth.verifyPhoneNumber(
+      phoneNumber: '+91 7303545657',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // ANDROID ONLY!
+
+        // Sign the user in (or link) with the auto-generated credential
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+
+        // Handle other errors
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+        // Update the UI - wait for the user to enter the SMS code
+        String smsCode = '238578';
+
+        // Create a PhoneAuthCredential with the code
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: verificationId, smsCode: smsCode);
+
+        // Sign the user in (or link) with the credential
+        await auth.signInWithCredential(credential);
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        // Auto-resolution timed out...
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    verifyNo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
