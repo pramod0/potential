@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:potential/models/cancreation.dart';
-import 'package:potential/models/investor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
 import '../app_assets_constants/AppStrings.dart';
@@ -13,10 +12,9 @@ import 'package:intl/intl.dart';
 final oCcy = NumberFormat("#,##0.00", "en_US");
 
 class Dashboard extends StatefulWidget {
-  final Investor investorData;
-  late CANIndFillEezzReq fillEezzReq;
-
-  Dashboard({super.key, required this.investorData, required this.fillEezzReq});
+  Dashboard({
+    super.key,
+  });
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -98,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                                 Text(
-                                  "(${widget.investorData.investmentData?.fundData?.length})",
+                                  "(${AllData.investorData.investmentData?.fundData?.length})",
                                   style: kGoogleStyleTexts.copyWith(
                                       color: Colors.white70,
                                       fontSize: 13.0,
@@ -141,7 +139,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "\u{20B9}${oCcy.format(widget.investorData.investmentData?.invested)}",
+                                              "\u{20B9}${oCcy.format(AllData.investorData.investmentData?.invested)}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -156,7 +154,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "\u{20B9}${oCcy.format(widget.investorData.investmentData?.current)}",
+                                              "\u{20B9}${oCcy.format(AllData.investorData.investmentData?.current)}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -193,14 +191,14 @@ class _DashboardState extends State<Dashboard> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "+ \u{20B9}${oCcy.format(widget.investorData.investmentData?.totalRet)} ",
+                                                  "+ \u{20B9}${oCcy.format(AllData.investorData.investmentData?.totalRet)} ",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
                                                           color: Colors.white,
                                                           fontSize: 15.0),
                                                 ),
                                                 Text(
-                                                  "(${widget.investorData.investmentData?.perReturns}%)",
+                                                  "(${AllData.investorData.investmentData?.perReturns}%)",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
                                                           color: Colors.white,
@@ -323,10 +321,10 @@ class _DashboardState extends State<Dashboard> {
                   shrinkWrap: true,
                   //scrollDirection: Axis.vertical,
                   itemCount:
-                      widget.investorData.investmentData?.fundData?.length,
+                      AllData.investorData.investmentData?.fundData?.length,
                   itemBuilder: (context, i) {
                     final data =
-                        widget.investorData.investmentData?.fundData!.toList();
+                        AllData.investorData.investmentData?.fundData!.toList();
                     if (gender == "Current") {
                       data?.sort((a, b) => (int.parse(srt) == 1
                           ? a.current?.compareTo(b.current as num)

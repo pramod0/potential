@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
+import 'package:potential/utils/AllData.dart';
 import 'package:potential/screens/dashboard.dart';
+import 'package:potential/screens/tabspage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/cancreation.dart';
@@ -23,7 +25,7 @@ import '../utils/track.dart';
 
 class LoginPage extends StatefulWidget {
   late CANIndFillEezzReq fillEezzReq;
-
+  static Investor i = Investor();
   LoginPage({Key? key, required this.fillEezzReq}) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
   final auth = FirebaseAuth.instance;
+  AllData allData = AllData();
 
   final TextEditingController usernameController =
       TextEditingController(text: "pramodgupta0@gmail.com");
@@ -74,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
     EasyLoading.dismiss();
     if (responseBody?['status_code'] == 1000) {
       String s = json.encode(responseBody['investorData']);
-      Investor i = Investor.fromJson(jsonDecode(s));
+      AllData.investorData = Investor.fromJson(jsonDecode(s));
       //String token = responseBody['token'].toString();
       //Token(token); // initialize token
       prefs.then((pref) => pref.setString(
@@ -87,9 +90,10 @@ class _LoginPageState extends State<LoginPage> {
       Track.isMobileNoVerified
           ? Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => Dashboard(
-                  investorData: i,
-                  fillEezzReq: widget.fillEezzReq,
+                builder: (context) => TabsPage(
+                  selectedIndex: 0,
+                  investorData: AllData.investorData,
+                  fillEezzReq: AllData.fillEezzReq,
                 ),
               ),
             )

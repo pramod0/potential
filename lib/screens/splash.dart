@@ -10,17 +10,7 @@ import 'package:flutter/services.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
-
-  @override
-  State<Splash> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> with TickerProviderStateMixin {
-  late CANIndFillEezzReq fillEezzReq;
-  final prefs = SharedPreferences.getInstance();
-  late AnimationController controller;
-  late Animation<double> animation;
-
+  static late CANIndFillEezzReq fillEezzReq;
   getCanData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     try {
@@ -33,9 +23,18 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   }
 
   @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> with TickerProviderStateMixin {
+  final prefs = SharedPreferences.getInstance();
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  @override
   void initState() {
     super.initState();
-    getCanData();
+    widget.getCanData();
     controller = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
@@ -104,7 +103,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   Route _createRoute() {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            RegistrationPage(fillEezzReq: fillEezzReq),
+            RegistrationPage(fillEezzReq: Splash.fillEezzReq),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;

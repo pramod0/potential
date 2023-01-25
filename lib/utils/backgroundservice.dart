@@ -69,7 +69,7 @@ class BackgroundService {
     Timer.periodic(const Duration(seconds: 60), (Timer timer) async {
       if (service is AndroidServiceInstance) {
         await service.setForegroundNotificationInfo(
-          title: 'My App Service',
+          title: 'Potential Background Service',
           content: 'Updated at ${DateTime.now()}',
         );
       }
