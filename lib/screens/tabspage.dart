@@ -4,17 +4,16 @@ import 'package:potential/utils/appTools.dart';
 
 import '../models/cancreation.dart';
 import '../screens/bottomTabs.dart';
+import '../utils/styleConstants.dart';
+import '../utils/track.dart';
 
 class TabsPage extends StatefulWidget {
   int selectedIndex = 0;
-  final Investor investorData;
-  final CANIndFillEezzReq fillEezzReq;
 
-  TabsPage(
-      {super.key,
-      required this.selectedIndex,
-      required this.investorData,
-      required this.fillEezzReq});
+  TabsPage({
+    super.key,
+    required this.selectedIndex,
+  });
 
   @override
   _TabsPageState createState() => _TabsPageState();
@@ -39,7 +38,7 @@ class _TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    String str = "#002450";
+    String str = "#181818";
     return Scaffold(
       body: Scaffold(
         body: IndexedStack(
@@ -50,40 +49,54 @@ class _TabsPageState extends State<TabsPage> {
         ),
       ),
       backgroundColor: hexToColor(str),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: hexToColor(str),
-        currentIndex: (_selectedIndex),
-        selectedFontSize: 12,
-        selectedIconTheme: const IconThemeData(color: Colors.white, size: 20),
-        selectedItemColor: Colors.white,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        unselectedIconTheme: IconThemeData(
-          color: Colors.white70,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
-        unselectedItemColor: Colors.white70,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        onTap: _onItemTapped,
-        iconSize: 20,
-        elevation: 0,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
+        child: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cases),
-            label: 'Portfolio',
+          child: BottomNavigationBar(
+            backgroundColor: hexToColor(str),
+            currentIndex: (_selectedIndex),
+            selectedFontSize: 12,
+            selectedIconTheme:
+                const IconThemeData(color: Colors.white, size: 20),
+            selectedItemColor: Colors.white,
+            selectedLabelStyle:
+                kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 15.0),
+            unselectedIconTheme: const IconThemeData(
+              color: Colors.white70,
+            ),
+            unselectedItemColor: Colors.white70,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+            onTap: _onItemTapped,
+            iconSize: 20,
+            elevation: 0,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_rounded),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.local_atm_rounded),
+                label: 'Portfolio',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.monetization_on_rounded),
+                label: 'Invest',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.check_circle_rounded),
+                label: 'Goals',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monetization_on_rounded),
-            label: 'Invest',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check_circle_rounded),
-            label: 'Goals',
-          ),
-        ],
+        ),
       ),
     );
   }

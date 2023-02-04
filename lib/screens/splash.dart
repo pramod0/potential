@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:potential/models/cancreation.dart';
 import 'package:potential/screens/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,8 +32,14 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
 
+  AllData allData = AllData();
+
   @override
   void initState() {
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   systemNavigationBarColor: Colors.blue, // navigation bar color
+    //   statusBarColor: Colors.pink, // status bar color
+    // ));
     super.initState();
     widget.getCanData();
     controller = AnimationController(

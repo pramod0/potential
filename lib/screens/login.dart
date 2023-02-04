@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,15 +19,16 @@ import '../models/cancreation.dart';
 import '../utils/appTools.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../ApiService.dart';
+import '../utils/googleSignIn.dart';
 import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
 import '../utils/track.dart';
 
 class LoginPage extends StatefulWidget {
-  late CANIndFillEezzReq fillEezzReq;
-  static Investor i = Investor();
-  LoginPage({Key? key, required this.fillEezzReq}) : super(key: key);
+  LoginPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -38,11 +40,13 @@ class _LoginPageState extends State<LoginPage> {
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-  final auth = FirebaseAuth.instance;
-  AllData allData = AllData();
+  // Disable persistence on web platforms. Must be called on initialization:
+  final auth = FirebaseAuth.instanceFor(
+      app: Firebase.app(), persistence: Persistence.NONE);
+// To change it after initialization, use `setPersistence()`:
 
   final TextEditingController usernameController =
-      TextEditingController(text: "pramodgupta0@gmail.com");
+      TextEditingController(text: "shubhamdathia7257@gmail.com");
   final TextEditingController passwordController =
       TextEditingController(text: "pRamod@123");
 
@@ -92,18 +96,15 @@ class _LoginPageState extends State<LoginPage> {
               MaterialPageRoute(
                 builder: (context) => TabsPage(
                   selectedIndex: 0,
-                  investorData: AllData.investorData,
-                  fillEezzReq: AllData.fillEezzReq,
                 ),
               ),
             )
           : Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => VerifyMobileNum(
-                  fillEezzReq: widget.fillEezzReq,
-                ),
+                builder: (context) => VerifyMobileNum(),
               ),
             );
+      //await auth.setPersistence(Persistence.LOCAL);
 
       // prefs.then(
       //         (pref) => pref.setString('token', responseBody['token'].toString()));
@@ -326,7 +327,24 @@ class _LoginPageState extends State<LoginPage> {
                         style: kGoogleStyleTexts.copyWith(
                             color: Colors.white, fontSize: 18.0),
                       )),
-                )
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Theme(
+                  data: ThemeData(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                  ),
+                  child: TextButton(
+                    onPressed: () => {signInWithGoogle(context)},
+                    child: Text(
+                      AppStrings.signInWithGoogleText,
+                      style: kGoogleStyleTexts.copyWith(
+                          color: Colors.white, fontSize: 18.0),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

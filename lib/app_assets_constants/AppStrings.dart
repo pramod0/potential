@@ -6,9 +6,14 @@ class AppStrings {
   static const String lname = 'Last Name';
   static const String emailID = 'Email Id';
   static const String mobileNO = 'Mobile Number';
+  static const String otp = 'OTP';
+  static const String generateOTP = 'Generate OTP';
   static const String userPassword = 'Password';
   static const String loginButtonText = 'Login';
   static const String signInText = "Sign in";
+  static const String signInWithGoogleText = "Sign in with Google";
+  static const String alreadyRegText = "Already have an account?";
+  static const String signUpWithGoogle = "Sign up with Google";
   static const String loginText = "We are happy to see you here!";
   static const String dashboardText = "Dashboard";
   static const String goodMorning = "Good Morning,";
@@ -137,12 +142,13 @@ class AppStrings {
   static const String thankYouText = "Thank you!";
   static const String submittedResponse = "We have submitted\nyour response";
   static const String backToLogin = "Back to Form";
-  static const String verifyDetails = "Verify your Details";
+  static const String verifyLater = "I will verify Later";
   static const String contactMeByPhoneOrMail =
       "You can contact me by my phone number or email id";
   static const String myBloodType = "My blood type is";
   static const String tlNameBelonging = "The person to whom I'm belonging is ";
   static const String team = "Reference";
+  static const String verificationCode = "Verification Code";
 
   // Errors Strings
   static const String firstNameRequired = "First Name is required";
@@ -179,4 +185,5 @@ class AppStrings {
   static const String current = 'Current';
   static const String invested = 'Invested';
   static const String investments = 'Investments';
+  static const String home = 'Home';
 }

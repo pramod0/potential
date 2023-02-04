@@ -5,6 +5,9 @@ import 'package:potential/screens/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:potential/utils/AllData.dart';
 
+import 'homeScreen.dart';
+import 'investScreen.dart';
+
 class TabNavigationItem {
   final Widget page;
   final Widget title;
@@ -15,17 +18,23 @@ class TabNavigationItem {
 
   static List<TabNavigationItem> get items => [
         TabNavigationItem(
-          page: Dashboard(),
-          icon: Icon(Icons.home),
-          title: Text("Organization"),
+          page: HomeScreen(),
+          icon: const Icon(
+            Icons.home,
+          ),
+          title: Text(
+            "Organization",
+          ),
         ),
         TabNavigationItem(
           page: Dashboard(),
           icon: Icon(Icons.search),
-          title: Text("Branch"),
+          title: Text(
+            "Branch",
+          ),
         ),
         TabNavigationItem(
-          page: Dashboard(),
+          page: InvestScreen(),
           icon: Icon(Icons.home),
           title: Text("Courses"),
         ),

@@ -4,9 +4,8 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/screens/splash.dart';
@@ -21,20 +20,18 @@ import 'package:potential/utils/backgroundservice.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await BackgroundService().initializeService();
+  //await BackgroundService().initializeService();
   await Firebase.initializeApp();
-  final User? user = FirebaseAuth.instance.currentUser;
-
-  print(user?.uid);
-
+  EasyLoading.init();
   final fcmToken = await FirebaseMessaging.instance.getToken();
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-    print(fcmToken);
+    if (kDebugMode) {
+      print(fcmToken);
+    }
   }).onError((err) {
     // Error getting token.
   });
   print(fcmToken);
-  print(FirebaseAuth.instance.currentUser?.email);
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   runApp(const MyApp());
 }
