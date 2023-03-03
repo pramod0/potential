@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/screens/splash.dart';
-import 'package:potential/utils/backgroundservice.dart';
+import 'package:potential/utils/backgroundService.dart';
 
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   await Firebase
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const Splash(),
       builder: EasyLoading.init(),

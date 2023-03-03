@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:potential/screens/login.dart';
 
 import '../app_assets_constants/AppStrings.dart';
-import '../utils/AllData.dart';
+//import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 final auth = FirebaseAuth.instance;
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({
+  const HomeScreen({
     super.key,
   });
 
@@ -19,15 +21,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Future<bool> _onBackPressed() async {
-    Navigator.of(context).pop();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
     return false;
   }
 
-  Future<void> _logout() async {
+   _logout()  {
     try {
-      await FirebaseAuth.instance.signOut();
+       FirebaseAuth.instance.signOut();
+       Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+      return;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
@@ -36,6 +48,45 @@ class _HomeScreenState extends State<HomeScreen> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: hexToColor("#121212"),
+          title: Text(
+            "Dashboard",
+            style: kGoogleStyleTexts.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+              color: hexToColor("#ffffff"),
+            ),
+          ),
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+        ),
+        drawer: Drawer(
+          backgroundColor: hexToColor("#151515"),
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text('Hii there'),
+              ),
+              ListTile(
+                  title: Text(
+                    AppStrings.logoutButtonText,
+                    style: kGoogleStyleTexts.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                      color: hexToColor("#ffffff"),
+                    ),
+                  ),
+                  onTap: _logout),
+            ],
+          ),
+        ),
         backgroundColor: hexToColor("#121212"),
         body: SafeArea(
           child: Column(
@@ -53,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: kGoogleStyleTexts.copyWith(
                           color: Colors.white, fontSize: 15.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -74,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     ElevatedButton(
                       onPressed: _logout,
-                      child: Text(
+                      child: const Text(
                         "LogOut",
                         style: TextStyle(color: Colors.white),
                       ),

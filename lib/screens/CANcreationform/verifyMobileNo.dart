@@ -37,43 +37,43 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   final TextEditingController otpController = TextEditingController(text: "");
   final auth = FirebaseAuth.instance;
 
-  otpDialogBox(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Enter your OTP'),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                  ),
-                ),
-                onChanged: (value) {
-                  otp = value;
-                },
-              ),
-            ),
-            contentPadding: const EdgeInsets.all(10.0),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  signIn(otp!);
-                },
-                child: const Text(
-                  'Submit',
-                ),
-              ),
-            ],
-          );
-        });
-  }
+  // otpDialogBox(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text('Enter your OTP'),
+  //           content: Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: TextFormField(
+  //               decoration: const InputDecoration(
+  //                 border: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.all(
+  //                     Radius.circular(5),
+  //                   ),
+  //                 ),
+  //               ),
+  //               onChanged: (value) {
+  //                 otp = value;
+  //               },
+  //             ),
+  //           ),
+  //           contentPadding: const EdgeInsets.all(10.0),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //                 signIn(otp!);
+  //               },
+  //               child: const Text(
+  //                 'Submit',
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   String? phoneNumber, verificationId;
   String? otp, authStatus = "";
@@ -91,7 +91,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   //   }
   // }
 
-  Future<void> verifyPhoneNumber(BuildContext context) async {
+  verifyPhoneNumber(BuildContext context) async {
     validateStepFourContactInfo();
     phoneNumber =
         "+91 ${mobileNOController.text[0]}${mobileNOController.text[1]}${mobileNOController.text[2]}${mobileNOController.text[3]} "
@@ -105,13 +105,13 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
           authStatus = "Your account is successfully verified";
         });
 
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TabsPage(
-              selectedIndex: 0,
-            ),
-          ),
-        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => TabsPage(
+        //       selectedIndex: 0,
+        //     ),
+        //   ),
+        // );
       },
       verificationFailed: (FirebaseAuthException authException) {
         setState(() {
@@ -119,6 +119,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
         });
       },
       codeSent: (String verId, [int? forceCodeResent]) {
+        Track.isOTPGenerated = true;
         verificationId = verId;
         setState(() {
           authStatus = "OTP has been successfully send\nIt is valid for 30";
@@ -127,7 +128,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             context: context,
             barrierDismissible: false,
             builder: (context) => AlertDialog(
-                  title: Text("Enter SMS Code"),
+                  title: const Text("Enter SMS Code"),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -138,30 +139,11 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
                   ),
                   actions: <Widget>[
                     ElevatedButton(
-                      child: Text("Done"),
-                      onPressed: () {
-                        FirebaseAuth auth = FirebaseAuth.instance;
-
-                        var smsCode = otpController.text.trim();
-
-                        var credential = PhoneAuthProvider.credential(
-                            verificationId: verificationId!, smsCode: smsCode);
-                        auth
-                            .signInWithCredential(credential)
-                            .then((credential) {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      TabsPage(selectedIndex: 0)));
-                        }).catchError((e) {
-                          print(e);
-                        });
-                      },
+                      onPressed: performVerification(context),
+                      child: const Text("Done"),
                     )
                   ],
                 ));
-        otpDialogBox(context).then((value) {});
       },
       codeAutoRetrievalTimeout: (String verId) {
         verificationId = verId;
@@ -170,6 +152,23 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
         });
       },
     );
+  }
+
+  performVerification(BuildContext context) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    var smsCode = otpController.text.trim();
+
+    var credential = PhoneAuthProvider.credential(
+        verificationId: verificationId!, smsCode: smsCode);
+    await auth.signInWithCredential(credential).catchError((e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    });
+    // Navigator.pushReplacement(context,
+    //     MaterialPageRoute(builder: (context) => TabsPage(selectedIndex: 0)));
+    // Track.isMobileNoVerified = true;
   }
 
   String? validateStepFourContactInfo() {
@@ -197,9 +196,9 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   Widget build(BuildContext context) {
     double height = (MediaQuery.of(context).size.width - 60) / 6;
     double width = (((MediaQuery.of(context).size.width - 60) / 6));
-    if (kDebugMode) {
-      print(height);
-    }
+    // if (kDebugMode) {
+    //   print(height);
+    // }
     return Scaffold(
       backgroundColor: hexToColor("#121212"),
       body: Column(
@@ -285,7 +284,9 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             height: 20,
           ),
           Container(
-            child: Track.isOTPGenerated ? Container() : otpField(height, width),
+            child: Track.isOTPGenerated == false
+                ? Container()
+                : otpField(height, width),
           ),
           const SizedBox(
             height: 20,

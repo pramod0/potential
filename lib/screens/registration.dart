@@ -141,7 +141,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               width: 30,
                             ),
                             Text(
-                              " " + AppStrings.signUpWithGoogle,
+                              " ${AppStrings.signUpWithGoogle}",
                               style: kGoogleStyleTexts.copyWith(
                                   color: Colors.white, fontSize: 18.0),
                             ),

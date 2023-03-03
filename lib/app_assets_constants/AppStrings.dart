@@ -10,6 +10,7 @@ class AppStrings {
   static const String generateOTP = 'Generate OTP';
   static const String userPassword = 'Password';
   static const String loginButtonText = 'Login';
+  static const String logoutButtonText = 'Logout';
   static const String signInText = "Sign in";
   static const String signInWithGoogleText = "Sign in with Google";
   static const String alreadyRegText = "Already have an account?";
