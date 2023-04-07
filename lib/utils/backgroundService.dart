@@ -29,6 +29,7 @@ class BackgroundService {
       ),
     );
     await service.startService();
+    service.on("stopService");
   }
 
   // to ensure this is executed

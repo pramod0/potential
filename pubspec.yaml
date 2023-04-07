@@ -39,16 +39,19 @@ dependencies:
   shared_preferences: any
   google_fonts: any
   intl: any
-  firebase_auth: any
-  firebase_core: any
-  firebase_messaging: any
-  cloud_firestore: any
   firebase_database: any
   firebase_storage: any
   flutter_local_notifications: any
   flutter_background_service: any
-  google_sign_in: any
-  font_awesome_flutter: any
+  rxdart: any
+  firebase_auth: ^4.3.0
+  firebase_auth_web: ^5.2.10
+  firebase_core: ^2.8.0
+  firebase_messaging: ^14.3.0
+  cloud_firestore: ^4.4.5
+  google_sign_in: ^6.0.2
+  font_awesome_flutter: ^10.4.0
+  firebase_in_app_messaging: ^0.7.0+16
 
 
 

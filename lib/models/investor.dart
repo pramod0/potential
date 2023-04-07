@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/services.dart';
 
 class Investor {
@@ -32,7 +30,7 @@ class InvestmentData {
   int? invested;
   int? current;
   int? totalRet;
-  double perReturns=0.0;
+  double perReturns = 0.0;
   // XIIR is calculated on historical data
   // % return current-initial/initial
 
@@ -43,8 +41,8 @@ class InvestmentData {
   InvestmentData.fromJson(Map<String, dynamic> json) {
     invested = json['invested'];
     current = json['current'];
-    totalRet=(invested!+current!);
-    perReturns= ((current!)-(invested!))/(invested!)*100;
+    totalRet = (invested! + current!);
+    perReturns = ((current!) - (invested!)) / (invested!) * 100;
     if (json['fund_data'] != null) {
       fundData = <FundData>[];
       json['fund_data'].forEach((v) {
@@ -70,14 +68,14 @@ class FundData {
   int? current;
   int? currentNav;
   int? totalUnits;
-  double perReturns=0.0;
+  double perReturns = 0.0;
 
   FundData(
       {this.fundName,
-        this.invested,
-        this.current,
-        this.currentNav,
-        this.totalUnits});
+      this.invested,
+      this.current,
+      this.currentNav,
+      this.totalUnits});
 
   FundData.fromJson(Map<String, dynamic> json) {
     fundName = json['fund_name'];
@@ -85,7 +83,7 @@ class FundData {
     current = json['current'];
     currentNav = json['current_nav'];
     totalUnits = json['total_units'];
-    perReturns= ((current!)-(invested!))/(invested!)*100;
+    perReturns = ((current!) - (invested!)) / (invested!) * 100;
   }
 
   Map<String, dynamic> toJson() {

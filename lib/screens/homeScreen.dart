@@ -28,10 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return false;
   }
 
-   _logout()  {
+  _logout() {
     try {
-       FirebaseAuth.instance.signOut();
-       Navigator.pushReplacement(
+      FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),
       );
@@ -140,3 +140,41 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// class _MyHomePageState extends State<HomeScreen> {
+//   String _lastMessage = "";
+//
+//   _MyHomePageState() {
+//     _messageStreamController.listen((message) {
+//       setState(() {
+//         if (message.notification != null) {
+//           _lastMessage = 'Received a notification message:'
+//               '\nTitle=${message.notification?.title},'
+//               '\nBody=${message.notification?.body},'
+//               '\nData=${message.data}';
+//         } else {
+//           _lastMessage = 'Received a data message: ${message.data}';
+//         }
+//       });
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Text('Last message from Firebase Messaging:',
+//                 style: Theme.of(context).textTheme.titleLarge),
+//             Text(_lastMessage, style: Theme.of(context).textTheme.bodyLarge),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

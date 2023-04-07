@@ -45,6 +45,13 @@
             {
               "client_id": "35959887505-rdlm25eot8mpb12m9ncgl68hjrl16i5v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "35959887505-a8gqgfoks8atqi7jara0f9q0if6p7trg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.techmatha.potential"
+              }
             }
           ]
         }
