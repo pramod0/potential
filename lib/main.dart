@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
+//import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/screens/splash.dart';
 import 'firebase_options.dart';
@@ -28,9 +28,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  final service = FlutterBackgroundService();
-  service.invoke("stopService");
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -82,7 +79,7 @@ void main() async {
         channelDescription: message.data.toString(),
         importance: Importance.max,
         priority: Priority.high,
-        showWhen: false,
+        showWhen: true,
       );
       final NotificationDetails platformChannelSpecifics =
           NotificationDetails(android: androidPlatformChannelSpecifics);
@@ -100,18 +97,18 @@ void main() async {
     // Handle message when app is in foreground and opened
   });
 
-  await FirebaseMessaging.instance.subscribeToTopic("topic");
+  // await FirebaseMessaging.instance.subscribeToTopic("topic");
 
-  Map<String, dynamic> payload = {
-    'notification': {
-      'title': 'New message',
-      'body': 'You have a new message',
-    },
-    'priority': 'high',
-    'data': {"message": "Hey, Hii there"},
-    'topic': 'topic',
-  };
-  sendNotification(payload);
+  // Map<String, dynamic> payload = {
+  //   'notification': {
+  //     'title': 'New message',
+  //     'body': 'You have a new message',
+  //   },
+  //   'priority': 'high',
+  //   'data': {"message": "Hey, Hii there"},
+  //   'to': fcmToken.toString(),
+  // };
+  // sendNotification(payload);
 }
 
 class MyApp extends StatelessWidget {
