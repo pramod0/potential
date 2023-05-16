@@ -5,6 +5,7 @@ import 'package:potential/screens/dashboard.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/screens/login.dart';
+import 'package:potential/screens/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Login(),
+      home: SignupPage(),
       builder: EasyLoading.init(),
     );
   }

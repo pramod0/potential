@@ -33,9 +33,9 @@ class _LoginState extends State<Login> {
   late String _password = "";
 
   final TextEditingController userNameController =
-  TextEditingController(text: "HYS076"); // for quick testing
+  TextEditingController(text: "pramod77484@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-  TextEditingController(text: "gsh#RH3jA");
+  TextEditingController(text: "root123");
 
   @override
   void initState() {
