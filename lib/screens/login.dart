@@ -102,29 +102,31 @@ class _LoginPageState extends State<LoginPage> {
     var responseBody = jsonDecode(
         await ApiService().processLogin(userName, password, context));
     EasyLoading.dismiss();
-    if (responseBody?['status_code'] == 1000) {
-      String s = json.encode(responseBody['investorData']);
-      AllData.investorData = Investor.fromJson(jsonDecode(s));
-      //String token = responseBody['token'].toString();
+    if (responseBody?['success'] == true) {
+      var s = json.encode(responseBody['data']);
+      print(s);
+      // AllData.investorData = Investor.fromJson(jsonDecode(s));
+      String token = responseBody['data']['token'].toString();
+      print(token);
       //Token(token); // initialize token
-      prefs.then((pref) => pref.setString(
-          'investorData', json.encode(responseBody['investorData'])));
-      prefs.then((pref) =>
-          pref.setString('userId', responseBody['user_id'].toString()));
+      // prefs.then((pref) => pref.setString(
+      //     'investorData', json.encode(responseBody['investorData'])));
+      // prefs.then((pref) =>
+      //     pref.setString('userId', responseBody['user_id'].toString()));
 
-      Track.isMobileNoVerified
-          ? Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => TabsPage(
-                  selectedIndex: 0,
-                ),
-              ),
-            )
-          : Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => VerifyMobileNum(),
-              ),
-            );
+      // Track.isMobileNoVerified
+      //     ? Navigator.of(context).push(
+      //         MaterialPageRoute(
+      //           builder: (context) => TabsPage(
+      //             selectedIndex: 0,
+      //           ),
+      //         ),
+      //       )
+      //     : Navigator.of(context).push(
+      //         MaterialPageRoute(
+      //           builder: (context) => VerifyMobileNum(),
+      //         ),
+      //       );
       //await auth.setPersistence(Persistence.LOCAL);
 
       // prefs.then(

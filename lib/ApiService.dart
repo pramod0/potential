@@ -24,7 +24,7 @@ class ApiService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(
-          <String, String>{'email': userName, 'password': password}
+          <String, String>{'email': userName, 'password': password, "deviceType": "android"}
         )
     ); // end of http.post
 
