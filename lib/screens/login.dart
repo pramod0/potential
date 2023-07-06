@@ -47,10 +47,35 @@ class _LoginPageState extends State<LoginPage> {
       app: Firebase.app(), persistence: Persistence.NONE);
 // To change it after initialization, use `setPersistence()`:
 
+  late String _username = "";
+  late String _password = "";
+
   final TextEditingController usernameController =
-      TextEditingController(text: "shubhamdathia7257@gmail.com");
+  TextEditingController(text: "pramod77484@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "pRamod@123");
+  TextEditingController(text: "root123");
+
+  @override
+  void initState() {
+    super.initState();
+    // isLoggedIn();
+  }
+
+  // void isLoggedIn() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   String? expiryDate = pref.getString('expiry');
+  //   if (expiryDate != null) {
+  //     int? expired = DateTime.tryParse(expiryDate)?.compareTo(DateTime.now());
+  //     if (expired! > 0) {
+  //       String? studentJson = pref.getString('investmentData');
+  //       Investor investorData =Investor.fromJson(jsonDecode(studentJson!));
+  //       String? token = pref.getString('token');
+  //       //Token(token!); // initialize toke
+  //       Navigator.of(context)
+  //           .push(MaterialPageRoute(builder: (context) => const Dashboard(investorData: investorData,)));
+  //     }
+  //   }
+  // }
 
   void _toggleVisibility() {
     setState(() {
@@ -124,11 +149,6 @@ class _LoginPageState extends State<LoginPage> {
         showSnackBar(message, Colors.red);
       }
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
