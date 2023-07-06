@@ -35,7 +35,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-  final _auth = FirebaseAuth.instance;
+  // final _auth = FirebaseAuth.instance;
 
   ValueNotifier<bool> isLoading = ValueNotifier(false);
   final TextEditingController firstNameController =
@@ -90,33 +90,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         EasyLoading.dismiss();
         return;
       }
-      var user = await _auth.createUserWithEmailAndPassword(
-        email: emailIDController.text,
-        password: passwordController.text,
-      );
-      await _auth.currentUser?.updateDisplayName(
-          "${firstNameController.text} ${lastNameController.text}");
 
-      await _auth.currentUser?.sendEmailVerification();
-
-      AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS?.hOLDERRECORD?.nAME =
-          "${firstNameController.text} ${lastNameController.text}";
-      AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS?.hOLDERRECORD?.cONTACTDETAIL
-          ?.pRIEMAIL = emailIDController.text;
-      AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS?.hOLDERRECORD?.cONTACTDETAIL
-          ?.pRIMOBNO = mobileNOController.text;
-      AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS?.hOLDERRECORD?.cONTACTDETAIL
-          ?.pRIMOBBELONGSTO = "S";
-      AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS?.hOLDERRECORD?.cONTACTDETAIL
-          ?.pRIEMAILBELONGSTO = "S";
 
       Track.isRegistered = true;
-      Map<String, dynamic> allData = AllData.fillEezzReq.toJson();
-      String userD = jsonEncode(AllData.fillEezzReq);
-      print(userD.toString());
       prefs.then((pref) => pref.setBool('isRegistered', true));
-      await prefs.then((pref) =>
-          pref.setString('fillEezzReq', AllData.fillEezzReq.toString()));
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => LoginPage(),

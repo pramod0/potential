@@ -36,16 +36,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  // final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final prefs = SharedPreferences.getInstance();
   bool _showPassword = false;
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-  // Disable persistence on web platforms. Must be called on initialization:
-  final auth = FirebaseAuth.instanceFor(
-      app: Firebase.app(), persistence: Persistence.NONE);
-// To change it after initialization, use `setPersistence()`:
 
   late String _username = "";
   late String _password = "";
@@ -115,8 +111,6 @@ class _LoginPageState extends State<LoginPage> {
           'investorData', json.encode(responseBody['investorData'])));
       prefs.then((pref) =>
           pref.setString('userId', responseBody['user_id'].toString()));
-      auth.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
 
       Track.isMobileNoVerified
           ? Navigator.of(context).push(
@@ -350,23 +344,23 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white, fontSize: 18.0),
                       )),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Theme(
-                  data: ThemeData(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                  ),
-                  child: TextButton(
-                    onPressed: () => {signInWithGoogle(context)},
-                    child: Text(
-                      AppStrings.signInWithGoogleText,
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white, fontSize: 18.0),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 30,
+                // ),
+                // Theme(
+                //   data: ThemeData(
+                //     splashColor: Colors.transparent,
+                //     highlightColor: Colors.transparent,
+                //   ),
+                //   child: TextButton(
+                //     onPressed: () => {signInWithGoogle(context)},
+                //     child: Text(
+                //       AppStrings.signInWithGoogleText,
+                //       style: kGoogleStyleTexts.copyWith(
+                //           color: Colors.white, fontSize: 18.0),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

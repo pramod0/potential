@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:potential/models/cancreation.dart';
+
 import 'package:potential/screens/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/AllData.dart';
@@ -11,17 +9,6 @@ import 'package:flutter/services.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
-  static late CANIndFillEezzReq fillEezzReq;
-  getCanData() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    try {
-      String? dec = pref.getString('fillEezzReq');
-      var userMap = jsonDecode(dec!);
-      fillEezzReq = CANIndFillEezzReq.fromJson(userMap);
-    } catch (err) {
-      fillEezzReq = CANIndFillEezzReq();
-    }
-  }
 
   @override
   State<Splash> createState() => _SplashState();
@@ -36,12 +23,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   systemNavigationBarColor: Colors.blue, // navigation bar color
-    //   statusBarColor: Colors.pink, // status bar color
-    // ));
+
     super.initState();
-    widget.getCanData();
     controller = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
@@ -110,7 +93,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   Route _createRoute() {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            RegistrationPage(fillEezzReq: Splash.fillEezzReq),
+            RegistrationPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
