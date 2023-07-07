@@ -17,7 +17,6 @@ import '../utils/track.dart';
 import 'CANcreationform/verifyMobileNo.dart';
 
 class RegistrationPage extends StatefulWidget {
-
   RegistrationPage({Key? key}) : super(key: key);
 
   @override
@@ -158,7 +157,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppStrings.alreadyRegText + " ",
+                            "${AppStrings.alreadyRegText} ",
                             style: kGoogleStyleTexts.copyWith(
                                 color: Colors.white, fontSize: 18.0),
                           ),

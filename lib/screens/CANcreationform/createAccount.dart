@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:potential/ApiService.dart';
 import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
 import 'package:potential/utils/appTools.dart';
 import 'package:potential/utils/noGlowBehaviour.dart';
@@ -32,6 +33,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   Validations validations = Validations();
   final prefs = SharedPreferences.getInstance();
   bool _showPassword = false;
+  bool _showPassword2 = false;
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
@@ -48,10 +50,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       TextEditingController(text: "7303545657"); // for quick testing
   final TextEditingController passwordController =
       TextEditingController(text: "pRamod@123");
+  final TextEditingController confirmPasswordController =
+      TextEditingController(text: "pRamod@123");
+  final TextEditingController panCardController =
+      TextEditingController(text: "ALLGP0957E");
 
   void _toggleVisibility() {
     setState(() {
       _showPassword = !_showPassword;
+    });
+  }
+
+  void _toggleVisibility2() {
+    setState(() {
+      _showPassword2 = !_showPassword2;
     });
   }
 
@@ -78,7 +90,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           lastNameController.text,
           mobileNOController.text,
           emailIDController.text,
-          passwordController.text);
+          passwordController.text,
+          confirmPasswordController.text,
+          panCardController.text);
+      setState(() {
+        _showPassword = _showPassword2 = false;
+      });
       if (check != null) {
         if (kDebugMode) {
           print("hii$check");
@@ -91,15 +108,28 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         return;
       }
 
+      var payload = jsonEncode(<String, String>{
+        'firstName': firstNameController.text,
+        'lastName': lastNameController.text,
+        'phoneNumber': mobileNOController.text,
+        'email': emailIDController.text,
+        'password': passwordController.text,
+        'confirmpassword': confirmPasswordController.text,
+        'userRole': "user",
+        'panCard': panCardController.text,
+      });
 
-      Track.isRegistered = true;
-      prefs.then((pref) => pref.setBool('isRegistered', true));
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
-        ),
-      );
-      EasyLoading.dismiss();
+      var responseBody = jsonDecode(await ApiService().signUp(payload));
+      if (responseBody['success'] == true) {
+        Track.isRegistered = true;
+        prefs.then((pref) => pref.setBool('isRegistered', true));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ),
+        );
+        EasyLoading.dismiss();
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -438,6 +468,131 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                       fontWeight: FontWeight.normal),
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    AppStrings.confirmPassword,
+                                    style: kGoogleStyleTexts.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                      color: hexToColor("#ffffff"),
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: maxLines * 25.0,
+                              child: TextFormField(
+                                textInputAction: TextInputAction.done,
+                                textAlign: TextAlign.justify,
+                                controller: confirmPasswordController,
+                                onSaved: (val) =>
+                                    confirmPasswordController.text = val!,
+                                keyboardType: TextInputType.text,
+                                style: kGoogleStyleTexts.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: hexToColor("#0065A0"),
+                                    fontSize: 15.0),
+                                maxLines: 1,
+                                obscureText: !_showPassword2,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                      color: hexToColor("#0065A0"),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  border: InputBorder.none,
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5.0)),
+                                      borderSide: BorderSide(
+                                          color: hexToColor("#0065A0"))),
+                                  fillColor:
+                                      const Color.fromARGB(30, 173, 205, 219),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      _toggleVisibility2();
+                                    },
+                                    child: Icon(
+                                      _showPassword2
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: hexToColor("#0065A0"),
+                                      size: 22,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  hintText: AppStrings.passwordHintText,
+                                  hintStyle: kGoogleStyleTexts.copyWith(
+                                      color: hexToColor("#5F93B1"),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    AppStrings.panCard,
+                                    style: kGoogleStyleTexts.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                      color: hexToColor("#ffffff"),
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: maxLines * 25.0,
+                              child: TextFormField(
+                                  textInputAction: TextInputAction.next,
+                                  controller: panCardController,
+                                  onSaved: (val) =>
+                                      panCardController.text = val!,
+                                  keyboardType: TextInputType.name,
+                                  style: kGoogleStyleTexts.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: hexToColor("#0065A0"),
+                                      fontSize: 15.0),
+                                  maxLines: 1,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                        color: hexToColor("#0065A0"),
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                        borderSide: BorderSide(
+                                            color: hexToColor("#0065A0"))),
+                                    fillColor:
+                                        const Color.fromARGB(30, 173, 205, 219),
+                                    filled: true,
+                                    hintText: AppStrings.panCardHintText,
+                                    hintStyle: kGoogleStyleTexts.copyWith(
+                                        color: hexToColor("#5F93B1"),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal),
+                                  )),
                             ),
                           ],
                         ),

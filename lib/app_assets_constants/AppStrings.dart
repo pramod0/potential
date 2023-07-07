@@ -5,10 +5,12 @@ class AppStrings {
   static const String fname = 'First Name';
   static const String lname = 'Last Name';
   static const String emailID = 'Email Id';
+  static const String panCard = 'PAN Card Number';
   static const String mobileNO = 'Mobile Number';
   static const String otp = 'OTP';
   static const String generateOTP = 'Generate OTP';
   static const String userPassword = 'Password';
+  static const String confirmPassword = 'Confirm Password';
   static const String loginButtonText = 'Login';
   static const String logoutButtonText = 'Logout';
   static const String signInText = "Sign in";
@@ -69,6 +71,8 @@ class AppStrings {
       "Password should contain a Special Character";
   static const String passwordNumericalValueErrorText =
       "Password should contain a numerical character";
+  static const String samePass = "Both Passwords should be Same";
+  static const String inValidPAN = "Invalid PAN Card Number";
   static const String emailErrorText = "Please enter a valid Email ID";
   static const String mobNoErrorText = "Please enter a valid Mobile Number";
   // static const String mobNoErrorText = "Please enter a valid Mobile Number";
@@ -99,6 +103,7 @@ class AppStrings {
   static const String firstNameHintText = "Enter First Name";
   static const String middleNameHintText = "Enter Middle Name";
   static const String lastNameHintText = "Enter Last Name";
+  static const String panCardHintText = "Enter PAN Number";
   static const String dobTitleText =
       "I would like to know\nyour date of birth?";
   static const String tapHereText = "Tap Here";
