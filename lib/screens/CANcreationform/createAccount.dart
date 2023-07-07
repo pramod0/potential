@@ -205,7 +205,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   keyboardType: TextInputType.name,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#f5f5f4"),
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -215,7 +215,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#0065A0"),
+                                        color: hexToColor("#aaaaaa"),
                                         width: 1.0,
                                       ),
                                     ),
@@ -223,13 +223,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10.0)),
                                         borderSide: BorderSide(
-                                            color: hexToColor("#0065A0"))),
+                                            color: hexToColor("#ffffff"))),
                                     fillColor:
                                         const Color.fromARGB(30, 173, 205, 219),
                                     filled: true,
                                     hintText: AppStrings.firstNameHintText,
                                     hintStyle: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor("#5F93B1"),
+                                        color: hexToColor("#ffffff"),
                                         fontSize: 15,
                                         fontWeight: FontWeight.normal),
                                   )),
@@ -253,41 +253,42 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             SizedBox(
                               height: maxLines * 25.0,
                               child: TextFormField(
-                                  textInputAction: TextInputAction.next,
-                                  controller: lastNameController,
-                                  onSaved: (val) =>
-                                      lastNameController.text = val!,
-                                  keyboardType: TextInputType.name,
-                                  style: kGoogleStyleTexts.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: hexToColor("#0065A0"),
-                                      fontSize: 15.0),
-                                  maxLines: 1,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    border: InputBorder.none,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      borderSide: BorderSide(
-                                        color: hexToColor("#0065A0"),
-                                        width: 1.0,
-                                      ),
+                                textInputAction: TextInputAction.next,
+                                controller: lastNameController,
+                                onSaved: (val) =>
+                                    lastNameController.text = val!,
+                                keyboardType: TextInputType.name,
+                                style: kGoogleStyleTexts.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: hexToColor("#f5f5f4"),
+                                    fontSize: 15.0),
+                                maxLines: 1,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  border: InputBorder.none,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                      color: hexToColor("#aaaaaa"),
+                                      width: 1.0,
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10.0)),
-                                        borderSide: BorderSide(
-                                            color: hexToColor("#0065A0"))),
-                                    fillColor:
-                                        const Color.fromARGB(30, 173, 205, 219),
-                                    filled: true,
-                                    hintText: AppStrings.lastNameHintText,
-                                    hintStyle: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor("#5F93B1"),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal),
-                                  )),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: hexToColor("#ffffff"))),
+                                  fillColor:
+                                      const Color.fromARGB(30, 173, 205, 219),
+                                  filled: true,
+                                  hintText: AppStrings.lastNameHintText,
+                                  hintStyle: kGoogleStyleTexts.copyWith(
+                                      color: hexToColor("#ffffff"),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               height: 15,
@@ -315,7 +316,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   keyboardType: TextInputType.emailAddress,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#f5f5f4"),
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -325,7 +326,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#0065A0"),
+                                        color: hexToColor("#aaaaaa"),
                                         width: 1.0,
                                       ),
                                     ),
@@ -333,13 +334,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10.0)),
                                         borderSide: BorderSide(
-                                            color: hexToColor("#0065A0"))),
+                                            color: hexToColor("#ffffff"))),
                                     fillColor:
                                         const Color.fromARGB(30, 173, 205, 219),
                                     filled: true,
                                     hintText: AppStrings.emailHintText,
                                     hintStyle: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor("#5F93B1"),
+                                        color: hexToColor("#ffffff"),
                                         fontSize: 15,
                                         fontWeight: FontWeight.normal),
                                   )),
@@ -370,7 +371,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   keyboardType: TextInputType.number,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#f5f5f4"),
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -380,7 +381,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#0065A0"),
+                                        color: hexToColor("#aaaaaa"),
                                         width: 1.0,
                                       ),
                                     ),
@@ -388,13 +389,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10.0)),
                                         borderSide: BorderSide(
-                                            color: hexToColor("#0065A0"))),
+                                            color: hexToColor("#ffffff"))),
                                     fillColor:
                                         const Color.fromARGB(30, 173, 205, 219),
                                     filled: true,
                                     hintText: AppStrings.mobileNO,
                                     hintStyle: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor("#5F93B1"),
+                                        color: hexToColor("#ffffff"),
                                         fontSize: 15,
                                         fontWeight: FontWeight.normal),
                                   )),
@@ -426,26 +427,26 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
-                                    color: hexToColor("#0065A0"),
+                                    color: hexToColor("#f5f5f4"),
                                     fontSize: 15.0),
                                 maxLines: 1,
                                 obscureText: !_showPassword,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 15),
+                                  border: InputBorder.none,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#aaaaaa"),
                                       width: 1.0,
                                     ),
                                   ),
-                                  border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: const BorderRadius.all(
-                                          Radius.circular(5.0)),
+                                          Radius.circular(10.0)),
                                       borderSide: BorderSide(
-                                          color: hexToColor("#0065A0"))),
+                                          color: hexToColor("#ffffff"))),
                                   fillColor:
                                       const Color.fromARGB(30, 173, 205, 219),
                                   suffixIcon: GestureDetector(
@@ -456,14 +457,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                       _showPassword
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#f5f5f4"),
                                       size: 22,
                                     ),
                                   ),
                                   filled: true,
                                   hintText: AppStrings.passwordHintText,
                                   hintStyle: kGoogleStyleTexts.copyWith(
-                                      color: hexToColor("#5F93B1"),
+                                      color: hexToColor("#ffffff"),
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal),
                                 ),
@@ -496,26 +497,26 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
-                                    color: hexToColor("#0065A0"),
+                                    color: hexToColor("#f5f5f4"),
                                     fontSize: 15.0),
                                 maxLines: 1,
                                 obscureText: !_showPassword2,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 15),
+                                  border: InputBorder.none,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#aaaaaa"),
                                       width: 1.0,
                                     ),
                                   ),
-                                  border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: const BorderRadius.all(
-                                          Radius.circular(5.0)),
+                                          Radius.circular(10.0)),
                                       borderSide: BorderSide(
-                                          color: hexToColor("#0065A0"))),
+                                          color: hexToColor("#ffffff"))),
                                   fillColor:
                                       const Color.fromARGB(30, 173, 205, 219),
                                   suffixIcon: GestureDetector(
@@ -526,14 +527,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                       _showPassword2
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#f5f5f4"),
                                       size: 22,
                                     ),
                                   ),
                                   filled: true,
                                   hintText: AppStrings.passwordHintText,
                                   hintStyle: kGoogleStyleTexts.copyWith(
-                                      color: hexToColor("#5F93B1"),
+                                      color: hexToColor("#ffffff"),
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal),
                                 ),
@@ -565,7 +566,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   keyboardType: TextInputType.name,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color: hexToColor("#0065A0"),
+                                      color: hexToColor("#f5f5f4"),
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -575,7 +576,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#0065A0"),
+                                        color: hexToColor("#aaaaaa"),
                                         width: 1.0,
                                       ),
                                     ),
@@ -583,13 +584,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10.0)),
                                         borderSide: BorderSide(
-                                            color: hexToColor("#0065A0"))),
+                                            color: hexToColor("#ffffff"))),
                                     fillColor:
                                         const Color.fromARGB(30, 173, 205, 219),
                                     filled: true,
                                     hintText: AppStrings.panCardHintText,
                                     hintStyle: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor("#5F93B1"),
+                                        color: hexToColor("#ffffff"),
                                         fontSize: 15,
                                         fontWeight: FontWeight.normal),
                                   )),
@@ -611,7 +612,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   borderRadius: BorderRadius.circular(10.0))),
                           onPressed: register,
                           child: Text(
-                            AppStrings.loginButtonText,
+                            AppStrings.signUpText,
                             style: kGoogleStyleTexts.copyWith(
                                 color: Colors.white, fontSize: 18.0),
                           )),

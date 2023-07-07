@@ -14,6 +14,7 @@ class AppStrings {
   static const String loginButtonText = 'Login';
   static const String logoutButtonText = 'Logout';
   static const String signInText = "Sign in";
+  static const String signUpText = "Sign Up";
   static const String signInWithGoogleText = "Sign in with Google";
   static const String alreadyRegText = "Already have an account?";
   static const String signUpWithGoogle = "Sign up with Google";

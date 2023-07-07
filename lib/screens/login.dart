@@ -17,6 +17,7 @@ import 'package:potential/screens/tabspage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/cancreation.dart';
+import '../models/token.dart';
 import '../utils/appTools.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../ApiService.dart';
@@ -47,9 +48,9 @@ class _LoginPageState extends State<LoginPage> {
   late String _password = "";
 
   final TextEditingController usernameController =
-  TextEditingController(text: "pramod77484@gmail.com"); // for quick testing
+      TextEditingController(text: "pramod77484@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-  TextEditingController(text: "root123");
+      TextEditingController(text: "root123");
 
   @override
   void initState() {
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
       // AllData.investorData = Investor.fromJson(jsonDecode(s));
       String token = responseBody['data']['token'].toString();
       print(token);
-      //Token(token); // initialize token
+      Token(token); // initialize token
       // prefs.then((pref) => pref.setString(
       //     'investorData', json.encode(responseBody['investorData'])));
       // prefs.then((pref) =>
@@ -129,8 +130,7 @@ class _LoginPageState extends State<LoginPage> {
       //       );
       //await auth.setPersistence(Persistence.LOCAL);
 
-      // prefs.then(
-      //         (pref) => pref.setString('token', responseBody['token'].toString()));
+      prefs.then((pref) => pref.setString('token', token));
       // prefs.then((pref) =>
       //     pref.setString('expiry', responseBody['expiry'].toString()));
     } else {
