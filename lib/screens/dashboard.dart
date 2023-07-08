@@ -92,7 +92,7 @@ class _DashboardState extends State<Dashboard> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                                 Text(
-                                  "(${AllData.investorData.investmentData?.fundData?.length})",
+                                  "(${AllData.investorData.investedData?.fundData?.length})",
                                   style: kGoogleStyleTexts.copyWith(
                                       color: Colors.white70,
                                       fontSize: 13.0,
@@ -135,7 +135,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "\u{20B9}${oCcy.format(AllData.investorData.investmentData?.invested)}",
+                                              "\u{20B9}${oCcy.format(AllData.investorData.investedData?.invested)}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -150,7 +150,7 @@ class _DashboardState extends State<Dashboard> {
                                                   fontSize: 12.0),
                                             ),
                                             Text(
-                                              "\u{20B9}${oCcy.format(AllData.investorData.investmentData?.current)}",
+                                              "\u{20B9}${oCcy.format(AllData.investorData.investedData?.current)}",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 15.0),
@@ -187,14 +187,14 @@ class _DashboardState extends State<Dashboard> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "+ \u{20B9}${oCcy.format(AllData.investorData.investmentData?.totalRet)} ",
+                                                  "+ \u{20B9}${oCcy.format(AllData.investorData.investedData?.totalRet)} ",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
                                                           color: Colors.white,
                                                           fontSize: 15.0),
                                                 ),
                                                 Text(
-                                                  "(${AllData.investorData.investmentData?.perReturns}%)",
+                                                  "(${AllData.investorData.investedData?.perReturns}%)",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
                                                           color: Colors.white,
@@ -317,10 +317,10 @@ class _DashboardState extends State<Dashboard> {
                   shrinkWrap: true,
                   //scrollDirection: Axis.vertical,
                   itemCount:
-                      AllData.investorData.investmentData?.fundData?.length,
+                      AllData.investorData.investedData?.fundData?.length,
                   itemBuilder: (context, i) {
                     final data =
-                        AllData.investorData.investmentData?.fundData!.toList();
+                        AllData.investorData.investedData?.fundData!.toList();
                     if (gender == "Current") {
                       data?.sort((a, b) => (int.parse(srt) == 1
                           ? a.current?.compareTo(b.current as num)

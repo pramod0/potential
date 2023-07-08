@@ -108,16 +108,15 @@ class _LoginPageState extends State<LoginPage> {
       print(s);
       // AllData.investorData = Investor.fromJson(jsonDecode(s));
       String token = responseBody['data']['token'].toString();
-      print(token);
+
       Token(token); // initialize token
       // prefs.then((pref) => pref.setString(
       //     'investorData', json.encode(responseBody['investorData'])));
       // prefs.then((pref) =>
       //     pref.setString('userId', responseBody['user_id'].toString()));
-      Track.isMobileNoVerified = true;
+      //Track.isMobileNoVerified = true;
 
       // await auth.setPersistence(Persistence.LOCAL);
-
       prefs.then((pref) => pref.setString('token', token));
 
       responseBody = jsonDecode(await ApiService().dashboardAPI(token, 10, 1));

@@ -1,44 +1,45 @@
 import 'package:flutter/services.dart';
 
 class Investor {
-  String? id;
+  String? userId;
   String? name;
-  InvestmentData? investmentData;
+  InvestedData? investedData;
 
-  Investor({this.id, this.name, this.investmentData});
+  Investor({this.userId, this.name, this.investedData});
 
   Investor.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    userId = json['userId'];
     name = json['name'];
-    investmentData = json['investment_data'] != null
-        ? InvestmentData.fromJson(json['investment_data'])
+    investedData = json['investedData'] != null
+        ? InvestedData.fromJson(json['investedData'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = id;
+    data['userId'] = userId;
     data['name'] = name;
-    if (investmentData != null) {
-      data['investment_data'] = investmentData!.toJson();
+    if (investedData != null) {
+      data['investedData'] = investedData!.toJson();
     }
     return data;
   }
 }
 
-class InvestmentData {
+class InvestedData {
   int? invested;
   int? current;
   int? totalRet;
   double perReturns = 0.0;
+
   // XIIR is calculated on historical data
   // % return current-initial/initial
 
   List<FundData>? fundData;
 
-  InvestmentData({this.invested, this.current, this.fundData});
+  InvestedData({this.invested, this.current, this.fundData});
 
-  InvestmentData.fromJson(Map<String, dynamic> json) {
+  InvestedData.fromJson(Map<String, dynamic> json) {
     invested = json['invested'];
     current = json['current'];
     totalRet = (invested! + current!);
