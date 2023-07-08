@@ -3,9 +3,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -48,9 +48,9 @@ class _LoginPageState extends State<LoginPage> {
   late String _password = "";
 
   final TextEditingController usernameController =
-      TextEditingController(text: "pramod77484@gmail.com"); // for quick testing
+      TextEditingController(text: "manishj177@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "root123");
+      TextEditingController(text: "string@123");
 
   @override
   void initState() {
@@ -114,12 +114,22 @@ class _LoginPageState extends State<LoginPage> {
       //     'investorData', json.encode(responseBody['investorData'])));
       // prefs.then((pref) =>
       //     pref.setString('userId', responseBody['user_id'].toString()));
+      Track.isMobileNoVerified = true;
+
+      // await auth.setPersistence(Persistence.LOCAL);
+
+      prefs.then((pref) => pref.setString('token', token));
+
+      responseBody = jsonDecode(await ApiService().dashboardAPI(token, 10, 1));
+
+      prefs.then((pref) =>
+          pref.setString('investedData', responseBody['data'].toString()));
 
       // Track.isMobileNoVerified
       //     ? Navigator.of(context).push(
       //         MaterialPageRoute(
       //           builder: (context) => TabsPage(
-      //             selectedIndex: 0,
+      //             selectedIndex: 1,
       //           ),
       //         ),
       //       )
@@ -128,9 +138,13 @@ class _LoginPageState extends State<LoginPage> {
       //           builder: (context) => VerifyMobileNum(),
       //         ),
       //       );
-      //await auth.setPersistence(Persistence.LOCAL);
-
-      prefs.then((pref) => pref.setString('token', token));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => TabsPage(
+            selectedIndex: 1,
+          ),
+        ),
+      );
       // prefs.then((pref) =>
       //     pref.setString('expiry', responseBody['expiry'].toString()));
     } else {

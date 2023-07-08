@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 final oCcy = NumberFormat("#,##0.00", "en_US");
 
 class Dashboard extends StatefulWidget {
-  Dashboard({
+  const Dashboard({
     super.key,
   });
 

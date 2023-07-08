@@ -16,16 +16,16 @@ dependencies:
   shared_preferences: ^2.1.0
   google_fonts: ^4.0.3
   intl: ^0.17.0
-  firebase_database: ^10.1.0
-  firebase_storage: ^11.1.0
-  flutter_local_notifications: ^13.0.0
-  firebase_auth: ^4.4.0
-  firebase_core: ^2.8.0
-  firebase_messaging: ^14.3.0
-  cloud_firestore: ^4.4.5
-  google_sign_in: ^6.0.2
+#  firebase_database: ^10.1.0
+#  firebase_storage: ^11.1.0
+#  flutter_local_notifications: ^13.0.0
+#  firebase_auth: ^4.4.0
+#  firebase_core: ^2.8.0
+#  firebase_messaging: ^14.3.0
+#  cloud_firestore: ^4.4.5
+#  google_sign_in: ^6.0.2
   font_awesome_flutter: ^10.4.0
-  firebase_in_app_messaging: ^0.7.0+16
+#  firebase_in_app_messaging: ^0.7.0+16
 
 
 

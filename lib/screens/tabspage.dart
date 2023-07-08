@@ -8,7 +8,7 @@ import '../utils/styleConstants.dart';
 import '../utils/track.dart';
 
 class TabsPage extends StatefulWidget {
-  int selectedIndex = 0;
+  int selectedIndex = 2;
 
   TabsPage({
     super.key,
@@ -20,7 +20,7 @@ class TabsPage extends StatefulWidget {
 }
 
 class _TabsPageState extends State<TabsPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _onItemTapped(int index) {
     setState(() {

@@ -23,7 +23,7 @@ class AllData {
   getInvestorData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     try {
-      String? dec = pref.getString('investorData');
+      String? dec = pref.getString('investedData');
       var userMap = jsonDecode(dec!);
       investorData = Investor.fromJson(userMap);
     } catch (err) {
