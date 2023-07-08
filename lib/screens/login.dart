@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController =
       TextEditingController(text: "manishj177@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "string@123");
+      TextEditingController(text: "12345678");
 
   @override
   void initState() {

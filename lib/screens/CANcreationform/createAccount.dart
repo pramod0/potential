@@ -41,19 +41,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   ValueNotifier<bool> isLoading = ValueNotifier(false);
   final TextEditingController firstNameController =
-      TextEditingController(text: "Pramod"); // for quick testing
+      TextEditingController(text: "Manish"); // for quick testing
   final TextEditingController lastNameController =
-      TextEditingController(text: "Gupta"); // for quick testing
+      TextEditingController(text: "Jain"); // for quick testing
   final TextEditingController emailIDController = TextEditingController(
-      text: "shubhamdathia7257@gmail.com"); // for quick testing
+      text: "manishj177@gmail.com"); // for quick testing
   final TextEditingController mobileNOController =
       TextEditingController(text: "7303545657"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "pRamod@123");
+      TextEditingController(text: "12345678");
   final TextEditingController confirmPasswordController =
-      TextEditingController(text: "pRamod@123");
+      TextEditingController(text: "12345678");
   final TextEditingController panCardController =
-      TextEditingController(text: "ALLGP0957E");
+      TextEditingController(text: "ARNPJ5441N");
 
   void _toggleVisibility() {
     setState(() {
