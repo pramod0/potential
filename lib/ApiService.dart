@@ -76,7 +76,7 @@ class ApiService {
     } else {
       // Signup failed
       print(response.body);
-      throw Exception('Signup failed');
+      throw Exception('dashboard api failed');
     }
   }
 

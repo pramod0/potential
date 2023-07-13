@@ -110,6 +110,14 @@ class _LoginPageState extends State<LoginPage> {
       String token = responseBody['data']['token'].toString();
 
       Token(token); // initialize token
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => TabsPage(
+            selectedIndex: 1,
+          ),
+        ),
+      );
       // prefs.then((pref) => pref.setString(
       //     'investorData', json.encode(responseBody['investorData'])));
       // prefs.then((pref) =>
@@ -118,9 +126,7 @@ class _LoginPageState extends State<LoginPage> {
 
       // await auth.setPersistence(Persistence.LOCAL);
       prefs.then((pref) => pref.setString('token', token));
-
       responseBody = jsonDecode(await ApiService().dashboardAPI(token, 10, 1));
-
       prefs.then((pref) =>
           pref.setString('investedData', responseBody['data'].toString()));
 
@@ -137,13 +143,7 @@ class _LoginPageState extends State<LoginPage> {
       //           builder: (context) => VerifyMobileNum(),
       //         ),
       //       );
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => TabsPage(
-            selectedIndex: 1,
-          ),
-        ),
-      );
+
       // prefs.then((pref) =>
       //     pref.setString('expiry', responseBody['expiry'].toString()));
     } else {
