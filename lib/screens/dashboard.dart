@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:potential/models/token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ApiService.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
@@ -22,7 +26,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<Modal> userList = <Modal>[];
   final prefs = SharedPreferences.getInstance();
-  String? totalRet = "0";
+  String? totalReturn = "0";
   String gender = "Current";
   String srt = '0';
   late int totalFunds;
@@ -70,529 +74,620 @@ class _DashboardState extends State<Dashboard> {
       child: Scaffold(
         backgroundColor: hexToColor("#121212"),
         body: SafeArea(
-          child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
-                child: Column(
-                  children: [
-                    Column(
+          child: FutureBuilder(
+            future: getDashBoardData(),
+            builder: (context, snapshot) {
+              if(snapshot.hasError){
+                return Center(
+                  child: Text("Check your internet connection",
+                    style: kGoogleStyleTexts.copyWith(
+                        color: Colors.white, fontSize: 15.0),),
+                );
+              }
+              if(snapshot.hasData && snapshot.data == []){
+                return Center(
+                  child: Text("Consent form",
+                    style: kGoogleStyleTexts.copyWith(
+                        color: Colors.white, fontSize: 15.0),),
+                );
+              }
+
+              return Column(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
+                    child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppStrings.investments,
-                                  style: kGoogleStyleTexts.copyWith(
-                                      color: Colors.white, fontSize: 15.0),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, bottom: 10),
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      AppStrings.investments,
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: Colors.white, fontSize: 15.0),
+                                    ),
+                                    Text(
+                                      "(${AllData.investorData.investedData
+                                          ?.fundData?.length})",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: Colors.white70,
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.w100),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  "(${AllData.investorData.investedData?.fundData?.length})",
-                                  style: kGoogleStyleTexts.copyWith(
-                                      color: Colors.white70,
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.w100),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
+                            Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              decoration: const BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          child: Card(
-                            borderOnForeground: true,
-                            color: Colors.transparent, //hexToColor("#1D1D1D"),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                              child: Card(
+                                borderOnForeground: true,
+                                color: Colors.transparent,
+                                //hexToColor("#1D1D1D"),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 20),
+                                  child: Column(
                                     children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Column(
-                                          crossAxisAlignment:
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Column(
+                                              crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              AppStrings.invested,
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 12.0),
-                                            ),
-                                            Text(
-                                              "\u{20B9}${oCcy.format(AllData.investorData.investedData?.invested)}",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              AppStrings.current,
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 12.0),
-                                            ),
-                                            Text(
-                                              "\u{20B9}${oCcy.format(AllData.investorData.investedData?.current)}",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Row(
                                               children: [
-                                                Container(
-                                                  width: 4,
-                                                  height: 4,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        hexToColor("#FCAF23"),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                ),
                                                 Text(
-                                                  " Total Returns",
+                                                  AppStrings.invested,
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
+                                                      color: Colors.white70,
+                                                      fontSize: 12.0),
+                                                ),
+                                                Text(
+                                                  "\u{20B9}${oCcy.format(
+                                                      AllData.investorData
+                                                          .investedData
+                                                          ?.invested)}",
+                                                  style: kGoogleStyleTexts
+                                                      .copyWith(
+                                                      color: Colors.white,
+                                                      fontSize: 15.0),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  AppStrings.current,
+                                                  style: kGoogleStyleTexts
+                                                      .copyWith(
+                                                      color: Colors.white70,
+                                                      fontSize: 12.0),
+                                                ),
+                                                Text(
+                                                  "\u{20B9}${oCcy.format(
+                                                      AllData.investorData
+                                                          .investedData
+                                                          ?.current)}",
+                                                  style: kGoogleStyleTexts
+                                                      .copyWith(
+                                                      color: Colors.white,
+                                                      fontSize: 15.0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 4,
+                                                      height: 4,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                        hexToColor("#FCAF23"),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      " Total Returns",
+                                                      style: kGoogleStyleTexts
+                                                          .copyWith(
                                                           color: Colors.white70,
                                                           fontSize: 12.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "+ \u{20B9}${oCcy.format(
+                                                          AllData.investorData
+                                                              .investedData
+                                                              ?.totalRet)} ",
+                                                      style: kGoogleStyleTexts
+                                                          .copyWith(
+                                                          color: Colors.white,
+                                                          fontSize: 15.0),
+                                                    ),
+                                                    Text(
+                                                      "(${AllData.investorData
+                                                          .investedData
+                                                          ?.perReturns}%)",
+                                                      style: kGoogleStyleTexts
+                                                          .copyWith(
+                                                          color: Colors.white,
+                                                          fontSize: 15.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  "XIIR",
+                                                  style: kGoogleStyleTexts
+                                                      .copyWith(
+                                                      color: Colors.white70,
+                                                      fontSize: 12.0),
+                                                ),
+                                                Text(
+                                                  "--",
+                                                  style: kGoogleStyleTexts
+                                                      .copyWith(
+                                                      color: Colors.white,
+                                                      fontSize: 15.0),
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "+ \u{20B9}${oCcy.format(AllData.investorData.investedData?.totalRet)} ",
-                                                  style: kGoogleStyleTexts
-                                                      .copyWith(
-                                                          color: Colors.white,
-                                                          fontSize: 15.0),
-                                                ),
-                                                Text(
-                                                  "(${AllData.investorData.investedData?.perReturns}%)",
-                                                  style: kGoogleStyleTexts
-                                                      .copyWith(
-                                                          color: Colors.white,
-                                                          fontSize: 15.0),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              "XIIR",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 12.0),
-                                            ),
-                                            Text(
-                                              "--",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 100,
-                          decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Sort",
-                                style: kGoogleStyleTexts.copyWith(
-                                    color: Colors.white70, fontSize: 17.0),
-                              ),
-                              IconButton(
-                                icon: AnimatedContainer(
-                                  duration: const Duration(seconds: 3),
-                                  child: Transform.rotate(
-                                    angle: srt == '0' ? 0 : 180 * 3.14 / 180,
-                                    child: const Icon(
-                                      Icons.sort,
-                                      color: Colors.blueAccent,
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return buildBottomSheetContainerForSorting(
-                                          context);
-                                    },
-                                  );
-                                  //builderList
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        TextButton(
-                          child: Row(
-                            children: [
-                              Text(
-                                "<> ",
-                                style: kGoogleStyleTexts.copyWith(
-                                    color: Colors.blueAccent[400],
-                                    fontSize: 14.0),
-                              ),
-                              Text(
-                                "Current ($gender)",
-                                style: kGoogleStyleTexts.copyWith(
-                                    color: Colors.white70, fontSize: 14.0),
-                              ),
-                            ],
-                          ),
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return buildBottomSheetContainerForFilters(
-                                    context);
-                              },
-                            );
-                          },
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  //scrollDirection: Axis.vertical,
-                  itemCount:
+                  Column(
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(10))),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 100,
+                              decoration: const BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Sort",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 17.0),
+                                  ),
+                                  IconButton(
+                                    icon: AnimatedContainer(
+                                      duration: const Duration(seconds: 3),
+                                      child: Transform.rotate(
+                                        angle: srt == '0' ? 0 : 180 * 3.14 /
+                                            180,
+                                        child: const Icon(
+                                          Icons.sort,
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return buildBottomSheetContainerForSorting(
+                                              context);
+                                        },
+                                      );
+                                      //builderList
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "<> ",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.blueAccent[400],
+                                        fontSize: 14.0),
+                                  ),
+                                  Text(
+                                    "Current ($gender)",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 14.0),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return buildBottomSheetContainerForFilters(
+                                        context);
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      //scrollDirection: Axis.vertical,
+                      itemCount:
                       AllData.investorData.investedData?.fundData?.length,
-                  itemBuilder: (context, i) {
-                    final data =
+                      itemBuilder: (context, i) {
+                        final data =
                         AllData.investorData.investedData?.fundData!.toList();
-                    if (gender == "Current") {
-                      data?.sort((a, b) => (int.parse(srt) == 1
-                          ? a.current?.compareTo(b.current as num)
-                          : b.current?.compareTo(a.current as num)) as int);
-                    } else if (gender == "%Returns") {
-                      data?.sort((a, b) => (int.parse(srt) == 1
-                          ? a.perReturns.compareTo(b.perReturns)
-                          : b.perReturns.compareTo(a.perReturns)));
-                    } else if (gender == "%XIIR") {
-                      data?.sort((a, b) => (int.parse(srt) == 1
-                          ? a.fundName
+                        if (gender == "Current") {
+                          data?.sort((a, b) =>
+                          (int.parse(srt) == 1
+                              ? a.current?.compareTo(b.current as num)
+                              : b.current?.compareTo(a.current as num)) as int);
+                        } else if (gender == "%Returns") {
+                          data?.sort((a, b) =>
+                          (int.parse(srt) == 1
+                              ? a.perReturns.compareTo(b.perReturns)
+                              : b.perReturns.compareTo(a.perReturns)));
+                        } else if (gender == "%XIIR") {
+                          data?.sort((a, b) =>
+                          (int.parse(srt) == 1
+                              ? a.fundName
                               ?.toLowerCase()
                               .compareTo(b.fundName?.toLowerCase() as String)
-                          : b.fundName?.toLowerCase().compareTo(
+                              : b.fundName?.toLowerCase().compareTo(
                               a.fundName?.toLowerCase() as String)) as int);
-                    } else {
-                      data?.sort((a, b) => (int.parse(srt) == 1
-                          ? a.fundName
+                        } else {
+                          data?.sort((a, b) =>
+                          (int.parse(srt) == 1
+                              ? a.fundName
                               ?.toLowerCase()
                               .compareTo(b.fundName?.toLowerCase() as String)
-                          : b.fundName?.toLowerCase().compareTo(
+                              : b.fundName?.toLowerCase().compareTo(
                               a.fundName?.toLowerCase() as String)) as int);
-                    }
-                    final item = data![i];
+                        }
+                        final item = data![i];
 
-                    if (gender == "Current") {
-                      // data?.sort((a, b) =>
-                      //     b.current?.compareTo(a.current as num) as int);
-                      // //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
+                        if (gender == "Current") {
+                          // data?.sort((a, b) =>
+                          //     b.current?.compareTo(a.current as num) as int);
+                          // //final sortedItems=(int.parse(order))==1? investorData?.investmentData?.fundData!.reversed.toList(): investorData?.investmentData?.fundData!;
 
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
+                          return ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0),
+                              child: Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Row(
-                                    mainAxisAlignment:
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 05),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceAround,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Row(
+                                        mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
+                                        crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        child: Text(
-                                          "${item.fundName!}\nRegular Growth",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.white70,
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                        ),
+                                        children: [
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            child: Text(
+                                              "${item
+                                                  .fundName!}\nRegular Growth",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 14.0),
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              "\u{20B9}${oCcy.format(
+                                                  item.current!)}",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.blueAccent[400],
+                                                  fontSize: 14.0),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text(
-                                          "\u{20B9}${oCcy.format(item.current!)}",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.blueAccent[400],
-                                              fontSize: 14.0),
-                                        ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "(\u{20B9}${oCcy.format(
+                                            item.invested!)})",
+                                        style: kGoogleStyleTexts.copyWith(
+                                            color: Colors.white70,
+                                            fontSize: 12.0),
                                       ),
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "(\u{20B9}${oCcy.format(item.invested!)})",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 12.0),
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    } else if (gender == "%Returns") {
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
+                          );
+                        } else if (gender == "%Returns") {
+                          return ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0),
+                              child: Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Row(
-                                    mainAxisAlignment:
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 05),
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Row(
+                                        mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
+                                        crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        child: Text(
-                                          "${item.fundName!}\nRegular Growth",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.white70,
-                                              fontSize: 14.0),
-                                          //softWrap: true,
-                                        ),
+                                        children: [
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            child: Text(
+                                              "${item
+                                                  .fundName!}\nRegular Growth",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 14.0),
+                                              //softWrap: true,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              "${item.perReturns
+                                                  .toStringAsFixed(2)}%",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.blueAccent[400],
+                                                  fontSize: 14.0),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text(
-                                          "${item.perReturns.toStringAsFixed(2)}%",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.blueAccent[400],
-                                              fontSize: 14.0),
-                                        ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "(\u{20B9}${oCcy.format(
+                                            item.invested!)})",
+                                        style: kGoogleStyleTexts.copyWith(
+                                            color: Colors.white70,
+                                            fontSize: 12.0),
                                       ),
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "(\u{20B9}${oCcy.format(item.invested!)})",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 12.0),
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    } else if (gender == "%XIIR") {
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
+                          );
+                        } else if (gender == "%XIIR") {
+                          return ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0),
+                              child: Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Row(
-                                    mainAxisAlignment:
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 05),
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Row(
+                                        mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
+                                        crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        child: Text(
-                                          "${item.fundName!}\nRegular Growth",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.white70,
-                                              fontSize: 14.0),
-                                          //softWrap: true,
-                                        ),
+                                        children: [
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            child: Text(
+                                              "${item
+                                                  .fundName!}\nRegular Growth",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 14.0),
+                                              //softWrap: true,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              "\u{20B9}${oCcy.format(
+                                                  item.current!)}",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.blueAccent[400],
+                                                  fontSize: 14.0),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text(
-                                          "\u{20B9}${oCcy.format(item.current!)}",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.blueAccent[400],
-                                              fontSize: 14.0),
-                                        ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "(\u{20B9}${oCcy.format(
+                                            item.invested!)})",
+                                        style: kGoogleStyleTexts.copyWith(
+                                            color: Colors.white70,
+                                            fontSize: 12.0),
                                       ),
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "(\u{20B9}${oCcy.format(item.invested!)})",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 12.0),
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
+                          );
+                        } else {
+                          return ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0),
+                              child: Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Row(
-                                    mainAxisAlignment:
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 05),
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Row(
+                                        mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
+                                        crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        child: Text(
-                                          "${item.fundName!}\nRegular Growth",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.white70,
-                                              fontSize: 14.0),
-                                          //softWrap: true,
-                                        ),
+                                        children: [
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            child: Text(
+                                              "${item
+                                                  .fundName!}\nRegular Growth",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 14.0),
+                                              //softWrap: true,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              "\u{20B9}${oCcy.format(
+                                                  item.current!)}",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.blueAccent[400],
+                                                  fontSize: 14.0),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text(
-                                          "\u{20B9}${oCcy.format(item.current!)}",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: Colors.blueAccent[400],
-                                              fontSize: 14.0),
-                                        ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "(\u{20B9}${oCcy.format(
+                                            item.invested!)})",
+                                        style: kGoogleStyleTexts.copyWith(
+                                            color: Colors.white70,
+                                            fontSize: 12.0),
                                       ),
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "(\u{20B9}${oCcy.format(item.invested!)})",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 12.0),
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-            ],
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              );
+
+            }
           ),
+
         ),
       ),
     );
@@ -754,6 +849,22 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
     );
+  }
+
+  getDashBoardData() async {
+    // prefs.then((pref) => pref.setString('token', token));
+    print(Token.instance.token);
+    var responseBody = jsonDecode(await ApiService().dashboardAPI(Token.instance.token, 10, 0));
+    if (responseBody?['success'] == true) {
+      print(responseBody["data"]);
+      return responseBody["data"];
+      // #TODO store data properly
+      prefs.then((pref) =>
+          pref.setString('investedData', responseBody['data'].toString()));
+    }
+
+    return [];
+
   }
 }
 

@@ -143,6 +143,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 10,
                   ),
                   InkWell(
+                    mouseCursor: MaterialStateMouseCursor.clickable,
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -164,7 +165,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           Text(
                             AppStrings.signInText,
                             style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white, fontSize: 18.0),
+                                color: Colors.blueAccent, fontSize: 18.0),
                           ),
                         ],
                       ),

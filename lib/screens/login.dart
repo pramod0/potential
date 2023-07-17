@@ -105,10 +105,10 @@ class _LoginPageState extends State<LoginPage> {
     EasyLoading.dismiss();
     if (responseBody?['success'] == true) {
       var s = json.encode(responseBody['data']);
-      print(s);
+      // print(s);
       // AllData.investorData = Investor.fromJson(jsonDecode(s));
-      String token = responseBody['data']['token'].toString();
-
+      String token = responseBody['data']['access_token'].toString();
+      // print("pramod "+token);
       Token(token); // initialize token
 
       Navigator.of(context).push(
@@ -125,10 +125,6 @@ class _LoginPageState extends State<LoginPage> {
       //Track.isMobileNoVerified = true;
 
       // await auth.setPersistence(Persistence.LOCAL);
-      prefs.then((pref) => pref.setString('token', token));
-      responseBody = jsonDecode(await ApiService().dashboardAPI(token, 10, 1));
-      prefs.then((pref) =>
-          pref.setString('investedData', responseBody['data'].toString()));
 
       // Track.isMobileNoVerified
       //     ? Navigator.of(context).push(
