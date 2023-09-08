@@ -1,14 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 import 'dart:io';
 
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
 import 'package:potential/utils/AllData.dart';
@@ -97,66 +93,93 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
 
-    final String userName = usernameController.text;
-    final String password = passwordController.text;
+    try {
+      final String userName = usernameController.text;
+      final String password = passwordController.text;
 
-    var responseBody = jsonDecode(
-        await ApiService().processLogin(userName, password, context));
-    EasyLoading.dismiss();
-    if (responseBody?['success'] == true) {
-      var s = json.encode(responseBody['data']);
-      print(s);
-      // AllData.investorData = Investor.fromJson(jsonDecode(s));
-      String token = responseBody['data']['token'].toString();
+      var responseBody = jsonDecode(
+          await ApiService().processLogin(userName, password, context));
+      EasyLoading.dismiss();
+      if (responseBody['success'] == true) {
+        // var s = json.encode(responseBody['data']);
+        // if (kDebugMode) {
+        //   print(s);
+        // }
+        // AllData.investorData = Investor.fromJson(jsonDecode(s));
+        String token = responseBody['data']['token'].toString();
 
-      Token(token); // initialize token
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => TabsPage(
-            selectedIndex: 1,
+        Token(token); // initialize token
+        prefs.then((pref) => pref.setString('token', token));
+        // print("token: $token\nuserData: ${responseBody['data']['userData']}");
+        User investorData = User.fromJson(responseBody['data']['userData']);
+        prefs.then((pref) => pref.setString(
+            'investorData', responseBody['data']['userData'].toString()));
+        AllData.setInvestorData(investorData);
+        // if (kDebugMode) {
+        //   print(investorData.firstName);
+        // }
+        responseBody =
+            jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
+        if (kDebugMode) {
+          print(responseBody.toString());
+        }
+        InvestedData investedData = InvestedData.fromJson(responseBody['data']);
+        if (kDebugMode) {
+          print("responseBody.toString()");
+        }
+        if (kDebugMode) {
+          print(investedData.invested);
+        }
+        prefs.then((pref) =>
+            pref.setString('investedData', responseBody['data'].toString()));
+        AllData.setInvestmentData(investedData);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => TabsPage(
+              selectedIndex: 1,
+            ),
           ),
-        ),
-      );
-      // prefs.then((pref) => pref.setString(
-      //     'investorData', json.encode(responseBody['investorData'])));
-      // prefs.then((pref) =>
-      //     pref.setString('userId', responseBody['user_id'].toString()));
-      //Track.isMobileNoVerified = true;
+        );
 
-      // await auth.setPersistence(Persistence.LOCAL);
-      prefs.then((pref) => pref.setString('token', token));
-      responseBody = jsonDecode(await ApiService().dashboardAPI(token, 10, 1));
-      prefs.then((pref) =>
-          pref.setString('investedData', responseBody['data'].toString()));
+        // prefs.then((pref) =>
+        //     pref.setString('userId', responseBody['user_id'].toString()));
+        //Track.isMobileNoVerified = true;
 
-      // Track.isMobileNoVerified
-      //     ? Navigator.of(context).push(
-      //         MaterialPageRoute(
-      //           builder: (context) => TabsPage(
-      //             selectedIndex: 1,
-      //           ),
-      //         ),
-      //       )
-      //     : Navigator.of(context).push(
-      //         MaterialPageRoute(
-      //           builder: (context) => VerifyMobileNum(),
-      //         ),
-      //       );
+        // await auth.setPersistence(Persistence.LOCAL);
 
-      // prefs.then((pref) =>
-      //     pref.setString('expiry', responseBody['expiry'].toString()));
-    } else {
-      var message = responseBody['message'] ?? "Failed to login";
-      if (userName.isEmpty && password.isEmpty) {
-        showSnackBar("Please enter username & password", Colors.red);
-      } else if (userName.isEmpty) {
-        showSnackBar("Username is required", Colors.red);
-      } else if (password.isEmpty) {
-        showSnackBar("Password is required", Colors.red);
+        // Track.isMobileNoVerified
+        //     ? Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //           builder: (context) => TabsPage(
+        //             selectedIndex: 1,
+        //           ),
+        //         ),
+        //       )
+        //     : Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //           builder: (context) => VerifyMobileNum(),
+        //         ),
+        //       );
+
+        // prefs.then((pref) =>
+        //     pref.setString('expiry', responseBody['expiry'].toString()));
       } else {
-        showSnackBar(message, Colors.red);
+        var message = responseBody['message'] ?? "Failed to login";
+        if (userName.isEmpty && password.isEmpty) {
+          showSnackBar("Please enter username & password", Colors.red);
+        } else if (userName.isEmpty) {
+          showSnackBar("Username is required", Colors.red);
+        } else if (password.isEmpty) {
+          showSnackBar("Password is required", Colors.red);
+        } else {
+          showSnackBar(message, Colors.red);
+        }
       }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      EasyLoading.dismiss();
     }
   }
 

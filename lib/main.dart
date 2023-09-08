@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/screens/splash.dart';
+
 void main() async {
   runApp(const MyApp());
 }
@@ -15,14 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Splash(),
-
+      home: const Splash(),
       builder: EasyLoading.init(),
     );
   }
 }
 
-// #TODO Gitesh why was this added please comment
+// Gitesh why was this added please comment
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {

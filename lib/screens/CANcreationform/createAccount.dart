@@ -44,8 +44,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       TextEditingController(text: "Manish"); // for quick testing
   final TextEditingController lastNameController =
       TextEditingController(text: "Jain"); // for quick testing
-  final TextEditingController emailIDController = TextEditingController(
-      text: "manishj177@gmail.com"); // for quick testing
+  final TextEditingController emailIDController =
+      TextEditingController(text: "manishj177@gmail.com"); // for quick testing
   final TextEditingController mobileNOController =
       TextEditingController(text: "7303545657"); // for quick testing
   final TextEditingController passwordController =

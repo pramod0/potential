@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:potential/screens/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/AllData.dart';
@@ -18,12 +17,10 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   final prefs = SharedPreferences.getInstance();
   late AnimationController controller;
   late Animation<double> animation;
-
   AllData allData = AllData();
 
   @override
   void initState() {
-
     super.initState();
     controller = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);

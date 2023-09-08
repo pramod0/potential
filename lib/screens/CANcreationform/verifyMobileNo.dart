@@ -224,9 +224,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: TextFormField(
               textInputAction: TextInputAction.next,
               controller: mobileNOController,
-              initialValue: AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS
-                  ?.hOLDERRECORD?.cONTACTDETAIL?.pRIMOBNO
-                  .toString(),
+              initialValue: '0',
               onSaved: (val) => mobileNOController.text = val!,
               keyboardType: TextInputType.number,
               style: kGoogleStyleTexts.copyWith(
