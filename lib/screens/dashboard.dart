@@ -207,18 +207,18 @@ class _DashboardState extends State<Dashboard> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            Text(
-                                              "XIIR",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: 12.0),
-                                            ),
-                                            Text(
-                                              "--",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0),
-                                            ),
+                                            // Text(
+                                            //   "XIIR",
+                                            //   style: kGoogleStyleTexts.copyWith(
+                                            //       color: Colors.white70,
+                                            //       fontSize: 12.0),
+                                            // ),
+                                            // Text(
+                                            //   "--",
+                                            //   style: kGoogleStyleTexts.copyWith(
+                                            //       color: Colors.white,
+                                            //       fontSize: 15.0),
+                                            // ),
                                           ],
                                         ),
                                       ),
@@ -721,23 +721,23 @@ class _DashboardState extends State<Dashboard> {
                 },
                 controlAffinity: ListTileControlAffinity.trailing,
               ),
-              RadioListTile(
-                title: Text(
-                  '%XIRR',
-                  style: kGoogleStyleTexts.copyWith(
-                      color: Colors.white70, fontSize: 17.0),
-                ),
-                value: "%XIIR",
-                groupValue: sortFeature,
-                onChanged: (value) {
-                  setState(() {
-                    sortFeature = value.toString();
-                    srt = "0";
-                    Navigator.of(context).pop();
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.trailing,
-              ),
+              // RadioListTile(
+              //   title: Text(
+              //     '%XIRR',
+              //     style: kGoogleStyleTexts.copyWith(
+              //         color: Colors.white70, fontSize: 17.0),
+              //   ),
+              //   value: "%XIIR",
+              //   groupValue: sortFeature,
+              //   onChanged: (value) {
+              //     setState(() {
+              //       sortFeature = value.toString();
+              //       srt = "0";
+              //       Navigator.of(context).pop();
+              //     });
+              //   },
+              //   controlAffinity: ListTileControlAffinity.trailing,
+              // ),
               RadioListTile(
                 title: Text(
                   '%Returns',
