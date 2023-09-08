@@ -3,30 +3,21 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:potential/screens/CANcreationform/createAccount.dart';
 import 'package:potential/screens/login.dart';
-import 'package:potential/screens/tabspage.dart';
 import 'package:potential/utils/appTools.dart';
 import 'package:potential/utils/googleSignIn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
 import '../app_assets_constants/AppStrings.dart';
-import '../models/cancreation.dart';
-import '../models/investor.dart';
-import '../utils/AllData.dart';
-import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
 import '../utils/track.dart';
 import 'CANcreationform/verifyMobileNo.dart';
 
 class RegistrationPage extends StatefulWidget {
-  late final CANIndFillEezzReq fillEezzReq;
-
-  RegistrationPage({Key? key, required this.fillEezzReq}) : super(key: key);
+  RegistrationPage({Key? key}) : super(key: key);
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -120,34 +111,34 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width - 10,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: hexToColor("#0065A0"),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0))),
-                        onPressed: () {
-                          signInWithGoogle(context);
-                        },
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/googleLogo.png",
-                              height: 30,
-                              width: 30,
-                            ),
-                            Text(
-                              " ${AppStrings.signUpWithGoogle}",
-                              style: kGoogleStyleTexts.copyWith(
-                                  color: Colors.white, fontSize: 18.0),
-                            ),
-                          ],
-                        )),
-                  ),
+                  // SizedBox(
+                  //   height: 55,
+                  //   width: MediaQuery.of(context).size.width - 10,
+                  //   child: ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //           backgroundColor: hexToColor("#0065A0"),
+                  //           shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(8.0))),
+                  //       onPressed: () {
+                  //         signInWithGoogle(context);
+                  //       },
+                  //       child: Row(
+                  //         crossAxisAlignment: CrossAxisAlignment.center,
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Image.asset(
+                  //             "assets/googleLogo.png",
+                  //             height: 30,
+                  //             width: 30,
+                  //           ),
+                  //           Text(
+                  //             " ${AppStrings.signUpWithGoogle}",
+                  //             style: kGoogleStyleTexts.copyWith(
+                  //                 color: Colors.white, fontSize: 18.0),
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -166,14 +157,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppStrings.alreadyRegText + " ",
+                            "${AppStrings.alreadyRegText} ",
                             style: kGoogleStyleTexts.copyWith(
                                 color: Colors.white, fontSize: 18.0),
                           ),
                           Text(
                             AppStrings.signInText,
                             style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white, fontSize: 18.0),
+                                color: Colors.blueAccent, fontSize: 18.0),
                           ),
                         ],
                       ),

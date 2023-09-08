@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/screens/tabspage.dart';
 import 'package:potential/utils/AllData.dart';
 import 'package:potential/utils/appTools.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../app_assets_constants/AppColors.dart';
 import '../../app_assets_constants/AppStrings.dart';
@@ -35,7 +35,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   final TextEditingController otpController5 = TextEditingController(text: "");
   final TextEditingController otpController6 = TextEditingController(text: "");
   final TextEditingController otpController = TextEditingController(text: "");
-  final auth = FirebaseAuth.instance;
+  // final auth = FirebaseAuth.instance;
 
   // otpDialogBox(BuildContext context) {
   //   return showDialog(
@@ -79,8 +79,8 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   String? otp, authStatus = "";
 
   Future<void> signIn(String otp) async {
-    await auth.setSettings(phoneNumber: "+91 7303 545 657");
-    await FirebaseAuth.instance.signInWithPhoneNumber("+91 7303 545 657");
+    // await auth.setSettings(phoneNumber: "+91 7303 545 657");
+    // await FirebaseAuth.instance.signInWithPhoneNumber("+91 7303 545 657");
   }
 
   // Future<void> _logout() async {
@@ -97,75 +97,75 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
         "+91 ${mobileNOController.text[0]}${mobileNOController.text[1]}${mobileNOController.text[2]}${mobileNOController.text[3]} "
         "${mobileNOController.text[4]}${mobileNOController.text[5]}${mobileNOController.text[6]} "
         "${mobileNOController.text[7]}${mobileNOController.text[8]}${mobileNOController.text[9]} ";
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      timeout: const Duration(seconds: 120),
-      verificationCompleted: (AuthCredential authCredential) {
-        setState(() {
-          authStatus = "Your account is successfully verified";
-        });
-
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => TabsPage(
-        //       selectedIndex: 0,
-        //     ),
-        //   ),
-        // );
-      },
-      verificationFailed: (FirebaseAuthException authException) {
-        setState(() {
-          authStatus = "Authentication failed";
-        });
-      },
-      codeSent: (String verId, [int? forceCodeResent]) {
-        Track.isOTPGenerated = true;
-        verificationId = verId;
-        setState(() {
-          authStatus = "OTP has been successfully send\nIt is valid for 30";
-        });
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => AlertDialog(
-                  title: const Text("Enter SMS Code"),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      TextField(
-                        controller: otpController,
-                      ),
-                    ],
-                  ),
-                  actions: <Widget>[
-                    ElevatedButton(
-                      onPressed: performVerification(context),
-                      child: const Text("Done"),
-                    )
-                  ],
-                ));
-      },
-      codeAutoRetrievalTimeout: (String verId) {
-        verificationId = verId;
-        setState(() {
-          authStatus = "TIMEOUT";
-        });
-      },
-    );
+    // await FirebaseAuth.instance.verifyPhoneNumber(
+    //   phoneNumber: phoneNumber,
+    //   timeout: const Duration(seconds: 120),
+    //   verificationCompleted: (AuthCredential authCredential) {
+    //     setState(() {
+    //       authStatus = "Your account is successfully verified";
+    //     });
+    //
+    //     // Navigator.of(context).push(
+    //     //   MaterialPageRoute(
+    //     //     builder: (context) => TabsPage(
+    //     //       selectedIndex: 0,
+    //     //     ),
+    //     //   ),
+    //     // );
+    //   },
+    //   verificationFailed: (FirebaseAuthException authException) {
+    //     setState(() {
+    //       authStatus = "Authentication failed";
+    //     });
+    //   },
+    //   codeSent: (String verId, [int? forceCodeResent]) {
+    //     Track.isOTPGenerated = true;
+    //     verificationId = verId;
+    //     setState(() {
+    //       authStatus = "OTP has been successfully send\nIt is valid for 30";
+    //     });
+    //     showDialog(
+    //         context: context,
+    //         barrierDismissible: false,
+    //         builder: (context) => AlertDialog(
+    //               title: const Text("Enter SMS Code"),
+    //               content: Column(
+    //                 mainAxisSize: MainAxisSize.min,
+    //                 children: <Widget>[
+    //                   TextField(
+    //                     controller: otpController,
+    //                   ),
+    //                 ],
+    //               ),
+    //               actions: <Widget>[
+    //                 ElevatedButton(
+    //                   onPressed: performVerification(context),
+    //                   child: const Text("Done"),
+    //                 )
+    //               ],
+    //             ));
+    //   },
+    //   codeAutoRetrievalTimeout: (String verId) {
+    //     verificationId = verId;
+    //     setState(() {
+    //       authStatus = "TIMEOUT";
+    //     });
+    //   },
+    // );
   }
 
   performVerification(BuildContext context) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    var smsCode = otpController.text.trim();
-
-    var credential = PhoneAuthProvider.credential(
-        verificationId: verificationId!, smsCode: smsCode);
-    await auth.signInWithCredential(credential).catchError((e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    });
+    // FirebaseAuth auth = FirebaseAuth.instance;
+    //
+    // var smsCode = otpController.text.trim();
+    //
+    // var credential = PhoneAuthProvider.credential(
+    //     verificationId: verificationId!, smsCode: smsCode);
+    // await auth.signInWithCredential(credential).catchError((e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    // });
     // Navigator.pushReplacement(context,
     //     MaterialPageRoute(builder: (context) => TabsPage(selectedIndex: 0)));
     // Track.isMobileNoVerified = true;
@@ -224,9 +224,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: TextFormField(
               textInputAction: TextInputAction.next,
               controller: mobileNOController,
-              initialValue: AllData.fillEezzReq.rEQBODY?.hOLDERRECORDS
-                  ?.hOLDERRECORD?.cONTACTDETAIL?.pRIMOBNO
-                  .toString(),
+              initialValue: '0',
               onSaved: (val) => mobileNOController.text = val!,
               keyboardType: TextInputType.number,
               style: kGoogleStyleTexts.copyWith(

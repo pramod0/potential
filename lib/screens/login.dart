@@ -1,14 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
 import 'package:potential/utils/AllData.dart';
@@ -17,6 +13,7 @@ import 'package:potential/screens/tabspage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/cancreation.dart';
+import '../models/token.dart';
 import '../utils/appTools.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../ApiService.dart';
@@ -36,24 +33,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  // final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final prefs = SharedPreferences.getInstance();
   bool _showPassword = false;
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-  // Disable persistence on web platforms. Must be called on initialization:
-  final auth = FirebaseAuth.instanceFor(
-      app: Firebase.app(), persistence: Persistence.NONE);
-// To change it after initialization, use `setPersistence()`:
 
   late String _username = "";
   late String _password = "";
 
   final TextEditingController usernameController =
-  TextEditingController(text: "pramod77484@gmail.com"); // for quick testing
+      TextEditingController(/*text: "manishj177@gmail.com"*/); // for quick testing
   final TextEditingController passwordController =
-  TextEditingController(text: "root123");
+      TextEditingController(/*text: "12345678"*/);
 
   @override
   void initState() {
@@ -100,54 +93,93 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
 
-    final String userName = usernameController.text;
-    final String password = passwordController.text;
+    try {
+      final String userName = usernameController.text;
+      final String password = passwordController.text;
 
-    var responseBody = jsonDecode(
-        await ApiService().processLogin(userName, password, context));
-    EasyLoading.dismiss();
-    if (responseBody?['status_code'] == 1000) {
-      String s = json.encode(responseBody['investorData']);
-      AllData.investorData = Investor.fromJson(jsonDecode(s));
-      //String token = responseBody['token'].toString();
-      //Token(token); // initialize token
-      prefs.then((pref) => pref.setString(
-          'investorData', json.encode(responseBody['investorData'])));
-      prefs.then((pref) =>
-          pref.setString('userId', responseBody['user_id'].toString()));
-      auth.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
+      var responseBody = jsonDecode(
+          await ApiService().processLogin(userName, password, context));
+      EasyLoading.dismiss();
+      if (responseBody['success'] == true) {
+        // var s = json.encode(responseBody['data']);
+        // if (kDebugMode) {
+        //   print(s);
+        // }
+        // AllData.investorData = Investor.fromJson(jsonDecode(s));
+        String token = responseBody['data']['token'].toString();
 
-      Track.isMobileNoVerified
-          ? Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => TabsPage(
-                  selectedIndex: 0,
-                ),
-              ),
-            )
-          : Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => VerifyMobileNum(),
-              ),
-            );
-      //await auth.setPersistence(Persistence.LOCAL);
+        Token(token); // initialize token
+        prefs.then((pref) => pref.setString('token', token));
+        // print("token: $token\nuserData: ${responseBody['data']['userData']}");
+        User investorData = User.fromJson(responseBody['data']['userData']);
+        prefs.then((pref) => pref.setString(
+            'investorData', responseBody['data']['userData'].toString()));
+        AllData.setInvestorData(investorData);
+        // if (kDebugMode) {
+        //   print(investorData.firstName);
+        // }
+        responseBody =
+            jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
+        if (kDebugMode) {
+          print(responseBody.toString());
+        }
+        InvestedData investedData = InvestedData.fromJson(responseBody['data']);
+        if (kDebugMode) {
+          print("responseBody.toString()");
+        }
+        if (kDebugMode) {
+          print(investedData.invested);
+        }
+        prefs.then((pref) =>
+            pref.setString('investedData', responseBody['data'].toString()));
+        AllData.setInvestmentData(investedData);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => TabsPage(
+              selectedIndex: 1,
+            ),
+          ),
+        );
 
-      // prefs.then(
-      //         (pref) => pref.setString('token', responseBody['token'].toString()));
-      // prefs.then((pref) =>
-      //     pref.setString('expiry', responseBody['expiry'].toString()));
-    } else {
-      var message = responseBody['message'] ?? "Failed to login";
-      if (userName.isEmpty && password.isEmpty) {
-        showSnackBar("Please enter username & password", Colors.red);
-      } else if (userName.isEmpty) {
-        showSnackBar("Username is required", Colors.red);
-      } else if (password.isEmpty) {
-        showSnackBar("Password is required", Colors.red);
+        // prefs.then((pref) =>
+        //     pref.setString('userId', responseBody['user_id'].toString()));
+        //Track.isMobileNoVerified = true;
+
+        // await auth.setPersistence(Persistence.LOCAL);
+
+        // Track.isMobileNoVerified
+        //     ? Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //           builder: (context) => TabsPage(
+        //             selectedIndex: 1,
+        //           ),
+        //         ),
+        //       )
+        //     : Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //           builder: (context) => VerifyMobileNum(),
+        //         ),
+        //       );
+
+        // prefs.then((pref) =>
+        //     pref.setString('expiry', responseBody['expiry'].toString()));
       } else {
-        showSnackBar(message, Colors.red);
+        var message = responseBody['message'] ?? "Failed to login";
+        if (userName.isEmpty && password.isEmpty) {
+          showSnackBar("Please enter username & password", Colors.red);
+        } else if (userName.isEmpty) {
+          showSnackBar("Username is required", Colors.red);
+        } else if (password.isEmpty) {
+          showSnackBar("Password is required", Colors.red);
+        } else {
+          showSnackBar(message, Colors.red);
+        }
       }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      EasyLoading.dismiss();
     }
   }
 
@@ -350,23 +382,23 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white, fontSize: 18.0),
                       )),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Theme(
-                  data: ThemeData(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                  ),
-                  child: TextButton(
-                    onPressed: () => {signInWithGoogle(context)},
-                    child: Text(
-                      AppStrings.signInWithGoogleText,
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white, fontSize: 18.0),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 30,
+                // ),
+                // Theme(
+                //   data: ThemeData(
+                //     splashColor: Colors.transparent,
+                //     highlightColor: Colors.transparent,
+                //   ),
+                //   child: TextButton(
+                //     onPressed: () => {signInWithGoogle(context)},
+                //     child: Text(
+                //       AppStrings.signInWithGoogleText,
+                //       style: kGoogleStyleTexts.copyWith(
+                //           color: Colors.white, fontSize: 18.0),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

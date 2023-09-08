@@ -6,9 +6,9 @@ import '../app_assets_constants/AppStrings.dart';
 //import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-final auth = FirebaseAuth.instance;
+// import 'package:firebase_auth/firebase_auth.dart';
+//
+// final auth = FirebaseAuth.instance;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _logout() {
     try {
-      FirebaseAuth.instance.signOut();
+      //FirebaseAuth.instance.signOut();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),
@@ -107,19 +107,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      "UserId: ${auth.currentUser?.uid}",
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white, fontSize: 15.0),
-                    ),
+                    // Text(
+                    //   "UserId: ${auth.currentUser?.uid}",
+                    //   style: kGoogleStyleTexts.copyWith(
+                    //       color: Colors.white, fontSize: 15.0),
+                    // ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      "Registered Phone Number: ${auth.currentUser?.phoneNumber}ind",
-                      style: kGoogleStyleTexts.copyWith(
-                          color: Colors.white, fontSize: 15.0),
-                    ),
+                    // Text(
+                    //   "Registered Phone Number: ${auth.currentUser?.phoneNumber}ind",
+                    //   style: kGoogleStyleTexts.copyWith(
+                    //       color: Colors.white, fontSize: 15.0),
+                    // ),
                     const SizedBox(
                       height: 20,
                     ),

@@ -92,11 +92,13 @@ class Validations {
     return null;
   }
 
-  String? accountValidation(String fname, String lname, String mobnum,
-      String email, String password) {
+  String? accountValidation(String fname, String lname, String mobNum,
+      String email, String password, String cPassword, String panCard) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    Pattern pattern2 = '[A-Z]{5}[0-9]{4}[A-Z]{1}';
     RegExp regex = RegExp(pattern.toString());
+    RegExp regex2 = RegExp(pattern2.toString());
     if (email.isEmpty) {
       return AppStrings.isEmailRequired;
     }
@@ -106,7 +108,7 @@ class Validations {
     if (lname.isEmpty) {
       return AppStrings.isLNameRequired;
     }
-    if (mobnum.isEmpty) {
+    if (mobNum.isEmpty) {
       return AppStrings.isMobNoRequired;
     }
     if (!regex.hasMatch(email)) {
@@ -121,7 +123,22 @@ class Validations {
     if (password.length > 16) {
       return AppStrings.passwordLength16ErrorText;
     }
-    if (mobnum.length < 10 || mobnum.length > 10) {
+    if (cPassword.isEmpty) {
+      return AppStrings.isPasswordRequired;
+    }
+    if (cPassword.length < 8) {
+      return AppStrings.passwordLength8ErrorText;
+    }
+    if (cPassword.length > 16) {
+      return AppStrings.passwordLength16ErrorText;
+    }
+    if (password != cPassword) {
+      return AppStrings.samePass;
+    }
+    if (!regex2.hasMatch(panCard)) {
+      return AppStrings.inValidPAN;
+    }
+    if (mobNum.length < 10 || mobNum.length > 10) {
       return AppStrings.mobNoErrorText;
     }
     return null;
