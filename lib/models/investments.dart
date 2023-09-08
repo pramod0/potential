@@ -10,7 +10,7 @@ class InvestedData {
   InvestedData.fromJson(Map<String, dynamic> json) {
     invested = json['invested'];
     current = json['current'];
-    totalReturns = invested! + current!;
+    totalReturns = current! - invested!;
     totalReturnsPercentage = (current! - invested!) / invested! * 100;
     if (json['fundData'] != null) {
       fundData = <FundData>[];
@@ -24,7 +24,7 @@ class InvestedData {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['invested'] = invested;
     data['current'] = current;
-    data['totalReturns'] = invested! + current!;
+    data['totalReturns'] = current! - invested!;
     data['totalReturnsPercentage'] = totalReturnsPercentage;
     if (fundData != null) {
       data['fundData'] = fundData!.map((v) => v.toJson()).toList();
@@ -45,6 +45,7 @@ class FundData {
   var navDate;
   int? invested;
   var perReturns;
+  var totalReturns;
 
   FundData(
       {this.id,
@@ -69,6 +70,7 @@ class FundData {
     nav = json['nav'];
     navDate = json['navDate'];
     invested = json['invested'];
+    totalReturns = currentValue! - invested!;
     perReturns = (currentValue! - invested!) / invested! * 100;
   }
 
