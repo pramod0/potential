@@ -44,9 +44,9 @@ class _LoginPageState extends State<LoginPage> {
   late String _password = "";
 
   final TextEditingController usernameController =
-      TextEditingController(text: "manishj177@gmail.com"); // for quick testing
+      TextEditingController(/*text: "manishj177@gmail.com"*/); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "12345678");
+      TextEditingController(/*text: "12345678"*/);
 
   @override
   void initState() {

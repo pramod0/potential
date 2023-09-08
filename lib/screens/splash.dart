@@ -14,7 +14,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
-  final prefs = SharedPreferences.getInstance();
+ //  final prefs = SharedPreferences.getInstance(); // stores user data and invested data
   late AnimationController controller;
   late Animation<double> animation;
   AllData allData = AllData();
