@@ -7,6 +7,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
+import 'package:potential/screens/CheckConsent/NoConsent.dart';
+import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/utils/AllData.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:potential/screens/tabspage.dart';
@@ -44,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
   late String _password = "";
 
   final TextEditingController usernameController =
-      TextEditingController(/*text: "manishj177@gmail.com"*/); // for quick testing
+      TextEditingController(text: "pramodgupta@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(/*text: "12345678"*/);
+      TextEditingController(text: "12345678");
 
   @override
   void initState() {
@@ -99,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
       var responseBody = jsonDecode(
           await ApiService().processLogin(userName, password, context));
-      EasyLoading.dismiss();
+      //await EasyLoading.dismiss();
       if (responseBody['success'] == true) {
         // var s = json.encode(responseBody['data']);
         // if (kDebugMode) {
@@ -118,6 +120,21 @@ class _LoginPageState extends State<LoginPage> {
         // if (kDebugMode) {
         //   print(investorData.firstName);
         // }
+        if (responseBody['data']['can'] == 'No') {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const CheckCANNO()),
+          );
+        }
+        if (responseBody['data']['consent'] == 'No') {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => TakeConsentPage(
+                    can: responseBody['data']['can'],
+                    pan: responseBody['data']['userData']['panCard'])),
+          );
+        }
+        //if consent but no data
+        //todo: implement route
         responseBody =
             jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
         if (kDebugMode) {
@@ -132,14 +149,16 @@ class _LoginPageState extends State<LoginPage> {
         }
         prefs.then((pref) =>
             pref.setString('investedData', responseBody['data'].toString()));
+
         AllData.setInvestmentData(investedData);
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TabsPage(
-              selectedIndex: 1,
-            ),
-          ),
+          MaterialPageRoute(builder: (context) => const Dashboard()
+              //     TabsPage(
+              //   selectedIndex: 0,
+              // ),
+              ),
         );
+        await EasyLoading.dismiss();
 
         // prefs.then((pref) =>
         //     pref.setString('userId', responseBody['user_id'].toString()));

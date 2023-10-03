@@ -63,6 +63,26 @@ class ApiService {
     return response.body;
   }
 
+  // Future<bool> checkConsentdone(
+  //     String can, String pan, DateTime dob, BuildContext context) async {
+  //   Uri loginUri = Uri.parse('${Constants.domainURL}${Constants.loginURL}');
+  //   if (kDebugMode) {
+  //     print(loginUri);
+  //   }
+  //
+  //   Response response = await post(loginUri,
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode(<String, String>{
+  //         'email': userName,
+  //         'password': password,
+  //         "deviceType": "android"
+  //       })); // end of http.post
+  //   // print(response.body.toString());
+  //   return true;
+  // }
+
   Future<String> dashboardAPI(String token, int limit, int offset) async {
     // Replace this with your signup endpoint URL
     Uri dashboardURI = Uri.parse(

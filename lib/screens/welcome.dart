@@ -16,14 +16,14 @@ import '../utils/styleConstants.dart';
 import '../utils/track.dart';
 import 'CANcreationform/verifyMobileNo.dart';
 
-class RegistrationPage extends StatefulWidget {
-  RegistrationPage({Key? key}) : super(key: key);
+class WelcomePage extends StatefulWidget {
+  WelcomePage({Key? key}) : super(key: key);
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _WelcomePageState extends State<WelcomePage> {
   final prefs = SharedPreferences.getInstance();
   bool _showPassword = false;
   final maxLines = 2;

@@ -92,7 +92,7 @@ class _DashboardState extends State<Dashboard> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                                 Text(
-                                  "(${AllData.investedData.fundData?.length})",
+                                  "(${AllData.investedData.fundData.length})",
                                   style: kGoogleStyleTexts.copyWith(
                                       color: Colors.white70,
                                       fontSize: 13.0,
@@ -109,6 +109,12 @@ class _DashboardState extends State<Dashboard> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Card(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                side: BorderSide(
+                                  color: Colors.white30,
+                                )),
                             borderOnForeground: true,
                             color: Colors.transparent, //hexToColor("#1D1D1D"),
                             child: Padding(
@@ -195,7 +201,7 @@ class _DashboardState extends State<Dashboard> {
                                                   softWrap: true,
                                                 ),
                                                 Text(
-                                                  "(${AllData.investedData.totalReturnsPercentage.toStringAsFixed(8).toString().substring(0, AllData.investedData.totalReturnsPercentage.toStringAsFixed(8).toString().length - 6)}%)",
+                                                  "(${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%)",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
                                                           color: Colors.white,
@@ -207,18 +213,19 @@ class _DashboardState extends State<Dashboard> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            // Text(
-                                            //   "XIIR",
-                                            //   style: kGoogleStyleTexts.copyWith(
-                                            //       color: Colors.white70,
-                                            //       fontSize: 12.0),
-                                            // ),
-                                            // Text(
-                                            //   "--",
-                                            //   style: kGoogleStyleTexts.copyWith(
-                                            //       color: Colors.white,
-                                            //       fontSize: 15.0),
-                                            // ),
+                                            Text(
+                                              "XIRR",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white70,
+                                                  fontSize: 12.0),
+                                            ),
+                                            Text(
+                                              "${AllData.investedData.xirr.toStringAsFixed(2)}%"
+                                                  .toString(),
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 15.0),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -248,7 +255,6 @@ class _DashboardState extends State<Dashboard> {
                         Container(
                           width: 100,
                           decoration: const BoxDecoration(
-                              color: Colors.transparent,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Row(
@@ -318,299 +324,429 @@ class _DashboardState extends State<Dashboard> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: AllData.investedData.fundData?.length,
+                  itemCount: AllData.investedData.fundData.length,
                   itemBuilder: (context, i) {
-                    final data = AllData.investedData.fundData!.toList();
+                    final data = AllData.investedData.fundData.toList();
                     if (sortFeature == "Current") {
                       data.sort((a, b) => (int.parse(srt) == 1
-                          ? a.currentValue?.compareTo(b.currentValue as num)
-                          : b.currentValue
-                              ?.compareTo(a.currentValue as num)) as int);
+                          ? a.currentValue.compareTo(b.currentValue)
+                          : b.currentValue.compareTo(a.currentValue)));
                     } else if (sortFeature == "%Returns") {
                       data.sort((a, b) => (int.parse(srt) == 1
-                          ? a.perReturns.compareTo(b.perReturns)
-                          : b.perReturns.compareTo(a.perReturns)));
-                    } else if (sortFeature == "%XIIR") {
+                          ? a.absReturns.compareTo(b.absReturns)
+                          : b.absReturns.compareTo(a.absReturns)));
+                    } else if (sortFeature == "%XIRR") {
                       data.sort((a, b) => (int.parse(srt) == 1
-                          ? a.fundName
-                              ?.toLowerCase()
-                              .compareTo(b.fundName?.toLowerCase() as String)
-                          : b.fundName?.toLowerCase().compareTo(
-                              a.fundName?.toLowerCase() as String)) as int);
+                          ? a.xirr.compareTo(b.xirr)
+                          : b.xirr.compareTo(a.xirr)));
                     } else {
                       data.sort((a, b) => (int.parse(srt) == 1
-                          ? a.fundName
-                              ?.toLowerCase()
-                              .compareTo(b.fundName?.toLowerCase() as String)
-                          : b.fundName?.toLowerCase().compareTo(
-                              a.fundName?.toLowerCase() as String)) as int);
+                          ? a.schemeName
+                              .toLowerCase()
+                              .compareTo(b.schemeName.toLowerCase())
+                          : b.schemeName
+                              .toLowerCase()
+                              .compareTo(a.schemeName.toLowerCase())));
                     }
                     final item = data[i];
 
-                    if (sortFeature == "Current") {
-                      // data?.sort((a, b) =>
-                      //     b.current?.compareTo(a.current as num) as int);
-                      // //final sortedItems=(int.parse(order))==1? investedData?.investmentData?.fundData!.reversed.toList(): investedData?.investmentData?.fundData!;
+                    return ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          // color: Colors.transparent,
+                          decoration: const BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 08, vertical: 07),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
+                                child: Text(item.schemeName,
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: Colors.white70, fontSize: 13.0),
+                                    softWrap: true,
+                                    textAlign: TextAlign.left),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "\u{20B9}${oCcy.format(item.currentValue)} (${item.absReturns})",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[400],
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Cur. Amt. (% Rtn.)",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 3,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "\u{20B9}${oCcy.format(item.invested)} (\u{20B9}${oCcy.format(item.totalReturns)})",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[200],
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Invested (Tot. Returns)",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "${item.xirr}%",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[400],
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "XIRR(in %)",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 3,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "${item.sinceDate.replaceAll('-', '/')} (${item.sinceDays} days)",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.blueAccent[200],
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "From Date (in Days)",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: Colors.white70,
+                                              fontSize: 12.0),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
 
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 250,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: Text(
-                                    "${item.schemeName!}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 14.0),
-                                    softWrap: true,
-                                  ),
-                                ),
-                                // Align(
-                                //   alignment: Alignment.topCenter,
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.spaceBetween,
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [],
-                                //   ),
-                                // ),
-                                Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "\u{20B9}${oCcy.format(item.currentValue!)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.blueAccent[400],
-                                            fontSize: 14.0),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "(\u{20B9}${oCcy.format(item.invested!)})",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.white70,
-                                            fontSize: 12.0),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    } else if (sortFeature == "%Returns") {
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 250,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: Text(
-                                    "${item.schemeName!}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 14.0),
-                                    softWrap: true,
-                                  ),
-                                ),
-                                // Align(
-                                //   alignment: Alignment.topCenter,
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.spaceBetween,
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [],
-                                //   ),
-                                // ),
-                                Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text(
-                                        "${item.perReturns.toStringAsFixed(2)}%",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.blueAccent[400],
-                                            fontSize: 14.0),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "(\u{20B9}${oCcy.format(item.invested!)})",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.white70,
-                                            fontSize: 12.0),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    } else if (sortFeature == "%XIIR") {
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 250,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: Text(
-                                    "${item.schemeName!}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 14.0),
-                                    softWrap: true,
-                                  ),
-                                ),
-                                // Align(
-                                //   alignment: Alignment.topCenter,
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.spaceBetween,
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //
-                                //
-                                //     ],
-                                //   ),
-                                // ),
-                                Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "\u{20B9}${oCcy.format(item.currentValue!)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.blueAccent[400],
-                                            fontSize: 14.0),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "(\u{20B9}${oCcy.format(item.invested!)})",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.white70,
-                                            fontSize: 12.0),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      return ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            padding: const EdgeInsets.symmetric(horizontal: 05),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 250,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: Text(
-                                    "${item.schemeName!}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: Colors.white70, fontSize: 14.0),
-                                    softWrap: true,
-                                  ),
-                                ),
-                                // const Align(
-                                //   alignment: Alignment.topCenter,
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.spaceBetween,
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [],
-                                //   ),
-                                // ),
-                                Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "\u{20B9}${oCcy.format(item.currentValue!)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.blueAccent[400],
-                                            fontSize: 14.0),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "(\u{20B9}${oCcy.format(item.invested!)})",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: Colors.white70,
-                                            fontSize: 12.0),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    }
+                    // if (sortFeature == "Current") {
+                    //   // data?.sort((a, b) =>
+                    //   //     b.current?.compareTo(a.current as num) as int);
+                    //   // //final sortedItems=(int.parse(order))==1? investedData?.investmentData?.fundData!.reversed.toList(): investedData?.investmentData?.fundData!;
+                    //
+                    //   return ListTile(
+                    //     title: Padding(
+                    //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //       child: Container(
+                    //         width: MediaQuery.of(context).size.width,
+                    //         decoration: const BoxDecoration(
+                    //             color: Colors.transparent,
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(10))),
+                    //         padding: const EdgeInsets.symmetric(horizontal: 05),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Container(
+                    //               width: 250,
+                    //               decoration: const BoxDecoration(
+                    //                   color: Colors.transparent,
+                    //                   borderRadius:
+                    //                       BorderRadius.all(Radius.circular(5))),
+                    //               child: Text(
+                    //                 "${item.schemeName}",
+                    //                 style: kGoogleStyleTexts.copyWith(
+                    //                     color: Colors.white70, fontSize: 14.0),
+                    //                 softWrap: true,
+                    //               ),
+                    //             ),
+                    //             // Align(
+                    //             //   alignment: Alignment.topCenter,
+                    //             //   child: Row(
+                    //             //     mainAxisAlignment:
+                    //             //         MainAxisAlignment.spaceBetween,
+                    //             //     crossAxisAlignment:
+                    //             //         CrossAxisAlignment.start,
+                    //             //     children: [],
+                    //             //   ),
+                    //             // ),
+                    //             Column(
+                    //               children: [
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "\u{20B9}${oCcy.format(item.currentValue)}",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.blueAccent[400],
+                    //                         fontSize: 14.0),
+                    //                   ),
+                    //                 ),
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "(\u{20B9}${oCcy.format(item.invested)})",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.white70,
+                    //                         fontSize: 12.0),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             )
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // } else if (sortFeature == "%Returns") {
+                    //   return ListTile(
+                    //     title: Padding(
+                    //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //       child: Container(
+                    //         width: MediaQuery.of(context).size.width,
+                    //         decoration: const BoxDecoration(
+                    //             color: Colors.transparent,
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(10))),
+                    //         padding: const EdgeInsets.symmetric(horizontal: 05),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Container(
+                    //               width: 250,
+                    //               decoration: const BoxDecoration(
+                    //                   color: Colors.transparent,
+                    //                   borderRadius:
+                    //                       BorderRadius.all(Radius.circular(5))),
+                    //               child: Text(
+                    //                 "${item.schemeName}",
+                    //                 style: kGoogleStyleTexts.copyWith(
+                    //                     color: Colors.white70, fontSize: 14.0),
+                    //                 softWrap: true,
+                    //               ),
+                    //             ),
+                    //             // Align(
+                    //             //   alignment: Alignment.topCenter,
+                    //             //   child: Row(
+                    //             //     mainAxisAlignment:
+                    //             //         MainAxisAlignment.spaceBetween,
+                    //             //     crossAxisAlignment:
+                    //             //         CrossAxisAlignment.start,
+                    //             //     children: [],
+                    //             //   ),
+                    //             // ),
+                    //             Column(
+                    //               children: [
+                    //                 Align(
+                    //                   alignment: Alignment.topCenter,
+                    //                   child: Text(
+                    //                     "${item.absReturns.toStringAsFixed(2)}%",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.blueAccent[400],
+                    //                         fontSize: 14.0),
+                    //                   ),
+                    //                 ),
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "(\u{20B9}${oCcy.format(item.invested)})",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.white70,
+                    //                         fontSize: 12.0),
+                    //                   ),
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // } else if (sortFeature == "%XIRR") {
+                    //   return ListTile(
+                    //     title: Padding(
+                    //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //       child: Container(
+                    //         width: MediaQuery.of(context).size.width,
+                    //         decoration: const BoxDecoration(
+                    //             color: Colors.transparent,
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(10))),
+                    //         padding: const EdgeInsets.symmetric(horizontal: 05),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Container(
+                    //               width: 250,
+                    //               decoration: const BoxDecoration(
+                    //                   color: Colors.transparent,
+                    //                   borderRadius:
+                    //                       BorderRadius.all(Radius.circular(5))),
+                    //               child: Text(
+                    //                 "${item.schemeName}",
+                    //                 style: kGoogleStyleTexts.copyWith(
+                    //                     color: Colors.white70, fontSize: 14.0),
+                    //                 softWrap: true,
+                    //               ),
+                    //             ),
+                    //             // Align(
+                    //             //   alignment: Alignment.topCenter,
+                    //             //   child: Row(
+                    //             //     mainAxisAlignment:
+                    //             //         MainAxisAlignment.spaceBetween,
+                    //             //     crossAxisAlignment:
+                    //             //         CrossAxisAlignment.start,
+                    //             //     children: [
+                    //             //
+                    //             //
+                    //             //     ],
+                    //             //   ),
+                    //             // ),
+                    //             Column(
+                    //               children: [
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "${oCcy.format(item.xirr)}%",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.blueAccent[400],
+                    //                         fontSize: 14.0),
+                    //                   ),
+                    //                 ),
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "(\u{20B9}${oCcy.format(item.invested)})",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.white70,
+                    //                         fontSize: 12.0),
+                    //                   ),
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // } else {
+                    //   return ListTile(
+                    //     title: Padding(
+                    //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //       child: Container(
+                    //         width: MediaQuery.of(context).size.width,
+                    //         decoration: const BoxDecoration(
+                    //             color: Colors.transparent,
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(10))),
+                    //         padding: const EdgeInsets.symmetric(horizontal: 05),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Container(
+                    //               width: 250,
+                    //               decoration: const BoxDecoration(
+                    //                   color: Colors.transparent,
+                    //                   borderRadius:
+                    //                       BorderRadius.all(Radius.circular(5))),
+                    //               child: Text(
+                    //                 "${item.schemeName}",
+                    //                 style: kGoogleStyleTexts.copyWith(
+                    //                     color: Colors.white70, fontSize: 14.0),
+                    //                 softWrap: true,
+                    //               ),
+                    //             ),
+                    //             // const Align(
+                    //             //   alignment: Alignment.topCenter,
+                    //             //   child: Row(
+                    //             //     mainAxisAlignment:
+                    //             //         MainAxisAlignment.spaceBetween,
+                    //             //     crossAxisAlignment:
+                    //             //         CrossAxisAlignment.start,
+                    //             //     children: [],
+                    //             //   ),
+                    //             // ),
+                    //             Column(
+                    //               children: [
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "\u{20B9}${oCcy.format(item.currentValue)}",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.blueAccent[400],
+                    //                         fontSize: 14.0),
+                    //                   ),
+                    //                 ),
+                    //                 Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Text(
+                    //                     "(\u{20B9}${oCcy.format(item.invested)})",
+                    //                     style: kGoogleStyleTexts.copyWith(
+                    //                         color: Colors.white70,
+                    //                         fontSize: 12.0),
+                    //                   ),
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
                   },
                 ),
               ),
@@ -721,23 +857,23 @@ class _DashboardState extends State<Dashboard> {
                 },
                 controlAffinity: ListTileControlAffinity.trailing,
               ),
-              // RadioListTile(
-              //   title: Text(
-              //     '%XIRR',
-              //     style: kGoogleStyleTexts.copyWith(
-              //         color: Colors.white70, fontSize: 17.0),
-              //   ),
-              //   value: "%XIIR",
-              //   groupValue: sortFeature,
-              //   onChanged: (value) {
-              //     setState(() {
-              //       sortFeature = value.toString();
-              //       srt = "0";
-              //       Navigator.of(context).pop();
-              //     });
-              //   },
-              //   controlAffinity: ListTileControlAffinity.trailing,
-              // ),
+              RadioListTile(
+                title: Text(
+                  '%XIRR',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: Colors.white70, fontSize: 17.0),
+                ),
+                value: "%XIRR",
+                groupValue: sortFeature,
+                onChanged: (value) {
+                  setState(() {
+                    sortFeature = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
               RadioListTile(
                 title: Text(
                   '%Returns',

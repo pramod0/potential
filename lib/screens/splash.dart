@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:potential/screens/registration.dart';
+import 'package:potential/screens/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
@@ -14,7 +14,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
- //  final prefs = SharedPreferences.getInstance(); // stores user data and invested data
+  //  final prefs = SharedPreferences.getInstance(); // stores user data and invested data
   late AnimationController controller;
   late Animation<double> animation;
   AllData allData = AllData();
@@ -89,8 +89,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            RegistrationPage(),
+        pageBuilder: (context, animation, secondaryAnimation) => WelcomePage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
