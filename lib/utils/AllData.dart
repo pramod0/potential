@@ -4,13 +4,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
+import 'package:potential/models/schemes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/token.dart';
 import '../models/cancreation.dart';
 
 class AllData {
   // static late CANIndFillEezzReq fillEezzReq;
-  static late InvestedData investedData;
+  static InvestedData investedData = InvestedData(
+      invested: 0,
+      current: 0,
+      totalReturns: 0,
+      absReturns: 0,
+      xirr: 0,
+      irr: 0,
+      sinceDaysCAGR: 0,
+      fundData: []);
+  static Map<String, SchemeData> schemeMap = <String, SchemeData>{};
   static late User investorData;
 
   /// private constructor
@@ -28,5 +38,13 @@ class AllData {
 
   static setInvestmentData(InvestedData investedData) async {
     AllData.investedData = investedData;
+  }
+
+  static setSchemeSummary(SchemeData schemeSummary) async {
+    if (kDebugMode) {
+      print(schemeSummary.data[0].key);
+    }
+    AllData.schemeMap
+        .putIfAbsent(schemeSummary.data[0].key, () => schemeSummary);
   }
 }

@@ -95,7 +95,7 @@ class ApiService {
 
     Response response = await get(dashboardURI, headers: <String, String>{
       'Content-Type': 'application/json', //; charset=UTF-8
-      'Authorization': 'bearer $token'
+      'Authorization': 'Bearer $token'
     });
     // if (kDebugMode) {
     //   print(response.body);
@@ -115,6 +115,40 @@ class ApiService {
     }
   }
 
+  Future<String> schemeSummaryAPI(
+      String token, String fund, String scheme) async {
+    // Replace this with your signup endpoint URL
+    Uri dashboardURI =
+        Uri.parse('${Constants.domainURL}${Constants.schemeSummaryURL}');
+    // http://localhost:7070/api/dashboard?limit=100&offset=0
+
+    if (kDebugMode) {
+      print(dashboardURI.toString());
+    }
+
+    Response response = await get(dashboardURI, headers: <String, String>{
+      'Content-Type': 'application/json', //; charset=UTF-8
+      'Authorization': 'Bearer $token',
+      'fund': fund,
+      'scheme': scheme
+    });
+    // if (kDebugMode) {
+    //   print(response.body);
+    // }
+    if (response.statusCode == 200) {
+      // Signup successful
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response.body;
+    } else {
+      // Signup failed
+      if (kDebugMode) {
+        print(response.body);
+      }
+      throw Exception('schemeSummary api failed');
+    }
+  }
 // Future<String> canCreation(String userName, BuildContext context) async {
 //   // var response = await http.post(
 //   //     Uri.parse('${Constants.domainURL}${Constants.loginURL}'),

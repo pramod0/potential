@@ -125,32 +125,32 @@ class _LoginPageState extends State<LoginPage> {
             MaterialPageRoute(builder: (context) => const CheckCANNO()),
           );
         }
-        if (responseBody['data']['consent'] == 'No') {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => TakeConsentPage(
-                    can: responseBody['data']['can'],
-                    pan: responseBody['data']['userData']['panCard'])),
-          );
-        }
+        // if (responseBody['data']['consent'] == 'No') {
+        //   Navigator.of(context).push(
+        //     MaterialPageRoute(
+        //         builder: (context) => TakeConsentPage(
+        //             can: responseBody['data']['can'],
+        //             pan: responseBody['data']['userData']['panCard'])),
+        //   );
+        // }
         //if consent but no data
         //todo: implement route
-        responseBody =
-            jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
-        if (kDebugMode) {
-          print(responseBody.toString());
-        }
-        InvestedData investedData = InvestedData.fromJson(responseBody['data']);
-        if (kDebugMode) {
-          print("responseBody.toString()");
-        }
-        if (kDebugMode) {
-          print(investedData.invested);
-        }
-        prefs.then((pref) =>
-            pref.setString('investedData', responseBody['data'].toString()));
-
-        AllData.setInvestmentData(investedData);
+        // responseBody =
+        //     jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
+        // if (kDebugMode) {
+        //   print(responseBody.toString());
+        // }
+        // InvestedData investedData = InvestedData.fromJson(responseBody['data']);
+        // if (kDebugMode) {
+        //   print("responseBody.toString()");
+        // }
+        // if (kDebugMode) {
+        //   print(investedData.invested);
+        // }
+        // prefs.then((pref) =>
+        //     pref.setString('investedData', responseBody['data'].toString()));
+        //
+        // AllData.setInvestmentData(investedData);
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Dashboard()
               //     TabsPage(
