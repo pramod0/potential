@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
@@ -209,7 +210,8 @@ class _LoginPageState extends State<LoginPage> {
       behavior: NoGlowBehaviour(),
       child: Scaffold(
         key: _scaffoldKey,
-        backgroundColor: hexToColor("#121212"),
+        backgroundColor:
+            hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -233,7 +235,8 @@ class _LoginPageState extends State<LoginPage> {
                               style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 40,
-                                color: hexToColor("#ffffff"),
+                                color: hexToColor(AppColors
+                                    .blackTextColor), //hexToColor("#ffffff"),
                               ),
                             ),
                           ),
@@ -242,7 +245,8 @@ class _LoginPageState extends State<LoginPage> {
                             style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
-                              color: hexToColor("#ffffff"),
+                              color: hexToColor(AppColors
+                                  .blackTextColor), //hexToColor("#ffffff"),
                             ),
                           ),
                         ],
@@ -266,10 +270,11 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 AppStrings.userName,
                                 style: kGoogleStyleTexts.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                  color: hexToColor("#ffffff"),
-                                ),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: hexToColor(AppColors
+                                        .blackTextColor) //hexToColor("#ffffff"),
+                                    ),
                               )),
                         ),
                         SizedBox(
@@ -281,7 +286,8 @@ class _LoginPageState extends State<LoginPage> {
                               keyboardType: TextInputType.text,
                               style: kGoogleStyleTexts.copyWith(
                                   fontWeight: FontWeight.w400,
-                                  color: hexToColor("#ffffff"),
+                                  color: hexToColor(AppColors
+                                      .blackTextColor), //hexToColor("#ffffff"),
                                   fontSize: 15.0),
                               maxLines: 1,
                               decoration: InputDecoration(
@@ -299,13 +305,15 @@ class _LoginPageState extends State<LoginPage> {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10.0)),
                                     borderSide: BorderSide(
-                                        color: hexToColor("#ffffff"))),
+                                        color: hexToColor(
+                                            AppColors.hintTextColor))),
                                 fillColor:
                                     const Color.fromARGB(30, 173, 205, 219),
                                 filled: true,
                                 hintText: AppStrings.emailHintText,
                                 hintStyle: kGoogleStyleTexts.copyWith(
-                                    color: hexToColor("#ffffff"),
+                                    color: hexToColor(AppColors
+                                        .hintTextColor), //hexToColor("#ffffff"),
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal),
                               )),
@@ -320,10 +328,11 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 AppStrings.userPassword,
                                 style: kGoogleStyleTexts.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                  color: hexToColor("#ffffff"),
-                                ),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: hexToColor(AppColors
+                                        .blackTextColor) //hexToColor("#ffffff"),
+                                    ),
                               )),
                         ),
                         SizedBox(
@@ -336,7 +345,8 @@ class _LoginPageState extends State<LoginPage> {
                             keyboardType: TextInputType.text,
                             style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w400,
-                                color: hexToColor("#ffffff"),
+                                color: hexToColor(AppColors
+                                    .blackTextColor), //hexToColor("#ffffff"),
                                 fontSize: 15.0),
                             maxLines: 1,
                             obscureText: !_showPassword,
@@ -354,8 +364,9 @@ class _LoginPageState extends State<LoginPage> {
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(5.0)),
-                                  borderSide:
-                                      BorderSide(color: hexToColor("#ffffff"))),
+                                  borderSide: BorderSide(
+                                    color: hexToColor(AppColors.blackTextColor),
+                                  )),
                               fillColor:
                                   const Color.fromARGB(30, 173, 205, 219),
                               suffixIcon: GestureDetector(
@@ -366,14 +377,15 @@ class _LoginPageState extends State<LoginPage> {
                                   _showPassword
                                       ? Icons.visibility_off
                                       : Icons.visibility,
-                                  color: hexToColor("#aaaaaa"),
+                                  color: hexToColor(AppColors
+                                      .blackTextColor), //hexToColor("#aaaaaa"),
                                   size: 22,
                                 ),
                               ),
                               filled: true,
                               hintText: AppStrings.passwordHintText,
                               hintStyle: kGoogleStyleTexts.copyWith(
-                                  color: hexToColor("#ffffff"),
+                                  color: hexToColor(AppColors.hintTextColor),
                                   fontSize: 15,
                                   fontWeight: FontWeight.normal),
                             ),

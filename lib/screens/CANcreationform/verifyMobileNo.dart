@@ -339,7 +339,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: Text(AppStrings.verificationCode,
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w400,
-                    color: hexToColor(AppColors.whiteTextColor),
+                    color: hexToColor(AppColors.blackTextColor),
                     fontSize: 15.0)),
           ),
           Form(

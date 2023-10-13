@@ -102,7 +102,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        backgroundColor: hexToColor("#121212"),
+        backgroundColor:
+            hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
         body: SafeArea(
           child: buildMainDataScreen(context),
         ),
@@ -126,7 +127,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                       Text(
                         widget.schemeCurrent.schemeName,
                         style: kGoogleStyleTexts.copyWith(
-                            color: hexToColor(AppColors.whiteTextColor)
+                            color: hexToColor(AppColors.blackTextColor)
                                 .withOpacity(0.8),
                             fontSize: 17.0,
                             fontWeight: FontWeight.w700),
@@ -135,7 +136,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                       Text(
                         '( ${widget.schemeCurrent.fundName} )',
                         style: kGoogleStyleTexts.copyWith(
-                            color: hexToColor(AppColors.whiteTextColor)
+                            color: hexToColor(AppColors.blackTextColor)
                                 .withOpacity(0.8),
                             fontSize: 14.0),
                         textAlign: TextAlign.center,
@@ -154,10 +155,12 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5)),
                           side: BorderSide(
-                            color: Colors.white30,
+                            width: 0.6,
+                            color: Colors.black26, //Colors.white30,
                           )),
                       borderOnForeground: true,
-                      color: Colors.transparent, //hexToColor("#1D1D1D"),
+                      color: hexToColor(
+                          "#fbfbfb"), //Colors.transparent, //hexToColor("#1D1D1D"),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 20),
@@ -180,7 +183,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           AppStrings.invested,
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
+                                                      AppColors.blackTextColor)
                                                   .withOpacity(0.65),
                                               fontSize: 12.0),
                                         ),
@@ -188,9 +191,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           "\u{20B9}${oCcy.format(widget.schemeCurrent.invested).replaceFirst('.00', '')}",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                         ),
                                       ],
                                     ),
@@ -212,7 +214,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                               " Total Returns",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: hexToColor(AppColors
-                                                          .whiteTextColor)
+                                                          .blackTextColor)
                                                       .withOpacity(0.65),
                                                   fontSize: 12.0),
                                             ),
@@ -222,9 +224,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           "+ \u{20B9}${oCcy.format(widget.schemeCurrent.totalReturns)}",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -247,7 +248,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           AppStrings.current,
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
+                                                      AppColors.blackTextColor)
                                                   .withOpacity(0.65),
                                               fontSize: 12.0),
                                         ),
@@ -255,9 +256,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           "\u{20B9}${oCcy.format(widget.schemeCurrent.currentValue)}",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                         ),
                                       ],
                                     ),
@@ -268,22 +268,33 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        Text(
-                                          "% Returns",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 4,
+                                              height: 4,
+                                              decoration: BoxDecoration(
+                                                color: hexToColor("#FCAF23"),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                            Text(
+                                              " % Returns",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: hexToColor(AppColors
+                                                          .blackTextColor)
+                                                      .withOpacity(0.65),
+                                                  fontSize: 12.0),
+                                              softWrap: true,
+                                            ),
+                                          ],
                                         ),
                                         Text(
                                           "${widget.schemeCurrent.absReturns.toStringAsFixed(8).toString().substring(0, widget.schemeCurrent.absReturns.toStringAsFixed(8).toString().length - 6)}%",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -296,7 +307,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                     //       "XIRR",
                                     //       style: kGoogleStyleTexts.copyWith(
                                     //           color: hexToColor(
-                                    //               AppColors.whiteTextColor),
+                                    //               AppColors.blackTextColor),
                                     //           fontSize: 12.0),
                                     //     ),
                                     //     Text(
@@ -304,7 +315,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                     //           .toString(),
                                     //       style: kGoogleStyleTexts.copyWith(
                                     //           color: hexToColor(
-                                    //               AppColors.whiteTextColor),
+                                    //               AppColors.blackTextColor),
                                     //           fontSize: 15.0),
                                     //     ),
                                     //   ],
@@ -337,7 +348,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                               "Total Units",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: hexToColor(AppColors
-                                                          .whiteTextColor)
+                                                          .blackTextColor)
                                                       .withOpacity(0.65),
                                                   fontSize: 12.0),
                                             ),
@@ -347,9 +358,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           "${widget.schemeCurrent.unitHolding}",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -361,23 +371,34 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        Text(
-                                          "Current NAV",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 4,
+                                              height: 4,
+                                              decoration: BoxDecoration(
+                                                color: hexToColor("#FCAF23"),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                            Text(
+                                              " Current NAV",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: hexToColor(AppColors
+                                                          .blackTextColor)
+                                                      .withOpacity(0.65),
+                                                  fontSize: 12.0),
+                                              softWrap: true,
+                                            ),
+                                          ],
                                         ),
                                         Text(
                                           widget.schemeCurrent.currentNAV
                                               .toString(),
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -390,7 +411,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                     //       "XIRR",
                                     //       style: kGoogleStyleTexts.copyWith(
                                     //           color: hexToColor(
-                                    //               AppColors.whiteTextColor),
+                                    //               AppColors.blackTextColor),
                                     //           fontSize: 12.0),
                                     //     ),
                                     //     Text(
@@ -398,7 +419,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                     //           .toString(),
                                     //       style: kGoogleStyleTexts.copyWith(
                                     //           color: hexToColor(
-                                    //               AppColors.whiteTextColor),
+                                    //               AppColors.blackTextColor),
                                     //           fontSize: 15.0),
                                     //     ),
                                     //   ],
@@ -431,7 +452,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                               "IRR",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: hexToColor(AppColors
-                                                          .whiteTextColor)
+                                                          .blackTextColor)
                                                       .withOpacity(0.65),
                                                   fontSize: 12.0),
                                             ),
@@ -441,9 +462,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           "${widget.schemeCurrent.irr}%",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -455,22 +475,33 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        Text(
-                                          "XIRR",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 4,
+                                              height: 4,
+                                              decoration: BoxDecoration(
+                                                color: hexToColor("#FCAF23"),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                            Text(
+                                              " XIRR",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: hexToColor(AppColors
+                                                          .blackTextColor)
+                                                      .withOpacity(0.65),
+                                                  fontSize: 12.0),
+                                            ),
+                                          ],
                                         ),
                                         Text(
                                           "${widget.schemeCurrent.xirr}%"
                                               .toString(),
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                         ),
                                       ],
                                     ),
@@ -502,7 +533,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                               "CAGR",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: hexToColor(AppColors
-                                                          .whiteTextColor)
+                                                          .blackTextColor)
                                                       .withOpacity(0.65),
                                                   fontSize: 12.0),
                                             ),
@@ -512,9 +543,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           "${widget.schemeCurrent.sinceDaysCAGR}%",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -527,21 +557,20 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "Since Date",
+                                          "Since",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
+                                                      AppColors.blackTextColor)
                                                   .withOpacity(0.65),
                                               fontSize: 12.0),
                                           softWrap: true,
                                         ),
                                         Text(
-                                          "${widget.schemeCurrent.sinceDate.replaceAll('-', '/')} (${widget.schemeCurrent.sinceDays} days)",
+                                          "${widget.schemeCurrent.sinceDays} days",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 15.0),
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
                                           softWrap: true,
                                         ),
                                       ],
@@ -568,7 +597,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
               Text(
                 "Transactions",
                 style: kGoogleStyleTexts.copyWith(
-                    color: hexToColor(AppColors.whiteTextColor),
+                    color: hexToColor(AppColors.blackTextColor),
                     fontSize: 15.0),
               ),
               Container(
@@ -587,13 +616,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                           Text(
                             AppStrings.investments,
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.whiteTextColor),
+                                color: hexToColor(AppColors.blackTextColor),
                                 fontSize: 15.0),
                           ),
                           Text(
                             "(${AllData.schemeMap[widget.schemeKey]?.data.length})",
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.whiteTextColor),
+                                color: hexToColor(AppColors.blackTextColor),
                                 fontSize: 13.0,
                                 fontWeight: FontWeight.w100),
                           )
@@ -609,7 +638,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                           Text(
                             "Sort",
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.whiteTextColor),
+                                color: hexToColor(AppColors.blackTextColor),
                                 fontSize: 17.0),
                           ),
                           IconButton(
@@ -617,9 +646,10 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                               duration: const Duration(seconds: 3),
                               child: Transform.rotate(
                                 angle: srt == '0' ? 0 : 180 * 3.14 / 180,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.sort,
-                                  color: Colors.blueAccent,
+                                  color: hexToColor(
+                                      "#FCAA00"), //Colors.blueAccent,
                                 ),
                               ),
                             ),
@@ -637,31 +667,6 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                         ],
                       ),
                     ),
-                    // TextButton(
-                    //   child: Row(
-                    //     children: [
-                    //       Text(
-                    //         "<> ",
-                    //         style: kGoogleStyleTexts.copyWith(
-                    //             color: Colors.blueAccent[400], fontSize: 14.0),
-                    //       ),
-                    //       Text(
-                    //         "Current ($sortFeature)",
-                    //         style: kGoogleStyleTexts.copyWith(
-                    //             color: hexToColor(AppColors.whiteTextColor),
-                    //             fontSize: 14.0),
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   onPressed: () {
-                    //     showModalBottomSheet(
-                    //       context: context,
-                    //       builder: (BuildContext context) {
-                    //         return buildBottomSheetContainerForFilters(context);
-                    //       },
-                    //     );
-                    //   },
-                    // ),
                   ],
                 ),
               ),
@@ -711,558 +716,221 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     // color: Colors.transparent,
-                    decoration: const BoxDecoration(
-                        color: Colors.black12,
+                    decoration: BoxDecoration(
+                        color: hexToColor("#fbfbfb"), //Colors.black12,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     // padding: const EdgeInsets.symmetric(
                     //     horizontal: 08, vertical: 07),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                color: Colors.white24,
-                              )),
-                          padding: EdgeInsets.all(11),
-                          child: Column(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                          border: Border.all(
+                            color: Colors.black26, //Colors.white24,
+                          )),
+                      padding: EdgeInsets.all(11),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
+                              Column(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Folio Number",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(item!.folioNumber.toString(),
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text("Installment No",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(item.installmentNumber.toString(),
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
+                                  Text("Folio Number",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item!.folioNumber.toString(),
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
                                 ],
                               ),
-                              // SizedBox(
-                              //   height: 3,
-                              // ),
-                              // Row(
-                              //   mainAxisAlignment:
-                              //       MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Column(
-                              //       mainAxisAlignment:
-                              //           MainAxisAlignment.spaceEvenly,
-                              //       crossAxisAlignment:
-                              //           CrossAxisAlignment.start,
-                              //       children: [
-                              //         Text("UTRN",
-                              //             style: kGoogleStyleTexts.copyWith(
-                              //                 color: hexToColor(
-                              //                     AppColors.whiteTextColor),
-                              //                 fontSize: 12.0),
-                              //             softWrap: true,
-                              //             textAlign: TextAlign.left),
-                              //         Text(item.transactionNumber.toString(),
-                              //             style: kGoogleStyleTexts.copyWith(
-                              //                 color: hexToColor(
-                              //                     AppColors.whiteTextColor),
-                              //                 fontSize: 14.0),
-                              //             softWrap: true,
-                              //             textAlign: TextAlign.left),
-                              //       ],
-                              //     ),
-                              //     Column(
-                              //       crossAxisAlignment: CrossAxisAlignment.end,
-                              //       children: [
-                              //         Text("Transaction Type",
-                              //             style: kGoogleStyleTexts.copyWith(
-                              //                 color: hexToColor(
-                              //                     AppColors.whiteTextColor),
-                              //                 fontSize: 12.0),
-                              //             softWrap: true,
-                              //             textAlign: TextAlign.left),
-                              //         Text(item.transType,
-                              //             style: kGoogleStyleTexts.copyWith(
-                              //                 color: hexToColor(
-                              //                     AppColors.whiteTextColor),
-                              //                 fontSize: 14.0),
-                              //             softWrap: true,
-                              //             textAlign: TextAlign.left),
-                              //       ],
-                              //     ),
-                              //   ],
-                              // ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Transaction Type",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(item.transType,
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
-                                  // Column(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceEvenly,
-                                  //   crossAxisAlignment:
-                                  //       CrossAxisAlignment.start,
-                                  //   children: [
-                                  //     Text("Transaction Status",
-                                  //         style: kGoogleStyleTexts.copyWith(
-                                  //             color: hexToColor(
-                                  //                 AppColors.whiteTextColor),
-                                  //             fontSize: 12.0),
-                                  //         softWrap: true,
-                                  //         textAlign: TextAlign.left),
-                                  //     Text(item.transactionStatus,
-                                  //         style: kGoogleStyleTexts.copyWith(
-                                  //             color: hexToColor(
-                                  //                 AppColors.whiteTextColor),
-                                  //             fontSize: 14.0),
-                                  //         softWrap: true,
-                                  //         textAlign: TextAlign.left),
-                                  //   ],
-                                  // ),
-
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text("Amount",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(
-                                          "\u{20B9}${oCcy.format(item.amount).replaceFirst('.00', '')}",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Divider(
-                                color: Colors.white70,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Date",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(item.date.replaceAll("-", "/"),
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text("Units",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(item.units.toString(),
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text("N.A.V.",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.65),
-                                              fontSize: 12.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                      Text(item.nav.toString(),
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.whiteTextColor)
-                                                  .withOpacity(0.75),
-                                              fontSize: 14.0),
-                                          softWrap: true,
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
+                                  Text("Installment No",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item.installmentNumber.toString(),
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
                                 ],
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                      ],
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Transaction Type",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item.transType,
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                              // Column(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceEvenly,
+                              //   crossAxisAlignment:
+                              //       CrossAxisAlignment.start,
+                              //   children: [
+                              //     Text("Transaction Status",
+                              //         style: kGoogleStyleTexts.copyWith(
+                              //             color: hexToColor(
+                              //                 AppColors.blackTextColor),
+                              //             fontSize: 12.0),
+                              //         softWrap: true,
+                              //         textAlign: TextAlign.left),
+                              //     Text(item.transactionStatus,
+                              //         style: kGoogleStyleTexts.copyWith(
+                              //             color: hexToColor(
+                              //                 AppColors.blackTextColor),
+                              //             fontSize: 14.0),
+                              //         softWrap: true,
+                              //         textAlign: TextAlign.left),
+                              //   ],
+                              // ),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text("Amount",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(
+                                      "\u{20B9}${oCcy.format(item.amount).replaceFirst('.00', '')}",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Divider(
+                            color: Colors.black26,
+                            //Colors.white70,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Date",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item.date.replaceAll("-", "/"),
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text("Units",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item.units.toString(),
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text("N.A.V.",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item.nav.toString(),
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 16.0),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               );
-
-              // if (sortFeature == "Current") {
-              //   // data?.sort((a, b) =>
-              //   //     b.current?.compareTo(a.current as num) as int);
-              //   // //final sortedItems=(int.parse(order))==1? investedData?.investmentData?.fundData!.reversed.toList(): investedData?.investmentData?.fundData!;
-              //
-              //   return ListTile(
-              //     title: Padding(
-              //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //       child: Container(
-              //         width: MediaQuery.of(context).size.width,
-              //         decoration: const BoxDecoration(
-              //             color: Colors.transparent,
-              //             borderRadius:
-              //                 BorderRadius.all(Radius.circular(10))),
-              //         padding: const EdgeInsets.symmetric(horizontal: 05),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Container(
-              //               width: 250,
-              //               decoration: const BoxDecoration(
-              //                   color: Colors.transparent,
-              //                   borderRadius:
-              //                       BorderRadius.all(Radius.circular(5))),
-              //               child: Text(
-              //                 "${item.schemeName}",
-              //                 style: kGoogleStyleTexts.copyWith(
-              //                     color: hexToColor(AppColors.whiteTextColor), fontSize: 14.0),
-              //                 softWrap: true,
-              //               ),
-              //             ),
-              //             // Align(
-              //             //   alignment: Alignment.topCenter,
-              //             //   child: Row(
-              //             //     mainAxisAlignment:
-              //             //         MainAxisAlignment.spaceBetween,
-              //             //     crossAxisAlignment:
-              //             //         CrossAxisAlignment.start,
-              //             //     children: [],
-              //             //   ),
-              //             // ),
-              //             Column(
-              //               children: [
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "\u{20B9}${oCcy.format(item.currentValue)}",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: Colors.blueAccent[400],
-              //                         fontSize: 14.0),
-              //                   ),
-              //                 ),
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "(\u{20B9}${oCcy.format(item.invested)})",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: hexToColor(AppColors.whiteTextColor),
-              //                         fontSize: 12.0),
-              //                   ),
-              //                 ),
-              //               ],
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // } else if (sortFeature == "%Returns") {
-              //   return ListTile(
-              //     title: Padding(
-              //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //       child: Container(
-              //         width: MediaQuery.of(context).size.width,
-              //         decoration: const BoxDecoration(
-              //             color: Colors.transparent,
-              //             borderRadius:
-              //                 BorderRadius.all(Radius.circular(10))),
-              //         padding: const EdgeInsets.symmetric(horizontal: 05),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Container(
-              //               width: 250,
-              //               decoration: const BoxDecoration(
-              //                   color: Colors.transparent,
-              //                   borderRadius:
-              //                       BorderRadius.all(Radius.circular(5))),
-              //               child: Text(
-              //                 "${item.schemeName}",
-              //                 style: kGoogleStyleTexts.copyWith(
-              //                     color: hexToColor(AppColors.whiteTextColor), fontSize: 14.0),
-              //                 softWrap: true,
-              //               ),
-              //             ),
-              //             // Align(
-              //             //   alignment: Alignment.topCenter,
-              //             //   child: Row(
-              //             //     mainAxisAlignment:
-              //             //         MainAxisAlignment.spaceBetween,
-              //             //     crossAxisAlignment:
-              //             //         CrossAxisAlignment.start,
-              //             //     children: [],
-              //             //   ),
-              //             // ),
-              //             Column(
-              //               children: [
-              //                 Align(
-              //                   alignment: Alignment.topCenter,
-              //                   child: Text(
-              //                     "${item.absReturns.toStringAsFixed(2)}%",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: Colors.blueAccent[400],
-              //                         fontSize: 14.0),
-              //                   ),
-              //                 ),
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "(\u{20B9}${oCcy.format(item.invested)})",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: hexToColor(AppColors.whiteTextColor),
-              //                         fontSize: 12.0),
-              //                   ),
-              //                 )
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // } else if (sortFeature == "%XIRR") {
-              //   return ListTile(
-              //     title: Padding(
-              //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //       child: Container(
-              //         width: MediaQuery.of(context).size.width,
-              //         decoration: const BoxDecoration(
-              //             color: Colors.transparent,
-              //             borderRadius:
-              //                 BorderRadius.all(Radius.circular(10))),
-              //         padding: const EdgeInsets.symmetric(horizontal: 05),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Container(
-              //               width: 250,
-              //               decoration: const BoxDecoration(
-              //                   color: Colors.transparent,
-              //                   borderRadius:
-              //                       BorderRadius.all(Radius.circular(5))),
-              //               child: Text(
-              //                 "${item.schemeName}",
-              //                 style: kGoogleStyleTexts.copyWith(
-              //                     color: hexToColor(AppColors.whiteTextColor), fontSize: 14.0),
-              //                 softWrap: true,
-              //               ),
-              //             ),
-              //             // Align(
-              //             //   alignment: Alignment.topCenter,
-              //             //   child: Row(
-              //             //     mainAxisAlignment:
-              //             //         MainAxisAlignment.spaceBetween,
-              //             //     crossAxisAlignment:
-              //             //         CrossAxisAlignment.start,
-              //             //     children: [
-              //             //
-              //             //
-              //             //     ],
-              //             //   ),
-              //             // ),
-              //             Column(
-              //               children: [
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "${oCcy.format(item.xirr)}%",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: Colors.blueAccent[400],
-              //                         fontSize: 14.0),
-              //                   ),
-              //                 ),
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "(\u{20B9}${oCcy.format(item.invested)})",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: hexToColor(AppColors.whiteTextColor),
-              //                         fontSize: 12.0),
-              //                   ),
-              //                 )
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // } else {
-              //   return ListTile(
-              //     title: Padding(
-              //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //       child: Container(
-              //         width: MediaQuery.of(context).size.width,
-              //         decoration: const BoxDecoration(
-              //             color: Colors.transparent,
-              //             borderRadius:
-              //                 BorderRadius.all(Radius.circular(10))),
-              //         padding: const EdgeInsets.symmetric(horizontal: 05),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Container(
-              //               width: 250,
-              //               decoration: const BoxDecoration(
-              //                   color: Colors.transparent,
-              //                   borderRadius:
-              //                       BorderRadius.all(Radius.circular(5))),
-              //               child: Text(
-              //                 "${item.schemeName}",
-              //                 style: kGoogleStyleTexts.copyWith(
-              //                     color: hexToColor(AppColors.whiteTextColor), fontSize: 14.0),
-              //                 softWrap: true,
-              //               ),
-              //             ),
-              //             // const Align(
-              //             //   alignment: Alignment.topCenter,
-              //             //   child: Row(
-              //             //     mainAxisAlignment:
-              //             //         MainAxisAlignment.spaceBetween,
-              //             //     crossAxisAlignment:
-              //             //         CrossAxisAlignment.start,
-              //             //     children: [],
-              //             //   ),
-              //             // ),
-              //             Column(
-              //               children: [
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "\u{20B9}${oCcy.format(item.currentValue)}",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: Colors.blueAccent[400],
-              //                         fontSize: 14.0),
-              //                   ),
-              //                 ),
-              //                 Align(
-              //                   alignment: Alignment.centerRight,
-              //                   child: Text(
-              //                     "(\u{20B9}${oCcy.format(item.invested)})",
-              //                     style: kGoogleStyleTexts.copyWith(
-              //                         color: hexToColor(AppColors.whiteTextColor),
-              //                         fontSize: 12.0),
-              //                   ),
-              //                 )
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // }
             },
           ),
         ),
@@ -1291,13 +959,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                             Text(
   //                               AppStrings.investments,
   //                               style: kGoogleStyleTexts.copyWith(
-  //                                   color: hexToColor(AppColors.whiteTextColor),
+  //                                   color: hexToColor(AppColors.blackTextColor),
   //                                   fontSize: 15.0),
   //                             ),
   //                             Text(
   //                               "(-)",
   //                               style: kGoogleStyleTexts.copyWith(
-  //                                   color: hexToColor(AppColors.whiteTextColor),
+  //                                   color: hexToColor(AppColors.blackTextColor),
   //                                   fontSize: 13.0,
   //                                   fontWeight: FontWeight.w100),
   //                             )
@@ -1340,14 +1008,14 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                                           AppStrings.invested,
   //                                           style: kGoogleStyleTexts.copyWith(
   //                                               color: hexToColor(
-  //                                                   AppColors.whiteTextColor),
+  //                                                   AppColors.blackTextColor),
   //                                               fontSize: 12.0),
   //                                         ),
   //                                         Text(
   //                                           "\u{20B9}----",
   //                                           style: kGoogleStyleTexts.copyWith(
   //                                               color: hexToColor(
-  //                                                   AppColors.whiteTextColor),
+  //                                                   AppColors.blackTextColor),
   //                                               fontSize: 15.0),
   //                                         ),
   //                                         const SizedBox(
@@ -1357,14 +1025,14 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                                           AppStrings.current,
   //                                           style: kGoogleStyleTexts.copyWith(
   //                                               color: hexToColor(
-  //                                                   AppColors.whiteTextColor),
+  //                                                   AppColors.blackTextColor),
   //                                               fontSize: 12.0),
   //                                         ),
   //                                         Text(
   //                                           "\u{20B9}----",
   //                                           style: kGoogleStyleTexts.copyWith(
   //                                               color: hexToColor(
-  //                                                   AppColors.whiteTextColor),
+  //                                                   AppColors.blackTextColor),
   //                                               fontSize: 15.0),
   //                                         ),
   //                                       ],
@@ -1392,7 +1060,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                                                   kGoogleStyleTexts.copyWith(
   //                                                       color: hexToColor(
   //                                                           AppColors
-  //                                                               .whiteTextColor),
+  //                                                               .blackTextColor),
   //                                                       fontSize: 12.0),
   //                                             ),
   //                                           ],
@@ -1405,7 +1073,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                                                   kGoogleStyleTexts.copyWith(
   //                                                       color: hexToColor(
   //                                                           AppColors
-  //                                                               .whiteTextColor),
+  //                                                               .blackTextColor),
   //                                                       fontSize: 15.0),
   //                                               softWrap: true,
   //                                             ),
@@ -1415,7 +1083,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                                                   kGoogleStyleTexts.copyWith(
   //                                                       color: hexToColor(
   //                                                           AppColors
-  //                                                               .whiteTextColor),
+  //                                                               .blackTextColor),
   //                                                       fontSize: 15.0),
   //                                               softWrap: true,
   //                                             ),
@@ -1428,14 +1096,14 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                                           "XIRR",
   //                                           style: kGoogleStyleTexts.copyWith(
   //                                               color: hexToColor(
-  //                                                   AppColors.whiteTextColor),
+  //                                                   AppColors.blackTextColor),
   //                                               fontSize: 12.0),
   //                                         ),
   //                                         Text(
   //                                           "--.--%".toString(),
   //                                           style: kGoogleStyleTexts.copyWith(
   //                                               color: hexToColor(
-  //                                                   AppColors.whiteTextColor),
+  //                                                   AppColors.blackTextColor),
   //                                               fontSize: 15.0),
   //                                         ),
   //                                       ],
@@ -1474,7 +1142,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                           Text(
   //                             "Sort",
   //                             style: kGoogleStyleTexts.copyWith(
-  //                                 color: hexToColor(AppColors.whiteTextColor),
+  //                                 color: hexToColor(AppColors.blackTextColor),
   //                                 fontSize: 17.0),
   //                           ),
   //                           IconButton(
@@ -1514,7 +1182,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //                           Text(
   //                             "Current ($sortFeature)",
   //                             style: kGoogleStyleTexts.copyWith(
-  //                                 color: hexToColor(AppColors.whiteTextColor),
+  //                                 color: hexToColor(AppColors.blackTextColor),
   //                                 fontSize: 14.0),
   //                           ),
   //                         ],
@@ -1542,7 +1210,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
 
   Container buildBottomSheetContainerForSorting(BuildContext context) {
     return Container(
-      color: hexToColor("#121212"),
+      color: hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -1554,7 +1222,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
               child: Text(
                 'Select Order of sorting',
                 style: kGoogleStyleTexts.copyWith(
-                    color: hexToColor(AppColors.whiteTextColor),
+                    color: hexToColor(AppColors.blackTextColor),
                     fontSize: 17.0),
               ),
             ),
@@ -1562,14 +1230,15 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
           Column(
             children: <Widget>[
               RadioListTile(
-                tileColor: hexToColor(AppColors.whiteTextColor),
+                tileColor: hexToColor(AppColors.blackTextColor),
                 title: Text(
                   'Ascending',
                   style: kGoogleStyleTexts.copyWith(
-                      color: hexToColor(AppColors.whiteTextColor),
+                      color: hexToColor(AppColors.blackTextColor),
                       fontSize: 17.0),
                 ),
                 value: "1",
+                activeColor: hexToColor("#FCAF23"),
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
@@ -1580,14 +1249,15 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
                 controlAffinity: ListTileControlAffinity.trailing,
               ),
               RadioListTile(
-                tileColor: hexToColor(AppColors.whiteTextColor),
+                tileColor: hexToColor(AppColors.blackTextColor),
                 title: Text(
                   'Descending',
                   style: kGoogleStyleTexts.copyWith(
-                      color: hexToColor(AppColors.whiteTextColor),
+                      color: hexToColor(AppColors.blackTextColor),
                       fontSize: 17.0),
                 ),
                 value: "0",
+                activeColor: hexToColor("#FCAF23"),
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
@@ -1618,7 +1288,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //             child: Text(
   //               'Sort Investments By',
   //               style: kGoogleStyleTexts.copyWith(
-  //                   color: hexToColor(AppColors.whiteTextColor),
+  //                   color: hexToColor(AppColors.blackTextColor),
   //                   fontSize: 17.0),
   //             ),
   //           ),
@@ -1629,7 +1299,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //               title: Text(
   //                 'Current',
   //                 style: kGoogleStyleTexts.copyWith(
-  //                     color: hexToColor(AppColors.whiteTextColor),
+  //                     color: hexToColor(AppColors.blackTextColor),
   //                     fontSize: 17.0),
   //               ),
   //               selected: true,
@@ -1649,7 +1319,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //               title: Text(
   //                 'Current',
   //                 style: kGoogleStyleTexts.copyWith(
-  //                     color: hexToColor(AppColors.whiteTextColor),
+  //                     color: hexToColor(AppColors.blackTextColor),
   //                     fontSize: 17.0),
   //               ),
   //               selected: true,
@@ -1669,7 +1339,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //             //   title: Text(
   //             //     '%XIRR',
   //             //     style: kGoogleStyleTexts.copyWith(
-  //             //         color: hexToColor(AppColors.whiteTextColor),
+  //             //         color: hexToColor(AppColors.blackTextColor),
   //             //         fontSize: 17.0),
   //             //   ),
   //             //   value: "%XIRR",
@@ -1687,7 +1357,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //             //   title: Text(
   //             //     '%Returns',
   //             //     style: kGoogleStyleTexts.copyWith(
-  //             //         color: hexToColor(AppColors.whiteTextColor),
+  //             //         color: hexToColor(AppColors.blackTextColor),
   //             //         fontSize: 17.0),
   //             //   ),
   //             //   value: "%Returns",
@@ -1705,7 +1375,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen> {
   //             //   title: Text(
   //             //     'Alphabetical',
   //             //     style: kGoogleStyleTexts.copyWith(
-  //             //         color: hexToColor(AppColors.whiteTextColor),
+  //             //         color: hexToColor(AppColors.blackTextColor),
   //             //         fontSize: 17.0),
   //             //   ),
   //             //   value: "Alphabetical",
@@ -1736,11 +1406,12 @@ class ExitDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      backgroundColor: hexToColor("#101010"),
+      backgroundColor:
+          hexToColor(AppColors.appThemeColor), //hexToColor("#101010"),
       title: Text(
         "Exit App",
         style: kGoogleStyleTexts.copyWith(
-            color: hexToColor(AppColors.whiteTextColor), fontSize: 18.0),
+            color: hexToColor(AppColors.blackTextColor), fontSize: 18.0),
       ),
       content: Builder(
         builder: (context) {
@@ -1752,7 +1423,7 @@ class ExitDialogue extends StatelessWidget {
                 Text(
                   "Are you sure you want to exit the app?",
                   style: kGoogleStyleTexts.copyWith(
-                      color: hexToColor(AppColors.whiteTextColor),
+                      color: hexToColor(AppColors.blackTextColor),
                       fontSize: 15.0),
                 ),
                 Padding(
@@ -1767,7 +1438,7 @@ class ExitDialogue extends StatelessWidget {
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                    hexToColor(AppColors.whiteTextColor),
+                                    hexToColor(AppColors.blackTextColor),
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0)),
@@ -1801,7 +1472,7 @@ class ExitDialogue extends StatelessWidget {
                               "Exit",
                               style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w700,
-                                color: hexToColor(AppColors.whiteTextColor),
+                                color: hexToColor(AppColors.blackTextColor),
                                 fontSize: 15.0,
                               ),
                             )),

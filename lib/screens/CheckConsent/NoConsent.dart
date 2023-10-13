@@ -42,7 +42,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
               child: Text(
                 "Please Provide the details so that the Association can access your data to display it within the application.",
                 style: TextStyle(
-                    fontSize: 20, color: hexToColor(AppColors.whiteTextColor)),
+                    fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
               ),
             ),
             const SizedBox(
@@ -51,7 +51,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             Text(
               "Common Account Number(CAN)",
               style: TextStyle(
-                  fontSize: 20, color: hexToColor(AppColors.whiteTextColor)),
+                  fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
             ),
             TextField(
               controller: TextEditingController(text: widget.can),
@@ -62,7 +62,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             Text(
               "Permanaent Account Number(PAN)",
               style: TextStyle(
-                  fontSize: 20, color: hexToColor(AppColors.whiteTextColor)),
+                  fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
             ),
             TextField(
               controller: TextEditingController(text: widget.pan),
@@ -73,7 +73,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             Text(
               "Mobile Number",
               style: TextStyle(
-                  fontSize: 20, color: hexToColor(AppColors.whiteTextColor)),
+                  fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
             ),
             const TextField(),
             ElevatedButton(

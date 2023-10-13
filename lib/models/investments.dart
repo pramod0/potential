@@ -1,5 +1,5 @@
 class InvestedData {
-  int invested = 0;
+  double invested = 0;
   double current = 0;
   double totalReturns = 0;
   double absReturns = 0;
@@ -19,7 +19,7 @@ class InvestedData {
       required this.fundData});
 
   InvestedData.fromJson(Map<String, dynamic> json) {
-    invested = json['invested'];
+    invested = json['invested'].toDouble();
     current = json['current'].toDouble();
     totalReturns = json['totalReturns'].toDouble();
     absReturns = json['absReturns'].toDouble();
@@ -54,9 +54,8 @@ class FundData {
   String schemeName = '';
   String schemeCode = '';
   List<dynamic> folioList = <dynamic>[];
-  double price = 0;
   double sipAmount = 0;
-  int invested = 0;
+  double invested = 0;
   double unitHolding = 0;
   double currentNAV = 0;
   double currentValue = 0;
@@ -76,7 +75,6 @@ class FundData {
       required this.schemeName,
       required this.schemeCode,
       required this.folioList,
-      required this.price,
       required this.sipAmount,
       required this.invested,
       required this.unitHolding,
@@ -98,9 +96,8 @@ class FundData {
     schemeName = json['schemeName'];
     schemeCode = json['schemeCode'];
     folioList = json['folioList'];
-    price = json['price'].toDouble();
     sipAmount = json['sipAmount'].toDouble();
-    invested = json['invested'];
+    invested = json['invested'].toDouble();
     unitHolding = json['units'].toDouble();
     currentNAV = json['currentNAV'].toDouble();
     currentValue = json['currentValue'].toDouble();
@@ -122,7 +119,6 @@ class FundData {
     data['schemeName'] = schemeName;
     data['schemeCode'] = schemeCode;
     data['folioList'] = folioList;
-    data['price'] = price;
     data['sipAmount'] = sipAmount;
     data['invested'] = invested;
     data['units'] = unitHolding;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/screens/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/AllData.dart';
@@ -35,16 +36,16 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // given transparent color to status bar
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    // ));
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return Scaffold(
       body: Container(
-        color: hexToColor("#121212"),
+        color: hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
         child: Stack(
           children: [
             // Align(

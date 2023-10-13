@@ -10,6 +10,7 @@ import 'package:potential/utils/googleSignIn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
+import '../app_assets_constants/AppColors.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
@@ -57,7 +58,8 @@ class _WelcomePageState extends State<WelcomePage> {
         behavior: NoGlowBehaviour(),
         child: Scaffold(
           key: _scaffoldKey,
-          backgroundColor: hexToColor("#121212"),
+          backgroundColor:
+              hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -77,10 +79,11 @@ class _WelcomePageState extends State<WelcomePage> {
                             child: Text(
                               "Get Started,",
                               style: kGoogleStyleTexts.copyWith(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 35,
-                                color: hexToColor("#ffffff"),
-                              ),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 35,
+                                  color: hexToColor(AppColors
+                                      .blackTextColor) //hexToColor("#ffffff"),
+                                  ),
                             ),
                           ),
                         ),
@@ -159,7 +162,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           Text(
                             "${AppStrings.alreadyRegText} ",
                             style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white, fontSize: 18.0),
+                                color: hexToColor(AppColors.blackTextColor),
+                                fontSize: 18.0),
                           ),
                           Text(
                             AppStrings.signInText,
@@ -189,10 +193,11 @@ class ExitDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      backgroundColor: hexToColor("#101010"),
+      backgroundColor: hexToColor("#f3f3f3"),
       title: Text(
         "Exit App",
-        style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
+        style:
+            kGoogleStyleTexts.copyWith(color: Colors.black87, fontSize: 18.0),
       ),
       content: Builder(
         builder: (context) {
@@ -204,7 +209,7 @@ class ExitDialogue extends StatelessWidget {
                 Text(
                   "Are you sure you want to exit the app?",
                   style: kGoogleStyleTexts.copyWith(
-                      color: Colors.white, fontSize: 15.0),
+                      color: Colors.black87, fontSize: 15.0),
                 ),
                 Padding(
                   padding:

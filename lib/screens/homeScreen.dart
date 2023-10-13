@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/screens/login.dart';
 
 import '../app_assets_constants/AppStrings.dart';
@@ -49,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: hexToColor("#121212"),
+          backgroundColor:
+              hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
           title: Text(
             "Dashboard",
             style: kGoogleStyleTexts.copyWith(

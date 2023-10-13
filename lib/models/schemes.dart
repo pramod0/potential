@@ -66,7 +66,7 @@ class Data {
     transType = json['transType'];
     paymentStatus = json['paymentStatus'];
     transactionStatus = json['transactionStatus'];
-    installmentNumber = json['installmentNumber'];
+    installmentNumber = json['installmentNumber'] ?? 1;
     transactionNumber = json['transactionNumber'];
     key = json['key'];
   }
