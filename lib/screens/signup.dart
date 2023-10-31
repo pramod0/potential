@@ -4,12 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:potential/ApiService.dart';
 
-class SignupPage extends StatefulWidget {
+import '../app_assets_constants/AppStrings.dart';
+import '../utils/styleConstants.dart';
+
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
-  _SignupPageState createState() => _SignupPageState();
+  _SignUpPageState createState(){
+    return _SignUpPageState();
+  }
+
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -70,7 +78,7 @@ class _SignupPageState extends State<SignupPage> {
       final email = _emailController.text;
       final password = _passwordController.text;
       final confirmPassword = _confirmPasswordController.text;
-      final panCard = _panCardController.text;
+      final panCard = _panCardController.text.toUpperCase();
 
       // Create a JSON payload
       var payload = jsonEncode(<String, String>{
@@ -84,9 +92,7 @@ class _SignupPageState extends State<SignupPage> {
         'panCard': panCard,
       });
 
-    var response = ApiService().signUp(payload);
-
-
+      var response = ApiService().signUp(payload);
     }
   }
 
@@ -106,11 +112,10 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Signup'),
+        title: const Text('Signup'),
       ),
       body: SingleChildScrollView(
-        child: Padding
-          (
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
@@ -118,7 +123,8 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 TextFormField(
                   controller: _firstNameController,
-                  decoration: InputDecoration(labelText: 'First Name'),
+                  decoration:
+                      const InputDecoration(labelText: AppStrings.firsNameText),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your first name';
@@ -128,7 +134,8 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 TextFormField(
                   controller: _lastNameController,
-                  decoration: InputDecoration(labelText: 'Last Name'),
+                  decoration:
+                      const InputDecoration(labelText: AppStrings.lastNameText),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your last name';
@@ -138,7 +145,8 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 TextFormField(
                   controller: _phoneNumberController,
-                  decoration: InputDecoration(labelText: 'Phone Number'),
+                  decoration:
+                      const InputDecoration(labelText: AppStrings.mobileNO),
                   validator: _validatePhoneNumber,
                   keyboardType: TextInputType.phone,
                   inputFormatters: [
@@ -148,13 +156,15 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(labelText: 'Email'),
+                  decoration:
+                      const InputDecoration(labelText: AppStrings.emailID),
                   validator: _validateEmail,
                   keyboardType: TextInputType.emailAddress,
                 ),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration:
+                      const InputDecoration(labelText: AppStrings.passwordText),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -165,7 +175,8 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 TextFormField(
                   controller: _confirmPasswordController,
-                  decoration: InputDecoration(labelText: 'Confirm Password'),
+                  decoration: const InputDecoration(
+                      labelText: AppStrings.confirmPasswordText),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -179,17 +190,24 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 TextFormField(
                   controller: _panCardController,
-                  decoration: InputDecoration(labelText: 'PAN Card'),
+                  decoration:
+                      const InputDecoration(labelText: AppStrings.panCard),
                   validator: _validatePanCard,
                   inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp('[A-Z0-9]')),
+                    FilteringTextInputFormatter.allow(
+                        RegExp('[A-Za-z]{5}d{4}[A-Za-z]{1}')),
                     LengthLimitingTextInputFormatter(10),
                   ],
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: _submitForm,
-                  child: Text('Sign Up'),
+                  child: Text(
+                    AppStrings.signUpText,
+                    style: kGoogleStyleTexts.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
                 ),
               ],
             ),

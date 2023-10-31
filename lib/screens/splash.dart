@@ -104,4 +104,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           );
         });
   }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   // controller.dispose();
+  // }
 }

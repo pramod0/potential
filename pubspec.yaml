@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.1.0
   google_fonts: ^4.0.3
   intl: ^0.17.0
+  provider: any
 #  firebase_database: ^10.1.0
 #  firebase_storage: ^11.1.0
 #  flutter_local_notifications: ^13.0.0

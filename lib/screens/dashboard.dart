@@ -32,10 +32,12 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<Modal> userList = <Modal>[];
+
   // final prefs = SharedPreferences.getInstance();
   // String? totalRet = "0";
   String sortFeature = "Current";
   String srt = '0';
+
   // late int totalFunds;
 
   Future<String> getData() async {
@@ -134,6 +136,8 @@ class _DashboardState extends State<Dashboard> {
         irr: 0,
         sinceDaysCAGR: 0,
         fundData: []);
+    AllData.schemeMap = {};
+    print("allmain data refreshed.");
     Navigator.of(context).pop();
     return false;
   }
@@ -188,7 +192,7 @@ class _DashboardState extends State<Dashboard> {
                       Text(
                         " (${AllData.investedData.fundData.length})",
                         style: kGoogleStyleTexts.copyWith(
-                            color: hexToColor("#FCAA00").withOpacity(0.8),
+                            color: hexToColor(AppColors.currentStatus),
                             fontSize: 13.0,
                             fontWeight: FontWeight.w100),
                       )
@@ -202,15 +206,15 @@ class _DashboardState extends State<Dashboard> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Card(
-                  shape: const RoundedRectangleBorder(
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       side: BorderSide(
                         width: 0.6,
-                        color: Colors.black26, //Colors.white30,
+                        color: Color(0x42000000), //Colors.white30,
                       )),
                   borderOnForeground: true,
-                  color:
-                      hexToColor("#fBfBfB"), //Colors.black.withOpacity(0.25),
+                  color: hexToColor(AppColors
+                      .whiteTextColor), //Colors.black.withOpacity(0.25),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, bottom: 20, top: 15),
@@ -223,8 +227,8 @@ class _DashboardState extends State<Dashboard> {
                                   .withOpacity(0.87),
                               fontSize: 18.0),
                         ),
-                        const Divider(
-                          color: Colors.black26, //Colors.white30,
+                        Divider(
+                          color: Color(0x42000000), //Colors.white30,
                           thickness: 1.5,
                         ),
                         // SizedBox(
@@ -334,7 +338,8 @@ class _DashboardState extends State<Dashboard> {
                                           width: 4,
                                           height: 4,
                                           decoration: BoxDecoration(
-                                            color: hexToColor("#FCAF23"),
+                                            color: hexToColor(
+                                                AppColors.currentValue),
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -371,7 +376,8 @@ class _DashboardState extends State<Dashboard> {
                                           width: 4,
                                           height: 4,
                                           decoration: BoxDecoration(
-                                            color: hexToColor("#FCAF23"),
+                                            color: hexToColor(
+                                                AppColors.currentValue),
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -408,7 +414,8 @@ class _DashboardState extends State<Dashboard> {
                                           width: 4,
                                           height: 4,
                                           decoration: BoxDecoration(
-                                            color: hexToColor("#FCAF23"),
+                                            color: hexToColor(
+                                                AppColors.currentValue),
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -475,7 +482,8 @@ class _DashboardState extends State<Dashboard> {
                               angle: srt == '0' ? 0 : 180 * 3.14 / 180,
                               child: Icon(
                                 Icons.sort,
-                                color: hexToColor("#FCAA00").withOpacity(0.6),
+                                color: hexToColor(AppColors.currentStatus)
+                                    .withOpacity(0.6),
                               ),
                             ),
                           ),
@@ -499,7 +507,8 @@ class _DashboardState extends State<Dashboard> {
                         Text(
                           "<> ",
                           style: kGoogleStyleTexts.copyWith(
-                              color: hexToColor("#FCAF23").withOpacity(0.7),
+                              color: hexToColor(AppColors.currentValue)
+                                  .withOpacity(0.7),
                               fontSize: 14.0,
                               fontWeight: FontWeight.w600),
                         ),
@@ -526,11 +535,11 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
         Expanded(
-          child: ListView.builder(
+          child: AnimatedList(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: AllData.investedData.fundData.length,
-            itemBuilder: (context, i) {
+            initialItemCount: AllData.investedData.fundData.length,
+            itemBuilder: (context, i, animation) {
               final data = AllData.investedData.fundData.toList();
               if (sortFeature == "Current") {
                 data.sort((a, b) => (int.parse(srt) == 1
@@ -559,229 +568,243 @@ class _DashboardState extends State<Dashboard> {
               }
               final item = data[i];
 
-              return InkWell(
-                onTap: () async {
-                  var schemeKey =
-                      await getSchemeData(item.fundCode, item.schemeCode);
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: const Offset(0, 0),
+                ).animate(CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.bounceIn,
+                    reverseCurve: Curves.bounceOut)),
+                child: InkWell(
+                  onTap: () async {
+                    var schemeKey =
+                        await getSchemeData(item.fundCode, item.schemeCode);
 
-                  schemeKey != ""
-                      ? Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => SchemeSummaryScreen(
-                                  schemeKey: schemeKey, schemeCurrent: item)),
-                        )
-                      : print("Hello its fine");
-                },
-                child: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      // color: Colors.transparent,
-                      decoration: BoxDecoration(
-                          color: hexToColor(
-                              "#fCfCfC"), //Colors.black.withOpacity(0.3),
-                          border: Border.all(
-                            color: Colors.black12,
-                          ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10))),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 08, vertical: 07),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
-                            decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
-                            child: Text(item.schemeName,
-                                style: kGoogleStyleTexts.copyWith(
-                                    color: hexToColor(AppColors.blackTextColor),
-                                    fontSize: 14.0),
-                                softWrap: true,
-                                textAlign: TextAlign.left),
-                          ),
-                          const Divider(
-                            color: Colors.black26, //Colors.white30,
-                            thickness: 0.5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Invested",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                    AppColors.blackTextColor)
-                                                .withOpacity(0.6),
-                                            fontSize: 13.0),
-                                      ),
-                                      Text(
-                                        "\u{20B9}${oCcy.format(item.invested)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                AppColors.blackTextColor),
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Since Date",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                    AppColors.blackTextColor)
-                                                .withOpacity(0.6),
-                                            fontSize: 13.0),
-                                      ),
-                                      Text(
-                                        item.sinceDate.replaceAll('-', ' / '),
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                AppColors.blackTextColor),
-                                            fontSize: 16.0),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              // const Divider(
-                              //   thickness: 0.5,
-                              //   height: ,
-                              //   color: Colors.white24,
-                              // ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Current",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                    AppColors.blackTextColor)
-                                                .withOpacity(0.6),
-                                            fontSize: 13.0),
-                                      ),
-                                      Text(
-                                        "\u{20B9}${oCcy.format(item.currentValue)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                AppColors.blackTextColor),
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                  // const Divider(
-                                  //   color: hexToColor(
-                                  //                  AppColors.blackTextColor),
-                                  // ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "XIRR",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                    AppColors.blackTextColor)
-                                                .withOpacity(0.6),
-                                            fontSize: 13.0),
-                                      ),
-                                      Text(
-                                        "${item.xirr} %",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                AppColors.blackTextColor),
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "Tot. Returns",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                    AppColors.blackTextColor)
-                                                .withOpacity(0.6),
-                                            fontSize: 13.0),
-                                      ),
-                                      Text(
-                                        "\u{20B9}${oCcy.format(item.totalReturns)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                AppColors.blackTextColor),
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "% Rtn.",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                    AppColors.blackTextColor)
-                                                .withOpacity(0.6),
-                                            fontSize: 13.0),
-                                      ),
-                                      Text(
-                                        "${item.absReturns}%",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(
-                                                AppColors.blackTextColor),
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
+                    schemeKey != ""
+                        ? Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => SchemeSummaryScreen(
+                                    schemeKey: schemeKey, schemeCurrent: item)),
+                          )
+                        : print("Hello its fine, No!!!");
+                  },
+                  child: ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        // color: Colors.transparent,
+                        decoration: BoxDecoration(
+                            color: hexToColor(AppColors.whiteTextColor),
+                            //Colors.black.withOpacity(0.3),
+                            border: Border.all(
+                              color: Colors.black26.withOpacity(0.2),
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 08, vertical: 07),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 2),
+                              decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Text(item.schemeName,
+                                  style: kGoogleStyleTexts.copyWith(
+                                      color:
+                                          hexToColor(AppColors.blackTextColor),
+                                      fontSize: 14.0),
+                                  softWrap: true,
+                                  textAlign: TextAlign.left),
+                            ),
+                            const Divider(
+                              color: Color(0x42000000), //Colors.white30,
+                              thickness: 0.5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Invested",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                      AppColors.blackTextColor)
+                                                  .withOpacity(0.6),
+                                              fontSize: 13.0),
+                                        ),
+                                        Text(
+                                          "\u{20B9}${oCcy.format(item.invested)}",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Since Date",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                      AppColors.blackTextColor)
+                                                  .withOpacity(0.6),
+                                              fontSize: 13.0),
+                                        ),
+                                        Text(
+                                          item.sinceDate.replaceAll('-', ' / '),
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // const Divider(
+                                //   thickness: 0.5,
+                                //   height: ,
+                                //   color: Colors.white24,
+                                // ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Current",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                      AppColors.blackTextColor)
+                                                  .withOpacity(0.6),
+                                              fontSize: 13.0),
+                                        ),
+                                        Text(
+                                          "\u{20B9}${oCcy.format(item.currentValue)}",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                    // const Divider(
+                                    //   color: hexToColor(
+                                    //                  AppColors.blackTextColor),
+                                    // ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "XIRR",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                      AppColors.blackTextColor)
+                                                  .withOpacity(0.6),
+                                              fontSize: 13.0),
+                                        ),
+                                        Text(
+                                          "${item.xirr} %",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Tot. Returns",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                      AppColors.blackTextColor)
+                                                  .withOpacity(0.6),
+                                              fontSize: 13.0),
+                                        ),
+                                        Text(
+                                          "\u{20B9}${oCcy.format(item.totalReturns)}",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "% Rtn.",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                      AppColors.blackTextColor)
+                                                  .withOpacity(0.6),
+                                              fontSize: 13.0),
+                                        ),
+                                        Text(
+                                          "${item.absReturns}%",
+                                          style: kGoogleStyleTexts.copyWith(
+                                              color: hexToColor(
+                                                  AppColors.blackTextColor),
+                                              fontSize: 16.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -842,8 +865,8 @@ class _DashboardState extends State<Dashboard> {
                                 color: Colors.white30,
                               )),
                           borderOnForeground: true,
-                          color: hexToColor(
-                              "#FBFBFB"), //Colors.transparent, //hexToColor("#1D1D1D"),
+                          color: hexToColor(AppColors.whiteTextColor),
+                          //Colors.transparent, //hexToColor("#1D1D1D"),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 20),
@@ -906,7 +929,8 @@ class _DashboardState extends State<Dashboard> {
                                                 width: 4,
                                                 height: 4,
                                                 decoration: BoxDecoration(
-                                                  color: hexToColor("#FCAF23"),
+                                                  color: hexToColor(
+                                                      AppColors.currentValue),
                                                   shape: BoxShape.circle,
                                                 ),
                                               ),
@@ -1095,7 +1119,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 value: "1",
                 groupValue: srt,
-                activeColor: hexToColor("#FCAF23"),
+                activeColor: hexToColor(AppColors.currentValue),
                 onChanged: (value) {
                   setState(() {
                     srt = value.toString();
@@ -1113,7 +1137,7 @@ class _DashboardState extends State<Dashboard> {
                       fontSize: 17.0),
                 ),
                 value: "0",
-                activeColor: hexToColor("#FCAF23"),
+                activeColor: hexToColor(AppColors.currentValue),
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
@@ -1159,7 +1183,7 @@ class _DashboardState extends State<Dashboard> {
                       fontSize: 17.0),
                 ),
                 selected: true,
-                activeColor: hexToColor("#FCAF23"),
+                activeColor: hexToColor(AppColors.currentValue),
                 value: "Current",
                 groupValue: sortFeature,
                 onChanged: (value) {
@@ -1179,7 +1203,7 @@ class _DashboardState extends State<Dashboard> {
                       fontSize: 17.0),
                 ),
                 selected: true,
-                activeColor: hexToColor("#FCAF23"),
+                activeColor: hexToColor(AppColors.currentValue),
                 value: "Invested",
                 groupValue: sortFeature,
                 onChanged: (value) {
@@ -1262,7 +1286,7 @@ class ExitDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      backgroundColor: hexToColor("#101010"),
+      backgroundColor: hexToColor(AppColors.blackTextColor),
       title: Text(
         "Exit App",
         style: kGoogleStyleTexts.copyWith(
@@ -1297,8 +1321,8 @@ class ExitDialogue extends StatelessWidget {
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0)),
-                                side: const BorderSide(
-                                    width: 0.5, color: Colors.black26)),
+                                side: BorderSide(
+                                    width: 0.5, color: Color(0x42000000))),
                             onPressed: () {
                               Navigator.of(context).pop(false);
                             },

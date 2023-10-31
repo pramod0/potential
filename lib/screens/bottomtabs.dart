@@ -18,30 +18,30 @@ class TabNavigationItem {
 
   static List<TabNavigationItem> get items => [
         TabNavigationItem(
-          page: HomeScreen(),
+          page: const HomeScreen(),
           icon: const Icon(
             Icons.home,
           ),
-          title: Text(
+          title: const Text(
             "Organization",
           ),
         ),
         TabNavigationItem(
-          page: Dashboard(),
-          icon: Icon(Icons.search),
-          title: Text(
+          page: const Dashboard(),
+          icon: const Icon(Icons.search),
+          title: const Text(
             "Branch",
           ),
         ),
         TabNavigationItem(
           page: InvestScreen(),
-          icon: Icon(Icons.home),
-          title: Text("Courses"),
+          icon: const Icon(Icons.home),
+          title: const Text("Courses"),
         ),
         TabNavigationItem(
-          page: Dashboard(),
-          icon: Icon(Icons.home),
-          title: Text("Standards"),
+          page: const Dashboard(),
+          icon: const Icon(Icons.home),
+          title: const Text("Standards"),
         ),
       ];
 }

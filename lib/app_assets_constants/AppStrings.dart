@@ -6,7 +6,7 @@ class AppStrings {
   static const String lname = 'Last Name';
   static const String emailID = 'Email Id';
   static const String panCard = 'PAN Card Number';
-  static const String mobileNO = 'Mobile Number';
+  static const String mobileNO = 'Phone Number';
   static const String otp = 'OTP';
   static const String generateOTP = 'Generate OTP';
   static const String userPassword = 'Password';
@@ -52,6 +52,7 @@ class AppStrings {
   static const String emailHintText = "user@example.com";
   static const String emailText = "Email";
   static const String passwordText = "Password";
+  static const String confirmPasswordText = "Confirm Password";
   static const String loginBtnText = "Login";
 
   // VALIDATION TEXT
@@ -193,4 +194,6 @@ class AppStrings {
   static const String invested = 'Invested';
   static const String investments = 'Investments';
   static const String home = 'Home';
+  static const String pleaseRegisterText =
+      "We kindly request that you reach out to our support team, as it appears you are not currently registered as a user with Association.\nYour cooperation is greatly appreciated.\n\nThank You!!";
 }

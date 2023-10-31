@@ -122,6 +122,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
       var responseBody = jsonDecode(await ApiService().signUp(payload));
       if (responseBody['success'] == true) {
+        if (responseBody['data'] is String) {
+          showSnackBar("User is Already Registered", Colors.black);
+        }
         Track.isRegistered = true;
         prefs.then((pref) => pref.setBool('isRegistered', true));
         Navigator.of(context).push(
@@ -155,7 +158,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          backgroundColor: hexToColor("#F8F8F8"), //hexToColor("#161616")
+          backgroundColor:
+              hexToColor(AppColors.appThemeColorAppBar), //hexToColor("#161616")
           title: Text(
             "Create your account",
             style: kGoogleStyleTexts.copyWith(
@@ -164,8 +168,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               color: hexToColor(AppColors.blackTextColor),
             ),
           ),
-          iconTheme: const IconThemeData(
-            color: Colors.black,
+          iconTheme: IconThemeData(
+            color: hexToColor("#ffffff"),
           ),
         ),
         backgroundColor: hexToColor(AppColors.appThemeColor),
@@ -218,7 +222,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#aaaaaa"),
+                                        color: hexToColor(AppColors.formBorder),
                                         width: 1.0,
                                       ),
                                     ),
@@ -276,7 +280,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                      color: hexToColor("#aaaaaa"),
+                                      color: hexToColor(AppColors.formBorder),
                                       width: 1.0,
                                     ),
                                   ),
@@ -336,7 +340,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#aaaaaa"),
+                                        color: hexToColor(AppColors.formBorder),
                                         width: 1.0,
                                       ),
                                     ),
@@ -395,7 +399,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#aaaaaa"),
+                                        color: hexToColor(AppColors.formBorder),
                                         width: 1.0,
                                       ),
                                     ),
@@ -455,7 +459,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                      color: hexToColor("#aaaaaa"),
+                                      color: hexToColor(AppColors.formBorder),
                                       width: 1.0,
                                     ),
                                   ),
@@ -529,7 +533,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                      color: hexToColor("#aaaaaa"),
+                                      color: hexToColor(AppColors.formBorder),
                                       width: 1.0,
                                     ),
                                   ),
@@ -602,7 +606,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(
-                                        color: hexToColor("#aaaaaa"),
+                                        color: hexToColor(AppColors.formBorder),
                                         width: 1.0,
                                       ),
                                     ),
@@ -635,14 +639,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: hexToColor("#0065A0"),
+                              backgroundColor:
+                                  hexToColor(AppColors.loginBtnColor),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           onPressed: register,
                           child: Text(
                             AppStrings.signUpText,
                             style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white, fontSize: 18.0),
+                                color: hexToColor(AppColors.whiteTextColor),
+                                fontSize: 18.0),
                           )),
                     )
                   ],

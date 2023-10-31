@@ -1,13 +1,8 @@
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/models/schemes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../models/token.dart';
-import '../models/cancreation.dart';
 
 class AllData {
   // static late CANIndFillEezzReq fillEezzReq;
