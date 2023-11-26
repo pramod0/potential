@@ -42,19 +42,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   ValueNotifier<bool> isLoading = ValueNotifier(false);
   final TextEditingController firstNameController =
-      TextEditingController(text: "Manish"); // for quick testing
+      TextEditingController(text: ""); // for quick testing
   final TextEditingController lastNameController =
-      TextEditingController(text: "Jain"); // for quick testing
+      TextEditingController(text: ""); // for quick testing
   final TextEditingController emailIDController =
-      TextEditingController(text: "manishj177@gmail.com"); // for quick testing
+      TextEditingController(text: ""); // for quick testing
   final TextEditingController mobileNOController =
-      TextEditingController(text: "7303545657"); // for quick testing
+      TextEditingController(text: ""); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "12345678");
+      TextEditingController(text: "");
   final TextEditingController confirmPasswordController =
-      TextEditingController(text: "12345678");
+      TextEditingController(text: "");
   final TextEditingController panCardController =
-      TextEditingController(text: "ARNPJ5441N");
+      TextEditingController(text: "");
 
   void _toggleVisibility() {
     setState(() {
@@ -69,14 +69,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   showSnackBar(String text, Color color) {
-    _scaffoldKey.currentState
-        ?.showSnackBar(SnackBar(content: Text(text), backgroundColor: color));
+    var snackBar = SnackBar(content: Text(text));
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   register() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     EasyLoading.instance.userInteractions = false;
     EasyLoading.show(
-      status: "plase wait",
+      status: "please wait...",
       dismissOnTap: false,
     );
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -98,14 +100,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         _showPassword = _showPassword2 = false;
       });
       if (check != null) {
-        if (kDebugMode) {
-          print("hii$check");
-        }
+        // if (kDebugMode) {
+        //   print("hii$check");
+        // }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(check)),
         );
         isLoading.value = false;
-        EasyLoading.dismiss();
+        await EasyLoading.dismiss();
         return;
       }
 
@@ -132,7 +134,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             builder: (context) => LoginPage(),
           ),
         );
-        EasyLoading.dismiss();
+        await EasyLoading.dismiss();
       }
     } catch (e) {
       if (kDebugMode) {
@@ -141,13 +143,21 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
-      EasyLoading.dismiss();
+      await EasyLoading.dismiss();
     } finally {
       setState(() {
         // passwordController.text = "";
       });
-      EasyLoading.dismiss();
+      await EasyLoading.dismiss();
     }
+  }
+
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const ExitDialogue()) ??
+        false;
   }
 
   @override
@@ -169,7 +179,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             ),
           ),
           iconTheme: IconThemeData(
-            color: hexToColor("#ffffff"),
+            color: hexToColor(AppColors.blackTextColor),
           ),
         ),
         backgroundColor: hexToColor(AppColors.appThemeColor),

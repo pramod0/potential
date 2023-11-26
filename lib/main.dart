@@ -7,7 +7,17 @@ import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/screens/splash.dart';
 
 void main() async {
+  await configLoading();
   runApp(const MyApp());
+}
+
+configLoading() async {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..dismissOnTap = false
+    ..userInteractions = false;
 }
 
 class MyApp extends StatelessWidget {

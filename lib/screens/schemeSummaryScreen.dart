@@ -1143,7 +1143,9 @@ class SchemeSummaryScreen extends StatefulWidget {
 }
 
 class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
-    with TickerProviderStateMixin {
+    with
+        TickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<SchemeSummaryScreen> {
   String sortFeature = "Current";
   String srt = '0';
   late final AnimationController _controller = AnimationController(
@@ -2002,6 +2004,10 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
 // Container buildBottomSheetContainerForFilters(BuildContext context) {
 //   return Container(

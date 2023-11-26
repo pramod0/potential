@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
+import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/models/schemes.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
@@ -45,83 +47,92 @@ class _DashboardState extends State<Dashboard> {
       status: 'please wait your Data is loading...',
     );
 
-    var token = Token.instance.token;
-    var responseBody =
-        jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
-    if (kDebugMode) {
-      print(responseBody.toString());
-    }
-    InvestedData investedData = InvestedData.fromJson(responseBody['data']);
-    if (kDebugMode) {
-      print("responseBody.toString()");
-    }
-    if (kDebugMode) {
-      print(investedData.invested);
-    }
-    var prefs = SharedPreferences.getInstance();
-    prefs.then((pref) =>
-        pref.setString('investedData', responseBody['data'].toString()));
-
-    AllData.setInvestmentData(investedData);
-    await EasyLoading.dismiss();
-    return Future.value("Data Downloaded Successfully");
-  }
-
-  Future<String> getSchemeData(String fund, String scheme) async {
     try {
-      EasyLoading.show(
-        status: 'please wait your Data is loading...',
-      );
-      if (AllData.schemeMap.containsKey('${fund}_$scheme')) {
-        await EasyLoading.dismiss();
-        return '${fund}_${scheme.toString()}';
-      }
       var token = Token.instance.token;
-      if (kDebugMode) {
-        print(token);
-      }
       var responseBody =
-          jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
-
+          jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
       if (kDebugMode) {
-        print("summary");
         print(responseBody.toString());
       }
-      SchemeData schemeData = SchemeData.fromJson(responseBody['fundData']);
-
+      InvestedData investedData = InvestedData.fromJson(responseBody['data']);
+      await EasyLoading.dismiss();
       if (kDebugMode) {
         print("responseBody.toString()");
       }
       if (kDebugMode) {
-        print(schemeData.length);
-      }
-
-      AllData.setSchemeSummary(schemeData);
-      if (kDebugMode) {
-        print(schemeData.length);
+        print(investedData.invested);
       }
       var prefs = SharedPreferences.getInstance();
-      prefs.then(
-          (pref) => pref.setString('allSchemes', AllData.schemeMap.toString()));
-      await EasyLoading.dismiss();
-      if (kDebugMode) {
-        print(schemeData.length);
-      }
-      return '${fund}_${scheme.toString()}';
+      prefs.then((pref) =>
+          pref.setString('investedData', responseBody['data'].toString()));
+
+      AllData.setInvestmentData(investedData);
+      return Future.value("Data Downloaded Successfully");
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
-      var schemes = "No";
+      // var schemes = "No";
       await EasyLoading.dismiss();
-      return "";
+      return Future.value("No Data Error");
     }
   }
+
+  // Future<String> getSchemeData(String fund, String scheme) async {
+  //   try {
+  //     EasyLoading.show(
+  //       status: 'please wait your Data is loading...',
+  //     );
+  //     if (AllData.schemeMap.containsKey('${fund}_$scheme')) {
+  //       await EasyLoading.dismiss();
+  //       return '${fund}_${scheme.toString()}';
+  //     }
+  //     var token = Token.instance.token;
+  //     // if (kDebugMode) {
+  //     //   print(token);
+  //     // }
+  //     var responseBody =
+  //         jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
+  //
+  //     // if (kDebugMode) {
+  //     //   print("summary");
+  //     //   print(responseBody.toString());
+  //     // }
+  //     SchemeData schemeData = SchemeData.fromJson(responseBody['fundData']);
+  //
+  //     // if (kDebugMode) {
+  //     //   print("responseBody.toString()");
+  //     // }
+  //     // if (kDebugMode) {
+  //     //   print(schemeData.length);
+  //     // }
+  //
+  //     AllData.setSchemeSummary(schemeData);
+  //     // if (kDebugMode) {
+  //     //   print(schemeData.length);
+  //     // }
+  //     var prefs = SharedPreferences.getInstance();
+  //     prefs.then(
+  //         (pref) => pref.setString('allSchemes', AllData.schemeMap.toString()));
+  //     await EasyLoading.dismiss();
+  //     // if (kDebugMode) {
+  //     //   print(schemeData.length);
+  //     // }
+  //     return '${fund}_${scheme.toString()}';
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print(e);
+  //     }
+  //     var schemes = "No";
+  //     await EasyLoading.dismiss();
+  //     return "";
+  //   }
+  // }
 
   @override
   void initState() {
     getData().whenComplete(() {
-      setState(() {});
+      WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
     });
     super.initState();
   }
@@ -177,8 +188,23 @@ class _DashboardState extends State<Dashboard> {
               left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
           child: Column(
             children: [
+              // Text(
+              //   "Sarvam Associates",
+              //   style: kGoogleStyleTexts.copyWith(
+              //       color:
+              //           hexToColor(AppColors.blackTextColor).withOpacity(0.7),
+              //       fontSize: 26.0,
+              //       fontFamily: GoogleFonts.lato().fontFamily),
+              // ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Image.asset(
+              //     AppImages.logo,
+              //     width: MediaQuery.of(context).size.width * 0.7,
+              //   ),
+              // ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 10),
+                padding: const EdgeInsets.only(top: 7, bottom: 10),
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: Row(
@@ -578,8 +604,8 @@ class _DashboardState extends State<Dashboard> {
                     reverseCurve: Curves.bounceOut)),
                 child: InkWell(
                   onTap: () async {
-                    var schemeKey =
-                        await getSchemeData(item.fundCode, item.schemeCode);
+                    var schemeKey = await AllData.getSchemeData(
+                        item.fundCode, item.schemeCode);
 
                     schemeKey != ""
                         ? Navigator.of(context).push(
@@ -675,7 +701,7 @@ class _DashboardState extends State<Dashboard> {
                                               fontSize: 13.0),
                                         ),
                                         Text(
-                                          item.sinceDate.replaceAll('-', ' / '),
+                                          item.sinceDate.replaceAll('-', '/'),
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
                                                   AppColors.blackTextColor),
@@ -725,11 +751,13 @@ class _DashboardState extends State<Dashboard> {
                                       height: 5,
                                     ),
                                     Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "XIRR",
+                                          "% Rtn.",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
@@ -737,7 +765,7 @@ class _DashboardState extends State<Dashboard> {
                                               fontSize: 13.0),
                                         ),
                                         Text(
-                                          "${item.xirr} %",
+                                          "${item.absReturns}%",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
                                                   AppColors.blackTextColor),
@@ -777,13 +805,11 @@ class _DashboardState extends State<Dashboard> {
                                       height: 5,
                                     ),
                                     Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "% Rtn.",
+                                          "XIRR",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
@@ -791,7 +817,7 @@ class _DashboardState extends State<Dashboard> {
                                               fontSize: 13.0),
                                         ),
                                         Text(
-                                          "${item.absReturns}%",
+                                          "${item.xirr}%",
                                           style: kGoogleStyleTexts.copyWith(
                                               color: hexToColor(
                                                   AppColors.blackTextColor),
@@ -1121,10 +1147,14 @@ class _DashboardState extends State<Dashboard> {
                 groupValue: srt,
                 activeColor: hexToColor(AppColors.currentValue),
                 onChanged: (value) {
-                  setState(() {
-                    srt = value.toString();
-                    Navigator.of(context).pop();
-                  });
+                  // setState(() {
+                  //
+                  // });
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => setState(() {
+                            srt = value.toString();
+                            Navigator.of(context).pop();
+                          }));
                 },
                 controlAffinity: ListTileControlAffinity.trailing,
               ),
@@ -1140,10 +1170,15 @@ class _DashboardState extends State<Dashboard> {
                 activeColor: hexToColor(AppColors.currentValue),
                 groupValue: srt,
                 onChanged: (value) {
-                  setState(() {
-                    srt = value.toString();
-                    Navigator.of(context).pop();
-                  });
+                  // setState(() {
+                  //   srt = value.toString();
+                  //   Navigator.of(context).pop();
+                  // });
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => setState(() {
+                            srt = value.toString();
+                            Navigator.of(context).pop();
+                          }));
                 },
                 controlAffinity: ListTileControlAffinity.trailing,
               ),
@@ -1275,6 +1310,10 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class ExitDialogue extends StatelessWidget {

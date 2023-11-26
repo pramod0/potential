@@ -95,7 +95,8 @@ class _WelcomePageState extends State<WelcomePage> {
                     width: MediaQuery.of(context).size.width - 10,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: hexToColor("#0065A0"),
+                            backgroundColor:
+                                hexToColor(AppColors.loginBtnColor),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0))),
                         onPressed: () {

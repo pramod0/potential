@@ -1,1 +1,3 @@
-// TODO Implement this library.
+class AppImages {
+  static const String logo = "assets/sarvam.png";
+}

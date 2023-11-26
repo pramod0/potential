@@ -17,6 +17,7 @@ dependencies:
   google_fonts: ^4.0.3
   intl: ^0.17.0
   provider: any
+  jwt_decoder: any
 #  firebase_database: ^10.1.0
 #  firebase_storage: ^11.1.0
 #  flutter_local_notifications: ^13.0.0
@@ -28,6 +29,8 @@ dependencies:
   font_awesome_flutter: ^10.4.0
 #  firebase_in_app_messaging: ^0.7.0+16
   http: ^1.1.0
+  linear_timer: ^2.0.0
+
 
 
 

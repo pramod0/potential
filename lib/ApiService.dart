@@ -60,7 +60,9 @@ class ApiService {
           "deviceType": "android"
         })); // end of http.post
     // print(response.body.toString());
-    // print(response.body);
+    if (kDebugMode) {
+      print(response.body);
+    }
     return response.body;
   }
 

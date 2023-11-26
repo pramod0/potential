@@ -25,13 +25,15 @@ class AppColors {
   //static const appThemeColor = "#181E2C";
   static const appThemeColor = "#F3F3F3";
   static const appThemeColorAppBar = "#F8F8F8";
-  static const formBorder = "#F8F8F8";
+  // static const formBorder = "#F8F8F8";
+  static const formBorder = "#c0c0c0";
 
   //static const appThemeColor = "#141A26";
   static const iconColor = "#747880";
   static const hintTextColor = "#626672";
   static const textFieldOutlineBorderColor = "#626672";
-  static const loginBtnColor = "#0065A0";
+  // static const loginBtnColor = "#0065A0";
+  static const loginBtnColor = "#043b7b";
   static const blackTextColor = "#101010";
   static const whiteTextColor = "#fbfbfb";
   static const noFocusBorderColor = "#aaaaaa";
