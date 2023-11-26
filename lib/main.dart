@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:potential/screens/CheckConsent/NoConsent.dart';
-import 'package:potential/screens/CheckConsent/checkCanNO.dart';
+//import 'package:potential/screens/CheckConsent/NoConsent.dart';
+//import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/screens/splash.dart';
 
 void main() async {

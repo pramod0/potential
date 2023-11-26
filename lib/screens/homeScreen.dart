@@ -4,13 +4,8 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/screens/login.dart';
 
 import '../app_assets_constants/AppStrings.dart';
-//import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-//
-// final auth = FirebaseAuth.instance;
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
@@ -24,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<bool> _onBackPressed() async {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
     return false;
   }
@@ -34,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //FirebaseAuth.instance.signOut();
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
       return;
     } catch (e) {

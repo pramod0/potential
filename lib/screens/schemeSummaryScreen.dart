@@ -1096,18 +1096,18 @@
 // //   Modal({required this.name, this.isSelected = false});
 // // }
 
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-import 'package:potential/models/token.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:potential/models/token.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ApiService.dart';
-import '../models/investments.dart';
+// import '../ApiService.dart';
+// import '../models/investments.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
@@ -1132,7 +1132,7 @@ class SchemeSummaryScreen extends StatefulWidget {
   final schemeKey;
   final schemeCurrent;
 
-  SchemeSummaryScreen(
+  const SchemeSummaryScreen(
       {super.key, required this.schemeKey, required this.schemeCurrent});
 
   @override
@@ -1148,15 +1148,15 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         AutomaticKeepAliveClientMixin<SchemeSummaryScreen> {
   String sortFeature = "Current";
   String srt = '0';
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 10),
-    vsync: this,
-  );
+  // late final AnimationController _controller = AnimationController(
+  //   duration: const Duration(seconds: 10),
+  //   vsync: this,
+  // );
 
-  late final Animation<double> _animationd = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.easeOutQuint,
-  );
+  // late final Animation<double> _animationd = CurvedAnimation(
+  //   parent: _controller,
+  //   curve: Curves.easeOutQuint,
+  // );
 
   // @override
   // void initState() {
@@ -1723,7 +1723,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
               return SlideTransition(
                 position: Tween<Offset>(
                   begin: const Offset(-1, 0),
-                  end: Offset(0, 0),
+                  end: const Offset(0, 0),
                 ).animate(animation),
                 // CurvedAnimation(
                 //   parent: _controller,
@@ -1738,7 +1738,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                     decoration: BoxDecoration(
                         color: hexToColor(
                             AppColors.whiteTextColor), //Colors.black12,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                        borderRadius: const BorderRadius.all(Radius.circular(10))),
                     // padding: const EdgeInsets.symmetric(
                     //     horizontal: 08, vertical: 07),
                     child: Container(
@@ -1749,7 +1749,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                           border: Border.all(
                             color: Colors.black26, //Colors.white24,
                           )),
-                      padding: EdgeInsets.all(11),
+                      padding: const EdgeInsets.all(11),
                       child: Column(
                         children: [
                           Row(
@@ -1799,7 +1799,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(

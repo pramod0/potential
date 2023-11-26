@@ -6,30 +6,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-import 'package:potential/models/investments.dart';
+// import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
-import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
-import 'package:potential/screens/CheckConsent/NoConsent.dart';
-import 'package:potential/screens/CheckConsent/checkCanNO.dart';
+// import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
+// import 'package:potential/screens/CheckConsent/NoConsent.dart';
+// import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/utils/AllData.dart';
 import 'package:potential/screens/dashboard.dart';
-import 'package:potential/screens/tabspage.dart';
+// import 'package:potential/screens/tabspage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/cancreation.dart';
+// import '../models/cancreation.dart';
 import '../models/token.dart';
 import '../utils/appTools.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../ApiService.dart';
-import '../utils/googleSignIn.dart';
+// import '../utils/googleSignIn.dart';
 import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
-import '../utils/track.dart';
+// import '../utils/track.dart';
 import 'CANcreationform/createAccount.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({
+  const LoginPage({
     Key? key,
   }) : super(key: key);
 
@@ -45,8 +45,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  late String _username = "";
-  late String _password = "";
+  // late String _username = "";
+  // late String _password = "";
 
   final TextEditingController usernameController =
       TextEditingController(text: ""); // for quick testing
@@ -103,15 +103,14 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final String userName = usernameController.text;
       final String password = passwordController.text;
-      if (userName == "" || password == "")
+      if (userName == "" || password == "") {
         showSnackBar(context, "Please Check the Values", hexToColor("#ffffff"));
+      }
       var responseBody = jsonDecode(
-          await ApiService().processLogin(userName, password, context));
+          await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
-      print("here-1");
 
       if (responseBody['success'] == true) {
-        print("here0");
 
 // var s = json.encode(responseBody['data']);
         // if (kDebugMode) {
@@ -439,14 +438,14 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.white, fontSize: 18.0),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => CreateAccountPage(),
+                          builder: (context) => const CreateAccountPage(),
                         ),
                       );
                     },

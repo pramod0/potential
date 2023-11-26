@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-import 'package:potential/app_assets_constants/AppImages.dart';
-import 'package:potential/models/schemes.dart';
+// import 'package:potential/app_assets_constants/AppImages.dart';
+// import 'package:potential/models/schemes.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -148,7 +148,6 @@ class _DashboardState extends State<Dashboard> {
         sinceDaysCAGR: 0,
         fundData: []);
     AllData.schemeMap = {};
-    print("allmain data refreshed.");
     Navigator.of(context).pop();
     return false;
   }
@@ -232,7 +231,7 @@ class _DashboardState extends State<Dashboard> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Card(
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       side: BorderSide(
                         width: 0.6,
@@ -253,7 +252,7 @@ class _DashboardState extends State<Dashboard> {
                                   .withOpacity(0.87),
                               fontSize: 18.0),
                         ),
-                        Divider(
+                        const Divider(
                           color: Color(0x42000000), //Colors.white30,
                           thickness: 1.5,
                         ),
@@ -607,13 +606,15 @@ class _DashboardState extends State<Dashboard> {
                     var schemeKey = await AllData.getSchemeData(
                         item.fundCode, item.schemeCode);
 
-                    schemeKey != ""
-                        ? Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => SchemeSummaryScreen(
-                                    schemeKey: schemeKey, schemeCurrent: item)),
-                          )
-                        : print("Hello its fine, No!!!");
+                    if(schemeKey != ""){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => SchemeSummaryScreen(
+                                schemeKey: schemeKey, schemeCurrent: item)),
+                      );
+                    }
+
+
                   },
                   child: ListTile(
                     title: Padding(
@@ -1311,7 +1312,6 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
@@ -1360,7 +1360,7 @@ class ExitDialogue extends StatelessWidget {
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0)),
-                                side: BorderSide(
+                                side: const BorderSide(
                                     width: 0.5, color: Color(0x42000000))),
                             onPressed: () {
                               Navigator.of(context).pop(false);

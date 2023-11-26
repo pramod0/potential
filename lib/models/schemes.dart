@@ -20,7 +20,7 @@ class SchemeData {
         data.add(Data.fromJson(v));
       });
     }
-    print("here1");
+
   }
 
   Map<String, dynamic> toJson() {

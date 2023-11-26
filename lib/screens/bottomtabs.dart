@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:potential/models/cancreation.dart';
-import 'package:potential/models/investor.dart';
+//import 'package:potential/models/cancreation.dart';
+//import 'package:potential/models/investor.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:potential/utils/AllData.dart';
+//import 'package:potential/utils/AllData.dart';
 
 import 'homeScreen.dart';
 import 'investScreen.dart';
@@ -34,7 +34,7 @@ class TabNavigationItem {
           ),
         ),
         TabNavigationItem(
-          page: InvestScreen(),
+          page: const InvestScreen(),
           icon: const Icon(Icons.home),
           title: const Text("Courses"),
         ),

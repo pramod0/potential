@@ -92,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
         'panCard': panCard,
       });
 
-      var response = ApiService().signUp(payload);
+      ApiService().signUp(payload);
     }
   }
 

@@ -6,7 +6,7 @@ import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
 import 'package:potential/models/schemes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+// import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../ApiService.dart';
 import '../models/token.dart';
@@ -146,7 +146,7 @@ class AllData {
       if (kDebugMode) {
         print(e);
       }
-      var schemes = "No";
+      // var schemes = "No";
       await EasyLoading.dismiss();
       return "";
     }

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:potential/ApiService.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
+//import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
 import 'package:potential/utils/appTools.dart';
 import 'package:potential/utils/noGlowBehaviour.dart';
 import 'package:potential/utils/track.dart';
@@ -15,16 +15,16 @@ import 'package:potential/utils/validations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../app_assets_constants/AppStrings.dart';
-import '../../models/cancreation.dart';
+//import '../../models/cancreation.dart';
 
-import '../../utils/AllData.dart';
+//import '../../utils/AllData.dart';
 import '../../utils/networkUtil.dart';
 import '../../utils/styleConstants.dart';
 import '../login.dart';
-import '../tabspage.dart';
+//import '../tabspage.dart';
 
 class CreateAccountPage extends StatefulWidget {
-  CreateAccountPage({Key? key}) : super(key: key);
+  const CreateAccountPage({Key? key}) : super(key: key);
 
   @override
   State<CreateAccountPage> createState() => _CreateAccountPageState();
@@ -131,7 +131,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         prefs.then((pref) => pref.setBool('isRegistered', true));
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => LoginPage(),
+            builder: (context) => const LoginPage(),
           ),
         );
         await EasyLoading.dismiss();

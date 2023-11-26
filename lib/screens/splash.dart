@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-import 'package:potential/app_assets_constants/AppImages.dart';
+// import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
-import 'package:potential/screens/welcome.dart';
 import 'package:potential/utils/styleConstants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/token.dart';
@@ -11,7 +10,7 @@ import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:linear_timer/linear_timer.dart';
+// import 'package:linear_timer/linear_timer.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -30,15 +29,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   isLoggedIn() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
-    print("all good");
-    print(token ?? "");
     if (token != null) {
       var expired = JwtDecoder.decode(token);
-      print(expired);
       if (expired.isNotEmpty) {
         String? token = pref.getString('token');
         Token(token!); // initialize token
-        print("all good");
         LoggedIn = true;
       } else {}
     }
@@ -124,7 +119,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+        pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
