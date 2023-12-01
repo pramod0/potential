@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/schemes.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
-import 'package:potential/utils/noGlowBehaviour.dart';
+// import 'package:potential/utils/noGlowBehaviour.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
@@ -182,7 +182,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBackPressed,
+      onWillPop: () async => false, //_onBackPressed,
       child: SafeArea(
         child: Scaffold(
           backgroundColor: hexToColor(AppColors.appThemeColor),
