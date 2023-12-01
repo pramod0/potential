@@ -33,7 +33,7 @@ class AppColors {
   static const hintTextColor = "#626672";
   static const textFieldOutlineBorderColor = "#626672";
   // static const loginBtnColor = "#0065A0";
-  static const loginBtnColor = "#043b7b";
+  static const loginBtnColor = "#00387A"; //003779/00387A/003675/043b7b
   static const blackTextColor = "#101010";
   static const whiteTextColor = "#fbfbfb";
   static const noFocusBorderColor = "#aaaaaa";

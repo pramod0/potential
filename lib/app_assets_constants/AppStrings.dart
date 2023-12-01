@@ -194,6 +194,7 @@ class AppStrings {
   static const String current = 'Current';
   static const String invested = 'Invested';
   static const String investments = 'Investments';
+  static const String reports = 'Analyze Report';
   static const String home = 'Home';
   static const String pleaseRegisterText =
       "We kindly request that you reach out to our support team, as it appears you are not currently registered as a user with Association.\nYour cooperation is greatly appreciated.\n\nThank You!!";

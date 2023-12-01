@@ -1164,14 +1164,17 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
   // }
 
   Future<bool> _onBackPressed(BuildContext context) async {
+    Navigator.of(context).pop();
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        return _onBackPressed(context);
+    super.build(context);
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (canPop) async {
+        await _onBackPressed(context);
       },
       child: Scaffold(
         backgroundColor:
@@ -1749,7 +1752,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 
               return Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 17),
+                    const EdgeInsets.symmetric(vertical: 6.0, horizontal: 17),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   // color: Colors.transparent,
@@ -1946,6 +1949,9 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
               );
             },
           ),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
     );
@@ -1984,10 +1990,10 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 activeColor: hexToColor(AppColors.currentValue),
                 groupValue: srt,
                 onChanged: (value) {
-                  // setState(() {
-                  //   srt = value.toString();
-                  //   Navigator.of(context).pop();
-                  // });
+                  setState(() {
+                    srt = value.toString();
+                    Navigator.of(context).pop();
+                  });
                   srt = value.toString();
                   Navigator.of(context).pop();
                 },
@@ -2005,10 +2011,10 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 activeColor: hexToColor(AppColors.currentValue),
                 groupValue: srt,
                 onChanged: (value) {
-                  // setState(() {
-                  //   srt = value.toString();
-                  //   Navigator.of(context).pop();
-                  // });
+                  setState(() {
+                    srt = value.toString();
+                    Navigator.of(context).pop();
+                  });
                   srt = value.toString();
                   Navigator.of(context).pop();
                 },

@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
+import 'package:potential/screens/homeScreen.dart';
 // import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
 // import 'package:potential/screens/CheckConsent/NoConsent.dart';
 // import 'package:potential/screens/CheckConsent/checkCanNO.dart';
@@ -82,10 +83,25 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  showSnackBar(BuildContext context, String text, Color color) {
-    var snackBar = SnackBar(content: Text(text));
-
+  showSnackBar(String text, Color color) {
+    var snackBar = SnackBar(
+        content: Text(
+      text,
+      style: kGoogleStyleTexts.copyWith(color: color, fontSize: 15),
+    ));
+    // var banner = MaterialBanner(
+    //     content: Text(
+    //       "Error",
+    //       style: kGoogleStyleTexts.copyWith(color: color, fontSize: 15),
+    //     ),
+    //     actions: [
+    //       Text(
+    //         text,
+    //         style: kGoogleStyleTexts.copyWith(color: color, fontSize: 15),
+    //       ),
+    //     ]);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // ScaffoldMessenger.of(context).showMaterialBanner(banner);
   }
 
   login() async {
@@ -93,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
-      showSnackBar(context, "No Internet Connection", Colors.red);
+      showSnackBar("No Internet Connection", Colors.red);
       return;
     }
     if (kDebugMode) {
@@ -106,7 +122,8 @@ class _LoginPageState extends State<LoginPage> {
       final String userName = usernameController.text;
       final String password = passwordController.text;
       if (userName == "" || password == "") {
-        showSnackBar(context, "Please Check the Values", hexToColor("#ffffff"));
+        // showSnackBar("Please Check the Values", hexToColor("#ffffff"));
+        Exception();
       }
       var responseBody =
           jsonDecode(await ApiService().processLogin(userName, password));
@@ -134,14 +151,17 @@ class _LoginPageState extends State<LoginPage> {
         //   print(investorData.firstName);
         // }
         await EasyLoading.dismiss();
-        // if (responseBody['data']['consent'] == 'No') {
-        //   Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //         builder: (context) => TakeConsentPage(
-        //             can: responseBody['data']['can'],
-        //             pan: responseBody['data']['userData']['panCard'])),
-        //   );
-        // }
+        if (responseBody['data']['can'] == 'No') {
+          await EasyLoading.dismiss();
+          showSnackBar("Cannot proceed!!! No Transactions", Colors.red);
+          return;
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //       builder: (context) => TakeConsentPage(
+          //           can: responseBody['data']['can'],
+          //           pan: responseBody['data']['userData']['panCard'])),
+          // );
+        }
         //if consent but no data
         //todo: implement route
         // responseBody =
@@ -163,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
         usernameController.text = "";
         passwordController.text = "";
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const Dashboard()
+          MaterialPageRoute(builder: (context) => const HomeScreen()
               //     TabsPage(
               //   selectedIndex: 0,
               // ),
@@ -199,29 +219,26 @@ class _LoginPageState extends State<LoginPage> {
         var message = responseBody['messsage'] + "!!!" ?? "Failed to login";
         print(responseBody['messsage']);
         if (userName.isEmpty && password.isEmpty) {
-          showSnackBar(context, "Please enter username & password", Colors.red);
+          showSnackBar("Please enter username & password", Colors.red);
         } else if (userName.isEmpty) {
-          showSnackBar(context, "Username is required", Colors.red);
+          showSnackBar("Username is required", Colors.red);
         } else if (password.isEmpty) {
-          showSnackBar(context, "Password is required", Colors.red);
+          showSnackBar("Password is required", Colors.red);
         } else {
-          await showSnackBar(context, message, Colors.red);
+          await showSnackBar(message, Colors.red);
         }
       }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
-      EasyLoading.dismiss();
+      showSnackBar("Please verify details", Colors.red);
+      await EasyLoading.dismiss();
     }
   }
 
   Future<bool> _onBackPressed() async {
-    return await showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const ExitDialogue()) ??
-        false;
+    return exit(0);
   }
 
   @override

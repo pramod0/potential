@@ -181,8 +181,11 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false, //_onBackPressed,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (canPop) async {
+        Navigator.of(context).pop();
+      },
       child: SafeArea(
         child: Scaffold(
           backgroundColor: hexToColor(AppColors.appThemeColor),
@@ -847,6 +850,9 @@ class _DashboardState extends State<Dashboard> {
                 ),
               );
             },
+          ),
+          const SizedBox(
+            height: 10,
           ),
         ],
       ),

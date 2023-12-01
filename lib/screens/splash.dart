@@ -9,6 +9,7 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/screens/dashboard.dart';
+import 'package:potential/screens/homeScreen.dart';
 
 // import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
@@ -84,7 +85,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     controller.forward();
 
     Timer(const Duration(seconds: 3),
-        () => Navigator.of(context).push(_createRoute()));
+        () => Navigator.of(context).pushReplacement(_createRoute()));
   }
 
   @override
@@ -149,7 +150,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                   // ),
                   Image.asset(
                     AppImages.logo,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.4,
                   ),
                   Text(
                     "14 takka",
@@ -171,7 +172,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   Route _createRoute() {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            !LoggedIn ? const LoginPage() : const Dashboard(),
+            !LoggedIn ? const LoginPage() : const HomeScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
@@ -186,9 +187,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         });
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  // }
 }

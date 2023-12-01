@@ -15,31 +15,33 @@ class ExitDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      backgroundColor: hexToColor(AppColors.blackTextColor),
+      backgroundColor: hexToColor(AppColors.appThemeColor),
       title: Text(
         "Exit App",
-        style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
+        style: kGoogleStyleTexts.copyWith(
+            color: hexToColor(AppColors.blackTextColor), fontSize: 18.0),
       ),
       content: Builder(
         builder: (context) {
           return SizedBox(
-            height: 100,
-            width: 200,
+            height: MediaQuery.of(context).size.height * 0.15,
+            // width: 200,
             child: Column(
               children: [
                 Text(
                   "Are you sure you want to exit the app?",
                   style: kGoogleStyleTexts.copyWith(
-                      color: Colors.white, fontSize: 15.0),
+                      color: hexToColor(AppColors.blackTextColor),
+                      fontSize: 15.0),
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
+                      const EdgeInsets.only(left: 5, right: 5.0, top: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 90,
+                        width: 95,
                         height: 45,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -62,7 +64,7 @@ class ExitDialogue extends StatelessWidget {
                             )),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 95,
                         height: 45,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
