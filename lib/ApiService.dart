@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,7 @@ class ApiService {
     }
   }
 
-  Future<String> processLogin(
-      String userName, String password) async {
+  Future<String> processLogin(String userName, String password) async {
     Uri loginUri = Uri.parse('${Constants.domainURL}${Constants.loginURL}');
     if (kDebugMode) {
       print(loginUri);
@@ -94,25 +94,34 @@ class ApiService {
       print(dashboardURI.toString());
     }
 
-    Response response = await get(dashboardURI, headers: <String, String>{
-      'Content-Type': 'application/json', //; charset=UTF-8
-      'Authorization': 'Bearer $token'
-    });
-    // if (kDebugMode) {
-    //   print(response.body);
-    // }
-    if (response.statusCode == 200) {
-      // Signup successful
-      if (kDebugMode) {
-        print(response.body);
+    try {
+      Response response = await get(dashboardURI, headers: <String, String>{
+        'Content-Type': 'application/json', //; charset=UTF-8
+        'Authorization': 'Bearer $token'
+      });
+      // if (kDebugMode) {
+      //   print(response.body);
+      // }
+      if (response.statusCode == 200) {
+        // Signup successful
+        if (kDebugMode) {
+          print(response.body);
+        }
+        return response.body;
+      } else {
+        // Signup failed
+        if (kDebugMode) {
+          print(response.body);
+        }
+        throw Exception('dashboard api failed');
       }
-      return response.body;
-    } else {
-      // Signup failed
-      if (kDebugMode) {
-        print(response.body);
-      }
-      throw Exception('dashboard api failed');
+    } on TimeoutException catch (e) {
+      print(
+          'Please Wait for Some Time There May be traffic or server may switched off');
+      return "sorry";
+    } on Exception catch (e) {
+      print('exception: $e');
+      return "sorry";
     }
   }
 

@@ -1,10 +1,20 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:potential/ApiService.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
+import 'package:potential/app_assets_constants/AppImages.dart';
+import 'package:potential/models/investments.dart';
+import 'package:potential/screens/dashboard.dart';
+
 // import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
 import 'package:potential/utils/styleConstants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/investor.dart';
 import '../models/token.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
@@ -23,7 +33,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   //  final prefs = SharedPreferences.getInstance(); // stores user data and invested data
   late AnimationController controller;
   late Animation<double> animation;
-  AllData allData = AllData();
+  // AllData allData = AllData();
   bool LoggedIn = false;
 
   isLoggedIn() async {
@@ -31,11 +41,35 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     String? token = pref.getString('token');
     if (token != null) {
       var expired = JwtDecoder.decode(token);
+      if (kDebugMode) {
+        log("Expiry TimeStamp ********* ${expired['exp']}");
+      }
       if (expired.isNotEmpty) {
-        String? token = pref.getString('token');
-        Token(token!); // initialize token
-        LoggedIn = true;
-      } else {}
+        int h = DateTime.now()
+            .difference(DateTime.fromMillisecondsSinceEpoch(
+                expired['exp'] * 1000,
+                isUtc: true))
+            .inHours;
+
+        print("Expiry TimeStamp ********* ${expired['exp']}");
+        if (h < 0) {
+          // Token(token); // initialize token
+          var respomse =
+              await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
+          if (respomse!['success']) {
+            if (kDebugMode) {
+              print(
+                  "Ready${jsonDecode(pref.getString('investorData')!).runtimeType}"); //
+            }
+            AllData.setInvestorData(User.fromJson(
+                await jsonDecode(pref.getString('investorData')!)));
+            Token(token);
+            LoggedIn = true;
+          }
+        }
+      } else {
+        LoggedIn = false;
+      }
     }
   }
 
@@ -49,7 +83,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.forward();
 
-    Timer(const Duration(seconds: 2),
+    Timer(const Duration(seconds: 3),
         () => Navigator.of(context).push(_createRoute()));
   }
 
@@ -102,13 +136,30 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
               //   // height: 150,
               //   // fit: BoxFit.cover,
               // ),
-              child: Text(
-                "14 takka",
-                style: kGoogleStyleTexts.copyWith(
-                    color: hexToColor(AppColors.loginBtnColor),
-                    fontWeight: FontWeight.w800,
-                    // textBaseline: TextBaseline.alphabetic,
-                    fontSize: 35),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Icon(
+                  //   Icons.volunteer_activism,
+                  //   color: hexToColor(AppColors.loginBtnColor), //#237463
+                  //   size: 100,
+                  //   // width: MediaQuery.of(context).size.width,
+                  //   // height: 150,
+                  //   // fit: BoxFit.cover,
+                  // ),
+                  Image.asset(
+                    AppImages.logo,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                  ),
+                  Text(
+                    "14 takka",
+                    style: kGoogleStyleTexts.copyWith(
+                        color: hexToColor(AppColors.loginBtnColor),
+                        fontWeight: FontWeight.w800,
+                        // textBaseline: TextBaseline.alphabetic,
+                        fontSize: 35),
+                  ),
+                ],
               ),
             ),
           ],
@@ -119,7 +170,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            !LoggedIn ? const LoginPage() : const Dashboard(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
@@ -134,11 +186,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         });
   }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   timerController1.dispose();
-  //   timerController2.dispose();
-  // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 }

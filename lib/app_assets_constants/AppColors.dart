@@ -41,8 +41,8 @@ class AppColors {
   static const paleOrange = "#FFA869";
   static const currentStatus = "#FCAA00";
   static const currentValue = "#FCAF23";
-  static const redAccent = "#f81b0f";
-  static const greenAccent = "#1DDC0C";
+  static const redAccent = "#D83924";
+  static const greenAccent = "#63BB41";
   static const orangeAccent = "#DB5C00";
   static const grey = "#757575";
   static const progressOuterContainerColor = "#404553";

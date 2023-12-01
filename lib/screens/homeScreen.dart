@@ -6,6 +6,7 @@ import 'package:potential/screens/login.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
@@ -16,12 +17,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<bool> _onBackPressed() async {
+  Future<void> _onBackPressed() async {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
     );
-    return false;
+    // return false;
   }
 
   _logout() {
@@ -41,8 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onBackPressed,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (bool canPop) async {
+        await _onBackPressed();
+      },
       child: Scaffold(
         appBar: AppBar(
           backgroundColor:

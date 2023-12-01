@@ -22,6 +22,7 @@ import '../utils/appTools.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../ApiService.dart';
 // import '../utils/googleSignIn.dart';
+import '../utils/exit_dialogue.dart';
 import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
@@ -88,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   login() async {
+    print(MediaQuery.of(context).size.width);
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
@@ -106,12 +108,11 @@ class _LoginPageState extends State<LoginPage> {
       if (userName == "" || password == "") {
         showSnackBar(context, "Please Check the Values", hexToColor("#ffffff"));
       }
-      var responseBody = jsonDecode(
-          await ApiService().processLogin(userName, password));
+      var responseBody =
+          jsonDecode(await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
-
 // var s = json.encode(responseBody['data']);
         // if (kDebugMode) {
         //   print(s);
@@ -125,8 +126,9 @@ class _LoginPageState extends State<LoginPage> {
         prefs.then((pref) => pref.setString('token', token));
         // print("token: $token\nuserData: ${responseBody['data']['userData']}");
         User investorData = User.fromJson(responseBody['data']['userData']);
+
         prefs.then((pref) => pref.setString(
-            'investorData', responseBody['data']['userData'].toString()));
+            'investorData', jsonEncode(responseBody['data']['userData'])));
         AllData.setInvestorData(investorData);
         // if (kDebugMode) {
         //   print(investorData.firstName);
@@ -158,6 +160,8 @@ class _LoginPageState extends State<LoginPage> {
         //     pref.setString('investedData', responseBody['data'].toString()));
         //
         // AllData.setInvestmentData(investedData);
+        usernameController.text = "";
+        passwordController.text = "";
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Dashboard()
               //     TabsPage(
@@ -274,7 +278,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding:
+                        const EdgeInsets.only(top: 10.0, left: 8, right: 8),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -422,21 +427,24 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 35,
                   ),
-                  SizedBox(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                hexToColor(AppColors.loginBtnColor),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0))),
-                        onPressed: login,
-                        child: Text(
-                          AppStrings.loginButtonText,
-                          style: kGoogleStyleTexts.copyWith(
-                              color: Colors.white, fontSize: 18.0),
-                        )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SizedBox(
+                      height: 55,
+                      width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  hexToColor(AppColors.loginBtnColor),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0))),
+                          onPressed: login,
+                          child: Text(
+                            AppStrings.loginButtonText,
+                            style: kGoogleStyleTexts.copyWith(
+                                color: Colors.white, fontSize: 18.0),
+                          )),
+                    ),
                   ),
                   const SizedBox(
                     height: 30,
@@ -489,94 +497,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ExitDialogue extends StatelessWidget {
-  const ExitDialogue({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      backgroundColor: hexToColor(AppColors.blackTextColor),
-      title: Text(
-        "Exit App",
-        style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
-      ),
-      content: Builder(
-        builder: (context) {
-          return SizedBox(
-            height: 100,
-            width: 200,
-            child: Column(
-              children: [
-                Text(
-                  "Are you sure you want to exit the app?",
-                  style: kGoogleStyleTexts.copyWith(
-                      color: Colors.white, fontSize: 15.0),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 15, right: 15.0, top: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 90,
-                        height: 45,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                side: const BorderSide(
-                                    width: 0.5, color: Colors.black26)),
-                            onPressed: () {
-                              Navigator.of(context).pop(false);
-                            },
-                            child: Text(
-                              "Cancel",
-                              style: kGoogleStyleTexts.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black54,
-                                fontSize: 15.0,
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        width: 90,
-                        height: 45,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffC93131),
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0))),
-                            onPressed: () async {
-                              exit(0);
-                            },
-                            child: Text(
-                              "Exit",
-                              style: kGoogleStyleTexts.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                fontSize: 15.0,
-                              ),
-                            )),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
       ),
     );
   }
