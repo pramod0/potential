@@ -24,7 +24,7 @@ class ExitDialogue extends StatelessWidget {
       content: Builder(
         builder: (context) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: 120, //MediaQuery.of(context).size.height * 0.15,
             // width: 200,
             child: Column(
               children: [

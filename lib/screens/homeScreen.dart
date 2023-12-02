@@ -40,11 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
     //     sinceDaysCAGR: 0,
     //     fundData: []);
     // AllData.schemeMap = {};
-    return await showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const ExitDialogue()) ??
-        false;
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => const ExitDialogue());
+    return false;
     // return false;
   }
 
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getData().whenComplete(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+      setState(() {});
     });
     super.initState();
   }
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
       canPop: true,
       onPopInvoked: (bool canPop) async {
-        await exit(0);
+        _onBackPressed();
       },
       child: Scaffold(
           appBar: AppBar(
@@ -346,8 +346,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                               Text(
                                                 '${AllData.investedData.irr}%',
                                                 style: kGoogleStyleTexts.copyWith(
-                                                    color: hexToColor(AppColors
-                                                            .blackTextColor)
+                                                    color: hexToColor(
+                                                            AllData.investedData
+                                                                        .irr >
+                                                                    0.0
+                                                                ? AppColors
+                                                                    .greenAccent
+                                                                : AppColors
+                                                                    .redAccent)
                                                         .withOpacity(0.85),
                                                     fontSize: 17.0),
                                               ),
@@ -394,8 +400,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               0.0
                                                           ? AppColors
                                                               .greenAccent
-                                                          : AppColors
-                                                              .blackTextColor)
+                                                          : AppColors.redAccent)
                                                       .withOpacity(0.85),
                                                   fontSize: 17.0),
                                               softWrap: true,
@@ -439,8 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               0.0
                                                           ? AppColors
                                                               .greenAccent
-                                                          : AppColors
-                                                              .blackTextColor)
+                                                          : AppColors.redAccent)
                                                       .withOpacity(0.85),
                                                   fontSize: 17.0),
                                               softWrap: true,

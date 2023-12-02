@@ -106,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
 
   login() async {
     print(MediaQuery.of(context).size.width);
+
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
@@ -117,15 +118,17 @@ class _LoginPageState extends State<LoginPage> {
     }
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
-
+    var responseBody;
     try {
       final String userName = usernameController.text;
       final String password = passwordController.text;
       if (userName == "" || password == "") {
-        // showSnackBar("Please Check the Values", hexToColor("#ffffff"));
+        showSnackBar("Please Check the Values", hexToColor("#ffffff"));
+        await EasyLoading.dismiss();
         Exception();
+        return;
       }
-      var responseBody =
+      responseBody =
           jsonDecode(await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
 
@@ -180,6 +183,7 @@ class _LoginPageState extends State<LoginPage> {
         //     pref.setString('investedData', responseBody['data'].toString()));
         //
         // AllData.setInvestmentData(investedData);
+        TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
         Navigator.of(context).push(
@@ -232,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
       if (kDebugMode) {
         print(e);
       }
-      showSnackBar("Please verify details", Colors.red);
+      showSnackBar(e.toString(), Colors.red);
       await EasyLoading.dismiss();
     }
   }
@@ -321,6 +325,12 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             height: maxLines * 25.0,
                             child: TextFormField(
+                                onTap: () {
+                                  TextInput.finishAutofillContext();
+                                },
+                                autofillHints: const [
+                                  AutofillHints.newUsername
+                                ],
                                 textInputAction: TextInputAction.next,
                                 controller: usernameController,
                                 onSaved: (val) =>
@@ -346,7 +356,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: const BorderRadius.all(
-                                          Radius.circular(10.0)),
+                                          Radius.circular(8.0)),
                                       borderSide: BorderSide(
                                           color: hexToColor(
                                               AppColors.hintTextColor))),
@@ -392,6 +402,7 @@ class _LoginPageState extends State<LoginPage> {
                                   color: hexToColor(AppColors
                                       .blackTextColor), //hexToColor("#ffffff"),
                                   fontSize: 15.0),
+                              autofillHints: const [AutofillHints.password],
                               maxLines: 1,
                               obscureText: !_showPassword,
                               decoration: InputDecoration(
@@ -408,7 +419,7 @@ class _LoginPageState extends State<LoginPage> {
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
-                                        Radius.circular(5.0)),
+                                        Radius.circular(8.0)),
                                     borderSide: BorderSide(
                                       color:
                                           hexToColor(AppColors.blackTextColor),

@@ -365,8 +365,12 @@ class _DashboardState extends State<Dashboard> {
                                         Text(
                                           '${AllData.investedData.irr}%',
                                           style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.blackTextColor)
+                                              color: hexToColor(AllData
+                                                              .investedData
+                                                              .irr >
+                                                          0.0
+                                                      ? AppColors.greenAccent
+                                                      : AppColors.redAccent)
                                                   .withOpacity(0.85),
                                               fontSize: 17.0),
                                         ),

@@ -48,20 +48,32 @@ class ApiService {
       print(loginUri);
     }
 
-    Response response = await post(loginUri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'email': userName,
-          'password': password,
-          "deviceType": "android"
-        })); // end of http.post
-    // print(response.body.toString());
-    if (kDebugMode) {
-      print(response.body);
+    try {
+      Response response = await post(loginUri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'email': userName,
+            'password': password,
+            "deviceType": "android"
+          })).timeout(Duration(seconds: 6)); // end of http.post
+      // print(response.body.toString());
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response.body;
+    } on TimeoutException catch (e) {
+      if (kDebugMode) {
+        print('Please try again after some time.');
+      }
+      throw ("Please try again after some time.");
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('exception: $e');
+      }
+      throw ("Please try again after some time.");
     }
-    return response.body;
   }
 
   // Future<bool> checkConsentdone(
@@ -98,7 +110,7 @@ class ApiService {
       Response response = await get(dashboardURI, headers: <String, String>{
         'Content-Type': 'application/json', //; charset=UTF-8
         'Authorization': 'Bearer $token'
-      });
+      }).timeout(const Duration(seconds: 5));
       // if (kDebugMode) {
       //   print(response.body);
       // }
@@ -116,12 +128,11 @@ class ApiService {
         throw Exception('dashboard api failed');
       }
     } on TimeoutException catch (e) {
-      print(
-          'Please Wait for Some Time There May be traffic or server may switched off');
-      return "sorry";
+      print('Please try again after some time.');
+      return "Please try again after some time.";
     } on Exception catch (e) {
       print('exception: $e');
-      return "sorry";
+      return "Please try again after some time.";
     }
   }
 
@@ -136,27 +147,35 @@ class ApiService {
       print(dashboardURI.toString());
     }
 
-    Response response = await get(dashboardURI, headers: <String, String>{
-      'Content-Type': 'application/json', //; charset=UTF-8
-      'Authorization': 'Bearer $token',
-      'fund': fund,
-      'scheme': scheme
-    });
-    // if (kDebugMode) {
-    //   print(response.body);
-    // }
-    if (response.statusCode == 200) {
-      // Signup successful
-      if (kDebugMode) {
-        print(response.body);
+    try {
+      Response response = await get(dashboardURI, headers: <String, String>{
+        'Content-Type': 'application/json', //; charset=UTF-8
+        'Authorization': 'Bearer $token',
+        'fund': fund,
+        'scheme': scheme
+      }).timeout(const Duration(seconds: 5));
+      // if (kDebugMode) {
+      //   print(response.body);
+      // }
+      if (response.statusCode == 200) {
+        // Signup successful
+        if (kDebugMode) {
+          print(response.body);
+        }
+        return response.body;
+      } else {
+        // Signup failed
+        if (kDebugMode) {
+          print(response.body);
+        }
+        throw Exception('schemeSummary api failed');
       }
-      return response.body;
-    } else {
-      // Signup failed
-      if (kDebugMode) {
-        print(response.body);
-      }
-      throw Exception('schemeSummary api failed');
+    } on TimeoutException catch (e) {
+      print('Please try again after some time.');
+      return "Please try again after some time.";
+    } on Exception catch (e) {
+      print('exception: $e');
+      return "Please try again after some time.";
     }
   }
 // Future<String> canCreation(String userName, BuildContext context) async {
