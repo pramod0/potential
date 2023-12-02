@@ -52,6 +52,14 @@ class AllData {
         .putIfAbsent(schemeSummary.data[0].key, () => schemeSummary);
   }
 
+  static printAll() {
+    if (kDebugMode) {
+      print(AllData.investorData.toJson());
+      print(AllData.investedData.toJson());
+      print(AllData.schemeMap.toString());
+    }
+  }
+
   static login(responseBody, context) async {
     if (responseBody['success'] == true) {
       // var s = json.encode(responseBody['data']);

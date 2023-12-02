@@ -38,7 +38,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   bool LoggedIn = false;
 
   isLoggedIn() async {
-    //var t1 = DateTime.timestamp();
+    var t1 = DateTime.now();
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
     if (token != null) {
@@ -53,17 +53,19 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 isUtc: true))
             .inHours;
 
-        // print("Expiry TimeStamp ********* ${expired['exp']}, h: ${h}");
+        if (kDebugMode) {
+          print("Expiry TimeStamp ********* ${expired['exp']}, h: $h");
+        }
         if (h < 0) {
-          // Token(token); // initialize token
-          var respomse =
+          var response =
               await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
-          if (respomse!['success']) {
+          if (response!['success']) {
             LoggedIn = true;
+            Token(token); // initialize token
             // if (kDebugMode) {
-            //   print("Ready${jsonDecode(pref.getString('investorData')!)}"); //
+            //   // print("Ready${jsonDecode(pref.getString('investorData')!)}"); //
             // }
-            InvestedData investedData = InvestedData.fromJson(respomse['data']);
+            InvestedData investedData = InvestedData.fromJson(response['data']);
             // await EasyLoading.dismiss();
             // if (kDebugMode) {
             //   print("responseBody.toString()");
@@ -71,22 +73,25 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             // if (kDebugMode) {
             //   print(investedData.toString());
             // }
-            var prefs = SharedPreferences.getInstance();
-            prefs.then((pref) =>
-                pref.setString('investedData', jsonEncode(respomse['data'])));
 
+            pref.setString('investedData', jsonEncode(response['data']));
+            // if (kDebugMode) {
+            //   print(pref.get('investedData'));
+            // }
             AllData.setInvestmentData(investedData);
             AllData.setInvestorData(User.fromJson(
                 await jsonDecode(pref.getString('investorData')!)));
-            AllData.schemeMap.clear();
-            Token(token);
+            // AllData.schemeMap.clear();
+            // AllData.printAll();
           }
         }
       }
     }
     // For checking time difference in preprocessing from api
-    // var t2 = DateTime.timestamp();
-    // print("T2-t1: ${t2.difference(t1)}");
+    var t2 = DateTime.now();
+    if (kDebugMode) {
+      print("T2-t1: ${t2.difference(t1)}");
+    }
   }
 
   @override

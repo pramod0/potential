@@ -111,15 +111,15 @@ class ApiService {
       // }
       if (response.statusCode == 200) {
         // Signup successful
-        if (kDebugMode) {
-          print(response.body);
-        }
+        // if (kDebugMode) {
+        //   print(response.body);
+        // }
         return response.body;
       } else {
         // Signup failed
-        if (kDebugMode) {
-          print(response.body);
-        }
+        // if (kDebugMode) {
+        //   print(response.body);
+        // }
         throw Exception('dashboard api failed');
       }
     } on TimeoutException catch (e) {

@@ -61,17 +61,17 @@ class _DashboardState extends State<Dashboard> {
       var token = Token.instance.token;
       var responseBody =
           jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
-      if (kDebugMode) {
-        print(responseBody.toString());
-      }
+      // if (kDebugMode) {
+      //   print(responseBody.toString());
+      // }
       InvestedData investedData = InvestedData.fromJson(responseBody['data']);
       await EasyLoading.dismiss();
       if (kDebugMode) {
         print("responseBody.toString()");
       }
-      if (kDebugMode) {
-        print(investedData.invested);
-      }
+      // if (kDebugMode) {
+      //   print(investedData.invested);
+      // }
       var prefs = SharedPreferences.getInstance();
       prefs.then((pref) =>
           pref.setString('investedData', jsonEncode(responseBody['data'])));
