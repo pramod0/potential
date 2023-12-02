@@ -29,6 +29,7 @@ import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
 // import '../utils/track.dart';
 import 'CANcreationform/createAccount.dart';
+import 'CheckConsent/checkCanNO.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -105,7 +106,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   login() async {
-    print(MediaQuery.of(context).size.width);
+    // if (kDebugMode) {
+    //   print(MediaQuery.of(context).size.width);
+    // }
 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
@@ -156,7 +159,10 @@ class _LoginPageState extends State<LoginPage> {
         await EasyLoading.dismiss();
         if (responseBody['data']['can'] == 'No') {
           await EasyLoading.dismiss();
-          showSnackBar("Cannot proceed!!! No Transactions", Colors.red);
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => CheckCANNO()));
+
+          // showSnackBar("Cannot proceed!!! No Transactions", Colors.red);
           return;
           // Navigator.of(context).push(
           //   MaterialPageRoute(
@@ -233,23 +239,29 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      // if (kDebugMode) {
+      //   print(e);
+      // }
       showSnackBar(e.toString(), Colors.red);
       await EasyLoading.dismiss();
     }
   }
 
-  Future<bool> _onBackPressed() async {
-    return exit(0);
+  _onBackPressed() async {
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return WillPopScope(
-      onWillPop: _onBackPressed,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (canPop) async {
+        if (canPop) {
+          return;
+        }
+        await _onBackPressed();
+      },
       child: ScrollConfiguration(
         behavior: NoGlowBehaviour(),
         child: Scaffold(

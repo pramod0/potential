@@ -38,13 +38,14 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   bool LoggedIn = false;
 
   isLoggedIn() async {
+    //var t1 = DateTime.timestamp();
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
     if (token != null) {
       var expired = JwtDecoder.decode(token);
-      if (kDebugMode) {
-        log("Expiry TimeStamp ********* ${expired['exp']}");
-      }
+      // if (kDebugMode) {
+      //   log("Expiry TimeStamp ********* ${expired['exp']}");
+      // }
       if (expired.isNotEmpty) {
         int h = DateTime.now()
             .difference(DateTime.fromMillisecondsSinceEpoch(
@@ -52,26 +53,40 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 isUtc: true))
             .inHours;
 
-        print("Expiry TimeStamp ********* ${expired['exp']}");
+        // print("Expiry TimeStamp ********* ${expired['exp']}, h: ${h}");
         if (h < 0) {
           // Token(token); // initialize token
           var respomse =
               await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
           if (respomse!['success']) {
-            if (kDebugMode) {
-              print(
-                  "Ready${jsonDecode(pref.getString('investorData')!).runtimeType}"); //
-            }
+            LoggedIn = true;
+            // if (kDebugMode) {
+            //   print("Ready${jsonDecode(pref.getString('investorData')!)}"); //
+            // }
+            InvestedData investedData = InvestedData.fromJson(respomse['data']);
+            // await EasyLoading.dismiss();
+            // if (kDebugMode) {
+            //   print("responseBody.toString()");
+            // }
+            // if (kDebugMode) {
+            //   print(investedData.toString());
+            // }
+            var prefs = SharedPreferences.getInstance();
+            prefs.then((pref) =>
+                pref.setString('investedData', jsonEncode(respomse['data'])));
+
+            AllData.setInvestmentData(investedData);
             AllData.setInvestorData(User.fromJson(
                 await jsonDecode(pref.getString('investorData')!)));
+            AllData.schemeMap.clear();
             Token(token);
-            LoggedIn = true;
           }
         }
-      } else {
-        LoggedIn = false;
       }
     }
+    // For checking time difference in preprocessing from api
+    // var t2 = DateTime.timestamp();
+    // print("T2-t1: ${t2.difference(t1)}");
   }
 
   @override

@@ -1172,9 +1172,12 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return PopScope(
-      canPop: true,
+      canPop: false,
       onPopInvoked: (canPop) async {
-        await _onBackPressed(context);
+        if (canPop) {
+          return;
+        }
+        Navigator.pop(context);
       },
       child: Scaffold(
         backgroundColor:

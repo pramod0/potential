@@ -182,9 +182,12 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: true,
+      canPop: false,
       onPopInvoked: (canPop) async {
-        Navigator.of(context).pop();
+        if (canPop) {
+          return;
+        }
+        Navigator.pop(context);
       },
       child: SafeArea(
         child: Scaffold(

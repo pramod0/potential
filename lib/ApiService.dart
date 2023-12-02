@@ -57,7 +57,7 @@ class ApiService {
             'email': userName,
             'password': password,
             "deviceType": "android"
-          })).timeout(Duration(seconds: 6)); // end of http.post
+          })).timeout(const Duration(seconds: 6)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
         print(response.body);
@@ -66,11 +66,6 @@ class ApiService {
     } on TimeoutException catch (e) {
       if (kDebugMode) {
         print('Please try again after some time.');
-      }
-      throw ("Please try again after some time.");
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print('exception: $e');
       }
       throw ("Please try again after some time.");
     }
@@ -130,9 +125,6 @@ class ApiService {
     } on TimeoutException catch (e) {
       print('Please try again after some time.');
       return "Please try again after some time.";
-    } on Exception catch (e) {
-      print('exception: $e');
-      return "Please try again after some time.";
     }
   }
 
@@ -172,9 +164,6 @@ class ApiService {
       }
     } on TimeoutException catch (e) {
       print('Please try again after some time.');
-      return "Please try again after some time.";
-    } on Exception catch (e) {
-      print('exception: $e');
       return "Please try again after some time.";
     }
   }

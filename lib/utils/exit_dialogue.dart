@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:potential/utils/styleConstants.dart';
 
 import '../app_assets_constants/AppColors.dart';
@@ -73,7 +74,8 @@ class ExitDialogue extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0))),
                             onPressed: () async {
-                              exit(0);
+                              SystemChannels.platform
+                                  .invokeMethod('SystemNavigator.pop');
                             },
                             child: Text(
                               "Exit",
