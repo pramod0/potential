@@ -57,7 +57,7 @@ class ApiService {
             'email': userName,
             'password': password,
             "deviceType": "android"
-          })).timeout(const Duration(seconds: 6)); // end of http.post
+          })).timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
         print(response.body);
@@ -97,9 +97,9 @@ class ApiService {
         '${Constants.domainURL}${Constants.dashboardURL}?limit=$limit&offset=$offset');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
-    if (kDebugMode) {
-      print(dashboardURI.toString());
-    }
+    // if (kDebugMode) {
+    //   print(dashboardURI.toString());
+    // }
 
     try {
       Response response = await get(dashboardURI, headers: <String, String>{
@@ -135,9 +135,9 @@ class ApiService {
         Uri.parse('${Constants.domainURL}${Constants.schemeSummaryURL}');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
-    if (kDebugMode) {
-      print(dashboardURI.toString());
-    }
+    // if (kDebugMode) {
+    //   print(dashboardURI.toString());
+    // }
 
     try {
       Response response = await get(dashboardURI, headers: <String, String>{
@@ -151,19 +151,19 @@ class ApiService {
       // }
       if (response.statusCode == 200) {
         // Signup successful
-        if (kDebugMode) {
-          print(response.body);
-        }
+        // if (kDebugMode) {
+        //   print(response.body);
+        // }
         return response.body;
       } else {
         // Signup failed
-        if (kDebugMode) {
-          print(response.body);
-        }
+        // if (kDebugMode) {
+        //   print(response.body);
+        // }
         throw Exception('schemeSummary api failed');
       }
     } on TimeoutException catch (e) {
-      print('Please try again after some time.');
+      // print('Please try again after some time.');
       return "Please try again after some time.";
     }
   }

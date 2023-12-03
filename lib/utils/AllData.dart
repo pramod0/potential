@@ -38,10 +38,12 @@ class AllData {
   static setInvestorData(User investorData) async {
     // SharedPreferences pref = await SharedPreferences.getInstance();
     AllData.investorData = investorData;
+    AllData.lastFetchTime = DateTime.now();
   }
 
   static setInvestmentData(InvestedData investedData) async {
     AllData.investedData = investedData;
+    AllData.lastFetchTime = DateTime.now();
   }
 
   static setSchemeSummary(SchemeData schemeSummary) async {
@@ -50,6 +52,7 @@ class AllData {
     }
     AllData.schemeMap
         .putIfAbsent(schemeSummary.data[0].key, () => schemeSummary);
+    AllData.lastFetchTime = DateTime.now();
   }
 
   static printAll() {

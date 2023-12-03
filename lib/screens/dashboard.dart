@@ -187,7 +187,7 @@ class _DashboardState extends State<Dashboard> {
         if (canPop) {
           return;
         }
-        Navigator.pop(context);
+        await _onBackPressed();
       },
       child: SafeArea(
         child: Scaffold(
@@ -210,15 +210,41 @@ class _DashboardState extends State<Dashboard> {
             padding: const EdgeInsets.only(
                 left: 18.0, right: 18.0, top: 15.0, bottom: 0.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   "Sarvam Associates",
-                //   style: kGoogleStyleTexts.copyWith(
-                //       color:
-                //           hexToColor(AppColors.blackTextColor).withOpacity(0.7),
-                //       fontSize: 26.0,
-                //       fontFamily: GoogleFonts.lato().fontFamily),
-                // ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
+                      style: kGoogleStyleTexts.copyWith(
+                        color: hexToColor(AppColors.blackTextColor)
+                            .withOpacity(0.87),
+                        fontSize: 24.0,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    Text(
+                      "(${AllData.investorData.panCard})",
+                      style: kGoogleStyleTexts.copyWith(
+                        color: hexToColor(AppColors.blackTextColor)
+                            .withOpacity(0.87),
+                        fontSize: 15.0,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
+                ),
+
+                Text(
+                  "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                  style: kGoogleStyleTexts.copyWith(
+                    color:
+                        hexToColor(AppColors.blackTextColor).withOpacity(0.87),
+                    fontSize: 12.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
                 // Align(
                 //   alignment: Alignment.centerLeft,
                 //   child: Image.asset(
@@ -226,6 +252,9 @@ class _DashboardState extends State<Dashboard> {
                 //     width: MediaQuery.of(context).size.width * 0.7,
                 //   ),
                 // ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 7, bottom: 10),
                   child: Container(
@@ -241,7 +270,7 @@ class _DashboardState extends State<Dashboard> {
                         Text(
                           " (${AllData.investedData.fundData.length})",
                           style: kGoogleStyleTexts.copyWith(
-                              color: hexToColor(AppColors.currentStatus),
+                              color: hexToColor(AppColors.loginBtnColor),
                               fontSize: 13.0,
                               fontWeight: FontWeight.w100),
                         )
@@ -249,6 +278,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 ),
+
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
@@ -277,7 +307,7 @@ class _DashboardState extends State<Dashboard> {
                             style: kGoogleStyleTexts.copyWith(
                                 color: hexToColor(AppColors.blackTextColor)
                                     .withOpacity(0.87),
-                                fontSize: 18.0),
+                                fontSize: 16.50),
                           ),
                           const Divider(
                             color: Color(0x42000000), //Colors.white30,
@@ -321,7 +351,7 @@ class _DashboardState extends State<Dashboard> {
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
                                                   .withOpacity(0.85),
-                                              fontSize: 17.0),
+                                              fontSize: 14.0),
                                         ),
                                       ],
                                     ),
@@ -346,7 +376,7 @@ class _DashboardState extends State<Dashboard> {
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
                                                   .withOpacity(0.85),
-                                              fontSize: 17.0),
+                                              fontSize: 14.0),
                                         ),
                                       ],
                                     ),
@@ -375,7 +405,7 @@ class _DashboardState extends State<Dashboard> {
                                                       ? AppColors.greenAccent
                                                       : AppColors.redAccent)
                                                   .withOpacity(0.85),
-                                              fontSize: 17.0),
+                                              fontSize: 14.0),
                                         ),
                                       ],
                                     ),
@@ -419,7 +449,7 @@ class _DashboardState extends State<Dashboard> {
                                                     ? AppColors.greenAccent
                                                     : AppColors.blackTextColor)
                                                 .withOpacity(0.85),
-                                            fontSize: 17.0),
+                                            fontSize: 14.0),
                                         softWrap: true,
                                       ),
                                     ],
@@ -461,7 +491,7 @@ class _DashboardState extends State<Dashboard> {
                                                     ? AppColors.greenAccent
                                                     : AppColors.blackTextColor)
                                                 .withOpacity(0.85),
-                                            fontSize: 17.0),
+                                            fontSize: 14.0),
                                         softWrap: true,
                                       ),
                                     ],
@@ -501,7 +531,7 @@ class _DashboardState extends State<Dashboard> {
                                                 AllData.investedData.xirr > 0.0
                                                     ? AppColors.greenAccent
                                                     : AppColors.redAccent),
-                                            fontSize: 17.0),
+                                            fontSize: 14.0),
                                       ),
                                     ],
                                   ),
@@ -541,7 +571,7 @@ class _DashboardState extends State<Dashboard> {
                           angle: srt == '0' ? 0 : 180 * 3.14 / 180,
                           child: Icon(
                             Icons.sort,
-                            color: hexToColor(AppColors.currentStatus)
+                            color: hexToColor(AppColors.loginBtnColor)
                                 .withOpacity(0.6),
                           ),
                         ),
@@ -574,7 +604,7 @@ class _DashboardState extends State<Dashboard> {
                       Text(
                         "<> ",
                         style: kGoogleStyleTexts.copyWith(
-                            color: hexToColor(AppColors.currentValue)
+                            color: hexToColor(AppColors.loginBtnColor)
                                 .withOpacity(0.7),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w600),
@@ -667,7 +697,7 @@ class _DashboardState extends State<Dashboard> {
                           child: Text(item.schemeName,
                               style: kGoogleStyleTexts.copyWith(
                                   color: hexToColor(AppColors.blackTextColor),
-                                  fontSize: 14.0),
+                                  fontSize: 13.0),
                               softWrap: true,
                               textAlign: TextAlign.left),
                         ),
@@ -693,7 +723,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.6),
-                                          fontSize: 13.0),
+                                          fontSize: 11.0),
                                     ),
                                     Text(
                                       "\u{20B9}${oCcy.format(item.invested)}",
@@ -701,7 +731,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.85),
-                                          fontSize: 16.0),
+                                          fontSize: 13.0),
                                     ),
                                   ],
                                 ),
@@ -718,7 +748,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.6),
-                                          fontSize: 13.0),
+                                          fontSize: 11.0),
                                     ),
                                     Text(
                                       item.sinceDate.replaceAll('-', '/'),
@@ -726,7 +756,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.85),
-                                          fontSize: 16.0),
+                                          fontSize: 13.0),
                                     )
                                   ],
                                 ),
@@ -752,7 +782,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.6),
-                                          fontSize: 13.0),
+                                          fontSize: 11.0),
                                     ),
                                     Text(
                                       "\u{20B9}${oCcy.format(item.currentValue)}",
@@ -760,7 +790,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.85),
-                                          fontSize: 16.0),
+                                          fontSize: 13.0),
                                     ),
                                   ],
                                 ),
@@ -782,7 +812,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.6),
-                                          fontSize: 13.0),
+                                          fontSize: 11.0),
                                     ),
                                     Text(
                                       "${item.absReturns}%",
@@ -791,7 +821,7 @@ class _DashboardState extends State<Dashboard> {
                                               item.absReturns > 0.0
                                                   ? AppColors.greenAccent
                                                   : AppColors.redAccent),
-                                          fontSize: 16.0),
+                                          fontSize: 13.0),
                                     ),
                                   ],
                                 ),
@@ -810,7 +840,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.6),
-                                          fontSize: 13.0),
+                                          fontSize: 11.0),
                                     ),
                                     Text(
                                       "\u{20B9}${oCcy.format(item.totalReturns)}",
@@ -819,7 +849,7 @@ class _DashboardState extends State<Dashboard> {
                                               item.absReturns > 0.0
                                                   ? AppColors.greenAccent
                                                   : AppColors.redAccent),
-                                          fontSize: 16.0),
+                                          fontSize: 13.0),
                                     ),
                                   ],
                                 ),
@@ -835,7 +865,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(
                                                   AppColors.blackTextColor)
                                               .withOpacity(0.6),
-                                          fontSize: 13.0),
+                                          fontSize: 11.0),
                                     ),
                                     Text(
                                       "${item.xirr}%",
@@ -843,7 +873,7 @@ class _DashboardState extends State<Dashboard> {
                                           color: hexToColor(item.xirr > 0.0
                                               ? AppColors.greenAccent
                                               : AppColors.redAccent),
-                                          fontSize: 16.0),
+                                          fontSize: 13.0),
                                     ),
                                   ],
                                 ),
@@ -1146,7 +1176,7 @@ class _DashboardState extends State<Dashboard> {
                 'Select Order of sorting',
                 style: kGoogleStyleTexts.copyWith(
                     color: hexToColor(AppColors.blackTextColor),
-                    fontSize: 17.0),
+                    fontSize: 14.0),
               ),
             ),
           ),
@@ -1158,7 +1188,7 @@ class _DashboardState extends State<Dashboard> {
                   'Ascending',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 value: "1",
                 groupValue: srt,
@@ -1181,7 +1211,7 @@ class _DashboardState extends State<Dashboard> {
                   'Descending',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 value: "0",
                 activeColor: hexToColor(AppColors.currentValue),
@@ -1221,7 +1251,7 @@ class _DashboardState extends State<Dashboard> {
                 'Sort Investments By',
                 style: kGoogleStyleTexts.copyWith(
                     color: hexToColor(AppColors.blackTextColor),
-                    fontSize: 17.0),
+                    fontSize: 14.0),
               ),
             ),
           ),
@@ -1232,7 +1262,7 @@ class _DashboardState extends State<Dashboard> {
                   'Current',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 selected: true,
                 activeColor: hexToColor(AppColors.currentValue),
@@ -1252,7 +1282,7 @@ class _DashboardState extends State<Dashboard> {
                   'Invested',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 selected: true,
                 activeColor: hexToColor(AppColors.currentValue),
@@ -1272,7 +1302,7 @@ class _DashboardState extends State<Dashboard> {
                   '%XIRR',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 value: "%XIRR",
                 groupValue: sortFeature,
@@ -1290,7 +1320,7 @@ class _DashboardState extends State<Dashboard> {
                   '%Returns',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 value: "%Returns",
                 groupValue: sortFeature,
@@ -1308,7 +1338,7 @@ class _DashboardState extends State<Dashboard> {
                   'Alphabetical',
                   style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      fontSize: 14.0),
                 ),
                 value: "Alphabetical",
                 groupValue: sortFeature,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:potential/ApiService.dart';
@@ -21,6 +22,8 @@ import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../utils/networkUtil.dart';
 // import 'package:linear_timer/linear_timer.dart';
 
 class Splash extends StatefulWidget {
@@ -37,10 +40,41 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   // AllData allData = AllData();
   bool LoggedIn = false;
 
+  showSnackBar(String text, Color color) {
+    var snackBar = SnackBar(
+        content: Text(
+      text,
+      style: kGoogleStyleTexts.copyWith(color: color, fontSize: 15),
+    ));
+    // var banner = MaterialBanner(
+    //     content: Text(
+    //       "Error",
+    //       style: kGoogleStyleTexts.copyWith(color: color, fontSize: 15),
+    //     ),
+    //     actions: [
+    //       Text(
+    //         text,
+    //         style: kGoogleStyleTexts.copyWith(color: color, fontSize: 15),
+    //       ),
+    //     ]);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // ScaffoldMessenger.of(context).showMaterialBanner(banner);
+  }
+
   isLoggedIn() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    bool connectionResult = await NetWorkUtil().checkInternetConnection();
+    if (!connectionResult) {
+      showSnackBar("No Internet Connection", Colors.red);
+      return;
+    }
+
     var t1 = DateTime.now();
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
+    // if (kDebugMode) {
+    //   print(token);
+    // }
     if (token != null) {
       var expired = JwtDecoder.decode(token);
       // if (kDebugMode) {
@@ -56,10 +90,19 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         if (kDebugMode) {
           print("Expiry TimeStamp ********* ${expired['exp']}, h: $h");
         }
+        var response;
         if (h < 0) {
-          var response =
-              await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
+          try {
+            response =
+                await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
+          } catch (e) {
+            await EasyLoading.dismiss();
+            showSnackBar(e.toString(), Colors.red);
+          }
+          AllData.setInvestorData(
+              User.fromJson(await jsonDecode(pref.getString('investorData')!)));
           if (response!['success']) {
+            await EasyLoading.dismiss();
             LoggedIn = true;
             Token(token); // initialize token
             // if (kDebugMode) {
@@ -79,11 +122,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             //   print(pref.get('investedData'));
             // }
             AllData.setInvestmentData(investedData);
-            AllData.setInvestorData(User.fromJson(
-                await jsonDecode(pref.getString('investorData')!)));
+            return;
             // AllData.schemeMap.clear();
             // AllData.printAll();
           }
+          await EasyLoading.dismiss();
         }
       }
     }
@@ -96,15 +139,17 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    EasyLoading.show(status: 'loading...');
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     isLoggedIn();
+    EasyLoading.dismiss();
     super.initState();
     controller = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.forward();
 
-    Timer(const Duration(seconds: 3),
+    Timer(const Duration(seconds: 4),
         () => Navigator.of(context).pushReplacement(_createRoute()));
   }
 
@@ -192,7 +237,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   Route _createRoute() {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            !LoggedIn ? const LoginPage() : const HomeScreen(),
+            !LoggedIn ? const LoginPage() : const Dashboard(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;

@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
         usernameController.text = "";
         passwordController.text = "";
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const HomeScreen()
+          MaterialPageRoute(builder: (context) => const Dashboard()
               //     TabsPage(
               //   selectedIndex: 0,
               // ),
