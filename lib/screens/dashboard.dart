@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,14 +36,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  // List<Modal> userList = <Modal>[];
 
-  // final prefs = SharedPreferences.getInstance();
-  // String? totalRet = "0";
   String sortFeature = "Current";
   String srt = '0';
-
-  // late int totalFunds;
 
   Future<String> getData() async {
     if (AllData.investedData.sinceDaysCAGR > 0) {
@@ -61,17 +55,13 @@ class _DashboardState extends State<Dashboard> {
       var token = Token.instance.token;
       var responseBody =
           jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
-      // if (kDebugMode) {
-      //   print(responseBody.toString());
-      // }
+
       InvestedData investedData = InvestedData.fromJson(responseBody['data']);
       await EasyLoading.dismiss();
       if (kDebugMode) {
         print("responseBody.toString()");
       }
-      // if (kDebugMode) {
-      //   print(investedData.invested);
-      // }
+
       var prefs = SharedPreferences.getInstance();
       prefs.then((pref) =>
           pref.setString('investedData', jsonEncode(responseBody['data'])));
@@ -91,43 +81,22 @@ class _DashboardState extends State<Dashboard> {
   Future<String> getSchemeData(String fund, String scheme) async {
     try {
       EasyLoading.show(
-        status: 'please wait your Data is loading...',
+        status: 'Please wait your data is loading...',
       );
       if (AllData.schemeMap.containsKey('${fund}_$scheme')) {
         await EasyLoading.dismiss();
         return '${fund}_${scheme.toString()}';
       }
       var token = Token.instance.token;
-      // if (kDebugMode) {
-      //   print(token);
-      // }
-      var responseBody =
-          jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
-
-      // if (kDebugMode) {
-      //   print("summary");
-      //   print(responseBody.toString());
-      // }
+      var responseBody = jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
       SchemeData schemeData = SchemeData.fromJson(responseBody['fundData']);
-
-      // if (kDebugMode) {
-      //   print("responseBody.toString()");
-      // }
-      // if (kDebugMode) {
-      //   print(schemeData.length);
-      // }
-
       AllData.setSchemeSummary(schemeData);
-      // if (kDebugMode) {
-      //   print(schemeData.length);
-      // }
+
       var prefs = SharedPreferences.getInstance();
       prefs.then((pref) =>
           pref.setString('allSchemes', jsonEncode(AllData.schemeMap)));
       await EasyLoading.dismiss();
-      // if (kDebugMode) {
-      //   print(schemeData.length);
-      // }
+
       return '${fund}_${scheme.toString()}';
     } catch (e) {
       if (kDebugMode) {
@@ -148,34 +117,14 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<bool> _onBackPressed() async {
-    // AllData.investedData = InvestedData(
-    //     invested: 0,
-    //     current: 0,
-    //     totalReturns: 0,
-    //     absReturns: 0,
-    //     xirr: 0,
-    //     irr: 0,
-    //     sinceDaysCAGR: 0,
-    //     fundData: []);
-    // AllData.schemeMap = {};
+
     return await showDialog(
             barrierDismissible: false,
             context: context,
             builder: (context) => const ExitDialogue()) ??
         false;
-    // return false;
-  }
 
-  // _iconControl(bool like) {
-  //   if (like == false) {
-  //     return const Icon(Icons.favorite_border);
-  //   } else {
-  //     return const Icon(
-  //       Icons.favorite,
-  //       color: Colors.red,
-  //     );
-  //   }
-  // }
+  }
 
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
