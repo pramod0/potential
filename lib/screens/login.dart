@@ -99,7 +99,6 @@ class _LoginPageState extends State<LoginPage> {
 
   // TODO This method is too big : Pramod
   login() async {
-
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
@@ -114,7 +113,8 @@ class _LoginPageState extends State<LoginPage> {
       final String userName = usernameController.text;
       final String password = passwordController.text;
       if (userName == "" || password == "") {
-        showSnackBar("Username or Password cannot be empty.", hexToColor("#ffffff"));
+        showSnackBar(
+            "Username or Password cannot be empty.", hexToColor("#ffffff"));
         await EasyLoading.dismiss();
         Exception();
         return;
@@ -124,7 +124,6 @@ class _LoginPageState extends State<LoginPage> {
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
-
         String token = responseBody['data']['access_token'].toString();
 
         Token(token); // initialize token
@@ -143,11 +142,10 @@ class _LoginPageState extends State<LoginPage> {
         if (responseBody['data']['can'] == 'No') {
           await EasyLoading.dismiss();
           if (!context.mounted) return;
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const CheckCANNO()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CheckCANNO()));
 
           return;
-
         }
         //if consent but no data
         //todo: implement route
@@ -170,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
-        if(!context.mounted) return;
+        if (!context.mounted) return;
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Dashboard()
               //     TabsPage(
@@ -202,20 +200,10 @@ class _LoginPageState extends State<LoginPage> {
         // prefs.then((pref) =>
         //     pref.setString('expiry', responseBody['expiry'].toString()));
       } else {
-
         await EasyLoading.dismiss();
 
         var message = responseBody['message'] + "!!!" ?? "Failed to login";
-
-        if (userName.isEmpty && password.isEmpty) {
-          showSnackBar("Please enter username & password", Colors.red);
-        } else if (userName.isEmpty) {
-          showSnackBar("Username is required", Colors.red);
-        } else if (password.isEmpty) {
-          showSnackBar("Password is required", Colors.red);
-        } else {
-          await showSnackBar(message, Colors.red);
-        }
+        await showSnackBar(message, Colors.red);
       }
     } catch (e) {
       // if (kDebugMode) {

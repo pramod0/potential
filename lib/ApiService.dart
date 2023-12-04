@@ -67,7 +67,7 @@ class ApiService {
       if (kDebugMode) {
         print('Please try again after some time.');
       }
-      throw ("Please try again after some time.");
+      return "Please try again after some time.";
     }
   }
 
@@ -116,15 +116,17 @@ class ApiService {
         // }
         return response.body;
       } else {
-        // Signup failed
+        // Dashboard failed
         // if (kDebugMode) {
         //   print(response.body);
         // }
-        throw Exception('dashboard api failed');
+        return "Dashboard API Failed";
+
+        // throw Exception('dashboard api failed');
       }
     } on TimeoutException catch (e) {
       print('Please try again after some time.');
-      return "Please try again after some time.";
+      return "Timeout, please try again after some time";
     }
   }
 
@@ -157,9 +159,10 @@ class ApiService {
         return response.body;
       } else {
         // Signup failed
-        // if (kDebugMode) {
-        //   print(response.body);
-        // }
+        if (kDebugMode) {
+          print(response.body);
+        }
+        // return response.body;
         throw Exception('schemeSummary api failed');
       }
     } on TimeoutException catch (e) {

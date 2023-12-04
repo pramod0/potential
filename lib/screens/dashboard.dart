@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
@@ -15,10 +17,13 @@ import '../models/schemes.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/exit_dialogue.dart';
+import '../utils/networkUtil.dart';
 import '../utils/styleConstants.dart';
 import '../app_assets_constants/AppStrings.dart';
 
 import 'package:intl/intl.dart';
+
+import 'login.dart';
 
 final oCcy = NumberFormat("#,##0.00", "en_US");
 
@@ -32,21 +37,115 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
   String sortFeature = "Current";
   String srt = '0';
 
-  Future<String> getData() async {
-    if (AllData.investedData.sinceDaysCAGR > 0) {
-      if (kDebugMode) {
-        print("Api call saved here!!!");
-      }
-      return Future.value("Data Downloaded Successfully");
-    }
-    EasyLoading.show(
-      status: 'please wait your Data is loading...',
-    );
+  showModalClass(Color color) {
+    var banner = MaterialBanner(
+        content: Text(
+          "Error!!! you will need to Re Login",
+          style: kGoogleStyleTexts.copyWith(
+              color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
+        ),
+        leading: Icon(
+          Icons.info,
+          color: hexToColor(AppColors.whiteTextColor),
+        ),
+        backgroundColor: color,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              color: Colors.red.shade300,
+              child: AutoSizeText(
+                "Re login",
+                style: kGoogleStyleTexts.copyWith(
+                    color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
+              ),
+            ),
+          ),
+        ]);
+    ScaffoldMessenger.of(context).showMaterialBanner(banner);
+  }
 
+  showMaterialBanner(Color color) {
+    var banner = MaterialBanner(
+        content: AutoSizeText(
+          "Error!!! you will need to Re Login",
+          style: kGoogleStyleTexts.copyWith(
+              color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
+        ),
+        leading: Icon(
+          Icons.info,
+          color: hexToColor(AppColors.whiteTextColor),
+        ),
+        backgroundColor: color,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.red.shade300,
+                  borderRadius: BorderRadius.all(Radius.circular(1.5))),
+              padding: const EdgeInsets.all(3),
+              child: AutoSizeText(
+                "Relogin",
+                style: kGoogleStyleTexts.copyWith(
+                    color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            },
+            child: Icon(
+              Icons.cancel,
+              color: hexToColor(AppColors.whiteTextColor),
+            ),
+          ),
+        ]);
+    ScaffoldMessenger.of(context).showMaterialBanner(banner);
+  }
+
+  showSnackBar(String text, Color color) {
+    var snackBar = SnackBar(
+        duration: Duration(seconds: 2),
+        dismissDirection: DismissDirection.endToStart,
+        content: AutoSizeText(
+          text,
+          style: kGoogleStyleTexts.copyWith(
+            color: color,
+            fontSize: 15,
+          ),
+        ));
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  Future<String> getData() async {
+    // if (AllData.investedData.sinceDaysCAGR > 0) {
+    //   if (kDebugMode) {
+    //     print("Api call saved here!!!");
+    //   }
+    //   return Future.value("Data Downloaded Successfully");
+    // }
+
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    bool connectionResult = await NetWorkUtil().checkInternetConnection();
+    if (!connectionResult) {
+      showSnackBar("No Internet Connection", Colors.red);
+      return Future.value("No Internet");
+    }
     try {
       var token = Token.instance.token;
       var responseBody =
@@ -61,20 +160,32 @@ class _DashboardState extends State<Dashboard> {
       var prefs = SharedPreferences.getInstance();
       prefs.then((pref) =>
           pref.setString('investedData', jsonEncode(responseBody['data'])));
-
       AllData.setInvestmentData(investedData);
+      setState(() {
+        showSnackBar(
+            "Data Updated Successfully", hexToColor(AppColors.whiteTextColor));
+      });
       return Future.value("Data Downloaded Successfully");
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
       // var schemes = "No";
+      showSnackBar("Session expired or in use elsewhere.",
+          hexToColor(AppColors.redAccent));
+      Future.delayed(const Duration(seconds: 1)).whenComplete(
+          () => showMaterialBanner(hexToColor(AppColors.redAccent)));
       await EasyLoading.dismiss();
       return Future.value("No Data Error");
     }
   }
 
   Future<String> getSchemeData(String fund, String scheme) async {
+    bool connectionResult = await NetWorkUtil().checkInternetConnection();
+    if (!connectionResult) {
+      showSnackBar("No Internet Connection", Colors.red);
+      return Future.value("No Internet");
+    }
     try {
       EasyLoading.show(
         status: 'Please wait your data is loading...',
@@ -84,7 +195,8 @@ class _DashboardState extends State<Dashboard> {
         return '${fund}_${scheme.toString()}';
       }
       var token = Token.instance.token;
-      var responseBody = jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
+      var responseBody =
+          jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
       SchemeData schemeData = SchemeData.fromJson(responseBody['fundData']);
       AllData.setSchemeSummary(schemeData);
 
@@ -98,8 +210,13 @@ class _DashboardState extends State<Dashboard> {
       if (kDebugMode) {
         print(e);
       }
+
+      // var schemes = "No";
+      showSnackBar("Session expired or in use elsewhere.",
+          hexToColor(AppColors.redAccent));
+      showMaterialBanner(hexToColor(AppColors.redAccent));
       await EasyLoading.dismiss();
-      return "";
+      return Future.value("No Data Error");
     }
   }
 
@@ -112,33 +229,38 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<bool> _onBackPressed() async {
-
     return await showDialog(
             barrierDismissible: false,
             context: context,
             builder: (context) => const ExitDialogue()) ??
         false;
-
   }
 
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (canPop) async {
-        if (canPop) {
-          return;
-        }
-        await _onBackPressed();
+    return RefreshIndicator(
+      onRefresh: () async {
+        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        await getData();
       },
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: hexToColor(AppColors.appThemeColor),
-          body: AllData.investedData.current != 0
-              ? buildMainDataScreen(context)
-              : buildFalseScreen(context),
+      color: hexToColor(AppColors.loginBtnColor),
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: (canPop) async {
+          if (canPop) {
+            return;
+          }
+          await _onBackPressed();
+        },
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: hexToColor(AppColors.appThemeColor),
+            body: AllData.investedData.current != 0
+                ? buildMainDataScreen(context)
+                : buildFalseScreen(context),
+          ),
         ),
       ),
     );
@@ -169,7 +291,7 @@ class _DashboardState extends State<Dashboard> {
                       textAlign: TextAlign.start,
                     ),
                     Text(
-                      "(${AllData.investorData.panCard})",
+                      " (${AllData.investorData.panCard})",
                       style: kGoogleStyleTexts.copyWith(
                         color: hexToColor(AppColors.blackTextColor)
                             .withOpacity(0.87),
@@ -287,7 +409,7 @@ class _DashboardState extends State<Dashboard> {
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
                                                   .withOpacity(0.68),
-                                              fontSize: 14.0),
+                                              fontSize: 12.0),
                                         ),
                                         Text(
                                           "\u{20B9} ${oCcy.format(AllData.investedData.invested)}",
@@ -312,7 +434,7 @@ class _DashboardState extends State<Dashboard> {
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
                                                   .withOpacity(0.68),
-                                              fontSize: 14.0),
+                                              fontSize: 12.0),
                                         ),
                                         Text(
                                           "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
@@ -337,7 +459,7 @@ class _DashboardState extends State<Dashboard> {
                                               color: hexToColor(
                                                       AppColors.blackTextColor)
                                                   .withOpacity(0.68),
-                                              fontSize: 14.0),
+                                              fontSize: 12.0),
                                         ),
                                         Text(
                                           '${AllData.investedData.irr}%',
@@ -364,22 +486,14 @@ class _DashboardState extends State<Dashboard> {
                                     children: [
                                       Row(
                                         children: [
-                                          Container(
-                                            width: 4,
-                                            height: 4,
-                                            decoration: BoxDecoration(
-                                              color: hexToColor(
-                                                  AppColors.currentValue),
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
+                                          const CurrentValueDot(),
                                           Text(
                                             " Total Returns",
                                             style: kGoogleStyleTexts.copyWith(
                                                 color: hexToColor(AppColors
                                                         .blackTextColor)
                                                     .withOpacity(0.68),
-                                                fontSize: 14.0),
+                                                fontSize: 12.0),
                                           ),
                                         ],
                                       ),
@@ -406,22 +520,14 @@ class _DashboardState extends State<Dashboard> {
                                     children: [
                                       Row(
                                         children: [
-                                          Container(
-                                            width: 4,
-                                            height: 4,
-                                            decoration: BoxDecoration(
-                                              color: hexToColor(
-                                                  AppColors.currentValue),
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
+                                          const CurrentValueDot(),
                                           Text(
                                             " % Returns",
                                             style: kGoogleStyleTexts.copyWith(
                                                 color: hexToColor(AppColors
                                                         .blackTextColor)
                                                     .withOpacity(0.68),
-                                                fontSize: 14.0),
+                                                fontSize: 12.0),
                                           ),
                                         ],
                                       ),
@@ -448,22 +554,14 @@ class _DashboardState extends State<Dashboard> {
                                     children: [
                                       Row(
                                         children: [
-                                          Container(
-                                            width: 4,
-                                            height: 4,
-                                            decoration: BoxDecoration(
-                                              color: hexToColor(
-                                                  AppColors.currentValue),
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
+                                          const CurrentValueDot(),
                                           Text(
                                             " XIRR",
                                             style: kGoogleStyleTexts.copyWith(
                                                 color: hexToColor(AppColors
                                                         .blackTextColor)
                                                     .withOpacity(0.68),
-                                                fontSize: 14.0),
+                                                fontSize: 12.0),
                                           ),
                                         ],
                                       ),
@@ -509,16 +607,23 @@ class _DashboardState extends State<Dashboard> {
                           fontSize: 14.0),
                     ),
                     IconButton(
-                      icon: AnimatedContainer(
-                        duration: const Duration(seconds: 3),
-                        child: Transform.rotate(
-                          angle: srt == '0' ? 0 : 180 * 3.14 / 180,
-                          child: Icon(
-                            Icons.sort,
-                            color: hexToColor(AppColors.loginBtnColor)
-                                .withOpacity(0.6),
-                          ),
-                        ),
+                      // icon: AnimatedContainer(
+                      //   duration: const Duration(seconds: 3),
+                      //   child: Transform.rotate(
+                      //     angle: srt == '0' ? 0 : 180 * 3.14 / 180,
+                      //     child: Icon(
+                      //       Icons.sort,
+                      //       color: hexToColor(AppColors.loginBtnColor)
+                      //           .withOpacity(0.6),
+                      //     ),
+                      //   ),
+                      // ),
+                      icon: Icon(
+                        srt != '0'
+                            ? Icons.arrow_downward_outlined
+                            : Icons.arrow_upward_outlined,
+                        color: hexToColor(AppColors.loginBtnColor)
+                            .withOpacity(0.6),
                       ),
                       onPressed: () {
                         showModalBottomSheet(
@@ -661,22 +766,11 @@ class _DashboardState extends State<Dashboard> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Invested",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.6),
-                                          fontSize: 11.0),
-                                    ),
-                                    Text(
-                                      "\u{20B9}${oCcy.format(item.invested)}",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.85),
-                                          fontSize: 13.0),
-                                    ),
+                                    SubHeadingText(item: "Invested"),
+                                    ValueText(
+                                        item:
+                                            "\u{20B9}${oCcy.format(item.invested)}",
+                                        color: AppColors.blackTextColor)
                                   ],
                                 ),
                                 const SizedBox(
@@ -686,22 +780,11 @@ class _DashboardState extends State<Dashboard> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Since Date",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.6),
-                                          fontSize: 11.0),
-                                    ),
-                                    Text(
-                                      item.sinceDate.replaceAll('-', '/'),
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.85),
-                                          fontSize: 13.0),
-                                    )
+                                    SubHeadingText(item: "Since Date"),
+                                    ValueText(
+                                        item:
+                                            "${item.sinceDate.replaceAll('-', '/')}",
+                                        color: AppColors.blackTextColor)
                                   ],
                                 ),
                               ],
@@ -720,22 +803,11 @@ class _DashboardState extends State<Dashboard> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "Current",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.6),
-                                          fontSize: 11.0),
-                                    ),
-                                    Text(
-                                      "\u{20B9}${oCcy.format(item.currentValue)}",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.85),
-                                          fontSize: 13.0),
-                                    ),
+                                    SubHeadingText(item: "Current"),
+                                    ValueText(
+                                        item:
+                                            "\u{20B9}${oCcy.format(item.currentValue)}",
+                                        color: AppColors.blackTextColor)
                                   ],
                                 ),
                                 // const Divider(
@@ -750,23 +822,12 @@ class _DashboardState extends State<Dashboard> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "% Rtn.",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.6),
-                                          fontSize: 11.0),
-                                    ),
-                                    Text(
-                                      "${item.absReturns}%",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              item.absReturns > 0.0
-                                                  ? AppColors.greenAccent
-                                                  : AppColors.redAccent),
-                                          fontSize: 13.0),
-                                    ),
+                                    SubHeadingText(item: "% Rtn."),
+                                    ValueText(
+                                        item: "${item.absReturns}%",
+                                        color: item.absReturns > 0.0
+                                            ? AppColors.greenAccent
+                                            : AppColors.redAccent)
                                   ],
                                 ),
                               ],
@@ -778,23 +839,13 @@ class _DashboardState extends State<Dashboard> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      "Tot. Returns",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.6),
-                                          fontSize: 11.0),
-                                    ),
-                                    Text(
-                                      "\u{20B9}${oCcy.format(item.totalReturns)}",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              item.absReturns > 0.0
-                                                  ? AppColors.greenAccent
-                                                  : AppColors.redAccent),
-                                          fontSize: 13.0),
-                                    ),
+                                    SubHeadingText(item: "Tot. Returns"),
+                                    ValueText(
+                                        item:
+                                            "\u{20B9}${oCcy.format(item.totalReturns)}",
+                                        color: item.totalReturns > 0.0
+                                            ? AppColors.greenAccent
+                                            : AppColors.redAccent)
                                   ],
                                 ),
                                 const SizedBox(
@@ -803,22 +854,12 @@ class _DashboardState extends State<Dashboard> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      "XIRR",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
-                                              .withOpacity(0.6),
-                                          fontSize: 11.0),
-                                    ),
-                                    Text(
-                                      "${item.xirr}%",
-                                      style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(item.xirr > 0.0
-                                              ? AppColors.greenAccent
-                                              : AppColors.redAccent),
-                                          fontSize: 13.0),
-                                    ),
+                                    SubHeadingText(item: "XIRR"),
+                                    ValueText(
+                                        item: "${item.xirr}%",
+                                        color: item.xirr > 0.0
+                                            ? AppColors.greenAccent
+                                            : AppColors.redAccent)
                                   ],
                                 ),
                               ],
@@ -1136,7 +1177,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 value: "1",
                 groupValue: srt,
-                activeColor: hexToColor(AppColors.currentValue),
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 onChanged: (value) {
                   // setState(() {
                   //
@@ -1158,7 +1199,7 @@ class _DashboardState extends State<Dashboard> {
                       fontSize: 14.0),
                 ),
                 value: "0",
-                activeColor: hexToColor(AppColors.currentValue),
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 groupValue: srt,
                 onChanged: (value) {
                   // setState(() {
@@ -1209,7 +1250,7 @@ class _DashboardState extends State<Dashboard> {
                       fontSize: 14.0),
                 ),
                 selected: true,
-                activeColor: hexToColor(AppColors.currentValue),
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 value: "Current",
                 groupValue: sortFeature,
                 onChanged: (value) {
@@ -1229,7 +1270,7 @@ class _DashboardState extends State<Dashboard> {
                       fontSize: 14.0),
                 ),
                 selected: true,
-                activeColor: hexToColor(AppColors.currentValue),
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 value: "Invested",
                 groupValue: sortFeature,
                 onChanged: (value) {
@@ -1250,6 +1291,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 value: "%XIRR",
                 groupValue: sortFeature,
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 onChanged: (value) {
                   setState(() {
                     sortFeature = value.toString();
@@ -1268,6 +1310,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 value: "%Returns",
                 groupValue: sortFeature,
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 onChanged: (value) {
                   setState(() {
                     sortFeature = value.toString();
@@ -1286,6 +1329,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 value: "Alphabetical",
                 groupValue: sortFeature,
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 onChanged: (value) {
                   setState(() {
                     sortFeature = value.toString();
@@ -1304,6 +1348,62 @@ class _DashboardState extends State<Dashboard> {
 
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+class SubHeadingText extends StatelessWidget {
+  const SubHeadingText({
+    super.key,
+    required this.item,
+  });
+  final item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      item,
+      style: kGoogleStyleTexts.copyWith(
+          color: hexToColor(AppColors.blackTextColor).withOpacity(0.6),
+          fontSize: 11.0),
+    );
+  }
+}
+
+class ValueText extends StatelessWidget {
+  const ValueText({
+    super.key,
+    required this.item,
+    required this.color,
+  });
+
+  final item;
+  final color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      item.toString(),
+      style: kGoogleStyleTexts.copyWith(
+          color: hexToColor(color).withOpacity(0.85), fontSize: 13.0),
+    );
+  }
+}
+
+class CurrentValueDot extends StatelessWidget {
+  const CurrentValueDot({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 4,
+      height: 4,
+      decoration: BoxDecoration(
+        color: hexToColor(AppColors.currentValue),
+        shape: BoxShape.circle,
+      ),
+    );
+  }
 }
 
 class Modal {

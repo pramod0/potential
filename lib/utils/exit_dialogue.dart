@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:potential/utils/styleConstants.dart';
@@ -15,7 +16,7 @@ class ExitDialogue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       backgroundColor: hexToColor(AppColors.appThemeColor),
       title: Text(
         "Exit App",
@@ -25,15 +26,18 @@ class ExitDialogue extends StatelessWidget {
       content: Builder(
         builder: (context) {
           return SizedBox(
-            height: 120, //MediaQuery.of(context).size.height * 0.15,
+            width: MediaQuery.of(context).size.width * 0.7,
+            height: MediaQuery.of(context).size.width * 0.3,
             // width: 200,
             child: Column(
               children: [
                 Text(
                   "Are you sure you want to exit the app?",
                   style: kGoogleStyleTexts.copyWith(
-                      color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 15.0),
+                    color: hexToColor(AppColors.blackTextColor),
+                    fontSize: 15.0,
+                  ),
+                  textScaler: const TextScaler.linear(0.6 / 0.7),
                 ),
                 Padding(
                   padding:
@@ -42,8 +46,7 @@ class ExitDialogue extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 95,
-                        height: 45,
+                        width: MediaQuery.of(context).size.width * 0.3,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
@@ -55,7 +58,7 @@ class ExitDialogue extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pop(false);
                             },
-                            child: Text(
+                            child: AutoSizeText(
                               "Cancel",
                               style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w700,
@@ -65,8 +68,8 @@ class ExitDialogue extends StatelessWidget {
                             )),
                       ),
                       SizedBox(
-                        width: 95,
-                        height: 45,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        // height: 45,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xffC93131),
@@ -77,7 +80,7 @@ class ExitDialogue extends StatelessWidget {
                               SystemChannels.platform
                                   .invokeMethod('SystemNavigator.pop');
                             },
-                            child: Text(
+                            child: AutoSizeText(
                               "Exit",
                               style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w700,

@@ -142,8 +142,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       if (kDebugMode) {
         print(e);
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Unable to process login at the moment"),
       ));
       await EasyLoading.dismiss();
     } finally {

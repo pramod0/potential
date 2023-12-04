@@ -61,7 +61,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     // ScaffoldMessenger.of(context).showMaterialBanner(banner);
   }
 
-  isLoggedIn() async {
+  Future<void> isLoggedIn() async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
@@ -90,46 +90,51 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         if (kDebugMode) {
           print("Expiry TimeStamp ********* ${expired['exp']}, h: $h");
         }
-        var response;
+        // var response;
         if (h < 0) {
-          try {
-            response =
-                await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
-          } catch (e) {
-            await EasyLoading.dismiss();
-            showSnackBar(e.toString(), Colors.red);
-          }
+          Token(token); // initialize token
+          LoggedIn = true;
+
+          // try {
+          //   response =
+          //       await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
+          // } catch (e) {
+          //   await EasyLoading.dismiss();
+          //   showSnackBar(e.toString(), Colors.red);
+          // }
           AllData.setInvestorData(
               User.fromJson(await jsonDecode(pref.getString('investorData')!)));
-          if (response!['success']) {
-            await EasyLoading.dismiss();
-            LoggedIn = true;
-            Token(token); // initialize token
-            // if (kDebugMode) {
-            //   // print("Ready${jsonDecode(pref.getString('investorData')!)}"); //
-            // }
-            InvestedData investedData = InvestedData.fromJson(response['data']);
-            // await EasyLoading.dismiss();
-            // if (kDebugMode) {
-            //   print("responseBody.toString()");
-            // }
-            // if (kDebugMode) {
-            //   print(investedData.toString());
-            // }
-
-            pref.setString('investedData', jsonEncode(response['data']));
-            // if (kDebugMode) {
-            //   print(pref.get('investedData'));
-            // }
-            AllData.setInvestmentData(investedData);
-            return;
-            // AllData.schemeMap.clear();
-            // AllData.printAll();
-          }
+          AllData.setInvestmentData(InvestedData.fromJson(
+              await jsonDecode(pref.getString('investedData')!)));
+          // if (response!['success']) {
+          //   await EasyLoading.dismiss();
+          //   LoggedIn = true;
+          //   // if (kDebugMode) {
+          //   //   // print("Ready${jsonDecode(pref.getString('investorData')!)}"); //
+          //   // }
+          //   InvestedData investedData = InvestedData.fromJson(response['data']);
+          //   // await EasyLoading.dismiss();
+          //   // if (kDebugMode) {
+          //   //   print("responseBody.toString()");
+          //   // }
+          //   // if (kDebugMode) {
+          //   //   print(investedData.toString());
+          //   // }
+          //
+          //   pref.setString('investedData', jsonEncode(response['data']));
+          //   // if (kDebugMode) {
+          //   //   print(pref.get('investedData'));
+          //   // }
+          //   AllData.setInvestmentData(investedData);
+          // AllData.schemeMap.clear();
+          // AllData.printAll();
           await EasyLoading.dismiss();
         }
+        await EasyLoading.dismiss();
       }
+      await EasyLoading.dismiss();
     }
+    await EasyLoading.dismiss();
     // For checking time difference in preprocessing from api
     var t2 = DateTime.now();
     if (kDebugMode) {
@@ -142,14 +147,13 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     EasyLoading.show(status: 'loading...');
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     isLoggedIn();
-    EasyLoading.dismiss();
     super.initState();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(milliseconds: 1500), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.forward();
 
-    Timer(const Duration(seconds: 4),
+    Timer(const Duration(seconds: 2),
         () => Navigator.of(context).pushReplacement(_createRoute()));
   }
 

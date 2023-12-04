@@ -197,5 +197,5 @@ class AppStrings {
   static const String reports = 'Analyze Report';
   static const String home = 'Home';
   static const String pleaseRegisterText =
-      "We kindly request that you reach out to our support team, as it appears you are not currently registered as a user with Association.\nYour cooperation is greatly appreciated.\n\nThank You!!";
+      "We kindly request that you reach out to our support team,\nas it appears you are not currently registered as a user with the firm.\nYour co-operation is greatly appreciated.\n\nThank You!!!";
 }
