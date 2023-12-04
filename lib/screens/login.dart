@@ -1,17 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
-import 'package:potential/screens/homeScreen.dart';
-// import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
-// import 'package:potential/screens/CheckConsent/NoConsent.dart';
-// import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/utils/AllData.dart';
 import 'package:potential/screens/dashboard.dart';
 // import 'package:potential/screens/tabspage.dart';
@@ -23,11 +17,9 @@ import '../utils/appTools.dart';
 import '../app_assets_constants/AppStrings.dart';
 import '../ApiService.dart';
 // import '../utils/googleSignIn.dart';
-import '../utils/exit_dialogue.dart';
 import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
-// import '../utils/track.dart';
 import 'CANcreationform/createAccount.dart';
 import 'CheckConsent/checkCanNO.dart';
 
@@ -105,10 +97,8 @@ class _LoginPageState extends State<LoginPage> {
     // ScaffoldMessenger.of(context).showMaterialBanner(banner);
   }
 
+  // TODO This method is too big : Pramod
   login() async {
-    // if (kDebugMode) {
-    //   print(MediaQuery.of(context).size.width);
-    // }
 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
@@ -116,9 +106,7 @@ class _LoginPageState extends State<LoginPage> {
       showSnackBar("No Internet Connection", Colors.red);
       return;
     }
-    if (kDebugMode) {
-      print(usernameController.text + passwordController.text);
-    }
+
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
     var responseBody;
@@ -126,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
       final String userName = usernameController.text;
       final String password = passwordController.text;
       if (userName == "" || password == "") {
-        showSnackBar("Please Check the Values", hexToColor("#ffffff"));
+        showSnackBar("Username or Password cannot be empty.", hexToColor("#ffffff"));
         await EasyLoading.dismiss();
         Exception();
         return;
@@ -136,18 +124,13 @@ class _LoginPageState extends State<LoginPage> {
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
-// var s = json.encode(responseBody['data']);
-        // if (kDebugMode) {
-        //   print(s);
-        // }
-        // AllData.investorData = Investor.fromJson(jsonDecode(s));
+
         String token = responseBody['data']['access_token'].toString();
 
         Token(token); // initialize token
         var prefs = SharedPreferences.getInstance();
 
         prefs.then((pref) => pref.setString('token', token));
-        // print("token: $token\nuserData: ${responseBody['data']['userData']}");
         User investorData = User.fromJson(responseBody['data']['userData']);
 
         prefs.then((pref) => pref.setString(
@@ -159,17 +142,12 @@ class _LoginPageState extends State<LoginPage> {
         await EasyLoading.dismiss();
         if (responseBody['data']['can'] == 'No') {
           await EasyLoading.dismiss();
+          if (!context.mounted) return;
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => CheckCANNO()));
+              .push(MaterialPageRoute(builder: (context) => const CheckCANNO()));
 
-          // showSnackBar("Cannot proceed!!! No Transactions", Colors.red);
           return;
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //       builder: (context) => TakeConsentPage(
-          //           can: responseBody['data']['can'],
-          //           pan: responseBody['data']['userData']['panCard'])),
-          // );
+
         }
         //if consent but no data
         //todo: implement route
@@ -192,6 +170,7 @@ class _LoginPageState extends State<LoginPage> {
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
+        if(!context.mounted) return;
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Dashboard()
               //     TabsPage(
@@ -223,11 +202,11 @@ class _LoginPageState extends State<LoginPage> {
         // prefs.then((pref) =>
         //     pref.setString('expiry', responseBody['expiry'].toString()));
       } else {
-        print("here");
+
         await EasyLoading.dismiss();
 
-        var message = responseBody['messsage'] + "!!!" ?? "Failed to login";
-        print(responseBody['messsage']);
+        var message = responseBody['message'] + "!!!" ?? "Failed to login";
+
         if (userName.isEmpty && password.isEmpty) {
           showSnackBar("Please enter username & password", Colors.red);
         } else if (userName.isEmpty) {

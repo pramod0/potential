@@ -5,13 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-// import 'package:potential/app_assets_constants/AppImages.dart';
-// import 'package:potential/models/schemes.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
-// import 'package:potential/utils/noGlowBehaviour.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
 import '../models/investments.dart';
@@ -102,7 +98,6 @@ class _DashboardState extends State<Dashboard> {
       if (kDebugMode) {
         print(e);
       }
-      var schemes = "No";
       await EasyLoading.dismiss();
       return "";
     }
