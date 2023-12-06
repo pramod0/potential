@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
-//import 'package:potential/screens/CheckConsent/NoConsent.dart';
-//import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/screens/splash.dart';
 import 'package:potential/utils/appTools.dart';
 
@@ -16,8 +14,14 @@ void main() async {
 configLoading() async {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorType = EasyLoadingIndicatorType.chasingDots
+    ..indicatorSize = 20
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..backgroundColor = hexToColor(AppColors.appThemeColor)
+    ..indicatorColor = Colors.black54
+    ..textColor = Colors.black
+    // ..progressColor = Colors.blue.withOpacity(0.5)
+    // ..maskColor = Colors.blue.withOpacity(0.5)
     ..dismissOnTap = false
     ..userInteractions = false;
 }

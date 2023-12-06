@@ -66,8 +66,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
       showSnackBar("No Internet Connection", Colors.red);
-      return;
+      // return;
     }
+    EasyLoading.show(status: 'loading...');
 
     var t1 = DateTime.now();
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -75,8 +76,18 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     // if (kDebugMode) {
     //   print(token);
     // }
-    if (token != null) {
-      var expired = JwtDecoder.decode(token);
+    if (token != null || token != "") {
+      Map<String, dynamic> expired = {};
+      try {
+        expired = JwtDecoder.decode(token!);
+      } catch (e) {
+        await EasyLoading.dismiss();
+        var t2 = DateTime.now();
+        if (kDebugMode) {
+          print("T2-t1: ${t2.difference(t1)}");
+        }
+        return;
+      }
       // if (kDebugMode) {
       //   log("Expiry TimeStamp ********* ${expired['exp']}");
       // }
@@ -92,7 +103,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         }
         // var response;
         if (h < 0) {
-          Token(token); // initialize token
+          Token(token!); // initialize token
           LoggedIn = true;
 
           // try {
@@ -144,7 +155,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    EasyLoading.show(status: 'loading...');
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     isLoggedIn();
     super.initState();

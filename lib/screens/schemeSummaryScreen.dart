@@ -695,7 +695,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],
@@ -715,7 +715,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],
@@ -743,7 +743,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],
@@ -764,7 +764,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],
@@ -797,7 +797,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],
@@ -817,7 +817,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],
@@ -837,7 +837,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
                                             AppColors.blackTextColor),
-                                        fontSize: 14.0),
+                                        fontSize: 13.0),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
                               ],

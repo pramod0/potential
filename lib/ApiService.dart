@@ -19,26 +19,30 @@ class ApiService {
     // Replace this with your signup endpoint URL
     Uri signupUri = Uri.parse('${Constants.domainURL}${Constants.signupURL}');
 
-    Response response = await post(
-      signupUri,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: payload,
-    );
-
-    if (response.statusCode == 200) {
-      // Signup successful
-      if (kDebugMode) {
-        print(response.body);
-      }
+    try {
+      Response response = await post(
+        signupUri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: payload,
+      ).timeout(const Duration(seconds: 10));
+      //
+      // if (response.statusCode == 200) {
+      //   // Signup successful
+      //   if (kDebugMode) {
+      //     // print(response.body);
+      //   }
+      // } else {
+      //   // Signup failed
+      //   if (kDebugMode) {
+      //     // print(response.body);
+      //   }
+      //   // throw Exception('Signup failed');
+      // }
       return response.body;
-    } else {
-      // Signup failed
-      if (kDebugMode) {
-        print(response.body);
-      }
-      throw Exception('Signup failed');
+    } on TimeoutException catch (e) {
+      throw e;
     }
   }
 
@@ -67,7 +71,7 @@ class ApiService {
       if (kDebugMode) {
         print('Please try again after some time.');
       }
-      return "Please try again after some time.";
+      throw Exception("Please try again after some time.");
     }
   }
 
@@ -120,13 +124,12 @@ class ApiService {
         // if (kDebugMode) {
         //   print(response.body);
         // }
-        return "Dashboard API Failed";
 
-        // throw Exception('dashboard api failed');
+        throw Exception('dashboard api failed');
       }
     } on TimeoutException catch (e) {
       print('Please try again after some time.');
-      return "Timeout, please try again after some time";
+      throw Exception("Please try again after some time.");
     }
   }
 
@@ -167,7 +170,7 @@ class ApiService {
       }
     } on TimeoutException catch (e) {
       // print('Please try again after some time.');
-      return "Please try again after some time.";
+      throw Exception("Please try again after some time.");
     }
   }
 // Future<String> canCreation(String userName, BuildContext context) async {

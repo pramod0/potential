@@ -100,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
 
   // TODO This method is too big : Pramod
   login() async {
-
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
@@ -115,7 +114,8 @@ class _LoginPageState extends State<LoginPage> {
       final String userName = usernameController.text;
       final String password = passwordController.text;
       if (userName.isEmpty && password.isEmpty) {
-        showSnackBar("Username or Password cannot be empty.", hexToColor("#ffffff"));
+        showSnackBar(
+            "Username or Password cannot be empty.", hexToColor("#ffffff"));
         await EasyLoading.dismiss();
         Exception(); // Is there a point of throwing exception?
         return;
@@ -125,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
-
         String token = responseBody['data']['access_token'].toString();
 
         Token(token); // initialize token
@@ -171,15 +170,16 @@ class _LoginPageState extends State<LoginPage> {
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
-        if(!context.mounted) return;
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const Dashboard()));
-
+        if (!context.mounted) return;
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Dashboard()));
       } else {
         await EasyLoading.dismiss();
-        var message = responseBody['message'] + "!!!" ?? "Failed to login";
-        await showSnackBar(message, Colors.red);
-
+        print(responseBody);
+        if (responseBody['message'] != null)
+          await showSnackBar(responseBody['message'], Colors.red);
+        else
+          await showSnackBar(responseBody['data'], Colors.red);
       }
     } catch (e) {
       if (kDebugMode) {

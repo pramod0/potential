@@ -126,9 +126,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
       var responseBody = jsonDecode(await ApiService().signUp(payload));
       if (responseBody['success'] == true) {
-        if (responseBody['data'] is String) {
-          showSnackBar("User is Already Registered", Colors.black);
-        }
+        showSnackBar(responseBody['data'], Colors.black);
         Track.isRegistered = true;
         prefs.then((pref) => pref.setBool('isRegistered', true));
         Navigator.of(context).push(
@@ -138,6 +136,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         );
         await EasyLoading.dismiss();
       }
+      await EasyLoading.dismiss();
     } catch (e) {
       if (kDebugMode) {
         print(e);
