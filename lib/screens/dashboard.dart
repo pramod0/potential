@@ -43,7 +43,7 @@ class _DashboardState extends State<Dashboard> {
   showModalClass(Color color) {
     var banner = MaterialBanner(
         content: Text(
-          "Error!!! you will need to Re Login",
+          "Error! You will need to ",
           style: kGoogleStyleTexts.copyWith(
               color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
         ),
@@ -63,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
               padding: const EdgeInsets.all(3),
               color: Colors.red.shade300,
               child: AutoSizeText(
-                "Re login",
+                "re-login",
                 style: kGoogleStyleTexts.copyWith(
                     color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
               ),
@@ -75,51 +75,63 @@ class _DashboardState extends State<Dashboard> {
 
   showMaterialBanner(Color color) {
     var banner = MaterialBanner(
-        content: AutoSizeText(
-          "Error!!! you will need to Re Login",
-          style: kGoogleStyleTexts.copyWith(
-              color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
-        ),
+        backgroundColor: color,
         leading: Icon(
           Icons.info,
           color: hexToColor(AppColors.whiteTextColor),
         ),
-        backgroundColor: color,
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const LoginPage()));
-              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.red.shade300,
-                  borderRadius: BorderRadius.all(Radius.circular(1.5))),
-              padding: const EdgeInsets.all(3),
-              child: AutoSizeText(
-                "Relogin",
-                style: kGoogleStyleTexts.copyWith(
-                    color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
-              ),
+        content: InkWell(
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const LoginPage()));
+            ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+          },
+          child: AutoSizeText.rich(
+            const TextSpan(
+                text: "Error!!! You need to ",
+                children: <TextSpan>[
+                    TextSpan(
+                    text: 're-login',
+                    style: TextStyle(fontWeight: FontWeight.w900, decoration: TextDecoration.underline),
+                )]
             ),
+
+            style: kGoogleStyleTexts.copyWith(
+                color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
           ),
-          InkWell(
-            onTap: () {
-              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-            },
-            child: Icon(
-              Icons.cancel,
-              color: hexToColor(AppColors.whiteTextColor),
-            ),
-          ),
-        ]);
+        ), actions:  [
+          Container()
+    ],
+
+
+        // actions: [
+        //   InkWell(
+        //     onTap: () {
+        //       Navigator.of(context).pushReplacement(
+        //           MaterialPageRoute(builder: (context) => const LoginPage()));
+        //       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        //     },
+        //     child: Container(
+        //       decoration: BoxDecoration(
+        //           color: Colors.red.shade300,
+        //           borderRadius: const BorderRadius.all(Radius.circular(1.5))),
+        //       padding: const EdgeInsets.all(3),
+        //       child: AutoSizeText(
+        //         "relogin",
+        //         style: kGoogleStyleTexts.copyWith(
+        //             color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
+        //       ),
+        //     ),
+        //   ),
+        //
+        // ]
+      );
     ScaffoldMessenger.of(context).showMaterialBanner(banner);
   }
 
   showSnackBar(String text, Color color) {
     var snackBar = SnackBar(
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         dismissDirection: DismissDirection.endToStart,
         content: AutoSizeText(
           text,
@@ -147,6 +159,7 @@ class _DashboardState extends State<Dashboard> {
       return Future.value("No Internet");
     }
     try {
+
       var token = Token.instance.token;
       var responseBody =
           jsonDecode(await ApiService().dashboardAPI(token, 10, 0));

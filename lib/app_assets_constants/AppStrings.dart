@@ -6,7 +6,7 @@ class AppStrings {
   static const String lname = 'Last Name';
   static const String emailID = 'Email Id';
   static const String panCard = 'PAN Card Number';
-  static const String mobileNO = 'Phone Number';
+  static const String mobileNO = 'Mobile Number';
   static const String otp = 'OTP';
   static const String generateOTP = 'Generate OTP';
   static const String userPassword = 'Password';
@@ -44,9 +44,7 @@ class AppStrings {
   static const String descriptionText = "Description";
   static const String assignByText = "Assigned By";
   static const String lastSubmissionDate = "Last Submission Date";
-  //SPLASH TEXTS
-  static const String splashScreenTextOne = "Jai Swaminarayan\n";
-  static const String splashScreenTextTwo = "Das na Das";
+
 
   //LOGIN TEXTS
   static const String passwordHintText = "Must have at least 8 characters";
@@ -78,8 +76,6 @@ class AppStrings {
   static const String inValidPAN = "Invalid PAN Card Number";
   static const String emailErrorText = "Please enter a valid Email ID";
   static const String mobNoErrorText = "Please enter a valid Mobile Number";
-  // static const String mobNoErrorText = "Please enter a valid Mobile Number";
-  // static const String mobNoErrorText = "Please enter a valid Mobile Number";
   static const String validationSuccessText = "Success";
 
   // LOGIN SCREEN WELCOME MSG TEXT

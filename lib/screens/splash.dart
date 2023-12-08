@@ -167,6 +167,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         () => Navigator.of(context).pushReplacement(_createRoute()));
   }
 
+
   @override
   Widget build(BuildContext context) {
     // given transparent color to status bar
@@ -268,7 +269,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    controller.dispose();
     super.dispose();
   }
 }

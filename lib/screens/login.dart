@@ -109,18 +109,17 @@ class _LoginPageState extends State<LoginPage> {
 
     _formKey.currentState!.save();
     EasyLoading.show(status: 'loading...');
-    var responseBody;
+
     try {
       final String userName = usernameController.text;
       final String password = passwordController.text;
-      if (userName.isEmpty && password.isEmpty) {
+      if (userName.isEmpty || password.isEmpty) {
         showSnackBar(
-            "Username or Password cannot be empty.", hexToColor("#ffffff"));
+            "Username or Password cannot be empty.", Colors.red);
         await EasyLoading.dismiss();
-        Exception(); // Is there a point of throwing exception?
         return;
       }
-      responseBody =
+      var responseBody =
           jsonDecode(await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
 
@@ -170,22 +169,25 @@ class _LoginPageState extends State<LoginPage> {
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
-        if (!context.mounted) return;
+        if (!context.mounted) return; // it resolves error of using context across async functions
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const Dashboard()));
       } else {
         await EasyLoading.dismiss();
-        print(responseBody);
-        if (responseBody['message'] != null)
+        if (kDebugMode) {
+          print(responseBody);
+        }
+        if (responseBody['message'] != null) {
           await showSnackBar(responseBody['message'], Colors.red);
-        else
+        } else {
           await showSnackBar(responseBody['data'], Colors.red);
+        }
       }
     } catch (e) {
       if (kDebugMode) {
         print("Exception occurred during login: $e");
       }
-      // showSnackBar(e.toString(), Colors.red);
+      showSnackBar(e.toString(), Colors.red);
       await EasyLoading.dismiss();
     }
   }
