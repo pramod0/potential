@@ -138,16 +138,16 @@ class _LoginPageState extends State<LoginPage> {
 
         await EasyLoading.dismiss();
 
-        // Do we need to check CAN? : Pramod TODO
-        // if (responseBody['data']['can'] == 'No') {
-        //   await EasyLoading.dismiss(); // isn't EasyLoading been dismissed already?
-        //   if (!context.mounted) return;
-        //   Navigator.of(context)
-        //       .push(MaterialPageRoute(builder: (context) => const CheckCANNO()));
-        //
-        //   return;
-        //
-        // }
+        // Check for CAN
+        if (responseBody['data']['can'] == 'No') {
+          await EasyLoading.dismiss(); // isn't EasyLoading been dismissed already?
+          if (!context.mounted) return;
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const CheckCANNO()));
+
+          return;
+
+        }
         //if consent but no data
         //TODO: implement route
         // responseBody =
