@@ -147,24 +147,7 @@ class _LoginPageState extends State<LoginPage> {
           return;
 
         }
-        //if consent but no data
-        //TODO: implement route
-        // responseBody =
-        //     jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
-        // if (kDebugMode) {
-        //   print(responseBody.toString());
-        // }
-        // InvestedData investedData = InvestedData.fromJson(responseBody['data']);
-        // if (kDebugMode) {
-        //   print("responseBody.toString()");
-        // }
-        // if (kDebugMode) {
-        //   print(investedData.invested);
-        // }
-        // prefs.then((pref) =>
-        //     pref.setString('investedData', responseBody['data'].toString()));
-        //
-        // AllData.setInvestmentData(investedData);
+
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
