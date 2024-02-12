@@ -1,21 +1,35 @@
 class InvestedData {
-  var invested;
-  var current;
-  var totalReturns;
-  var totalReturnsPercentage;
-  List<FundData>? fundData;
+  double invested = 0;
+  double current = 0;
+  double totalReturns = 0;
+  double absReturns = 0;
+  double xirr = 0;
+  double irr = 0;
+  double sinceDaysCAGR = 0;
+  List<FundData> fundData = <FundData>[];
 
-  InvestedData({this.invested, this.current, this.fundData});
+  InvestedData(
+      {required this.invested,
+      required this.current,
+      required this.totalReturns,
+      required this.absReturns,
+      required this.xirr,
+      required this.irr,
+      required this.sinceDaysCAGR,
+      required this.fundData});
 
   InvestedData.fromJson(Map<String, dynamic> json) {
-    invested = json['invested'];
-    current = json['current'];
-    totalReturns = current! - invested!;
-    totalReturnsPercentage = (current! - invested!) / invested! * 100;
+    invested = json['invested'].toDouble();
+    current = json['current'].toDouble();
+    totalReturns = json['totalReturns'].toDouble();
+    absReturns = json['absReturns'].toDouble();
+    xirr = json['xirr'].toDouble();
+    irr = json['irr'].toDouble();
+    sinceDaysCAGR = json['sinceDaysCAGR'].toDouble();
     if (json['fundData'] != null) {
       fundData = <FundData>[];
       json['fundData'].forEach((v) {
-        fundData!.add(FundData.fromJson(v));
+        fundData.add(FundData.fromJson(v));
       });
     }
   }
@@ -24,68 +38,101 @@ class InvestedData {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['invested'] = invested;
     data['current'] = current;
-    data['totalReturns'] = current! - invested!;
-    data['totalReturnsPercentage'] = totalReturnsPercentage;
-    if (fundData != null) {
-      data['fundData'] = fundData!.map((v) => v.toJson()).toList();
-    }
+    data['totalReturns'] = totalReturns;
+    data['absReturns'] = absReturns;
+    data['xirr'] = xirr;
+    data['irr'] = irr;
+    data['sinceCAGR'] = sinceDaysCAGR;
+    data['fundData'] = fundData.map((v) => v.toJson()).toList();
     return data;
   }
 }
 
 class FundData {
-  var id;
-  var fundName;
-  var schemeName;
-  var folioNumber;
-  var folioCheckDigit;
-  var unitHolding;
-  var currentValue;
-  var nav;
-  var navDate;
-  int? invested;
-  var perReturns;
-  var totalReturns;
+  String fundName = '';
+  String fundCode = '';
+  String schemeName = '';
+  String schemeCode = '';
+  List<dynamic> folioList = <dynamic>[];
+  double sipAmount = 0;
+  double invested = 0;
+  double unitHolding = 0;
+  double currentNAV = 0;
+  double currentValue = 0;
+  double xirr = 0;
+  double irr = 0;
+  double totalReturns = 0;
+  double absReturns = 0;
+  String sinceDate = '';
+  double sinceYears = 0;
+  int sinceDays = 0;
+  int installmentNumber = 0;
+  double sinceDaysCAGR = 0;
 
   FundData(
-      {this.id,
-      this.fundName,
-      this.schemeName,
-      this.folioNumber,
-      this.folioCheckDigit,
-      this.unitHolding,
-      this.currentValue,
-      this.nav,
-      this.navDate,
-      this.invested});
+      {required this.fundName,
+      required this.fundCode,
+      required this.schemeName,
+      required this.schemeCode,
+      required this.folioList,
+      required this.sipAmount,
+      required this.invested,
+      required this.unitHolding,
+      required this.currentNAV,
+      required this.currentValue,
+      required this.xirr,
+      required this.irr,
+      required this.totalReturns,
+      required this.absReturns,
+      required this.sinceDate,
+      required this.sinceYears,
+      required this.sinceDays,
+      required this.installmentNumber,
+      required this.sinceDaysCAGR});
 
   FundData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     fundName = json['fundName'];
+    fundCode = json['fundCode'];
     schemeName = json['schemeName'];
-    folioNumber = json['folioNumber'];
-    folioCheckDigit = json['folioCheckDigit'];
-    unitHolding = json['unitHolding'];
-    currentValue = json['currentValue'];
-    nav = json['nav'];
-    navDate = json['navDate'];
-    invested = json['invested'];
-    totalReturns = currentValue! - invested!;
-    perReturns = (currentValue! - invested!) / invested! * 100;
+    schemeCode = json['schemeCode'];
+    folioList = json['folioList'];
+    sipAmount = json['sipAmount'].toDouble();
+    invested = json['invested'].toDouble();
+    unitHolding = json['units'].toDouble();
+    currentNAV = json['currentNAV'].toDouble();
+    currentValue = json['currentValue'].toDouble();
+    xirr = json['xirr'].toDouble();
+    irr = json['irr'].toDouble();
+    totalReturns = json['totalReturns'].toDouble();
+    absReturns = json['absReturns'].toDouble();
+    sinceDate = json['sinceDate'];
+    sinceYears = json['sinceYears'].toDouble();
+    sinceDays = json['sinceDays'];
+    installmentNumber = json['installmentNumber'];
+    sinceDaysCAGR = json['sinceDaysCAGR'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     data['fundName'] = fundName;
+    data['fundCode'] = fundCode;
     data['schemeName'] = schemeName;
-    data['folioNumber'] = folioNumber;
-    data['folioCheckDigit'] = folioCheckDigit;
-    data['unitHolding'] = unitHolding;
-    data['currentValue'] = currentValue;
-    data['nav'] = nav;
-    data['navDate'] = navDate;
+    data['schemeCode'] = schemeCode;
+    data['folioList'] = folioList;
+    data['sipAmount'] = sipAmount;
     data['invested'] = invested;
+    data['units'] = unitHolding;
+    data['currentNAV'] = currentNAV;
+    data['currentValue'] = currentValue;
+    data['xirr'] = xirr;
+    data['irr'] = irr;
+    data['totalReturns'] = totalReturns;
+    data['absReturns'] = absReturns;
+    data['sinceDate'] = sinceDate;
+    data['sinceYears'] = sinceYears;
+    data['sinceDays'] = sinceDays;
+    data['installmentNumber'] = installmentNumber;
+    data['sinceDaysCAGR'] = sinceDaysCAGR;
     return data;
   }
 }

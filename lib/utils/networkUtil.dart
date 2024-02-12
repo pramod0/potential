@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 class NetWorkUtil {
   NetWorkUtil._sharedInstance();
   static final NetWorkUtil _shared = NetWorkUtil._sharedInstance();
@@ -13,6 +15,9 @@ class NetWorkUtil {
         internetConnection = true;
       }
     } on SocketException catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
       internetConnection = false;
     }
     return internetConnection;

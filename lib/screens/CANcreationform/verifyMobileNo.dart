@@ -1,19 +1,19 @@
-// import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
+//import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/screens/tabspage.dart';
-import 'package:potential/utils/AllData.dart';
+// import 'package:potential/utils/AllData.dart';
 import 'package:potential/utils/appTools.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../app_assets_constants/AppColors.dart';
 import '../../app_assets_constants/AppStrings.dart';
-import '../../models/cancreation.dart';
+//import '../../models/cancreation.dart';
 import '../../utils/styleConstants.dart';
 import '../../utils/track.dart';
-import '../login.dart';
+//import '../login.dart';
 
 class VerifyMobileNum extends StatefulWidget {
   const VerifyMobileNum({
@@ -177,7 +177,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
     // var email = data['email'];
     var contactNo = mobileNOController.text;
 
-    if (contactNo != null && contactNo == '') {
+    if ( contactNo == '') {
       return AppStrings.contactNoRequired;
     } else if (!regex.hasMatch(contactNo)) {
       return "Invalid Contact Number";
@@ -339,7 +339,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: Text(AppStrings.verificationCode,
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w400,
-                    color: hexToColor(AppColors.whiteTextColor),
+                    color: hexToColor(AppColors.blackTextColor),
                     fontSize: 15.0)),
           ),
           Form(

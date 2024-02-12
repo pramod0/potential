@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:potential/models/cancreation.dart';
-import 'package:potential/models/investor.dart';
+//import 'package:potential/models/cancreation.dart';
+//import 'package:potential/models/investor.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:potential/utils/AllData.dart';
+//import 'package:potential/utils/AllData.dart';
 
 import 'homeScreen.dart';
 import 'investScreen.dart';
@@ -18,30 +18,30 @@ class TabNavigationItem {
 
   static List<TabNavigationItem> get items => [
         TabNavigationItem(
-          page: HomeScreen(),
+          page: const HomeScreen(),
           icon: const Icon(
             Icons.home,
           ),
-          title: Text(
+          title: const Text(
             "Organization",
           ),
         ),
         TabNavigationItem(
-          page: Dashboard(),
-          icon: Icon(Icons.search),
-          title: Text(
+          page: const Dashboard(),
+          icon: const Icon(Icons.search),
+          title: const Text(
             "Branch",
           ),
         ),
         TabNavigationItem(
-          page: InvestScreen(),
-          icon: Icon(Icons.home),
-          title: Text("Courses"),
+          page: const InvestScreen(),
+          icon: const Icon(Icons.home),
+          title: const Text("Courses"),
         ),
         TabNavigationItem(
-          page: Dashboard(),
-          icon: Icon(Icons.home),
-          title: Text("Standards"),
+          page: const Dashboard(),
+          icon: const Icon(Icons.home),
+          title: const Text("Standards"),
         ),
       ];
 }

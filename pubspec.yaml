@@ -1,6 +1,6 @@
 name: potential
 description: Project for Mutual Fund Clients #Techmatha
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -16,6 +16,9 @@ dependencies:
   shared_preferences: ^2.1.0
   google_fonts: ^4.0.3
   intl: ^0.17.0
+  provider: any
+  jwt_decoder: any
+  auto_size_text: ^3.0.0
 #  firebase_database: ^10.1.0
 #  firebase_storage: ^11.1.0
 #  flutter_local_notifications: ^13.0.0
@@ -27,6 +30,9 @@ dependencies:
   font_awesome_flutter: ^10.4.0
 #  firebase_in_app_messaging: ^0.7.0+16
   http: ^1.1.0
+  linear_timer: ^2.0.0
+
+
 
 
 
@@ -35,6 +41,14 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/ic_launcher.png"
+  ios: true
+  remove_alpha_ios: true
+
 
 flutter:
 
@@ -46,3 +60,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/
+
+
+  # optionally, as transparency is not allowed on app store
+  # remove_alpha_ios: true

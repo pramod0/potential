@@ -32,7 +32,7 @@ class Validations {
   }
 
   String? validateStepFourContactInfo() {
-    Pattern pattern = "(0/91)?[7-9][0-9]{9}";
+    Pattern pattern = "(0/91)?[6-9][0-9]{9}";
     RegExp regex = RegExp(pattern.toString());
     var email = data['email'];
     var contactNo = data['contact_no'];

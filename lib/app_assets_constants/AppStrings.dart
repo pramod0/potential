@@ -17,6 +17,7 @@ class AppStrings {
   static const String signUpText = "Sign Up";
   static const String signInWithGoogleText = "Sign in with Google";
   static const String alreadyRegText = "Already have an account?";
+  static const String notSignedIn = "Don't have an account?";
   static const String signUpWithGoogle = "Sign up with Google";
   static const String loginText = "We are happy to see you here!";
   static const String dashboardText = "Dashboard";
@@ -43,15 +44,13 @@ class AppStrings {
   static const String descriptionText = "Description";
   static const String assignByText = "Assigned By";
   static const String lastSubmissionDate = "Last Submission Date";
-  //SPLASH TEXTS
-  static const String splashScreenTextOne = "Jai Swaminarayan\n";
-  static const String splashScreenTextTwo = "Das na Das";
 
   //LOGIN TEXTS
   static const String passwordHintText = "Must have at least 8 characters";
   static const String emailHintText = "user@example.com";
   static const String emailText = "Email";
   static const String passwordText = "Password";
+  static const String confirmPasswordText = "Confirm Password";
   static const String loginBtnText = "Login";
 
   // VALIDATION TEXT
@@ -76,8 +75,6 @@ class AppStrings {
   static const String inValidPAN = "Invalid PAN Card Number";
   static const String emailErrorText = "Please enter a valid Email ID";
   static const String mobNoErrorText = "Please enter a valid Mobile Number";
-  // static const String mobNoErrorText = "Please enter a valid Mobile Number";
-  // static const String mobNoErrorText = "Please enter a valid Mobile Number";
   static const String validationSuccessText = "Success";
 
   // LOGIN SCREEN WELCOME MSG TEXT
@@ -189,8 +186,12 @@ class AppStrings {
   static const String retryBtnText = "Retry";
 
   static const String total = "Total";
-  static const String current = 'Current';
+  static const String current = 'Current Value';
+  static const String returns = 'Returns';
   static const String invested = 'Invested';
   static const String investments = 'Investments';
+  static const String reports = 'Analyze Report';
   static const String home = 'Home';
+  static const String pleaseRegisterText =
+      "We kindly request that you reach out to our support team,\nas it appears you are not currently registered as a user with the firm.\nYour co-operation is greatly appreciated.\n\nThank You!!!";
 }

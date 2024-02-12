@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../app_assets_constants/AppStrings.dart';
-import '../utils/AllData.dart';
+// import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
 
 class InvestScreen extends StatefulWidget {
-  InvestScreen({
+  const InvestScreen({
     super.key,
   });
 
