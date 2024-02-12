@@ -45,7 +45,6 @@ class AppStrings {
   static const String assignByText = "Assigned By";
   static const String lastSubmissionDate = "Last Submission Date";
 
-
   //LOGIN TEXTS
   static const String passwordHintText = "Must have at least 8 characters";
   static const String emailHintText = "user@example.com";
@@ -187,7 +186,8 @@ class AppStrings {
   static const String retryBtnText = "Retry";
 
   static const String total = "Total";
-  static const String current = 'Current';
+  static const String current = 'Current Value';
+  static const String returns = 'Returns';
   static const String invested = 'Invested';
   static const String investments = 'Investments';
   static const String reports = 'Analyze Report';

@@ -75,57 +75,54 @@ class _DashboardState extends State<Dashboard> {
 
   showMaterialBanner(Color color) {
     var banner = MaterialBanner(
-        backgroundColor: color,
-        leading: Icon(
-          Icons.info,
-          color: hexToColor(AppColors.whiteTextColor),
+      backgroundColor: color,
+      leading: Icon(
+        Icons.info,
+        color: hexToColor(AppColors.whiteTextColor),
+      ),
+      content: InkWell(
+        onTap: () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const LoginPage()));
+          ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        },
+        child: AutoSizeText.rich(
+          const TextSpan(text: "Error!!! You need to ", children: <TextSpan>[
+            TextSpan(
+              text: 're-login',
+              style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  decoration: TextDecoration.underline),
+            )
+          ]),
+          style: kGoogleStyleTexts.copyWith(
+              color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
         ),
-        content: InkWell(
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const LoginPage()));
-            ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-          },
-          child: AutoSizeText.rich(
-            const TextSpan(
-                text: "Error!!! You need to ",
-                children: <TextSpan>[
-                    TextSpan(
-                    text: 're-login',
-                    style: TextStyle(fontWeight: FontWeight.w900, decoration: TextDecoration.underline),
-                )]
-            ),
+      ),
+      actions: [Container()],
 
-            style: kGoogleStyleTexts.copyWith(
-                color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
-          ),
-        ), actions:  [
-          Container()
-    ],
-
-
-        // actions: [
-        //   InkWell(
-        //     onTap: () {
-        //       Navigator.of(context).pushReplacement(
-        //           MaterialPageRoute(builder: (context) => const LoginPage()));
-        //       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-        //     },
-        //     child: Container(
-        //       decoration: BoxDecoration(
-        //           color: Colors.red.shade300,
-        //           borderRadius: const BorderRadius.all(Radius.circular(1.5))),
-        //       padding: const EdgeInsets.all(3),
-        //       child: AutoSizeText(
-        //         "relogin",
-        //         style: kGoogleStyleTexts.copyWith(
-        //             color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
-        //       ),
-        //     ),
-        //   ),
-        //
-        // ]
-      );
+      // actions: [
+      //   InkWell(
+      //     onTap: () {
+      //       Navigator.of(context).pushReplacement(
+      //           MaterialPageRoute(builder: (context) => const LoginPage()));
+      //       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+      //     },
+      //     child: Container(
+      //       decoration: BoxDecoration(
+      //           color: Colors.red.shade300,
+      //           borderRadius: const BorderRadius.all(Radius.circular(1.5))),
+      //       padding: const EdgeInsets.all(3),
+      //       child: AutoSizeText(
+      //         "relogin",
+      //         style: kGoogleStyleTexts.copyWith(
+      //             color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
+      //       ),
+      //     ),
+      //   ),
+      //
+      // ]
+    );
     ScaffoldMessenger.of(context).showMaterialBanner(banner);
   }
 
@@ -159,7 +156,6 @@ class _DashboardState extends State<Dashboard> {
       return Future.value("No Internet");
     }
     try {
-
       var token = Token.instance.token;
       var responseBody =
           jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
@@ -242,11 +238,13 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<bool> _onBackPressed() async {
-    return await showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const ExitDialogue()) ??
-        false;
+    // return await showDialog(
+    //         barrierDismissible: false,
+    //         context: context,
+    //         builder: (context) => const ExitDialogue()) ??
+    //     false;
+    Navigator.of(context).pop();
+    return true;
   }
 
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
@@ -260,7 +258,7 @@ class _DashboardState extends State<Dashboard> {
       },
       color: hexToColor(AppColors.loginBtnColor),
       child: PopScope(
-        canPop: false,
+        canPop: true, //make false when Onpop
         onPopInvoked: (canPop) async {
           if (canPop) {
             return;

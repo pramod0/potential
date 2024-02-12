@@ -114,8 +114,7 @@ class _LoginPageState extends State<LoginPage> {
       final String userName = usernameController.text;
       final String password = passwordController.text;
       if (userName.isEmpty || password.isEmpty) {
-        showSnackBar(
-            "Username or Password cannot be empty.", Colors.red);
+        showSnackBar("Username or Password cannot be empty.", Colors.red);
         await EasyLoading.dismiss();
         return;
       }
@@ -169,7 +168,9 @@ class _LoginPageState extends State<LoginPage> {
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
-        if (!context.mounted) return; // it resolves error of using context across async functions
+        if (!context.mounted) {
+          return; // it resolves error of using context across async functions
+        }
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const Dashboard()));
       } else {
