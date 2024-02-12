@@ -38,6 +38,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
           fundData: []);
       AllData.schemeMap.clear();
       AllData.investorData = User();
+      if (!context.mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
