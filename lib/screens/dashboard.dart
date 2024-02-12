@@ -237,14 +237,32 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
   }
 
+  // Future<bool> _onBackPressed() async {
+  //   // return await showDialog(
+  //   //         barrierDismissible: false,
+  //   //         context: context,
+  //   //         builder: (context) => const ExitDialogue()) ??
+  //   //     false;
+  //   Navigator.of(context).pop();
+  //   return true;
+  // }
   Future<bool> _onBackPressed() async {
-    // return await showDialog(
-    //         barrierDismissible: false,
-    //         context: context,
-    //         builder: (context) => const ExitDialogue()) ??
-    //     false;
-    Navigator.of(context).pop();
-    return true;
+    // AllData.investedData = InvestedData(
+    //     invested: 0,
+    //     current: 0,
+    //     totalReturns: 0,
+    //     absReturns: 0,
+    //     xirr: 0,
+    //     irr: 0,
+    //     sinceDaysCAGR: 0,
+    //     fundData: []);
+    // AllData.schemeMap = {};
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => const ExitDialogue());
+    return false;
+    // return false;
   }
 
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();

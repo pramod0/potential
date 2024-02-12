@@ -139,13 +139,13 @@ class _LoginPageState extends State<LoginPage> {
 
         // Check for CAN
         if (responseBody['data']['can'] == 'No') {
-          await EasyLoading.dismiss(); // isn't EasyLoading been dismissed already?
+          await EasyLoading
+              .dismiss(); // isn't EasyLoading been dismissed already?
           if (!context.mounted) return;
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const CheckCANNO()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CheckCANNO()));
 
           return;
-
         }
 
         TextInput.finishAutofillContext();
@@ -162,6 +162,9 @@ class _LoginPageState extends State<LoginPage> {
           print(responseBody);
         }
         if (responseBody['message'] != null) {
+          if (responseBody['message'] == "incorrect PASSWORD") {
+            await showSnackBar("Incorrect password", Colors.red);
+          }
           await showSnackBar(responseBody['message'], Colors.red);
         } else {
           await showSnackBar(responseBody['data'], Colors.red);
