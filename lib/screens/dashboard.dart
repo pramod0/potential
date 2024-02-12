@@ -237,26 +237,7 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
   }
 
-  // Future<bool> _onBackPressed() async {
-  //   // return await showDialog(
-  //   //         barrierDismissible: false,
-  //   //         context: context,
-  //   //         builder: (context) => const ExitDialogue()) ??
-  //   //     false;
-  //   Navigator.of(context).pop();
-  //   return true;
-  // }
   Future<bool> _onBackPressed() async {
-    // AllData.investedData = InvestedData(
-    //     invested: 0,
-    //     current: 0,
-    //     totalReturns: 0,
-    //     absReturns: 0,
-    //     xirr: 0,
-    //     irr: 0,
-    //     sinceDaysCAGR: 0,
-    //     fundData: []);
-    // AllData.schemeMap = {};
     await showDialog(
         barrierDismissible: false,
         context: context,
@@ -276,7 +257,7 @@ class _DashboardState extends State<Dashboard> {
       },
       color: hexToColor(AppColors.loginBtnColor),
       child: PopScope(
-        canPop: true, //make false when Onpop
+        canPop: false, //make false when Onpop
         onPopInvoked: (canPop) async {
           if (canPop) {
             return;
