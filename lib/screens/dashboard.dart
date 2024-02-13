@@ -329,7 +329,7 @@ class _DashboardState extends State<Dashboard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hii, there...",
+                            "Hi, ${AllData.investorData.firstName}",
                             style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 20,
@@ -391,21 +391,22 @@ class _DashboardState extends State<Dashboard> {
                                 builder: (context) => ProfilePage())),
                         // onTap: _logout,
                       ),
-                      ListTile(
-                        tileColor: hexToColor(AppColors.appThemeColor),
-                        leading: Icon(Icons.settings_outlined),
-                        title: Text(
-                          AppStrings.settings,
-                          style: kGoogleStyleTexts.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                            color: hexToColor(AppColors.blackTextColor),
-                          ),
-                        ),
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => SettingsPage())),
-                      ),
+                      //  Hide settings for now
+                      // ListTile(
+                      //   tileColor: hexToColor(AppColors.appThemeColor),
+                      //   leading: Icon(Icons.settings_outlined),
+                      //   title: Text(
+                      //     AppStrings.settings,
+                      //     style: kGoogleStyleTexts.copyWith(
+                      //       fontWeight: FontWeight.w700,
+                      //       fontSize: 20,
+                      //       color: hexToColor(AppColors.blackTextColor),
+                      //     ),
+                      //   ),
+                      //   onTap: () => Navigator.of(context).push(
+                      //       MaterialPageRoute(
+                      //           builder: (context) => SettingsPage())),
+                      // ),
                       ListTile(
                         tileColor: hexToColor(AppColors.appThemeColor),
                         leading: Icon(Icons.logout_outlined),

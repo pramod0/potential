@@ -188,9 +188,7 @@ class ApiService {
         'Content-Type': 'application/json', //; charset=UTF-8
         'Authorization': 'Bearer $token'
       }).timeout(const Duration(seconds: 5));
-      // if (kDebugMode) {
-      //   print(response.body);
-      // }
+
       if (response.statusCode == 200) {
         // Signup successful
         // if (kDebugMode) {
@@ -233,10 +231,7 @@ class ApiService {
       //   print(response.body);
       // }
       if (response.statusCode == 200) {
-        // Signup successful
-        // if (kDebugMode) {
-        //   print(response.body);
-        // }
+       
         return response.body;
       } else {
         // Signup failed
