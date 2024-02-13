@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:potential/ApiService.dart';
 
+import '../app_assets_constants/AppColors.dart';
+import '../utils/appTools.dart';
+
 class VerifyEmailScreen extends StatefulWidget {
   final String email; // Pass the email from Forgot Password screen
 
@@ -27,6 +30,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   final _otpController = TextEditingController();
 
   String _errorMessage = '';
+
+  bool _showNewPassword = false;
+  bool _showConfirmPassword = false;
 
   @override
   void dispose() {
@@ -58,6 +64,14 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         _errorMessage = 'Invalid OTP or error: ${response.body}';
       });
     }
+  }
+
+  void _toggleVisibility(bool showPassword){
+    setState(() {
+      showPassword =  !showPassword;
+      _showNewPassword  = !_showNewPassword;
+    });
+    
   }
 
   @override
@@ -105,11 +119,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               SizedBox(height: 10.0),
               TextFormField(
                 controller: _newPasswordController,
-                obscureText: true,
+                obscureText: !_showNewPassword,
                 focusNode: _newPasswordFocusNode,
-                decoration: InputDecoration(
-                  labelText: 'New Password',
-                ),
+
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a new password';
@@ -122,15 +134,35 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   FocusScope.of(context)
                       .requestFocus(_confirmPasswordFocusNode);
                 },
+                decoration: InputDecoration(
+
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+
+                      setState(() {
+                        _showNewPassword = !_showNewPassword;
+                      });
+
+                    },
+                    child: Icon(
+                      _showNewPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: hexToColor(AppColors.blackTextColor),
+                      //hexToColor(AppColors.whiteBorderColor),
+                      size: 22,
+                    ),
+                  ),
+
+                  labelText: 'New Password',
+              ),
               ),
               SizedBox(height: 10.0),
               TextFormField(
                 controller: _confirmPasswordController,
-                obscureText: true,
+                obscureText: _showConfirmPassword,
                 focusNode: _confirmPasswordFocusNode,
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                ),
+
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_otpFocusNode);
@@ -144,6 +176,26 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   }
                   return null;
                 },
+                decoration: InputDecoration(
+
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _showConfirmPassword = !_showConfirmPassword;
+                      });
+                    },
+                    child: Icon(
+                      _showConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: hexToColor(AppColors.blackTextColor),
+                      //hexToColor(AppColors.whiteBorderColor),
+                      size: 22,
+                    ),
+                  ),
+
+                  labelText: 'Confirm Password',
+                ),
               ),
               SizedBox(height: 20.0),
               Row(
