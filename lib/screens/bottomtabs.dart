@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:potential/models/investor.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 //import 'package:potential/utils/AllData.dart';
 
 import 'homeScreen.dart';

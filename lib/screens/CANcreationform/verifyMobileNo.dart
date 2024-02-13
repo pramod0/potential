@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/screens/tabspage.dart';
 // import 'package:potential/utils/AllData.dart';
 import 'package:potential/utils/appTools.dart';
+
 // import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../app_assets_constants/AppColors.dart';
@@ -177,7 +178,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
     // var email = data['email'];
     var contactNo = mobileNOController.text;
 
-    if ( contactNo == '') {
+    if (contactNo == '') {
       return AppStrings.contactNoRequired;
     } else if (!regex.hasMatch(contactNo)) {
       return "Invalid Contact Number";

@@ -7,16 +7,17 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
-import 'package:potential/utils/AllData.dart';
 import 'package:potential/screens/dashboard.dart';
+import 'package:potential/screens/forgot_password.dart';
+import 'package:potential/utils/AllData.dart';
 // import 'package:potential/screens/tabspage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ApiService.dart';
+import '../app_assets_constants/AppStrings.dart';
 // import '../models/cancreation.dart';
 import '../models/token.dart';
 import '../utils/appTools.dart';
-import '../app_assets_constants/AppStrings.dart';
-import '../ApiService.dart';
 // import '../utils/googleSignIn.dart';
 import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
@@ -396,8 +397,24 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 35,
+                  SizedBox(
+                    height: 40,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ForgotPasswordScreen()));
+                        },
+                        child: const Text(
+                          "Forgot Password?",
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),

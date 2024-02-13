@@ -7,6 +7,10 @@ class Constants {
   static String mainToUse = "http://128.199.68.236:7070/api";
   static String signupURL = "/signup";
   static String loginURL = "/login";
+  static String sendOTP = "/forgot-password";
+  static String resendOTP = "/resend-otp";
+  static String verifyOTP = "/verify-otp";
+  static String logout = "/logout";
   static String dashboardURL = "/dashboard";
   static String schemeSummaryURL = "/schemesummary";
 }

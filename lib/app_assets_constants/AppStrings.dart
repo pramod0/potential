@@ -153,6 +153,7 @@ class AppStrings {
   static const String tlNameBelonging = "The person to whom I'm belonging is ";
   static const String team = "Reference";
   static const String verificationCode = "Verification Code";
+  static const String settings = "Setting";
 
   // Errors Strings
   static const String firstNameRequired = "First Name is required";

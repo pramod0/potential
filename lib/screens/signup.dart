@@ -11,10 +11,9 @@ class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  _SignUpPageState createState(){
+  _SignUpPageState createState() {
     return _SignUpPageState();
   }
-
 }
 
 class _SignUpPageState extends State<SignUpPage> {

@@ -1,28 +1,24 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:potential/ApiService.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/screens/dashboard.dart';
-import 'package:potential/screens/homeScreen.dart';
-
 // import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
 import 'package:potential/utils/styleConstants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/investor.dart';
 import '../models/token.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import '../utils/networkUtil.dart';
 // import 'package:linear_timer/linear_timer.dart';
 

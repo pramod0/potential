@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
+
+import '../app_assets_constants/AppStrings.dart';
 // import 'package:potential/models/token.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -10,9 +13,6 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
-import '../app_assets_constants/AppStrings.dart';
-
-import 'package:intl/intl.dart';
 
 final oCcy = NumberFormat("#,##0.00", "en_US");
 

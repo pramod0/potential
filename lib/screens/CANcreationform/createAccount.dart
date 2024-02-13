@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/ApiService.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 //import 'package:potential/screens/CANcreationform/verifyMobileNo.dart';
@@ -13,7 +14,7 @@ import 'package:potential/utils/noGlowBehaviour.dart';
 import 'package:potential/utils/track.dart';
 import 'package:potential/utils/validations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../../app_assets_constants/AppStrings.dart';
 //import '../../models/cancreation.dart';
 
@@ -21,7 +22,6 @@ import '../../app_assets_constants/AppStrings.dart';
 import '../../utils/exit_dialogue.dart';
 import '../../utils/networkUtil.dart';
 import '../../utils/styleConstants.dart';
-import '../dashboard.dart';
 import '../login.dart';
 //import '../tabspage.dart';
 

@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:potential/utils/constants.dart';
+import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:http/http.dart';
+import 'package:potential/utils/constants.dart';
 
 class ApiService {
   // Pramod: I do not understand the code myself. I wanted to make ApiService class singleton.
@@ -95,6 +96,83 @@ class ApiService {
   //   return true;
   // }
 
+  Future<String> sendOTP({required String email}) async {
+    Uri sendOTPURI = Uri.parse('${Constants.domainURL}${Constants.sendOTP}');
+    try {
+      Response response = await post(sendOTPURI,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'email': email,
+          })).timeout(const Duration(seconds: 10)); // end of http.post
+      // print(response.body.toString());
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response.body.toString();
+    } on TimeoutException catch (e) {
+      if (kDebugMode) {
+        print('Please try again after some time.');
+      }
+      throw Exception("Please try again after some time.");
+    }
+  }
+
+  Future<String> resendOTP({required String email}) async {
+    Uri sendOTPURI = Uri.parse('${Constants.domainURL}${Constants.sendOTP}');
+    try {
+      Response response = await post(sendOTPURI,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'email': email,
+          })).timeout(const Duration(seconds: 10)); // end of http.post
+      // print(response.body.toString());
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response.body.toString();
+    } on TimeoutException catch (e) {
+      if (kDebugMode) {
+        print('Please try again after some time.');
+      }
+      throw Exception("Please try again after some time.");
+    }
+  }
+
+  Future<String> verifyOTP(
+      {required String email,
+      required String otp,
+      required String pass,
+      required String confirmPass}) async {
+    Uri verifyOTPURI =
+        Uri.parse('${Constants.domainURL}${Constants.verifyOTP}');
+    try {
+      Response response = await post(verifyOTPURI,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'email': email,
+            'otp': otp,
+            'password': pass,
+            'confirmPassword': confirmPass,
+          })).timeout(const Duration(seconds: 10)); // end of http.post
+      // print(response.body.toString());
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response.body.toString();
+    } on TimeoutException catch (e) {
+      if (kDebugMode) {
+        print('Please try again after some time.');
+      }
+      throw Exception("Please try again after some time.");
+    }
+  }
+
   Future<String> dashboardAPI(String token, int limit, int offset) async {
     // Replace this with your signup endpoint URL
     Uri dashboardURI = Uri.parse(
@@ -136,8 +214,8 @@ class ApiService {
   Future<String> schemeSummaryAPI(
       String token, String fund, String scheme) async {
     // Replace this with your signup endpoint URL
-    Uri dashboardURI =
-        Uri.parse('${Constants.domainURL}${Constants.schemeSummaryURL}');
+    Uri dashboardURI = Uri.parse(
+        '${Constants.domainURL}${Constants.schemeSummaryURL}?fund=$fund&scheme=$scheme');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     // if (kDebugMode) {
@@ -148,8 +226,8 @@ class ApiService {
       Response response = await get(dashboardURI, headers: <String, String>{
         'Content-Type': 'application/json', //; charset=UTF-8
         'Authorization': 'Bearer $token',
-        'fund': fund,
-        'scheme': scheme
+        // 'fund': fund,
+        // 'scheme': scheme
       }).timeout(const Duration(seconds: 5));
       // if (kDebugMode) {
       //   print(response.body);

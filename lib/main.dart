@@ -1,7 +1,7 @@
 import 'dart:io';
+
 //import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/screens/splash.dart';
@@ -14,14 +14,18 @@ void main() async {
 }
 
 configLoading() async {
+  // EasyLoading.init(builder: (context, child) {
+  //   return const CircularProgressIndicator();
+  // });
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
     ..indicatorType = EasyLoadingIndicatorType.chasingDots
     ..indicatorSize = 20
-    ..loadingStyle = EasyLoadingStyle.custom
-    ..backgroundColor = hexToColor(AppColors.appThemeColor)
-    ..indicatorColor = Colors.black54
-    ..textColor = Colors.black
+    // ..progressWidth = 1
+    ..loadingStyle = EasyLoadingStyle.light
+    ..backgroundColor = hexToColor(AppColors.appThemeColor).withOpacity(0.10)
+    ..indicatorColor = Colors.black87
+    ..textColor = Colors.black54
     // ..progressColor = Colors.blue.withOpacity(0.5)
     // ..maskColor = Colors.blue.withOpacity(0.5)
     ..dismissOnTap = false
@@ -35,7 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Splash(),
+      home: const Splash(), //Splash
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: hexToColor(AppColors.loginBtnColor)),

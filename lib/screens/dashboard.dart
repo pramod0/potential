@@ -5,24 +5,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/models/token.dart';
+import 'package:potential/screens/profile_page.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
+import 'package:potential/screens/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
+import '../app_assets_constants/AppStrings.dart';
 import '../models/investments.dart';
+import '../models/investor.dart';
 import '../models/schemes.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/exit_dialogue.dart';
 import '../utils/networkUtil.dart';
 import '../utils/styleConstants.dart';
-import '../app_assets_constants/AppStrings.dart';
-
-import 'package:intl/intl.dart';
-
 import 'login.dart';
 
 final oCcy = NumberFormat("#,##0.00", "en_US");
@@ -237,6 +238,33 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
   }
 
+  _logout() async {
+    try {
+      //FirebaseAuth.instance.signOut();
+      SharedPreferences inst = await SharedPreferences.getInstance();
+      inst.clear();
+      AllData.investedData = InvestedData(
+          invested: 0,
+          current: 0,
+          totalReturns: 0,
+          absReturns: 0,
+          xirr: 0,
+          irr: 0,
+          sinceDaysCAGR: 0,
+          fundData: []);
+      AllData.schemeMap.clear();
+      AllData.investorData = User();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
   Future<bool> _onBackPressed() async {
     await showDialog(
         barrierDismissible: false,
@@ -266,6 +294,137 @@ class _DashboardState extends State<Dashboard> {
         },
         child: SafeArea(
           child: Scaffold(
+            appBar: AppBar(
+              backgroundColor:
+                  hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+              title: Text(
+                "Dashboard",
+                style: kGoogleStyleTexts.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20,
+                  color: hexToColor(AppColors.blackTextColor),
+                ),
+              ),
+              iconTheme: const IconThemeData(
+                color: Colors.black,
+              ),
+            ),
+            drawer: Drawer(
+              elevation: 0,
+              backgroundColor: hexToColor(AppColors.appThemeColor),
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                // itemExtent: 100,
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    margin: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent.withOpacity(0.1),
+                    ),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hii, there...",
+                            style: kGoogleStyleTexts.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              color: hexToColor(AppColors.blackTextColor),
+                            ),
+                          ),
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     Text(
+                          //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
+                          //       style: kGoogleStyleTexts.copyWith(
+                          //         color: hexToColor(AppColors.blackTextColor)
+                          //             .withOpacity(0.87),
+                          //         fontSize: 24.0,
+                          //       ),
+                          //       textAlign: TextAlign.start,
+                          //     ),
+                          //     Text(
+                          //       "(${AllData.investorData.panCard})",
+                          //       style: kGoogleStyleTexts.copyWith(
+                          //         color: hexToColor(AppColors.blackTextColor)
+                          //             .withOpacity(0.87),
+                          //         fontSize: 15.0,
+                          //       ),
+                          //       textAlign: TextAlign.start,
+                          //     ),
+                          //   ],
+                          // ),
+                          Text(
+                            "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                            style: kGoogleStyleTexts.copyWith(
+                              color: hexToColor(AppColors.blackTextColor)
+                                  .withOpacity(0.87),
+                              fontSize: 12.0,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      ListTile(
+                        tileColor: hexToColor(AppColors.appThemeColor),
+                        leading: Icon(Icons.person_rounded),
+                        title: Text(
+                          "Profile",
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage())),
+                        // onTap: _logout,
+                      ),
+                      ListTile(
+                        tileColor: hexToColor(AppColors.appThemeColor),
+                        leading: Icon(Icons.settings_outlined),
+                        title: Text(
+                          AppStrings.settings,
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => SettingsPage())),
+                      ),
+                      ListTile(
+                        tileColor: hexToColor(AppColors.appThemeColor),
+                        leading: Icon(Icons.logout_outlined),
+                        title: Text(
+                          AppStrings.logoutButtonText,
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
+                          ),
+                        ),
+                        onTap: _logout,
+                      ),
+                    ],
+                  ),
+                  // Flex(direction: Axis.vertical, children: [SizedBox()]),
+                ],
+              ),
+            ),
             backgroundColor: hexToColor(AppColors.appThemeColor),
             body: AllData.investedData.current != 0
                 ? buildMainDataScreen(context)
@@ -283,8 +442,8 @@ class _DashboardState extends State<Dashboard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-                left: 18.0, right: 18.0, top: 15.0, bottom: 0.0),
+            padding:
+                const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 0.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -400,6 +559,9 @@ class _DashboardState extends State<Dashboard> {
                           //     ),
                           //   ),
                           // ),
+                          SizedBox(
+                            height: 8,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -776,7 +938,7 @@ class _DashboardState extends State<Dashboard> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SubHeadingText(item: "Invested"),
+                                    const SubHeadingText(item: "Invested"),
                                     ValueText(
                                         item:
                                             "\u{20B9}${oCcy.format(item.invested)}",
@@ -784,13 +946,13 @@ class _DashboardState extends State<Dashboard> {
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 5,
+                                  height: 8,
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SubHeadingText(item: "Since Date"),
+                                    const SubHeadingText(item: "Since Date"),
                                     ValueText(
                                         item:
                                             "${item.sinceDate.replaceAll('-', '/')}",
@@ -825,7 +987,7 @@ class _DashboardState extends State<Dashboard> {
                                 //                  AppColors.blackTextColor),
                                 // ),
                                 const SizedBox(
-                                  height: 5,
+                                  height: 8,
                                 ),
                                 Column(
                                   mainAxisAlignment:
