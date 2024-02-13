@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/AppStrings.dart';
 import 'package:potential/utils/appTools.dart';
@@ -11,6 +12,7 @@ import '../../models/investor.dart';
 import '../../utils/AllData.dart';
 import '../../utils/styleConstants.dart';
 import '../login.dart';
+import '../profile_page.dart';
 
 class CheckCANNO extends StatefulWidget {
   const CheckCANNO({super.key});
@@ -78,37 +80,118 @@ class _StateCheckCANNO extends State<CheckCANNO> {
           ),
         ),
         drawer: Drawer(
+          elevation: 0,
           backgroundColor: hexToColor(AppColors.appThemeColor),
-          width: MediaQuery.of(context).size.width * 0.45,
+          width: MediaQuery.of(context).size.width * 0.75,
           child: ListView(
             // Important: Remove any padding from the ListView.
             // itemExtent: 100,
             padding: EdgeInsets.zero,
             children: [
               DrawerHeader(
+                margin: EdgeInsets.zero,
                 decoration: BoxDecoration(
-                  color: hexToColor(AppColors.currentValue),
+                  color: Colors.blueAccent.withOpacity(0.1),
                 ),
-                child: Text(
-                  "Hii, there...",
-                  style: kGoogleStyleTexts.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 20,
-                    color: hexToColor(AppColors.blackTextColor),
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hi, ${AllData.investorData.firstName}",
+                        style: kGoogleStyleTexts.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                          color: hexToColor(AppColors.blackTextColor),
+                        ),
+                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
+                      //       style: kGoogleStyleTexts.copyWith(
+                      //         color: hexToColor(AppColors.blackTextColor)
+                      //             .withOpacity(0.87),
+                      //         fontSize: 24.0,
+                      //       ),
+                      //       textAlign: TextAlign.start,
+                      //     ),
+                      //     Text(
+                      //       "(${AllData.investorData.panCard})",
+                      //       style: kGoogleStyleTexts.copyWith(
+                      //         color: hexToColor(AppColors.blackTextColor)
+                      //             .withOpacity(0.87),
+                      //         fontSize: 15.0,
+                      //       ),
+                      //       textAlign: TextAlign.start,
+                      //     ),
+                      //   ],
+                      // ),
+                      Text(
+                        "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                        style: kGoogleStyleTexts.copyWith(
+                          color: hexToColor(AppColors.blackTextColor)
+                              .withOpacity(0.87),
+                          fontSize: 12.0,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
                   ),
                 ),
               ),
-              ListTile(
-                  tileColor: hexToColor(AppColors.red),
-                  title: Text(
-                    AppStrings.logoutButtonText,
-                    style: kGoogleStyleTexts.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20,
-                      color: hexToColor(AppColors.whiteTextColor),
+              Column(
+                children: [
+                  ListTile(
+                    tileColor: hexToColor(AppColors.appThemeColor),
+                    leading: Icon(Icons.person_rounded),
+                    title: Text(
+                      "Profile",
+                      style: kGoogleStyleTexts.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20,
+                        color: hexToColor(AppColors.blackTextColor),
+                      ),
                     ),
+                    onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ProfilePage())),
+                    // onTap: _logout,
                   ),
-                  onTap: _logout),
+                  //  Hide settings for now
+                  // ListTile(
+                  //   tileColor: hexToColor(AppColors.appThemeColor),
+                  //   leading: Icon(Icons.settings_outlined),
+                  //   title: Text(
+                  //     AppStrings.settings,
+                  //     style: kGoogleStyleTexts.copyWith(
+                  //       fontWeight: FontWeight.w700,
+                  //       fontSize: 20,
+                  //       color: hexToColor(AppColors.blackTextColor),
+                  //     ),
+                  //   ),
+                  //   onTap: () => Navigator.of(context).push(
+                  //       MaterialPageRoute(
+                  //           builder: (context) => SettingsPage())),
+                  // ),
+                  ListTile(
+                    tileColor: hexToColor(AppColors.appThemeColor),
+                    leading: Icon(Icons.logout_outlined),
+                    title: Text(
+                      AppStrings.logoutButtonText,
+                      style: kGoogleStyleTexts.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20,
+                        color: hexToColor(AppColors.blackTextColor),
+                      ),
+                    ),
+                    onTap: _logout,
+                  ),
+                ],
+              ),
+              // Flex(direction: Axis.vertical, children: [SizedBox()]),
             ],
           ),
         ),

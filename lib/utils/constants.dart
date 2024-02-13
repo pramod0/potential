@@ -10,6 +10,7 @@ class Constants {
   static String sendOTP = "/forgot-password";
   static String resendOTP = "/resend-otp";
   static String verifyOTP = "/verify-otp";
+  static String removeUser = "/remove-user";
   static String logout = "/logout";
   static String dashboardURL = "/dashboard";
   static String schemeSummaryURL = "/schemesummary";

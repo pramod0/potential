@@ -231,7 +231,6 @@ class ApiService {
       //   print(response.body);
       // }
       if (response.statusCode == 200) {
-       
         return response.body;
       } else {
         // Signup failed
@@ -240,6 +239,89 @@ class ApiService {
         }
         // return response.body;
         throw Exception('schemeSummary api failed');
+      }
+    } on TimeoutException catch (e) {
+      // print('Please try again after some time.');
+      throw Exception("Please try again after some time.");
+    }
+  }
+
+  Future<String> logoutAPI(
+    String token,
+  ) async {
+    // Replace this with your signup endpoint URL
+    Uri dashboardURI = Uri.parse('${Constants.domainURL}${Constants.logout}');
+    // http://localhost:7070/api/dashboard?limit=100&offset=0
+
+    // if (kDebugMode) {
+    //   print(dashboardURI.toString());
+    // }
+
+    try {
+      Response response = await get(dashboardURI, headers: <String, String>{
+        'Content-Type': 'application/json', //; charset=UTF-8
+        'Authorization': 'Bearer $token',
+        // 'fund': fund,
+        // 'scheme': scheme
+      }).timeout(const Duration(seconds: 5));
+      // if (kDebugMode) {
+      //   print(response.body);
+      // }
+      if (response.statusCode == 200) {
+        // Signup successful
+        // if (kDebugMode) {
+        //   print(response.body);
+        // }
+        return response.body;
+      } else {
+        // Signup failed
+        if (kDebugMode) {
+          print(response.body);
+        }
+        // return response.body;
+        throw Exception('logout user api failed');
+      }
+    } on TimeoutException catch (e) {
+      // print('Please try again after some time.');
+      throw Exception("Please try again after some time.");
+    }
+  }
+
+  Future<String> removeUserAPI(
+    String token,
+  ) async {
+    // Replace this with your signup endpoint URL
+    Uri dashboardURI =
+        Uri.parse('${Constants.domainURL}${Constants.removeUser}');
+    // http://localhost:7070/api/dashboard?limit=100&offset=0
+
+    // if (kDebugMode) {
+    //   print(dashboardURI.toString());
+    // }
+
+    try {
+      Response response = await get(dashboardURI, headers: <String, String>{
+        'Content-Type': 'application/json', //; charset=UTF-8
+        'Authorization': 'Bearer $token',
+        // 'fund': fund,
+        // 'scheme': scheme
+      }).timeout(const Duration(seconds: 5));
+      // if (kDebugMode) {
+      //   print(response.body);
+      // }
+      if (response.statusCode == 200) {
+        // Signup successful
+        // if (kDebugMode) {
+        //   print(response.body);
+        // }
+        return response.body;
+      } else {
+        // Signup failed
+        if (kDebugMode) {
+          print(response.body);
+        }
+        // return response.body;
+        throw Exception('remove user api failed');
       }
     } on TimeoutException catch (e) {
       // print('Please try again after some time.');

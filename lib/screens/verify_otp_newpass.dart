@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +8,7 @@ import 'package:potential/ApiService.dart';
 
 import '../app_assets_constants/AppColors.dart';
 import '../utils/appTools.dart';
+import '../utils/styleConstants.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   final String email; // Pass the email from Forgot Password screen
@@ -47,31 +49,19 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     super.dispose();
   }
 
-  void _verifyOTP() async {
-    // Implement API call with http package
-    // Send OTP along with other required parameters (e.g., new password)
-    final response = await http.post(Uri.parse('your-api-endpoint'), body: {
-      'otp': _otpController.text,
-      'newPassword': _newPasswordController.text,
-      // ...other parameters
-    });
-    if (response.statusCode == 200) {
-      // Handle successful verification (e.g., navigate to success screen)
-      Navigator.pushNamed(
-          context, '/success'); // Replace with your success route
-    } else {
-      setState(() {
-        _errorMessage = 'Invalid OTP or error: ${response.body}';
-      });
-    }
-  }
+  showSnackBar(String text, Color color) {
+    var snackBar = SnackBar(
+        duration: const Duration(seconds: 2),
+        dismissDirection: DismissDirection.endToStart,
+        content: AutoSizeText(
+          text,
+          style: kGoogleStyleTexts.copyWith(
+            color: color,
+            fontSize: 15,
+          ),
+        ));
 
-  void _toggleVisibility(bool showPassword){
-    setState(() {
-      showPassword =  !showPassword;
-      _showNewPassword  = !_showNewPassword;
-    });
-    
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -81,7 +71,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         title: Text('Verify Email'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -105,7 +95,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 controller: _otpController,
                 keyboardType: TextInputType.number,
                 focusNode: _otpFocusNode,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'OTP',
                 ),
                 validator: (value) {
@@ -121,7 +111,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 controller: _newPasswordController,
                 obscureText: !_showNewPassword,
                 focusNode: _newPasswordFocusNode,
-
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a new password';
@@ -135,14 +124,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       .requestFocus(_confirmPasswordFocusNode);
                 },
                 decoration: InputDecoration(
-
                   suffixIcon: GestureDetector(
                     onTap: () {
-
                       setState(() {
                         _showNewPassword = !_showNewPassword;
                       });
-
                     },
                     child: Icon(
                       _showNewPassword
@@ -153,16 +139,14 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       size: 22,
                     ),
                   ),
-
                   labelText: 'New Password',
-              ),
+                ),
               ),
               SizedBox(height: 10.0),
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: _showConfirmPassword,
                 focusNode: _confirmPasswordFocusNode,
-
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_otpFocusNode);
@@ -177,7 +161,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   return null;
                 },
                 decoration: InputDecoration(
-
                   suffixIcon: GestureDetector(
                     onTap: () {
                       setState(() {
@@ -193,7 +176,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       size: 22,
                     ),
                   ),
-
                   labelText: 'Confirm Password',
                 ),
               ),
@@ -224,13 +206,31 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                             otp: _otpController.text,
                             pass: _newPasswordController.text,
                             confirmPass: _confirmPasswordController.text);
-                        bool success = jsonDecode(returned)["success"];
+                        var jsonji = jsonDecode(returned);
+                        bool success = jsonji["success"];
+                        ;
                         if (kDebugMode) {
                           print(success);
                         }
                         if (success) {
                           //todo:show snackbar and got to login page pop
+                          showSnackBar("Password changed Sucessfully",
+                              Colors.blueAccent);
+                          if (!context.mounted) return;
                           Navigator.of(context).pop();
+                        } else {
+                          // if (kDebugMode) {
+                          //   print(jsonji["error"][0]["message"].toString());
+                          // }
+                          if (jsonji["error"].runtimeType == [].runtimeType) {
+                            showSnackBar(
+                                jsonji["error"][0]["message"].toString(),
+                                Colors.redAccent);
+                          } else {
+                            showSnackBar(
+                                jsonji["error"].toString(), Colors.redAccent);
+                          }
+                          if (!context.mounted) return;
                         }
                       }
                     },

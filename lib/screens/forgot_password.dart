@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:potential/ApiService.dart';
 import 'package:potential/screens/verify_otp_newpass.dart';
 
+import '../app_assets_constants/AppColors.dart';
+import '../utils/appTools.dart';
 import '../utils/elevated_expaned.dart';
+import '../utils/styleConstants.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -21,6 +25,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   void dispose() {
     _emailFocusNode.dispose();
     super.dispose();
+  }
+
+  showSnackBar(String text, Color color) {
+    var snackBar = SnackBar(
+        duration: const Duration(seconds: 2),
+        dismissDirection: DismissDirection.endToStart,
+        content: AutoSizeText(
+          text,
+          style: kGoogleStyleTexts.copyWith(
+            color: color,
+            fontSize: 15,
+          ),
+        ));
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -63,15 +82,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     var returned = await ApiService().sendOTP(
                       email: _textController.text,
                     );
+                    var ret = jsonDecode(returned);
                     bool success = jsonDecode(returned)["success"];
                     if (kDebugMode) {
                       print(success);
                     }
                     if (success) {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      showSnackBar("OTP Sent Sucessfully", Colors.blueAccent);
+                      if (!context.mounted) return;
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
                           builder: (context) => VerifyEmailScreen(
-                                email: _textController.text,
-                              )));
+                            email: _textController.text,
+                          ),
+                        ),
+                      );
+                    } else {
+                      print(ret);
+                      if (ret["message"] ==
+                          "Cannot read property 'update' of null") {
+                        showSnackBar(
+                            "Email ID not registered", Colors.redAccent);
+                      } else {
+                        showSnackBar(
+                            "Try again after some time", Colors.redAccent);
+                      }
+                      // Navigator.of(context).pop();
                     }
                   }
                 },

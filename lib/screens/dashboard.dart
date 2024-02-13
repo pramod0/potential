@@ -240,7 +240,6 @@ class _DashboardState extends State<Dashboard> {
 
   _logout() async {
     try {
-      //FirebaseAuth.instance.signOut();
       SharedPreferences inst = await SharedPreferences.getInstance();
       inst.clear();
       AllData.investedData = InvestedData(
@@ -254,6 +253,12 @@ class _DashboardState extends State<Dashboard> {
           fundData: []);
       AllData.schemeMap.clear();
       AllData.investorData = User();
+      try {
+        ApiService().logoutAPI(Token.instance.token);
+      } catch (e) {
+        print("$e, No problem it will be handled when used gets in again");
+      }
+      if (!context.mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
