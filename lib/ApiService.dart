@@ -120,7 +120,7 @@ class ApiService {
   }
 
   Future<String> resendOTP({required String email}) async {
-    Uri sendOTPURI = Uri.parse('${Constants.domainURL}${Constants.sendOTP}');
+    Uri sendOTPURI = Uri.parse('${Constants.domainURL}${Constants.resendOTP}');
     try {
       Response response = await post(sendOTPURI,
           headers: <String, String>{

@@ -178,10 +178,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         }
                         if (success) {
                           //todo:show snackbar and got to login page pop
+                          Navigator.of(context).pop();
                         }
                       }
                     },
-                    child: Text('Verify OTP'),
+                    child: const Text('Verify OTP'),
                   ),
                 ],
               ),
