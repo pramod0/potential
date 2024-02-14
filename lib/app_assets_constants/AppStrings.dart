@@ -46,7 +46,7 @@ class AppStrings {
   static const String lastSubmissionDate = "Last Submission Date";
 
   //LOGIN TEXTS
-  static const String passwordHintText = "Must have at least 8 characters";
+  static const String passwordHintText = "password";
   static const String emailHintText = "user@example.com";
   static const String emailText = "Email";
   static const String passwordText = "Password";

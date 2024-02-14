@@ -9,6 +9,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/models/investments.dart';
+import 'package:potential/screens/CheckConsent/checkCanNO.dart';
 import 'package:potential/screens/dashboard.dart';
 // import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
@@ -111,6 +112,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           // }
           AllData.setInvestorData(
               User.fromJson(await jsonDecode(pref.getString('investorData')!)));
+          await EasyLoading.dismiss();
+
           AllData.setInvestmentData(InvestedData.fromJson(
               await jsonDecode(pref.getString('investedData')!)));
           // if (response!['success']) {
@@ -147,6 +150,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     if (kDebugMode) {
       print("T2-t1: ${t2.difference(t1)}");
     }
+    await EasyLoading.dismiss();
   }
 
   @override
@@ -246,8 +250,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            !LoggedIn ? const LoginPage() : const Dashboard(),
+        pageBuilder: (context, animation, secondaryAnimation) => !LoggedIn
+            ? const LoginPage()
+            : (AllData.investedData.sinceDaysCAGR == 0
+                ? const CheckCANNO()
+                : const Dashboard()),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;

@@ -74,7 +74,9 @@ class _DashboardState extends State<Dashboard> {
     ScaffoldMessenger.of(context).showMaterialBanner(banner);
   }
 
-  showMaterialBanner(Color color) {
+  showMaterialBanner(Color color) async {
+    SharedPreferences inst = await SharedPreferences.getInstance();
+    inst.clear();
     var banner = MaterialBanner(
       backgroundColor: color,
       leading: Icon(
@@ -82,7 +84,8 @@ class _DashboardState extends State<Dashboard> {
         color: hexToColor(AppColors.whiteTextColor),
       ),
       content: InkWell(
-        onTap: () {
+        onTap: () async {
+          if (!context.mounted) return;
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const LoginPage()));
           ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
