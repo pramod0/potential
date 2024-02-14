@@ -193,10 +193,13 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         print(success);
                       }
                       if (success) {
-                        //todo:show snackbar
+                        showSnackBar(
+                            "OTP sent Successfully", Colors.blueAccent);
+                      } else {
+                        showSnackBar("Unable to send OTP", Colors.redAccent);
                       }
                     },
-                    child: Text('resend OTP'),
+                    child: const Text('Resend OTP'),
                   ),
                   ElevatedButton(
                     onPressed: () async {

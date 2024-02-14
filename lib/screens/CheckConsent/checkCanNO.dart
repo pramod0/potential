@@ -60,7 +60,6 @@ class _StateCheckCANNO extends State<CheckCANNO> {
         if (canPop) {
           return;
         }
-        _logout();
         SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       },
       child: Scaffold(

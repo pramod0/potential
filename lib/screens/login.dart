@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
+import 'package:potential/screens/CheckConsent/ConsentNoData.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:potential/screens/forgot_password.dart';
 import 'package:potential/utils/AllData.dart';
@@ -140,15 +141,15 @@ class _LoginPageState extends State<LoginPage> {
 
         // Check for CAN
         if (responseBody['data']['can'] == 'No') {
+          usernameController.text = "";
+          passwordController.text = "";
           await EasyLoading
               .dismiss(); // isn't EasyLoading been dismissed already?
           if (!context.mounted) return;
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const CheckCANNO()));
-
           return;
         }
-
         TextInput.finishAutofillContext();
         usernameController.text = "";
         passwordController.text = "";
@@ -165,6 +166,7 @@ class _LoginPageState extends State<LoginPage> {
         if (responseBody['message'] != null) {
           if (responseBody['message'] == "incorrect PASSWORD") {
             await showSnackBar("Incorrect password", Colors.red);
+            return;
           }
           await showSnackBar(responseBody['message'], Colors.red);
         } else {
@@ -258,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  AppStrings.userName,
+                                  AppStrings.emailID,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,
@@ -270,12 +272,10 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             height: maxLines * 25.0,
                             child: TextFormField(
-                                onTap: () {
-                                  TextInput.finishAutofillContext();
-                                },
-                                autofillHints: const [
-                                  AutofillHints.newUsername
-                                ],
+                                // onTap: () {
+                                //   TextInput.finishAutofillContext();
+                                // },
+                                autofillHints: const [AutofillHints.username],
                                 textInputAction: TextInputAction.next,
                                 controller: usernameController,
                                 onSaved: (val) =>
@@ -403,11 +403,14 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.topRight,
                       child: TextButton(
                         onPressed: () {
+                          usernameController.text = "";
+                          passwordController.text = "";
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ForgotPasswordScreen()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgotPasswordScreen(),
+                            ),
+                          );
                         },
                         child: const Text(
                           "Forgot Password?",
@@ -440,6 +443,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   InkWell(
                     onTap: () {
+                      usernameController.text = "";
+                      passwordController.text = "";
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const CreateAccountPage(),

@@ -204,7 +204,9 @@ class ApiService {
         throw Exception('dashboard api failed');
       }
     } on TimeoutException catch (e) {
-      print('Please try again after some time.');
+      if (kDebugMode) {
+        print('Please try again after some time.');
+      }
       throw Exception("Please try again after some time.");
     }
   }

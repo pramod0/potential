@@ -64,54 +64,6 @@ class AllData {
     }
   }
 
-  static login(responseBody, context) async {
-    if (responseBody['success'] == true) {
-      // var s = json.encode(responseBody['data']);
-      // if (kDebugMode) {
-      //   print(s);
-      // }
-      // AllData.investorData = Investor.fromJson(jsonDecode(s));
-      String token = responseBody['data']['token'].toString();
-
-      Token(token); // initialize token
-      var prefs = SharedPreferences.getInstance();
-
-      prefs.then((pref) => pref.setString('token', token));
-      // print("token: $token\nuserData: ${responseBody['data']['userData']}");
-      User investorData = User.fromJson(responseBody['data']['userData']);
-      prefs.then((pref) => pref.setString(
-          'investorData', responseBody['data']['userData'].toString()));
-      AllData.setInvestorData(investorData);
-      // if (kDebugMode) {
-      //   print(investorData.firstName);
-      // }
-      await EasyLoading.dismiss();
-
-      // prefs.then((pref) =>
-      //     pref.setString('userId', responseBody['user_id'].toString()));
-      //Track.isMobileNoVerified = true;
-
-      // await auth.setPersistence(Persistence.LOCAL);
-
-      // Track.isMobileNoVerified
-      //     ? Navigator.of(context).push(
-      //         MaterialPageRoute(
-      //           builder: (context) => TabsPage(
-      //             selectedIndex: 1,
-      //           ),
-      //         ),
-      //       )
-      //     : Navigator.of(context).push(
-      //         MaterialPageRoute(
-      //           builder: (context) => VerifyMobileNum(),
-      //         ),
-      //       );
-
-      // prefs.then((pref) => pref.setString(
-      //     'expiry', token.substring(token.indexOf('.'), token.length)));
-    }
-  }
-
   static Future<String> getSchemeData(String fund, String scheme) async {
     try {
       EasyLoading.show(
