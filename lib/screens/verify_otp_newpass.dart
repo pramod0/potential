@@ -145,7 +145,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               SizedBox(height: 10.0),
               TextFormField(
                 controller: _confirmPasswordController,
-                obscureText: _showConfirmPassword,
+                obscureText: !_showConfirmPassword,
                 focusNode: _confirmPasswordFocusNode,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
