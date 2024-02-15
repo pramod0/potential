@@ -29,18 +29,18 @@ class ApiService {
         body: payload,
       ).timeout(const Duration(seconds: 10));
       //
-      // if (response.statusCode == 200) {
-      //   // Signup successful
-      //   if (kDebugMode) {
-      //     // print(response.body);
-      //   }
-      // } else {
-      //   // Signup failed
-      //   if (kDebugMode) {
-      //     // print(response.body);
-      //   }
-      //   // throw Exception('Signup failed');
-      // }
+      if (response.statusCode == 200) {
+        // Signup successful
+        if (kDebugMode) {
+          print(response.body);
+        }
+      } else {
+        // Signup failed
+        if (kDebugMode) {
+          print(response.body);
+        }
+        throw Exception('Signup failed');
+      }
       return response.body;
     } on TimeoutException catch (e) {
       throw e;

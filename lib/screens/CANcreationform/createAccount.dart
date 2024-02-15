@@ -129,6 +129,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         showSnackBar(responseBody['data'], Colors.black);
         Track.isRegistered = true;
         prefs.then((pref) => pref.setBool('isRegistered', true));
+
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => const LoginPage(),
@@ -142,7 +143,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         print(e);
       }
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Unable to process login at the moment"),
+        content: Text("Unable to process Sign-up at the moment"),
       ));
       await EasyLoading.dismiss();
     } finally {
