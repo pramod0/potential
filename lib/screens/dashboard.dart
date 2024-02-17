@@ -41,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
   String sortFeature = "Current";
   String srt = '0';
 
+  // #TODO if this is not used then we should remove it :Pramod
   showModalClass(Color color) {
     var banner = MaterialBanner(
         content: Text(
@@ -167,7 +168,7 @@ class _DashboardState extends State<Dashboard> {
       InvestedData investedData = InvestedData.fromJson(responseBody['data']);
       await EasyLoading.dismiss();
       if (kDebugMode) {
-        print("responseBody.toString()");
+        print("responseBody.toStrirng()");
       }
 
       var prefs = SharedPreferences.getInstance();
@@ -184,11 +185,18 @@ class _DashboardState extends State<Dashboard> {
         print(e);
       }
       // var schemes = "No";
-      showSnackBar("Session expired or in use elsewhere.",
-          hexToColor(AppColors.redAccent));
-      Future.delayed(const Duration(seconds: 1)).whenComplete(
-          () => showMaterialBanner(hexToColor(AppColors.redAccent)));
-      await EasyLoading.dismiss();
+      // showSnackBar("Session expired or in use elsewhere.",
+      //     hexToColor(AppColors.redAccent));
+      // Future.delayed(const Duration(seconds: 1)).whenComplete(
+      //     () => showMaterialBanner(hexToColor(AppColors.redAccent)));
+      // await EasyLoading.dismiss();
+
+      // In case of exception return to Login screen
+      if(!context.mounted) return Future.value("No Data Error"); // This is written just to avoid error in the next line.
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
       return Future.value("No Data Error");
     }
   }

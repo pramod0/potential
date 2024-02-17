@@ -177,7 +177,8 @@ class _LoginPageState extends State<LoginPage> {
       if (kDebugMode) {
         print("Exception occurred during login: $e");
       }
-      showSnackBar(e.toString(), Colors.red);
+      // #TODO make below string constant
+      showSnackBar("Server is currently unavailable. Please try again later.", Colors.red);
       await EasyLoading.dismiss();
     }
   }
