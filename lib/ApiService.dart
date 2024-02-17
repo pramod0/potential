@@ -39,7 +39,7 @@ class ApiService {
         if (kDebugMode) {
           print(response.body);
         }
-        throw Exception('Signup failed');
+        // throw Exception('Signup failed');
       }
       return response.body;
     } on TimeoutException catch (e) {

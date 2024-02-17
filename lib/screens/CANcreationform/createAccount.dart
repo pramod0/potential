@@ -142,8 +142,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       if (kDebugMode) {
         print(e);
       }
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Unable to process Sign-up at the moment"),
+        content: Text("Unable to process sign-up at the moment"),
       ));
       await EasyLoading.dismiss();
     } finally {

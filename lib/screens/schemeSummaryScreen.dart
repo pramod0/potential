@@ -889,7 +889,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                       fontSize: 17.0),
                 ),
                 value: "1",
-                activeColor: hexToColor(AppColors.currentValue),
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
@@ -910,7 +910,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                       fontSize: 17.0),
                 ),
                 value: "0",
-                activeColor: hexToColor(AppColors.currentValue),
+                activeColor: hexToColor(AppColors.loginBtnColor),
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
