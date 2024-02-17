@@ -11,7 +11,7 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/profile_page.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
-import 'package:potential/screens/settings_page.dart';
+// import 'package:potential/screens/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
@@ -92,7 +92,7 @@ class _DashboardState extends State<Dashboard> {
           ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
         },
         child: AutoSizeText.rich(
-          const TextSpan(text: "Error!!! You need to ", children: <TextSpan>[
+          const TextSpan(text: "Please ", children: <TextSpan>[
             TextSpan(
               text: 're-login',
               style: TextStyle(
@@ -192,12 +192,12 @@ class _DashboardState extends State<Dashboard> {
       // await EasyLoading.dismiss();
 
       // In case of exception return to Login screen
-      if(!context.mounted) return Future.value("No Data Error"); // This is written just to avoid error in the next line.
+      if(!context.mounted) return Future.value("No Data"); // This is written just to avoid error in the next line.
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
       );
-      return Future.value("No Data Error");
+      return Future.value("No Data");
     }
   }
 
@@ -237,7 +237,7 @@ class _DashboardState extends State<Dashboard> {
           hexToColor(AppColors.redAccent));
       showMaterialBanner(hexToColor(AppColors.redAccent));
       await EasyLoading.dismiss();
-      return Future.value("No Data Error");
+      return Future.value("No Data");
     }
   }
 
