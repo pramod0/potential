@@ -368,15 +368,17 @@ class _DashboardState extends State<Dashboard> {
                           //     ),
                           //   ],
                           // ),
-                          Text(
-                            "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                            style: kGoogleStyleTexts.copyWith(
-                              color: hexToColor(AppColors.blackTextColor)
-                                  .withOpacity(0.87),
-                              fontSize: 12.0,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
+
+                          // Manish jain told Pramod to hide this
+                          // Text(
+                          //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                          //   style: kGoogleStyleTexts.copyWith(
+                          //     color: hexToColor(AppColors.blackTextColor)
+                          //         .withOpacity(0.87),
+                          //     fontSize: 12.0,
+                          //   ),
+                          //   textAlign: TextAlign.left,
+                          // ),
                         ],
                       ),
                     ),
@@ -480,15 +482,16 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
 
-                Text(
-                  "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                  style: kGoogleStyleTexts.copyWith(
-                    color:
-                        hexToColor(AppColors.blackTextColor).withOpacity(0.87),
-                    fontSize: 12.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                // Manish Jain told Pramod to hide this
+                // Text(
+                //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                //   style: kGoogleStyleTexts.copyWith(
+                //     color:
+                //         hexToColor(AppColors.blackTextColor).withOpacity(0.87),
+                //     fontSize: 12.0,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
                 // Align(
                 //   alignment: Alignment.centerLeft,
                 //   child: Image.asset(
