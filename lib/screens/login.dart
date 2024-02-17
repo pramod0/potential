@@ -7,7 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
-import 'package:potential/screens/CheckConsent/ConsentNoData.dart';
+//import 'package:potential/screens/CheckConsent/ConsentNoData.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:potential/screens/forgot_password.dart';
 import 'package:potential/utils/AllData.dart';
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
       var responseBody =
-          jsonDecode(await ApiService().processLogin(userName, password));
+      jsonDecode(await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
@@ -133,8 +133,9 @@ class _LoginPageState extends State<LoginPage> {
         prefs.then((pref) => pref.setString('token', token));
         User investorData = User.fromJson(responseBody['data']['userData']);
 
-        prefs.then((pref) => pref.setString(
-            'investorData', jsonEncode(responseBody['data']['userData'])));
+        prefs.then((pref) =>
+            pref.setString(
+                'investorData', jsonEncode(responseBody['data']['userData'])));
         AllData.setInvestorData(investorData);
 
         await EasyLoading.dismiss();
@@ -164,16 +165,19 @@ class _LoginPageState extends State<LoginPage> {
           print(responseBody);
         }
         if (responseBody['message'] != null) {
-          if (responseBody['message'] == "incorrect PASSWORD") {
+          if (responseBody['message'] == "Incorrect Credentials !!") {
             await showSnackBar("Incorrect password", Colors.red);
             return;
           }
           await showSnackBar(responseBody['message'], Colors.red);
-        } else {
+        }
+
+        else {
           await showSnackBar(responseBody['data'], Colors.red);
         }
       }
-    } catch (e) {
+  }
+     catch (e) {
       if (kDebugMode) {
         print("Exception occurred during login: $e");
       }
