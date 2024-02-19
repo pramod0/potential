@@ -76,7 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
       final phoneNumber = _phoneNumberController.text;
       final email = _emailController.text;
       final password = _passwordController.text;
-      final confirmPassword = _confirmPasswordController.text;
+      //final confirmPassword = _confirmPasswordController.text;
       final panCard = _panCardController.text.toUpperCase();
 
       // Create a JSON payload
@@ -189,6 +189,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 TextFormField(
                   controller: _panCardController,
+                  textCapitalization: TextCapitalization.characters,
                   decoration:
                       const InputDecoration(labelText: AppStrings.panCard),
                   validator: _validatePanCard,
@@ -196,7 +197,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     FilteringTextInputFormatter.allow(
                         RegExp('[A-Za-z]{5}d{4}[A-Za-z]{1}')),
                     LengthLimitingTextInputFormatter(10),
+                    UpperCaseTextFormatter()
                   ],
+
+
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -213,6 +217,16 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
     );
   }
 }

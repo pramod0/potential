@@ -19,7 +19,7 @@ import '../../app_assets_constants/AppStrings.dart';
 //import '../../models/cancreation.dart';
 
 //import '../../utils/AllData.dart';
-import '../../utils/exit_dialogue.dart';
+// import '../../utils/exit_dialogue.dart';
 import '../../utils/networkUtil.dart';
 import '../../utils/styleConstants.dart';
 import '../login.dart';
@@ -155,13 +155,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
-  Future<bool> _onBackPressed() async {
-    return await showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => const ExitDialogue()) ??
-        false;
-  }
+  // Future<bool> _onBackPressed() async {
+  //   return await showDialog(
+  //           barrierDismissible: false,
+  //           context: context,
+  //           builder: (context) => const ExitDialogue()) ??
+  //       false;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -605,13 +605,18 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   controller: panCardController,
                                   onSaved: (val) =>
                                       panCardController.text = val!,
-                                  keyboardType: TextInputType.name,
+
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
                                       color:
                                           hexToColor(AppColors.blackTextColor),
                                       fontSize: 15.0),
                                   maxLines: 1,
+
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                    UpperCaseTextFormatter()
+                                  ],
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 15),
@@ -674,3 +679,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     );
   }
 }
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    print(oldValue.text);
+    return newValue.copyWith(text: newValue.text.toUpperCase());
+  }
+}
+

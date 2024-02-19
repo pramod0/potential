@@ -11,7 +11,7 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/profile_page.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
-import 'package:potential/screens/settings_page.dart';
+// import 'package:potential/screens/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
@@ -41,7 +41,8 @@ class _DashboardState extends State<Dashboard> {
   String sortFeature = "Current";
   String srt = '0';
 
-  showModalClass(Color color) async {
+  // #TODO if this is not used then we should remove it :Pramod
+  showModalClass(Color color) {
     var banner = MaterialBanner(
         content: Text(
           "Error! You will need to ",
@@ -93,7 +94,7 @@ class _DashboardState extends State<Dashboard> {
           ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
         },
         child: AutoSizeText.rich(
-          const TextSpan(text: "Error!!! You need to ", children: <TextSpan>[
+          const TextSpan(text: "Please ", children: <TextSpan>[
             TextSpan(
               text: 're-login',
               style: TextStyle(
@@ -171,7 +172,7 @@ class _DashboardState extends State<Dashboard> {
       InvestedData investedData = InvestedData.fromJson(responseBody['data']);
       await EasyLoading.dismiss();
       if (kDebugMode) {
-        print("responseBody.toString()");
+        print("responseBody.toStrirng()");
       }
 
       var prefs = SharedPreferences.getInstance();
@@ -188,12 +189,19 @@ class _DashboardState extends State<Dashboard> {
         print(e);
       }
       // var schemes = "No";
-      showSnackBar("Session expired or in use elsewhere.",
-          hexToColor(AppColors.redAccent));
-      Future.delayed(const Duration(seconds: 1)).whenComplete(
-          () => showMaterialBanner(hexToColor(AppColors.redAccent)));
-      await EasyLoading.dismiss();
-      return Future.value("No Data Error");
+      // showSnackBar("Session expired or in use elsewhere.",
+      //     hexToColor(AppColors.redAccent));
+      // Future.delayed(const Duration(seconds: 1)).whenComplete(
+      //     () => showMaterialBanner(hexToColor(AppColors.redAccent)));
+      // await EasyLoading.dismiss();
+
+      // In case of exception return to Login screen
+      if(!context.mounted) return Future.value("No Data"); // This is written just to avoid error in the next line.
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+      return Future.value("No Data");
     }
   }
 
@@ -233,7 +241,7 @@ class _DashboardState extends State<Dashboard> {
           hexToColor(AppColors.redAccent));
       showMaterialBanner(hexToColor(AppColors.redAccent));
       await EasyLoading.dismiss();
-      return Future.value("No Data Error");
+      return Future.value("No Data");
     }
   }
 
@@ -372,15 +380,17 @@ class _DashboardState extends State<Dashboard> {
                           //     ),
                           //   ],
                           // ),
-                          Text(
-                            "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                            style: kGoogleStyleTexts.copyWith(
-                              color: hexToColor(AppColors.blackTextColor)
-                                  .withOpacity(0.87),
-                              fontSize: 12.0,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
+
+                          // Manish jain told Pramod to hide this
+                          // Text(
+                          //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                          //   style: kGoogleStyleTexts.copyWith(
+                          //     color: hexToColor(AppColors.blackTextColor)
+                          //         .withOpacity(0.87),
+                          //     fontSize: 12.0,
+                          //   ),
+                          //   textAlign: TextAlign.left,
+                          // ),
                         ],
                       ),
                     ),
@@ -484,15 +494,16 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
 
-                Text(
-                  "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                  style: kGoogleStyleTexts.copyWith(
-                    color:
-                        hexToColor(AppColors.blackTextColor).withOpacity(0.87),
-                    fontSize: 12.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                // Manish Jain told Pramod to hide this
+                // Text(
+                //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                //   style: kGoogleStyleTexts.copyWith(
+                //     color:
+                //         hexToColor(AppColors.blackTextColor).withOpacity(0.87),
+                //     fontSize: 12.0,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
                 // Align(
                 //   alignment: Alignment.centerLeft,
                 //   child: Image.asset(
