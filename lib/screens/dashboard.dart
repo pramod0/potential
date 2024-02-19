@@ -42,7 +42,7 @@ class _DashboardState extends State<Dashboard> {
   String srt = '0';
 
   // #TODO if this is not used then we should remove it :Pramod
-  showModalClass(Color color) {
+  showModalClass(Color color) async {
     var banner = MaterialBanner(
         content: Text(
           "Error! You will need to ",
@@ -166,13 +166,40 @@ class _DashboardState extends State<Dashboard> {
     }
     try {
       var token = Token.instance.token;
-      var responseBody =
-          jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
+      var responseBody;
+      try {
+        responseBody =
+            jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        // var schemes = "No";
+        // showSnackBar("Session expired or in use elsewhere.",
+        //     hexToColor(AppColors.redAccent));
+        // Future.delayed(const Duration(seconds: 1)).whenComplete(
+        //     () => showMaterialBanner(hexToColor(AppColors.redAccent)));
+        // await EasyLoading.dismiss();
+
+        // In case of exception return to Login screen
+
+        SharedPreferences inst = await SharedPreferences.getInstance();
+        inst.clear();
+        if (!context.mounted) {
+          return Future.value(
+              "No Data"); // This is written just to avoid error in the next line.
+        }
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+        return Future.value("No Data");
+      }
 
       InvestedData investedData = InvestedData.fromJson(responseBody['data']);
       await EasyLoading.dismiss();
       if (kDebugMode) {
-        print("responseBody.toStrirng()");
+        print("responseBody.toString()");
       }
 
       var prefs = SharedPreferences.getInstance();
@@ -196,7 +223,13 @@ class _DashboardState extends State<Dashboard> {
       // await EasyLoading.dismiss();
 
       // In case of exception return to Login screen
-      if(!context.mounted) return Future.value("No Data"); // This is written just to avoid error in the next line.
+
+      SharedPreferences inst = await SharedPreferences.getInstance();
+      inst.clear();
+      if (!context.mounted) {
+        return Future.value(
+            "No Data"); // This is written just to avoid error in the next line.
+      }
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),

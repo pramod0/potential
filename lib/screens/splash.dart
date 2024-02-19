@@ -21,7 +21,6 @@ import '../models/token.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/networkUtil.dart';
-// import 'package:linear_timer/linear_timer.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

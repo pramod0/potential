@@ -19,13 +19,13 @@ class InvestedData {
       required this.fundData});
 
   InvestedData.fromJson(Map<String, dynamic> json) {
-    invested = json['invested'].toDouble();
-    current = json['current'].toDouble();
-    totalReturns = json['totalReturns'].toDouble();
-    absReturns = json['absReturns'].toDouble();
-    xirr = json['xirr'].toDouble();
-    irr = json['irr'].toDouble();
-    sinceDaysCAGR = json['sinceDaysCAGR'].toDouble();
+    invested = (json['invested'] ?? 0).toDouble();
+    current = (json['current'] ?? 0).toDouble();
+    totalReturns = (json['totalReturns'] ?? 0).toDouble();
+    absReturns = (json['absReturns'] ?? 0).toDouble();
+    xirr = (json['xirr'] ?? 0).toDouble();
+    irr = (json['irr'] ?? 0).toDouble();
+    sinceDaysCAGR = (json['sinceDaysCAGR'] ?? 0).toDouble();
     if (json['fundData'] != null) {
       fundData = <FundData>[];
       json['fundData'].forEach((v) {
@@ -96,20 +96,20 @@ class FundData {
     schemeName = json['schemeName'];
     schemeCode = json['schemeCode'];
     folioList = json['folioList'];
-    sipAmount = json['sipAmount'].toDouble() ?? 0;
-    invested = json['invested'].toDouble() ?? 0;
-    unitHolding = json['units'].toDouble() ?? 0;
-    currentNAV = json['currentNAV'].toDouble() ?? 0;
-    currentValue = json['currentValue'].toDouble() ?? 0;
-    xirr = json['xirr'].toDouble() ?? 0;
-    irr = json['irr'].toDouble() ?? 0;
-    totalReturns = json['totalReturns'].toDouble() ?? 0;
-    absReturns = json['absReturns'].toDouble() ?? 0;
+    sipAmount = (json['sipAmount'] ?? 0).toDouble();
+    invested = (json['invested'] ?? 0).toDouble();
+    unitHolding = (json['units'] ?? 0).toDouble();
+    currentNAV = (json['currentNAV'] ?? 0).toDouble();
+    currentValue = (json['currentValue'] ?? 0).toDouble();
+    xirr = (json['xirr'] ?? 0).toDouble();
+    irr = (json['irr'] ?? 0).toDouble();
+    totalReturns = (json['totalReturns'] ?? 0).toDouble();
+    absReturns = (json['absReturns'] ?? 0).toDouble();
     sinceDate = json['sinceDate'];
-    sinceYears = json['sinceYears'].toDouble() ?? 0;
-    sinceDays = json['sinceDays'] ?? 0;
-    installmentNumber = json['installmentNumber'] ?? 0;
-    sinceDaysCAGR = json['sinceDaysCAGR'].toDouble() ?? 0;
+    sinceYears = (json['sinceYears'] ?? 0).toDouble();
+    sinceDays = json['sinceDays'];
+    installmentNumber = json['installmentNumber'];
+    sinceDaysCAGR = (json['sinceDaysCAGR'] ?? 0).toDouble();
   }
 
   Map<String, dynamic> toJson() {
