@@ -1,6 +1,6 @@
 class Constants {
-  // static String domainURL = "http://128.199.68.236:7070/api"; //bhandup
-  static String domainURL = "http://192.168.0.103:7070/api"; //mulund
+  static String domainURL = "http://128.199.68.236:7070/api"; //bhandup
+  // static String domainURL = "http://192.168.0.103:7070/api"; //mulund
   // static String domainURL = "http://192.168.1.38:7070/api"; //pgadmin
   // static String domainURL = "http://192.168.29.165:7070/api"; //ghatkopar
   // static String domainURL = "http://128.199.68.236:7070/api";
