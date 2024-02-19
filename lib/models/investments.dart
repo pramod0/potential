@@ -96,20 +96,20 @@ class FundData {
     schemeName = json['schemeName'];
     schemeCode = json['schemeCode'];
     folioList = json['folioList'];
-    sipAmount = json['sipAmount'].toDouble();
-    invested = json['invested'].toDouble();
-    unitHolding = json['units'].toDouble();
-    currentNAV = json['currentNAV'].toDouble();
-    currentValue = json['currentValue'].toDouble();
-    xirr = json['xirr'].toDouble();
-    irr = json['irr'].toDouble();
-    totalReturns = json['totalReturns'].toDouble();
-    absReturns = json['absReturns'].toDouble();
+    sipAmount = json['sipAmount'].toDouble() ?? 0;
+    invested = json['invested'].toDouble() ?? 0;
+    unitHolding = json['units'].toDouble() ?? 0;
+    currentNAV = json['currentNAV'].toDouble() ?? 0;
+    currentValue = json['currentValue'].toDouble() ?? 0;
+    xirr = json['xirr'].toDouble() ?? 0;
+    irr = json['irr'].toDouble() ?? 0;
+    totalReturns = json['totalReturns'].toDouble() ?? 0;
+    absReturns = json['absReturns'].toDouble() ?? 0;
     sinceDate = json['sinceDate'];
-    sinceYears = json['sinceYears'].toDouble();
-    sinceDays = json['sinceDays'];
-    installmentNumber = json['installmentNumber'];
-    sinceDaysCAGR = json['sinceDaysCAGR'].toDouble();
+    sinceYears = json['sinceYears'].toDouble() ?? 0;
+    sinceDays = json['sinceDays'] ?? 0;
+    installmentNumber = json['installmentNumber'] ?? 0;
+    sinceDaysCAGR = json['sinceDaysCAGR'].toDouble() ?? 0;
   }
 
   Map<String, dynamic> toJson() {

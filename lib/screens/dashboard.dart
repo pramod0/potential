@@ -41,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
   String sortFeature = "Current";
   String srt = '0';
 
-  showModalClass(Color color) {
+  showModalClass(Color color) async {
     var banner = MaterialBanner(
         content: Text(
           "Error! You will need to ",
@@ -71,7 +71,9 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
         ]);
-    ScaffoldMessenger.of(context).showMaterialBanner(banner);
+    await ScaffoldMessenger.of(context).showMaterialBanner(banner);
+    await Future.delayed(const Duration(milliseconds: 500));
+    ScaffoldMessenger.of(context).clearMaterialBanners();
   }
 
   showMaterialBanner(Color color) async {
@@ -127,7 +129,9 @@ class _DashboardState extends State<Dashboard> {
       //
       // ]
     );
-    ScaffoldMessenger.of(context).showMaterialBanner(banner);
+    await ScaffoldMessenger.of(context).showMaterialBanner(banner);
+    await Future.delayed(const Duration(milliseconds: 800));
+    ScaffoldMessenger.of(context).clearMaterialBanners();
   }
 
   showSnackBar(String text, Color color) {
