@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:http/http.dart';
+import 'package:http/retry.dart';
 import 'package:potential/utils/constants.dart';
 
 class ApiService {
@@ -49,12 +49,14 @@ class ApiService {
 
   Future<String> processLogin(String userName, String password) async {
     Uri loginUri = Uri.parse('${Constants.domainURL}${Constants.loginURL}');
+    final client = RetryClient(Client());// Client is from http package
     if (kDebugMode) {
       print(loginUri);
     }
 
     try {
-      Response response = await post(loginUri,
+
+      Response response = await client.post(loginUri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -70,7 +72,7 @@ class ApiService {
       return response.body;
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print('Please try again after some time.');
+        print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -113,7 +115,7 @@ class ApiService {
       return response.body.toString();
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print('Please try again after some time.');
+        print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -136,7 +138,7 @@ class ApiService {
       return response.body.toString();
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print('Please try again after some time.');
+        print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -167,7 +169,7 @@ class ApiService {
       return response.body.toString();
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print('Please try again after some time.');
+        print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -205,7 +207,7 @@ class ApiService {
       }
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print('Please try again after some time.');
+        print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -216,11 +218,6 @@ class ApiService {
     // Replace this with your signup endpoint URL
     Uri dashboardURI = Uri.parse(
         '${Constants.domainURL}${Constants.schemeSummaryURL}?fund=$fund&scheme=$scheme');
-    // http://localhost:7070/api/dashboard?limit=100&offset=0
-
-    // if (kDebugMode) {
-    //   print(dashboardURI.toString());
-    // }
 
     try {
       Response response = await get(dashboardURI, headers: <String, String>{
@@ -243,7 +240,9 @@ class ApiService {
         throw Exception('schemeSummary api failed');
       }
     } on TimeoutException catch (e) {
-      // print('Please try again after some time.');
+      if (kDebugMode) {
+        print(e.toString());
+      }
       throw Exception("Please try again after some time.");
     }
   }
@@ -284,7 +283,9 @@ class ApiService {
         throw Exception('logout user api failed');
       }
     } on TimeoutException catch (e) {
-      // print('Please try again after some time.');
+      if (kDebugMode) {
+        print(e.toString());
+      }
       throw Exception("Please try again after some time.");
     }
   }
@@ -326,7 +327,9 @@ class ApiService {
         throw Exception('remove user api failed');
       }
     } on TimeoutException catch (e) {
-      // print('Please try again after some time.');
+      if (kDebugMode) {
+        print(e.toString());
+      }
       throw Exception("Please try again after some time.");
     }
   }
