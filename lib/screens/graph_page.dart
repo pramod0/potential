@@ -99,14 +99,26 @@ class _InvestmentGraphState extends State<InvestmentGraph> {
   }
 }
 
+class Transaction {
+  final double amount;
+  final DateTime date;
+
+  Transaction(this.amount, this.date);
+}
+
 class GraphValuesUtility {
+  static List<Transaction> list = [];
   static createTransaction() async {
-    for (var element in AllData.investedData.fundData) {
-      print("${element.fundCode} ${element.schemeCode}");
-      element.invested != 0 && element.currentValue != 0
-          ? print("Taken")
-          : print("Omitted");
+    if (list.isEmpty) {
+      for (var element in AllData.investedData.fundData) {
+        print("${element.fundCode} ${element.schemeCode}");
+        element.invested != 0 && element.currentValue != 0
+            ? list.add(Transaction(
+                element.invested, DateTime.parse(element.sinceDate)))
+            : print("Omitted");
+      }
     }
+    print(list[0].date);
   }
 
   static double calculateFDTillDate(
@@ -177,32 +189,25 @@ class GraphValuesUtility {
   }
 }
 
-class Transaction {
-  final double amount;
-  final DateTime date;
-
-  Transaction(this.amount, this.date);
-}
-
 // Widget to display the vertical constant line
-class VerticalLine extends StatelessWidget {
-  final double investment;
-
-  VerticalLine(this.investment);
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: 0,
-      top: 0,
-      bottom: 0,
-      child: Container(
-        width: 2,
-        color: Colors.red, // You can change the color as needed
-      ),
-    );
-  }
-}
+// class VerticalLine extends StatelessWidget {
+//   final double investment;
+//
+//   const VerticalLine(this.investment, {super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Positioned(
+//       left: 0,
+//       top: 0,
+//       bottom: 0,
+//       child: Container(
+//         width: 2,
+//         color: Colors.red, // You can change the color as needed
+//       ),
+//     );
+//   }
+// }
 
 // Main widget combining the graph and the vertical line
 class InvestmentScreen extends StatelessWidget {
@@ -220,21 +225,30 @@ class InvestmentScreen extends StatelessWidget {
           AllData.investedData.invested.roundToDouble(), Colors.orangeAccent),
       InvestmentData(
           "Savings A/C",
-          (AllData.investedData.invested +
-                  GraphValuesUtility.calculateSimpleInterest(
-                      AllData.investedData.invested,
-                      3.5,
-                      DateTime(2024, 2, 12)))
-              .roundToDouble(),
+          // (AllData.investedData.invested +
+          //         GraphValuesUtility.calculateSimpleInterest(
+          //             AllData.investedData.invested,
+          //             3.5,
+          //             DateTime(2024, 2, 12)))
+          //     .roundToDouble(),
+
+          GraphValuesUtility.calculateSimpleInterestTillDate(
+            GraphValuesUtility.list,
+            3.5,
+          ).roundToDouble(),
           Colors.blueAccent.shade100),
       InvestmentData(
           "FD",
-          (AllData.investedData.invested +
-                  GraphValuesUtility.calculateFDSimpleInterestToToday(
-                      AllData.investedData.invested,
-                      6.75,
-                      DateTime(2024, 2, 12)))
-              .roundToDouble(),
+          // (AllData.investedData.invested +
+          //         GraphValuesUtility.calculateFDSimpleInterestToToday(
+          //             AllData.investedData.invested,
+          //             6.75,
+          //             DateTime(2024, 2, 12)))
+          //     .roundToDouble(),
+          GraphValuesUtility.calculateSimpleInterestTillDate(
+            GraphValuesUtility.list,
+            6.75,
+          ).roundToDouble(),
           Colors.redAccent),
       InvestmentData("Mutual Fund",
           AllData.investedData.current.roundToDouble(), Colors.greenAccent),
