@@ -15,7 +15,7 @@ import 'package:potential/utils/track.dart';
 import 'package:potential/utils/validations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../app_assets_constants/AppStrings.dart';
+import '../../app_assets_constants/app_strings.dart';
 //import '../../models/cancreation.dart';
 
 //import '../../utils/AllData.dart';
@@ -40,6 +40,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final maxLines = 2;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
   // final _auth = FirebaseAuth.instance;
 
   ValueNotifier<bool> isLoading = ValueNotifier(false);
@@ -224,8 +225,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   keyboardType: TextInputType.name,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color: hexToColor(AppColors
-                                          .blackTextColor), //hexToColor(AppColors.blackTextColor),
+                                      color:
+                                          hexToColor(AppColors.blackTextColor),
+                                      //hexToColor(AppColors.blackTextColor),
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -605,14 +607,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   controller: panCardController,
                                   onSaved: (val) =>
                                       panCardController.text = val!,
-
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
                                       color:
                                           hexToColor(AppColors.blackTextColor),
                                       fontSize: 15.0),
                                   maxLines: 1,
-
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(10),
                                     UpperCaseTextFormatter()
@@ -682,9 +682,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     print(oldValue.text);
     return newValue.copyWith(text: newValue.text.toUpperCase());
   }
 }
-

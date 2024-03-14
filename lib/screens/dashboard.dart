@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,13 +10,14 @@ import 'package:intl/intl.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/models/token.dart';
+import 'package:potential/screens/graph_page.dart';
 import 'package:potential/screens/profile_page.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
 // import 'package:potential/screens/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 import '../models/investments.dart';
 import '../models/investor.dart';
 import '../models/schemes.dart';
@@ -26,7 +28,7 @@ import '../utils/networkUtil.dart';
 import '../utils/styleConstants.dart';
 import 'login.dart';
 
-final oCcy = NumberFormat("#,##0.00", "en_US");
+final oCcy = NumberFormat("#,##,##0.00", "en_US"); //changed from #,##0.00
 
 class Dashboard extends StatefulWidget {
   const Dashboard({
@@ -385,6 +387,7 @@ class _DashboardState extends State<Dashboard> {
                             "Hi, ${AllData.investorData.firstName}",
                             style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
+                              wordSpacing: 1,
                               fontSize: 20,
                               color: hexToColor(AppColors.blackTextColor),
                             ),
@@ -503,27 +506,49 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
+                      "Holder Name",
                       style: kGoogleStyleTexts.copyWith(
-                        color: hexToColor(AppColors.blackTextColor)
-                            .withOpacity(0.87),
-                        fontSize: 24.0,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    Text(
-                      " (${AllData.investorData.panCard})",
-                      style: kGoogleStyleTexts.copyWith(
-                        color: hexToColor(AppColors.blackTextColor)
-                            .withOpacity(0.87),
+                        color: hexToColor(AppColors.blackTextColor),
                         fontSize: 15.0,
                       ),
                       textAlign: TextAlign.start,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${AllData.investorData.firstName?.trim()} ${AllData.investorData.lastName?.trim()}",
+                          style: kGoogleStyleTexts.copyWith(
+                            color: hexToColor(AppColors.blackTextColor)
+                                .withOpacity(0.87),
+                            fontSize: 24.0,
+                          ),
+                          textAlign: TextAlign.start,
+                          softWrap: true,
+                        ),
+                        ElevatedButton(
+                            onPressed: () => {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const InvestmentScreen()))
+                                },
+                            child: const Text("Analyze"))
+                      ],
+                    ),
+                    // Text(
+                    //   " (${AllData.investorData.panCard})",
+                    //   style: kGoogleStyleTexts.copyWith(
+                    //     color: hexToColor(AppColors.blackTextColor)
+                    //         .withOpacity(0.87),
+                    //     fontSize: 15.0,
+                    //   ),
+                    //   textAlign: TextAlign.start,
+                    // ),
                   ],
                 ),
 
@@ -544,9 +569,9 @@ class _DashboardState extends State<Dashboard> {
                 //     width: MediaQuery.of(context).size.width * 0.7,
                 //   ),
                 // ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(top: 7, bottom: 10),
                   child: Container(
@@ -587,8 +612,8 @@ class _DashboardState extends State<Dashboard> {
                           color: Color(0x42000000), //Colors.white30,
                         )),
                     borderOnForeground: true,
-                    color: hexToColor(AppColors
-                        .whiteTextColor), //Colors.black.withOpacity(0.25),
+                    color: hexToColor(AppColors.whiteTextColor),
+                    //Colors.black.withOpacity(0.25),
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 10, right: 10, bottom: 20, top: 15),
@@ -603,21 +628,70 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           const Divider(
                             color: Color(0x42000000), //Colors.white30,
-                            thickness: 1.5,
+                            thickness: 1,
                           ),
                           // SizedBox(
-                          //   height: 5,
-                          //   child: Container(
-                          //     width: MediaQuery.sizeOf(context).width,
-                          //     height: 1,
-                          //     decoration: BoxDecoration(
-                          //       color: hexToColor("#d1d1d1"),
-                          //       shape: BoxShape.rectangle,
-                          //     ),
-                          //   ),
+                          //   height: 2,
                           // ),
-                          SizedBox(
-                            height: 8,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const CurrentValueDot(),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text(
+                                    AppStrings.current,
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color:
+                                            hexToColor(AppColors.blackTextColor)
+                                                .withOpacity(0.85),
+                                        fontSize: 13.0),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "\u{20B9} ",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: AllData.investedData.current >
+                                                AllData.investedData.invested
+                                            ? hexToColor(AppColors.greenAccent)
+                                                .withOpacity(0.85)
+                                            : hexToColor(AppColors.redAccent)
+                                                .withOpacity(0.65),
+                                        fontWeight: FontWeight.w400,
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: 22.0),
+                                  ),
+                                  Text(
+                                    "${oCcy.format(AllData.investedData.current)}",
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: AllData.investedData.current >
+                                                AllData.investedData.invested
+                                            ? hexToColor(AppColors.greenAccent)
+                                                .withOpacity(0.75)
+                                            : hexToColor(AppColors.redAccent)
+                                                .withOpacity(0.70),
+                                        fontWeight: FontWeight.bold,
+                                        overflow: TextOverflow.ellipsis,
+                                        height: 1,
+                                        fontSize: 22.0),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -657,93 +731,96 @@ class _DashboardState extends State<Dashboard> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          AppStrings.current,
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.blackTextColor)
-                                                  .withOpacity(0.68),
-                                              fontSize: 12.0),
+                                        Row(
+                                          children: [
+                                            // const CurrentValueDot(),
+                                            Text(
+                                              "Total Returns ",
+                                              style: kGoogleStyleTexts.copyWith(
+                                                  color: hexToColor(AppColors
+                                                          .blackTextColor)
+                                                      .withOpacity(0.68),
+                                                  fontSize: 12.0),
+                                            ),
+                                            const CurrentValueDot(),
+                                          ],
                                         ),
                                         Text(
-                                          "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
+                                          "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} \u{20B9}${oCcy.format(AllData.investedData.totalReturns)}",
                                           style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.blackTextColor)
-                                                  .withOpacity(0.85),
+                                              color: AllData.investedData
+                                                          .totalReturns >
+                                                      0.0
+                                                  ? hexToColor(
+                                                      AppColors.greenAccent)
+                                                  : hexToColor(AppColors
+                                                          .blackTextColor)
+                                                      .withOpacity(0.85),
                                               fontSize: 14.0),
+                                          softWrap: true,
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "IRR",
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(
-                                                      AppColors.blackTextColor)
-                                                  .withOpacity(0.68),
-                                              fontSize: 12.0),
-                                        ),
-                                        Text(
-                                          '${AllData.investedData.irr}%',
-                                          style: kGoogleStyleTexts.copyWith(
-                                              color: hexToColor(AllData
-                                                              .investedData
-                                                              .irr >
-                                                          0.0
-                                                      ? AppColors.greenAccent
-                                                      : AppColors.redAccent)
-                                                  .withOpacity(0.85),
-                                              fontSize: 14.0),
-                                        ),
-                                      ],
-                                    ),
+                                    // const SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    // Column(
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //   children: [
+                                    //     Text(
+                                    //       AppStrings.current,
+                                    //       style: kGoogleStyleTexts.copyWith(
+                                    //           color: hexToColor(
+                                    //                   AppColors.blackTextColor)
+                                    //               .withOpacity(0.68),
+                                    //           fontSize: 12.0),
+                                    //     ),
+                                    //     Text(
+                                    //       "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
+                                    //       style: kGoogleStyleTexts.copyWith(
+                                    //           color: hexToColor(
+                                    //                   AppColors.blackTextColor)
+                                    //               .withOpacity(0.85),
+                                    //           fontSize: 14.0),
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    // const SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    // Column(
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //   children: [
+                                    //     Text(
+                                    //       "IRR",
+                                    //       style: kGoogleStyleTexts.copyWith(
+                                    //           color: hexToColor(
+                                    //                   AppColors.blackTextColor)
+                                    //               .withOpacity(0.68),
+                                    //           fontSize: 12.0),
+                                    //     ),
+                                    //     Text(
+                                    //       '${AllData.investedData.irr}%',
+                                    //       style: kGoogleStyleTexts.copyWith(
+                                    //           color: hexToColor(AllData
+                                    //                           .investedData
+                                    //                           .irr >
+                                    //                       0.0
+                                    //                   ? AppColors.greenAccent
+                                    //                   : AppColors.redAccent)
+                                    //               .withOpacity(0.85),
+                                    //           fontSize: 14.0),
+                                    //     ),
+                                    //   ],
+                                    // ),
                                   ],
                                 ),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const CurrentValueDot(),
-                                          Text(
-                                            " Total Returns",
-                                            style: kGoogleStyleTexts.copyWith(
-                                                color: hexToColor(AppColors
-                                                        .blackTextColor)
-                                                    .withOpacity(0.68),
-                                                fontSize: 12.0),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} \u{20B9}${oCcy.format(AllData.investedData.totalReturns)}",
-                                        style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(AllData
-                                                            .investedData
-                                                            .totalReturns >
-                                                        0.0
-                                                    ? AppColors.greenAccent
-                                                    : AppColors.blackTextColor)
-                                                .withOpacity(0.85),
-                                            fontSize: 14.0),
-                                        softWrap: true,
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
@@ -758,23 +835,91 @@ class _DashboardState extends State<Dashboard> {
                                                     .withOpacity(0.68),
                                                 fontSize: 12.0),
                                           ),
+                                          // const CurrentValueDot(),
                                         ],
                                       ),
                                       Text(
                                         "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
                                         style: kGoogleStyleTexts.copyWith(
-                                            color: hexToColor(AllData
-                                                            .investedData
-                                                            .totalReturns >
-                                                        0.0
-                                                    ? AppColors.greenAccent
-                                                    : AppColors.blackTextColor)
-                                                .withOpacity(0.85),
+                                            color: AllData.investedData
+                                                        .totalReturns >
+                                                    0.0
+                                                ? hexToColor(
+                                                    AppColors.greenAccent)
+                                                : hexToColor(AppColors
+                                                        .blackTextColor)
+                                                    .withOpacity(0.85),
                                             fontSize: 14.0),
                                         softWrap: true,
                                       ),
                                     ],
                                   ),
+                                  // Column(
+                                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                                  //   children: [
+                                  //     Row(
+                                  //       children: [
+                                  //         const CurrentValueDot(),
+                                  //         Text(
+                                  //           " Total Returns",
+                                  //           style: kGoogleStyleTexts.copyWith(
+                                  //               color: hexToColor(AppColors
+                                  //                       .blackTextColor)
+                                  //                   .withOpacity(0.68),
+                                  //               fontSize: 12.0),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //     Text(
+                                  //       "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} \u{20B9}${oCcy.format(AllData.investedData.totalReturns)}",
+                                  //       style: kGoogleStyleTexts.copyWith(
+                                  //           color: AllData.investedData
+                                  //                       .totalReturns >
+                                  //                   0.0
+                                  //               ? hexToColor(
+                                  //                   AppColors.greenAccent)
+                                  //               : hexToColor(AppColors
+                                  //                       .blackTextColor)
+                                  //                   .withOpacity(0.85),
+                                  //           fontSize: 14.0),
+                                  //       softWrap: true,
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // const SizedBox(
+                                  //   height: 10,
+                                  // ),
+                                  // Column(
+                                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                                  //   children: [
+                                  //     Row(
+                                  //       children: [
+                                  //         const CurrentValueDot(),
+                                  //         Text(
+                                  //           " % Returns",
+                                  //           style: kGoogleStyleTexts.copyWith(
+                                  //               color: hexToColor(AppColors
+                                  //                       .blackTextColor)
+                                  //                   .withOpacity(0.68),
+                                  //               fontSize: 12.0),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //     Text(
+                                  //       "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
+                                  //       style: kGoogleStyleTexts.copyWith(
+                                  //           color: hexToColor(AllData
+                                  //                           .investedData
+                                  //                           .totalReturns >
+                                  //                       0.0
+                                  //                   ? AppColors.greenAccent
+                                  //                   : AppColors.blackTextColor)
+                                  //               .withOpacity(0.85),
+                                  //           fontSize: 14.0),
+                                  //       softWrap: true,
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   const SizedBox(
                                     height: 10,
                                   ),
@@ -799,9 +944,11 @@ class _DashboardState extends State<Dashboard> {
                                             .toString(),
                                         style: kGoogleStyleTexts.copyWith(
                                             color: hexToColor(
-                                                AllData.investedData.xirr > 0.0
-                                                    ? AppColors.greenAccent
-                                                    : AppColors.redAccent),
+                                                    AllData.investedData.xirr >
+                                                            0.0
+                                                        ? AppColors.greenAccent
+                                                        : AppColors.redAccent)
+                                                .withOpacity(0.85),
                                             fontSize: 14.0),
                                       ),
                                     ],
@@ -1051,7 +1198,7 @@ class _DashboardState extends State<Dashboard> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SubHeadingText(item: "% Rtn."),
+                                    const SubHeadingText(item: "% Rtn."),
                                     ValueText(
                                         item: "${item.absReturns}%",
                                         color: item.absReturns > 0.0
@@ -1068,7 +1215,7 @@ class _DashboardState extends State<Dashboard> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    SubHeadingText(item: "Tot. Returns"),
+                                    const SubHeadingText(item: "Tot. Returns"),
                                     ValueText(
                                         item:
                                             "\u{20B9}${oCcy.format(item.totalReturns)}",
@@ -1083,7 +1230,7 @@ class _DashboardState extends State<Dashboard> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    SubHeadingText(item: "XIRR"),
+                                    const SubHeadingText(item: "XIRR"),
                                     ValueText(
                                         item: "${item.xirr}%",
                                         color: item.xirr > 0.0
@@ -1584,6 +1731,7 @@ class SubHeadingText extends StatelessWidget {
     super.key,
     required this.item,
   });
+
   final item;
 
   @override

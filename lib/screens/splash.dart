@@ -9,7 +9,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/models/investments.dart';
-import 'package:potential/screens/CheckConsent/checkCanNO.dart';
+import 'package:potential/screens/CheckConsent/check_can_no.dart';
 import 'package:potential/screens/dashboard.dart';
 // import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
@@ -33,6 +33,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   //  final prefs = SharedPreferences.getInstance(); // stores user data and invested data
   late AnimationController controller;
   late Animation<double> animation;
+
   // AllData allData = AllData();
   bool LoggedIn = false;
 

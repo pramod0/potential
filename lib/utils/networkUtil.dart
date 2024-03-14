@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 
 class NetWorkUtil {
   NetWorkUtil._sharedInstance();
+
   static final NetWorkUtil _shared = NetWorkUtil._sharedInstance();
+
   factory NetWorkUtil() => _shared;
 
   Future<bool> checkInternetConnection() async {

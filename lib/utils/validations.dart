@@ -1,4 +1,4 @@
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 
 class Validations {
   late var data;

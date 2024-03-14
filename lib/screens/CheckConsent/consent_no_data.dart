@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app_assets_constants/AppColors.dart';
-import '../../app_assets_constants/AppStrings.dart';
+import '../../app_assets_constants/app_strings.dart';
 import '../../models/investments.dart';
 import '../../models/investor.dart';
 import '../../utils/AllData.dart';

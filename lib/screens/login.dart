@@ -7,7 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 // import 'package:potential/models/investments.dart';
 import 'package:potential/models/investor.dart';
-//import 'package:potential/screens/CheckConsent/ConsentNoData.dart';
+//import 'package:potential/screens/CheckConsent/consent_no_data.dart';
 import 'package:potential/screens/dashboard.dart';
 import 'package:potential/screens/forgot_password.dart';
 import 'package:potential/utils/AllData.dart';
@@ -15,7 +15,7 @@ import 'package:potential/utils/AllData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 // import '../models/cancreation.dart';
 import '../models/token.dart';
 import '../utils/appTools.dart';
@@ -24,7 +24,7 @@ import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
 import 'CANcreationform/createAccount.dart';
-import 'CheckConsent/checkCanNO.dart';
+import 'CheckConsent/check_can_no.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
       var responseBody =
-      jsonDecode(await ApiService().processLogin(userName, password));
+          jsonDecode(await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
@@ -133,9 +133,8 @@ class _LoginPageState extends State<LoginPage> {
         prefs.then((pref) => pref.setString('token', token));
         User investorData = User.fromJson(responseBody['data']['userData']);
 
-        prefs.then((pref) =>
-            pref.setString(
-                'investorData', jsonEncode(responseBody['data']['userData'])));
+        prefs.then((pref) => pref.setString(
+            'investorData', jsonEncode(responseBody['data']['userData'])));
         AllData.setInvestorData(investorData);
 
         await EasyLoading.dismiss();
@@ -170,19 +169,17 @@ class _LoginPageState extends State<LoginPage> {
             return;
           }
           await showSnackBar(responseBody['message'], Colors.red);
-        }
-
-        else {
+        } else {
           await showSnackBar(responseBody['data'], Colors.red);
         }
       }
-  }
-     catch (e) {
+    } catch (e) {
       if (kDebugMode) {
         print("Exception occurred during login: $e");
       }
       // #TODO make below string constant
-      showSnackBar("Server is currently unavailable. Please try again later.", Colors.red);
+      showSnackBar("Server is currently unavailable. Please try again later.",
+          Colors.red);
       await EasyLoading.dismiss();
     }
   }
@@ -288,8 +285,8 @@ class _LoginPageState extends State<LoginPage> {
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
-                                    color: hexToColor(AppColors
-                                        .blackTextColor), //hexToColor("#ffffff"),
+                                    color: hexToColor(AppColors.blackTextColor),
+                                    //hexToColor("#ffffff"),
                                     fontSize: 15.0),
                                 maxLines: 1,
                                 decoration: InputDecoration(

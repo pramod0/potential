@@ -8,7 +8,7 @@ import 'package:potential/screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 import '../models/investments.dart';
 import '../models/investor.dart';
 import '../models/token.dart';
@@ -304,19 +304,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               //       fontSize: 18.0),
                               // ),
 
-                              // Text(
-                              //   "Hello, ${AllData.investorData.firstName} (${AllData.investorData.panCard})",
-                              //   style: kGoogleStyleTexts.copyWith(
-                              //     color: hexToColor(AppColors.blackTextColor)
-                              //         .withOpacity(0.87),
-                              //     fontSize: 18.0,
-                              //   ),
-                              //   textAlign: TextAlign.start,
-                              // ),
-                              // const Divider(
-                              //   color: Color(0x42000000), //Colors.white30,
-                              //   thickness: 1.5,
-                              // ),
+                              Text(
+                                "Hello, ${AllData.investorData.firstName} (${AllData.investorData.panCard})",
+                                style: kGoogleStyleTexts.copyWith(
+                                  color: hexToColor(AppColors.blackTextColor)
+                                      .withOpacity(0.87),
+                                  fontSize: 18.0,
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
+                              const Divider(
+                                color: Color(0x42000000), //Colors.white30,
+                                thickness: 1.5,
+                              ),
 
                               // SizedBox(
                               //   height: 5,
@@ -340,31 +340,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              AppStrings.current,
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: hexToColor(AppColors
-                                                          .whiteTextColor)
-                                                      .withOpacity(0.68),
-                                                  fontSize: 14.0),
-                                            ),
-                                            Text(
-                                              "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
-                                              style: kGoogleStyleTexts.copyWith(
-                                                  color: hexToColor(AppColors
-                                                          .whiteTextColor)
-                                                      .withOpacity(0.9),
-                                                  fontSize: 24.0),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
+                                        // Column(
+                                        //   crossAxisAlignment:
+                                        //       CrossAxisAlignment.start,
+                                        //   children: [
+                                        //     Text(
+                                        //       AppStrings.current,
+                                        //       style: kGoogleStyleTexts.copyWith(
+                                        //           color: hexToColor(AppColors
+                                        //                   .whiteTextColor)
+                                        //               .withOpacity(0.68),
+                                        //           fontSize: 14.0),
+                                        //     ),
+                                        //     Text(
+                                        //       "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
+                                        //       style: kGoogleStyleTexts.copyWith(
+                                        //           color: hexToColor(AppColors
+                                        //                   .whiteTextColor)
+                                        //               .withOpacity(0.9),
+                                        //           fontSize: 24.0),
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 10,
+                                        // ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,

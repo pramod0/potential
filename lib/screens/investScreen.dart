@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 // import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';

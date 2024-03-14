@@ -49,22 +49,23 @@ class ApiService {
 
   Future<String> processLogin(String userName, String password) async {
     Uri loginUri = Uri.parse('${Constants.domainURL}${Constants.loginURL}');
-    final client = RetryClient(Client());// Client is from http package
+    final client = RetryClient(Client()); // Client is from http package
     if (kDebugMode) {
       print(loginUri);
     }
 
     try {
-
-      Response response = await client.post(loginUri,
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode(<String, String>{
-            'email': userName,
-            'password': password,
-            "deviceType": "android"
-          })).timeout(const Duration(seconds: 10)); // end of http.post
+      Response response = await client
+          .post(loginUri,
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'email': userName,
+                'password': password,
+                "deviceType": "android"
+              }))
+          .timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
         print(response.body);

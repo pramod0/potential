@@ -10,7 +10,7 @@ import 'package:potential/utils/appTools.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../app_assets_constants/AppColors.dart';
-import '../../app_assets_constants/AppStrings.dart';
+import '../../app_assets_constants/app_strings.dart';
 //import '../../models/cancreation.dart';
 import '../../utils/styleConstants.dart';
 import '../../utils/track.dart';
@@ -36,6 +36,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   final TextEditingController otpController5 = TextEditingController(text: "");
   final TextEditingController otpController6 = TextEditingController(text: "");
   final TextEditingController otpController = TextEditingController(text: "");
+
   // final auth = FirebaseAuth.instance;
 
   // otpDialogBox(BuildContext context) {

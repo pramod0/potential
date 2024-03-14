@@ -25,6 +25,7 @@ class AppColors {
   //static const appThemeColor = "#181E2C";
   static const appThemeColor = "#F3F3F3";
   static const appThemeColorAppBar = "#F8F8F8";
+
   // static const formBorder = "#F8F8F8";
   static const formBorder = "#c0c0c0";
 
@@ -32,6 +33,7 @@ class AppColors {
   static const iconColor = "#747880";
   static const hintTextColor = "#626672";
   static const textFieldOutlineBorderColor = "#626672";
+
   // static const loginBtnColor = "#0065A0";
   static const loginBtnColor = "#00387A"; //003779/00387A/003675/043b7b
   static const blackTextColor = "#101010";

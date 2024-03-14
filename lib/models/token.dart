@@ -8,5 +8,6 @@ class Token {
   }
 
   Token._internal();
+
   static Token get instance => _instance;
 }

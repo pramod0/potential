@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:potential/ApiService.dart';
 import 'package:potential/screens/verify_otp_newpass.dart';
 
-import '../app_assets_constants/AppColors.dart';
-import '../utils/appTools.dart';
 import '../utils/elevated_expaned.dart';
 import '../utils/styleConstants.dart';
 

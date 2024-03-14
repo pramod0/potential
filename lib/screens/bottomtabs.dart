@@ -14,6 +14,7 @@ class TabNavigationItem {
   final Widget title;
   final Icon icon;
   final prefs = SharedPreferences.getInstance();
+
   TabNavigationItem(
       {required this.page, required this.title, required this.icon});
 

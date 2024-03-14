@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:potential/ApiService.dart';
 
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 import '../utils/styleConstants.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -199,8 +199,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     LengthLimitingTextInputFormatter(10),
                     UpperCaseTextFormatter()
                   ],
-
-
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -223,7 +221,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     return TextEditingValue(
       text: newValue.text.toUpperCase(),
       selection: newValue.selection,

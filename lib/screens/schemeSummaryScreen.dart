@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 
-import '../app_assets_constants/AppStrings.dart';
+import '../app_assets_constants/app_strings.dart';
 // import 'package:potential/models/token.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -47,6 +47,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         AutomaticKeepAliveClientMixin<SchemeSummaryScreen> {
   String sortFeature = "Current";
   String srt = '0';
+
   // late final AnimationController _controller = AnimationController(
   //   duration: const Duration(seconds: 10),
   //   vsync: this,
