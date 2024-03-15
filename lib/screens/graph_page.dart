@@ -3,6 +3,9 @@ import 'package:potential/utils/AllData.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:provider/provider.dart';
 
+import '../app_assets_constants/AppColors.dart';
+import '../utils/appTools.dart';
+
 // Define a class to hold the investment data
 class InvestmentData {
   final String type;
@@ -152,6 +155,8 @@ class GraphValuesUtility {
 
       // Calculate simple interest for this transaction
       double interest = (transaction.amount * rate * days) / (100 * 365);
+      // double interest = transaction.amount *
+      //     (pow(1 + rate / 100, days / 365) - 1);
 
       // Add interest to total
       totalInterest += interest + transaction.amount;
@@ -210,8 +215,8 @@ class GraphValuesUtility {
 // }
 
 // Main widget combining the graph and the vertical line
-class InvestmentScreen extends StatelessWidget {
-  const InvestmentScreen({super.key});
+class GraphAnalysisScreen extends StatelessWidget {
+  const GraphAnalysisScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -221,10 +226,10 @@ class InvestmentScreen extends StatelessWidget {
 
     // Mock data
     investmentProvider.setInvestments([
-      InvestmentData("Investments",
-          AllData.investedData.invested.roundToDouble(), Colors.orangeAccent),
+      InvestmentData("Invested", AllData.investedData.invested.roundToDouble(),
+          Colors.orangeAccent),
       InvestmentData(
-          "Savings A/C",
+          "Savings",
           // (AllData.investedData.invested +
           //         GraphValuesUtility.calculateSimpleInterest(
           //             AllData.investedData.invested,
@@ -234,11 +239,11 @@ class InvestmentScreen extends StatelessWidget {
 
           GraphValuesUtility.calculateSimpleInterestTillDate(
             GraphValuesUtility.list,
-            3.5,
+            3.08,
           ).roundToDouble(),
           Colors.blueAccent.shade100),
       InvestmentData(
-          "FD",
+          "Fixed",
           // (AllData.investedData.invested +
           //         GraphValuesUtility.calculateFDSimpleInterestToToday(
           //             AllData.investedData.invested,
@@ -247,7 +252,7 @@ class InvestmentScreen extends StatelessWidget {
           //     .roundToDouble(),
           GraphValuesUtility.calculateSimpleInterestTillDate(
             GraphValuesUtility.list,
-            6.75,
+            6.51,
           ).roundToDouble(),
           Colors.redAccent),
       InvestmentData("Mutual Fund",
@@ -259,11 +264,43 @@ class InvestmentScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PortFolio Analysis'),
+        title: const Text('Investment Analysis'),
       ),
-      body: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.35,
-          child: InvestmentGraph(investmentProvider.investments)),
+      body: Column(
+        children: [
+          SizedBox(
+              height: MediaQuery.of(context).size.height * 0.35,
+              child: InvestmentGraph(investmentProvider.investments)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                  color: hexToColor(AppColors.whiteTextColor),
+                  //Colors.black.withOpacity(0.3),
+                  border: Border.all(
+                    color: Colors.black26.withOpacity(0.2),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("*Note:"),
+                  const Text(
+                      "1. the average interest rate for general citizens is approximately 6.19%, and for senior citizens is approximately 6.83%."),
+                  const Text(
+                      "2. the average savings account interest rate is approximately 3.08%"),
+                  const Text(
+                      "3. For Calculations we have taken FD rate as 6.51% and Savings rate as 3.08%"),
+                  Text(
+                      "4. These are approx. values as of Date-${DateTime.now().toString().substring(0, 11)}"),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

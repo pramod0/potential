@@ -195,4 +195,5 @@ class AppStrings {
   static const String home = 'Home';
   static const String pleaseRegisterText =
       "We kindly request that you reach out to our support team,\nas it appears you are not currently registered as a user with the firm.\nYour co-operation is greatly appreciated.\n\nThank You!!!";
+  static const String rupeeSign = '\u{20B9}';
 }

@@ -80,6 +80,21 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         Navigator.pop(context);
       },
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor:
+              hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+          title: Text(
+            "Scheme Analysis",
+            style: kGoogleStyleTexts.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+              color: hexToColor(AppColors.blackTextColor),
+            ),
+          ),
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+        ),
         backgroundColor:
             hexToColor(AppColors.appThemeColor), //hexToColor("#111111"),
         body: SafeArea(child: buildMainDataScreen(context)),
@@ -95,12 +110,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         children: [
           Padding(
             padding: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
+                left: 15.0, right: 15.0, top: 0.0, bottom: 0.0),
             child: Column(
               children: [
                 Column(
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           widget.schemeCurrent.schemeName,
@@ -143,9 +159,20 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                         //Colors.transparent, //hexToColor("#1D1D1D"),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
+                              horizontal: 10, vertical: 10),
                           child: Column(
                             children: [
+                              Text(
+                                "Scheme Summary",
+                                style: kGoogleStyleTexts.copyWith(
+                                    color: hexToColor(AppColors.blackTextColor)
+                                        .withOpacity(0.87),
+                                    fontSize: 15),
+                              ),
+                              const Divider(
+                                color: Color(0x42000000), //Colors.white30,
+                                thickness: 1,
+                              ),
                               Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
