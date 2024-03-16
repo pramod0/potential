@@ -115,7 +115,7 @@ class GraphValuesUtility {
     if (list.isEmpty) {
       for (var element in AllData.investedData.fundData) {
         print("${element.fundCode} ${element.schemeCode}");
-        element.invested != 0 && element.currentValue != 0
+        element.invested != 0
             ? list.add(Transaction(
                 element.invested, DateTime.parse(element.sinceDate)))
             : print("Omitted");
@@ -159,7 +159,7 @@ class GraphValuesUtility {
       //     (pow(1 + rate / 100, days / 365) - 1);
 
       // Add interest to total
-      totalInterest += interest + transaction.amount;
+      totalInterest += (interest + transaction.amount);
     }
 
     return totalInterest;
@@ -220,14 +220,15 @@ class GraphAnalysisScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GraphValuesUtility.list = [];
     GraphValuesUtility.createTransaction();
     final investmentProvider =
-        Provider.of<InvestmentDataProvider>(context, listen: false);
+        Provider.of<InvestmentDataProvider>(context, listen: true);
 
     // Mock data
     investmentProvider.setInvestments([
       InvestmentData("Invested", AllData.investedData.invested.roundToDouble(),
-          Colors.orangeAccent),
+          Colors.blueAccent.shade100),
       InvestmentData(
           "Savings",
           // (AllData.investedData.invested +
@@ -241,7 +242,7 @@ class GraphAnalysisScreen extends StatelessWidget {
             GraphValuesUtility.list,
             3.08,
           ).roundToDouble(),
-          Colors.blueAccent.shade100),
+          Colors.orangeAccent),
       InvestmentData(
           "Fixed",
           // (AllData.investedData.invested +
@@ -265,6 +266,13 @@ class GraphAnalysisScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Investment Analysis'),
+        // leading: GestureDetector(
+        //   onTap: () => {
+        //     GraphValuesUtility.list = [],
+        //     Navigator.of(context).pop(),
+        //   },
+        //   child: const Icon(Icons.arrow_back),
+        // ),
       ),
       body: Column(
         children: [
@@ -304,16 +312,3 @@ class GraphAnalysisScreen extends StatelessWidget {
     );
   }
 }
-
-// void main() {
-//   runApp(
-//     MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider(create: (_) => InvestmentDataProvider()),
-//       ],
-//       child: MaterialApp(
-//         home: InvestmentScreen(),
-//       ),
-//     ),
-//   );
-// }
