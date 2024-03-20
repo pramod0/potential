@@ -810,7 +810,8 @@ class _DashboardState extends State<Dashboard> {
                                               Text(
                                                 // "Rs.${oCcy.format(AllData.investedData.totalReturns)}",
 
-                                                "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} ${AppStrings.rupeeSign}${oCcy.format(AllData.investedData.totalReturns)}",
+                                                "${AppStrings.rupeeSign}${oCcy.format(AllData.investedData.totalReturns)}",
+                                                // "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} ${AppStrings.rupeeSign}${oCcy.format(AllData.investedData.totalReturns)}",
                                                 style: kGoogleStyleTexts.copyWith(
                                                     color: AllData.investedData
                                                                 .totalReturns >
@@ -818,7 +819,7 @@ class _DashboardState extends State<Dashboard> {
                                                         ? hexToColor(AppColors
                                                             .greenAccent)
                                                         : hexToColor(AppColors
-                                                                .blackTextColor)
+                                                                .redAccent)
                                                             .withOpacity(0.85),
                                                     fontSize: 14.0),
                                                 softWrap: true,
@@ -885,7 +886,8 @@ class _DashboardState extends State<Dashboard> {
                                               ],
                                             ),
                                             Text(
-                                              "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"}${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
+                                              // "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"}${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
+                                              "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
                                               style: kGoogleStyleTexts.copyWith(
                                                   color: AllData.investedData
                                                               .totalReturns >
@@ -893,7 +895,7 @@ class _DashboardState extends State<Dashboard> {
                                                       ? hexToColor(
                                                           AppColors.greenAccent)
                                                       : hexToColor(AppColors
-                                                              .blackTextColor)
+                                                              .redAccent)
                                                           .withOpacity(0.85),
                                                   fontSize: 14.0),
                                               softWrap: true,
@@ -979,12 +981,18 @@ class _DashboardState extends State<Dashboard> {
                             .withOpacity(0.6),
                       ),
                       onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return buildBottomSheetContainerForSorting(context);
-                          },
-                        );
+                        setState(() {
+                          srt = (srt == '0') ? '1' : '0';
+                          // Navigator.of(context).pop();
+                        });
+                        // WidgetsBinding.instance
+                        //     .addPostFrameCallback((_) => );
+                        // showModalBottomSheet(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return buildBottomSheetContainerForSorting(context);
+                        //   },
+                        // );
                         //builderList
                       },
                     ),

@@ -431,7 +431,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                               //   ),
                                               // ),
                                               Text(
-                                                "IRR",
+                                                "CAGR (since)",
                                                 style: kGoogleStyleTexts.copyWith(
                                                     color: hexToColor(AppColors
                                                             .blackTextColor)
@@ -440,16 +440,31 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                               ),
                                             ],
                                           ),
-                                          Text(
-                                            "${widget.schemeCurrent.irr}%",
-                                            style: kGoogleStyleTexts.copyWith(
-                                                color: hexToColor(
-                                                    widget.schemeCurrent.irr >
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "${widget.schemeCurrent.sinceDaysCAGR}%",
+                                                style: kGoogleStyleTexts.copyWith(
+                                                    color: hexToColor(widget
+                                                                .schemeCurrent
+                                                                .sinceDaysCAGR >
                                                             0.0
                                                         ? AppColors.greenAccent
                                                         : AppColors.redAccent),
-                                                fontSize: 14.0),
-                                            softWrap: true,
+                                                    fontSize: 14.0),
+                                                softWrap: true,
+                                              ),
+                                              Text(
+                                                " (${widget.schemeCurrent.sinceDays} days)",
+                                                style:
+                                                    kGoogleStyleTexts.copyWith(
+                                                        color: hexToColor(
+                                                            AppColors
+                                                                .blackTextColor),
+                                                        fontSize: 14.0),
+                                                softWrap: true,
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -496,81 +511,81 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 7,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              // Container(
-                                              //   width: 4,
-                                              //   height: 4,
-                                              //   decoration: BoxDecoration(
-                                              //     color: hexToColor(AppColors.currentValue),
-                                              //     shape: BoxShape.circle,
-                                              //   ),
-                                              // ),
-                                              Text(
-                                                "CAGR",
-                                                style: kGoogleStyleTexts.copyWith(
-                                                    color: hexToColor(AppColors
-                                                            .blackTextColor)
-                                                        .withOpacity(0.65),
-                                                    fontSize: 11.0),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            "${widget.schemeCurrent.sinceDaysCAGR}%",
-                                            style: kGoogleStyleTexts.copyWith(
-                                                color: hexToColor(widget
-                                                            .schemeCurrent
-                                                            .sinceDaysCAGR >
-                                                        0.0
-                                                    ? AppColors.greenAccent
-                                                    : AppColors.redAccent),
-                                                fontSize: 14.0),
-                                            softWrap: true,
-                                          ),
-                                        ],
-                                      ),
-                                      // const SizedBox(
-                                      //   height: 10,
-                                      // // ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "Since",
-                                            style: kGoogleStyleTexts.copyWith(
-                                                color: hexToColor(AppColors
-                                                        .blackTextColor)
-                                                    .withOpacity(0.65),
-                                                fontSize: 11.0),
-                                            softWrap: true,
-                                          ),
-                                          Text(
-                                            "${widget.schemeCurrent.sinceDays} days",
-                                            style: kGoogleStyleTexts.copyWith(
-                                                color: hexToColor(
-                                                    AppColors.blackTextColor),
-                                                fontSize: 14.0),
-                                            softWrap: true,
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                  // const SizedBox(
+                                  //   height: 7,
+                                  // ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   children: [
+                                  //     Column(
+                                  //       crossAxisAlignment:
+                                  //           CrossAxisAlignment.start,
+                                  //       children: [
+                                  //         Row(
+                                  //           children: [
+                                  //             // Container(
+                                  //             //   width: 4,
+                                  //             //   height: 4,
+                                  //             //   decoration: BoxDecoration(
+                                  //             //     color: hexToColor(AppColors.currentValue),
+                                  //             //     shape: BoxShape.circle,
+                                  //             //   ),
+                                  //             // ),
+                                  //             Text(
+                                  //               "CAGR",
+                                  //               style: kGoogleStyleTexts.copyWith(
+                                  //                   color: hexToColor(AppColors
+                                  //                           .blackTextColor)
+                                  //                       .withOpacity(0.65),
+                                  //                   fontSize: 11.0),
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //         Text(
+                                  //           "${widget.schemeCurrent.sinceDaysCAGR}%",
+                                  //           style: kGoogleStyleTexts.copyWith(
+                                  //               color: hexToColor(widget
+                                  //                           .schemeCurrent
+                                  //                           .sinceDaysCAGR >
+                                  //                       0.0
+                                  //                   ? AppColors.greenAccent
+                                  //                   : AppColors.redAccent),
+                                  //               fontSize: 14.0),
+                                  //           softWrap: true,
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //     // const SizedBox(
+                                  //     //   height: 10,
+                                  //     // // ),
+                                  //     Column(
+                                  //       crossAxisAlignment:
+                                  //           CrossAxisAlignment.end,
+                                  //       children: [
+                                  //         Text(
+                                  //           "Since",
+                                  //           style: kGoogleStyleTexts.copyWith(
+                                  //               color: hexToColor(AppColors
+                                  //                       .blackTextColor)
+                                  //                   .withOpacity(0.65),
+                                  //               fontSize: 11.0),
+                                  //           softWrap: true,
+                                  //         ),
+                                  //         Text(
+                                  //           "${widget.schemeCurrent.sinceDays} days",
+                                  //           style: kGoogleStyleTexts.copyWith(
+                                  //               color: hexToColor(
+                                  //                   AppColors.blackTextColor),
+                                  //               fontSize: 14.0),
+                                  //           softWrap: true,
+                                  //         ),
+                                  //       ],
+                                  //     )
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ],
