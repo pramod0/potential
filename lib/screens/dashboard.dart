@@ -17,6 +17,7 @@ import 'package:potential/screens/schemeSummaryScreen.dart';
 import 'package:potential/utils/elevated_expaned.dart';
 // import 'package:potential/screens/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:package_info/package_info.dart';
 
 import '../ApiService.dart';
 import '../app_assets_constants/app_strings.dart';
@@ -155,12 +156,6 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<String> getData() async {
-    // if (AllData.investedData.sinceDaysCAGR > 0) {
-    //   if (kDebugMode) {
-    //     print("Api call saved here!!!");
-    //   }
-    //   return Future.value("Data Downloaded Successfully");
-    // }
 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
@@ -287,7 +282,18 @@ class _DashboardState extends State<Dashboard> {
     getData().whenComplete(() {
       WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
     });
+    _getVersion();
     super.initState();
+
+  }
+
+  String _version = "0.0.0";
+  Future<void> _getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      _version = "${packageInfo.version}+${packageInfo.buildNumber}";
+      print(_version);
+    });
   }
 
   _logout() async {
@@ -380,57 +386,55 @@ class _DashboardState extends State<Dashboard> {
                     decoration: BoxDecoration(
                       color: Colors.blueAccent.withOpacity(0.1),
                     ),
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Hi, ${AllData.investorData.firstName}",
-                            style: kGoogleStyleTexts.copyWith(
-                              fontWeight: FontWeight.w700,
-                              wordSpacing: 1,
-                              fontSize: 20,
-                              color: hexToColor(AppColors.blackTextColor),
-                            ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hi, ${AllData.investorData.firstName}",
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            wordSpacing: 1,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
                           ),
-                          // Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   children: [
-                          //     Text(
-                          //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
-                          //       style: kGoogleStyleTexts.copyWith(
-                          //         color: hexToColor(AppColors.blackTextColor)
-                          //             .withOpacity(0.87),
-                          //         fontSize: 24.0,
-                          //       ),
-                          //       textAlign: TextAlign.start,
-                          //     ),
-                          //     Text(
-                          //       "(${AllData.investorData.panCard})",
-                          //       style: kGoogleStyleTexts.copyWith(
-                          //         color: hexToColor(AppColors.blackTextColor)
-                          //             .withOpacity(0.87),
-                          //         fontSize: 15.0,
-                          //       ),
-                          //       textAlign: TextAlign.start,
-                          //     ),
-                          //   ],
-                          // ),
+                        ),
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     Text(
+                        //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
+                        //       style: kGoogleStyleTexts.copyWith(
+                        //         color: hexToColor(AppColors.blackTextColor)
+                        //             .withOpacity(0.87),
+                        //         fontSize: 24.0,
+                        //       ),
+                        //       textAlign: TextAlign.start,
+                        //     ),
+                        //     Text(
+                        //       "(${AllData.investorData.panCard})",
+                        //       style: kGoogleStyleTexts.copyWith(
+                        //         color: hexToColor(AppColors.blackTextColor)
+                        //             .withOpacity(0.87),
+                        //         fontSize: 15.0,
+                        //       ),
+                        //       textAlign: TextAlign.start,
+                        //     ),
+                        //   ],
+                        // ),
 
-                          // Manish jain told Pramod to hide this
-                          // Text(
-                          //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                          //   style: kGoogleStyleTexts.copyWith(
-                          //     color: hexToColor(AppColors.blackTextColor)
-                          //         .withOpacity(0.87),
-                          //     fontSize: 12.0,
-                          //   ),
-                          //   textAlign: TextAlign.left,
-                          // ),
-                        ],
-                      ),
+                        // Manish jain told Pramod to hide this
+                        // Text(
+                        //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                        //   style: kGoogleStyleTexts.copyWith(
+                        //     color: hexToColor(AppColors.blackTextColor)
+                        //         .withOpacity(0.87),
+                        //     fontSize: 12.0,
+                        //   ),
+                        //   textAlign: TextAlign.left,
+                        // ),
+                      ],
                     ),
                   ),
                   Column(
@@ -517,11 +521,27 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         onTap: _logout,
                       ),
+
+                      const SizedBox(height: 8), // Add some spacing
+                      const Divider(), // Add a divider
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                           'version: $_version',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: hexToColor(AppColors.blackTextColor),
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
+
                   // Flex(direction: Axis.vertical, children: [SizedBox()]),
                 ],
               ),
+
             ),
             backgroundColor: hexToColor(AppColors.appThemeColor),
             body: AllData.investedData.current != 0
@@ -532,6 +552,7 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
 
   SingleChildScrollView buildMainDataScreen(BuildContext context) {
     return SingleChildScrollView(

@@ -182,10 +182,6 @@ class ApiService {
         '${Constants.domainURL}${Constants.dashboardURL}?limit=$limit&offset=$offset');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
-    // if (kDebugMode) {
-    //   print(dashboardURI.toString());
-    // }
-
     try {
       Response response = await get(dashboardURI, headers: <String, String>{
         'Content-Type': 'application/json', //; charset=UTF-8

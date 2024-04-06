@@ -296,9 +296,9 @@ class GraphAnalysisScreen extends StatelessWidget {
                 children: [
                   const Text("*Note:"),
                   const Text(
-                      "1. the average interest rate for general citizens is approximately 6.19%, and for senior citizens is approximately 6.83%."),
+                      "1. The average interest rate for a fixed deposit is approximately 6.19%, and for senior citizens it is approximately 6.83%."),
                   const Text(
-                      "2. the average savings account interest rate is approximately 3.08%"),
+                      "2. The average savings account interest rate is approximately 3.08%"),
                   const Text(
                       "3. For Calculations we have taken FD rate as 6.51% and Savings rate as 3.08%"),
                   Text(
