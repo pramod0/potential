@@ -528,7 +528,6 @@ class _DashboardState extends State<Dashboard> {
                           // alignment: Alignm/ent.bottomLeft,
                           leading: const SizedBox.shrink(),
                           // leading: const Icon(Icons.ver),
-
                           title: Text(
                             'version: $_version',
                             // textAlign: TextAlign.s,
