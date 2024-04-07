@@ -1,23 +1,19 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:package_info/package_info.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/models/token.dart';
 import 'package:potential/screens/graph_page.dart';
 import 'package:potential/screens/profile_page.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
-import 'package:potential/utils/elevated_expaned.dart';
-// import 'package:potential/screens/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:package_info/package_info.dart';
 
 import '../ApiService.dart';
 import '../app_assets_constants/app_strings.dart';
@@ -156,7 +152,6 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<String> getData() async {
-
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
@@ -284,7 +279,6 @@ class _DashboardState extends State<Dashboard> {
     });
     _getVersion();
     super.initState();
-
   }
 
   String _version = "0.0.0";
@@ -292,7 +286,9 @@ class _DashboardState extends State<Dashboard> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       _version = "${packageInfo.version}+${packageInfo.buildNumber}";
-      print(_version);
+      if (kDebugMode) {
+        print(_version);
+      }
     });
   }
 
@@ -376,172 +372,180 @@ class _DashboardState extends State<Dashboard> {
               elevation: 0,
               backgroundColor: hexToColor(AppColors.appThemeColor),
               width: MediaQuery.of(context).size.width * 0.75,
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                // itemExtent: 100,
+              child: Container(
                 padding: EdgeInsets.zero,
-                children: [
-                  DrawerHeader(
-                    margin: EdgeInsets.zero,
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.1),
+                child: ListView(
+                  // Important: Remove any padding from the ListView.
+                  // itemExtent: 100,
+                  // padding: EdgeInsets.zero,
+                  children: [
+                    DrawerHeader(
+                      margin: EdgeInsets.zero,
+                      // padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent.withOpacity(0.1),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hi, ${AllData.investorData.firstName}",
+                            style: kGoogleStyleTexts.copyWith(
+                              fontWeight: FontWeight.w700,
+                              wordSpacing: 1,
+                              fontSize: 20,
+                              color: hexToColor(AppColors.blackTextColor),
+                            ),
+                          ),
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     Text(
+                          //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
+                          //       style: kGoogleStyleTexts.copyWith(
+                          //         color: hexToColor(AppColors.blackTextColor)
+                          //             .withOpacity(0.87),
+                          //         fontSize: 24.0,
+                          //       ),
+                          //       textAlign: TextAlign.start,
+                          //     ),
+                          //     Text(
+                          //       "(${AllData.investorData.panCard})",
+                          //       style: kGoogleStyleTexts.copyWith(
+                          //         color: hexToColor(AppColors.blackTextColor)
+                          //             .withOpacity(0.87),
+                          //         fontSize: 15.0,
+                          //       ),
+                          //       textAlign: TextAlign.start,
+                          //     ),
+                          //   ],
+                          // ),
+
+                          // Manish jain told Pramod to hide this
+                          // Text(
+                          //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
+                          //   style: kGoogleStyleTexts.copyWith(
+                          //     color: hexToColor(AppColors.blackTextColor)
+                          //         .withOpacity(0.87),
+                          //     fontSize: 12.0,
+                          //   ),
+                          //   textAlign: TextAlign.left,
+                          // ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Column(
                       children: [
-                        Text(
-                          "Hi, ${AllData.investorData.firstName}",
-                          style: kGoogleStyleTexts.copyWith(
-                            fontWeight: FontWeight.w700,
-                            wordSpacing: 1,
-                            fontSize: 20,
-                            color: hexToColor(AppColors.blackTextColor),
+                        ListTile(
+                          tileColor: hexToColor(AppColors.appThemeColor),
+                          leading: Icon(Icons.person_rounded),
+                          title: Text(
+                            "Profile",
+                            style: kGoogleStyleTexts.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              color: hexToColor(AppColors.blackTextColor),
+                            ),
+                          ),
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage())),
+                          // onTap: _logout,
+                        ),
+                        ListTile(
+                          tileColor: hexToColor(AppColors.appThemeColor),
+                          leading: const Icon(Icons.auto_graph),
+                          title: Text(
+                            "Investment Analysis",
+                            style: kGoogleStyleTexts.copyWith(
+                              fontWeight: FontWeight.w700,
+                              // fontFamily: 'gilroy',
+                              fontSize: 20,
+                              color: hexToColor(AppColors.blackTextColor),
+                            ),
+                          ),
+                          onTap: () => {
+                            // Navigator.of(context).pop(),
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const GraphAnalysisScreen()))
+                          },
+                          // onTap: _logout,
+                        ),
+                        // ListTile(
+                        //   tileColor: hexToColor(AppColors.appThemeColor),
+                        //   leading: const Icon(Icons.auto_graph),
+                        //   title: Text(
+                        //     "Portfolio Analysis",
+                        //     style: kGoogleStyleTexts.copyWith(
+                        //       fontWeight: FontWeight.w700,
+                        //       // fontFamily: 'gilroy',
+                        //       fontSize: 20,
+                        //       color: hexToColor(AppColors.blackTextColor),
+                        //     ),
+                        //   ),
+                        //   // onTap: () => Navigator.of(context).push(
+                        //   //     MaterialPageRoute(
+                        //   //         builder: (context) => GraphAnalysisScreen())),
+                        //   // onTap: _logout,
+                        // ),
+                        //  Hide settings for now
+                        // ListTile(
+                        //   tileColor: hexToColor(AppColors.appThemeColor),
+                        //   leading: Icon(Icons.settings_outlined),
+                        //   title: Text(
+                        //     AppStrings.settings,
+                        //     style: kGoogleStyleTexts.copyWith(
+                        //       fontWeight: FontWeight.w700,
+                        //       fontSize: 20,
+                        //       color: hexToColor(AppColors.blackTextColor),
+                        //     ),
+                        //   ),
+                        //   onTap: () => Navigator.of(context).push(
+                        //       MaterialPageRoute(
+                        //           builder: (context) => SettingsPage())),
+                        // ),
+                        ListTile(
+                          tileColor: hexToColor(AppColors.appThemeColor),
+                          leading: const Icon(Icons.logout_outlined),
+                          title: Text(
+                            AppStrings.logoutButtonText,
+                            style: kGoogleStyleTexts.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              color: hexToColor(AppColors.blackTextColor),
+                            ),
+                          ),
+                          onTap: _logout,
+                        ),
+
+                        const SizedBox(height: 8), // Add some spacing
+                        const Divider(), // Add a divider
+                        ListTile(
+                          // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          // alignment: Alignm/ent.bottomLeft,
+                          leading: const SizedBox.shrink(),
+                          // leading: const Icon(Icons.ver),
+
+                          title: Text(
+                            'version: $_version',
+                            // textAlign: TextAlign.s,
+                            style: kGoogleStyleTexts.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              color: hexToColor(AppColors.blackTextColor),
+                            ),
                           ),
                         ),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   mainAxisAlignment: MainAxisAlignment.start,
-                        //   children: [
-                        //     Text(
-                        //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
-                        //       style: kGoogleStyleTexts.copyWith(
-                        //         color: hexToColor(AppColors.blackTextColor)
-                        //             .withOpacity(0.87),
-                        //         fontSize: 24.0,
-                        //       ),
-                        //       textAlign: TextAlign.start,
-                        //     ),
-                        //     Text(
-                        //       "(${AllData.investorData.panCard})",
-                        //       style: kGoogleStyleTexts.copyWith(
-                        //         color: hexToColor(AppColors.blackTextColor)
-                        //             .withOpacity(0.87),
-                        //         fontSize: 15.0,
-                        //       ),
-                        //       textAlign: TextAlign.start,
-                        //     ),
-                        //   ],
-                        // ),
-
-                        // Manish jain told Pramod to hide this
-                        // Text(
-                        //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                        //   style: kGoogleStyleTexts.copyWith(
-                        //     color: hexToColor(AppColors.blackTextColor)
-                        //         .withOpacity(0.87),
-                        //     fontSize: 12.0,
-                        //   ),
-                        //   textAlign: TextAlign.left,
-                        // ),
                       ],
                     ),
-                  ),
-                  Column(
-                    children: [
-                      ListTile(
-                        tileColor: hexToColor(AppColors.appThemeColor),
-                        leading: Icon(Icons.person_rounded),
-                        title: Text(
-                          "Profile",
-                          style: kGoogleStyleTexts.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                            color: hexToColor(AppColors.blackTextColor),
-                          ),
-                        ),
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => ProfilePage())),
-                        // onTap: _logout,
-                      ),
-                      ListTile(
-                        tileColor: hexToColor(AppColors.appThemeColor),
-                        leading: const Icon(Icons.auto_graph),
-                        title: Text(
-                          "Investment Analysis",
-                          style: kGoogleStyleTexts.copyWith(
-                            fontWeight: FontWeight.w700,
-                            // fontFamily: 'gilroy',
-                            fontSize: 20,
-                            color: hexToColor(AppColors.blackTextColor),
-                          ),
-                        ),
-                        onTap: () => {
-                          // Navigator.of(context).pop(),
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const GraphAnalysisScreen()))
-                        },
-                        // onTap: _logout,
-                      ),
-                      // ListTile(
-                      //   tileColor: hexToColor(AppColors.appThemeColor),
-                      //   leading: const Icon(Icons.auto_graph),
-                      //   title: Text(
-                      //     "Portfolio Analysis",
-                      //     style: kGoogleStyleTexts.copyWith(
-                      //       fontWeight: FontWeight.w700,
-                      //       // fontFamily: 'gilroy',
-                      //       fontSize: 20,
-                      //       color: hexToColor(AppColors.blackTextColor),
-                      //     ),
-                      //   ),
-                      //   // onTap: () => Navigator.of(context).push(
-                      //   //     MaterialPageRoute(
-                      //   //         builder: (context) => GraphAnalysisScreen())),
-                      //   // onTap: _logout,
-                      // ),
-                      //  Hide settings for now
-                      // ListTile(
-                      //   tileColor: hexToColor(AppColors.appThemeColor),
-                      //   leading: Icon(Icons.settings_outlined),
-                      //   title: Text(
-                      //     AppStrings.settings,
-                      //     style: kGoogleStyleTexts.copyWith(
-                      //       fontWeight: FontWeight.w700,
-                      //       fontSize: 20,
-                      //       color: hexToColor(AppColors.blackTextColor),
-                      //     ),
-                      //   ),
-                      //   onTap: () => Navigator.of(context).push(
-                      //       MaterialPageRoute(
-                      //           builder: (context) => SettingsPage())),
-                      // ),
-                      ListTile(
-                        tileColor: hexToColor(AppColors.appThemeColor),
-                        leading: Icon(Icons.logout_outlined),
-                        title: Text(
-                          AppStrings.logoutButtonText,
-                          style: kGoogleStyleTexts.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                            color: hexToColor(AppColors.blackTextColor),
-                          ),
-                        ),
-                        onTap: _logout,
-                      ),
 
-                      const SizedBox(height: 8), // Add some spacing
-                      const Divider(), // Add a divider
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                           'version: $_version',
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            color: hexToColor(AppColors.blackTextColor),
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // Flex(direction: Axis.vertical, children: [SizedBox()]),
-                ],
+                    // Flex(direction: Axis.vertical, children: [SizedBox()]),
+                  ],
+                ),
               ),
-
             ),
             backgroundColor: hexToColor(AppColors.appThemeColor),
             body: AllData.investedData.current != 0
@@ -552,7 +556,6 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
 
   SingleChildScrollView buildMainDataScreen(BuildContext context) {
     return SingleChildScrollView(

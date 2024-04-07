@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:potential/utils/AllData.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../app_assets_constants/AppColors.dart';
 import '../utils/appTools.dart';

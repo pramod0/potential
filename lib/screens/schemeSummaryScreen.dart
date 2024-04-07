@@ -664,13 +664,17 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 ),
                               ),
                               onPressed: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return buildBottomSheetContainerForSorting(
-                                        context);
-                                  },
-                                );
+                                setState(() {
+                                  srt = (srt == '0') ? '1' : '0';
+                                  // Navigator.of(context).pop();
+                                });
+                                // showModalBottomSheet(
+                                //   context: context,
+                                //   builder: (BuildContext context) {
+                                //     return buildBottomSheetContainerForSorting(
+                                //         context);
+                                //   },
+                                // );
                                 //builderList
                               },
                             ),
