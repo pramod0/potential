@@ -9,3 +9,12 @@ TextStyle kGoogleStyleTexts = GoogleFonts.nunitoSans(
   // wordSpacing: ,
   letterSpacing: 0.4,
 );
+
+TextStyle kGoogleStyleTextsRoboto = GoogleFonts.roboto(
+  fontWeight: FontWeight.normal,
+  color: Colors.black,
+  // fontSize: 20.0,
+  height: 1.5,
+  // wordSpacing: ,
+  letterSpacing: 0.4,
+);

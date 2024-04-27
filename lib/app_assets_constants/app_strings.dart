@@ -4,7 +4,7 @@ class AppStrings {
   static const String userName = 'Username';
   static const String fname = 'First Name';
   static const String lname = 'Last Name';
-  static const String emailID = 'Email Id';
+  static const String emailID = 'Email ID';
   static const String panCard = 'PAN Card Number';
   static const String mobileNO = 'Mobile Number';
   static const String otp = 'OTP';

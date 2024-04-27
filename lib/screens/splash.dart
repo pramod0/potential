@@ -37,7 +37,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   // AllData allData = AllData();
   bool LoggedIn = false;
 
-  showSnackBar(String text, Color color) {
+  bool isVisible = false;
+
+  showSnackBar(String text, Color color) async {
     var snackBar = SnackBar(
         content: Text(
       text,
@@ -62,17 +64,22 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     bool connectionResult = await NetWorkUtil().checkInternetConnection();
     if (!connectionResult) {
-      showSnackBar("No Internet Connection", Colors.red);
-      // return;
+      setState(() {
+        isVisible = true;
+      });
+      // await showSnackBar("No Internet Connection", Colors.red);
+      Future.delayed(const Duration(seconds: 3))
+          .whenComplete(() => SystemNavigator.pop(animated: true));
+      setState(() {
+        isVisible = false;
+      });
+      return;
     }
     EasyLoading.show(status: 'loading...');
 
     var t1 = DateTime.now();
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
-    // if (kDebugMode) {
-    //   print(token);
-    // }
     if (token != null || token != "") {
       Map<String, dynamic> expired = {};
       try {
@@ -83,11 +90,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         if (kDebugMode) {
           print("T2-t1: ${t2.difference(t1)}");
         }
+        Navigator.of(context).pushReplacement(_createRoute());
         return;
       }
-      // if (kDebugMode) {
-      //   log("Expiry TimeStamp ********* ${expired['exp']}");
-      // }
       if (expired.isNotEmpty) {
         int h = DateTime.now()
             .difference(DateTime.fromMillisecondsSinceEpoch(
@@ -100,57 +105,24 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         }
         // var response;
         if (h < 0) {
-          Token(token!); // initialize token
+          Token(token); // initialize token
           LoggedIn = true;
-
-          // try {
-          //   response =
-          //       await jsonDecode(await ApiService().dashboardAPI(token, 0, 0));
-          // } catch (e) {
-          //   await EasyLoading.dismiss();
-          //   showSnackBar(e.toString(), Colors.red);
-          // }
-          AllData.setInvestorData(
+          await AllData.setInvestorData(
               User.fromJson(await jsonDecode(pref.getString('investorData')!)));
-          await EasyLoading.dismiss();
-
-          AllData.setInvestmentData(InvestedData.fromJson(
+          // await EasyLoading.dismiss();
+          await AllData.setInvestmentData(InvestedData.fromJson(
               await jsonDecode(pref.getString('investedData')!)));
-          // if (response!['success']) {
-          //   await EasyLoading.dismiss();
-          //   LoggedIn = true;
-          //   // if (kDebugMode) {
-          //   //   // print("Ready${jsonDecode(pref.getString('investorData')!)}"); //
-          //   // }
-          //   InvestedData investedData = InvestedData.fromJson(response['data']);
-          //   // await EasyLoading.dismiss();
-          //   // if (kDebugMode) {
-          //   //   print("responseBody.toString()");
-          //   // }
-          //   // if (kDebugMode) {
-          //   //   print(investedData.toString());
-          //   // }
-          //
-          //   pref.setString('investedData', jsonEncode(response['data']));
-          //   // if (kDebugMode) {
-          //   //   print(pref.get('investedData'));
-          //   // }
-          //   AllData.setInvestmentData(investedData);
-          // AllData.schemeMap.clear();
-          // AllData.printAll();
-          await EasyLoading.dismiss();
         }
-        await EasyLoading.dismiss();
       }
-      await EasyLoading.dismiss();
     }
-    await EasyLoading.dismiss();
     // For checking time difference in preprocessing from api
     var t2 = DateTime.now();
     if (kDebugMode) {
       print("T2-t1: ${t2.difference(t1)}");
     }
+    Navigator.of(context).pushReplacement(_createRoute());
     await EasyLoading.dismiss();
+    return;
   }
 
   @override
@@ -163,8 +135,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.forward();
 
-    Timer(const Duration(seconds: 2),
-        () => Navigator.of(context).pushReplacement(_createRoute()));
+    // Timer(const Duration(seconds: 2),
+    //     () => Navigator.of(context).pushReplacement(_createRoute()));
   }
 
   @override
@@ -242,6 +214,55 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 ],
               ),
             ),
+            Positioned.fill(
+              bottom: MediaQuery.of(context).size.height * 0.12,
+              // left: MediaQuery.of(context).size.height * 0.061,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedOpacity(
+                  opacity: isVisible ? 01 : 0,
+                  duration: const Duration(milliseconds: 500),
+                  child: Container(
+                    // height: 100,
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color:
+                          hexToColor(AppColors.blackTextColor).withOpacity(0.8),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal:
+                            MediaQuery.of(context).size.width * 20 / 896,
+                        vertical: MediaQuery.of(context).size.height * 20 / 896,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            AppImages.noInternet,
+                            height: 50,
+                            width: 50,
+                          ),
+                          Text(
+                            "No Internet Connection\nTry Again after some time.",
+                            textAlign: TextAlign.left,
+                            style: kGoogleStyleTexts.copyWith(
+                              fontFamily: "inter",
+                              color: hexToColor(AppColors.whiteTextColor),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0 *
+                                  (MediaQuery.of(context).size.width / 414),
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

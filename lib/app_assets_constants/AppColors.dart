@@ -25,6 +25,7 @@ class AppColors {
   //static const appThemeColor = "#181E2C";
   static const appThemeColor = "#F3F3F3";
   static const appThemeColorAppBar = "#F8F8F8";
+  static const homeBG = "#F7F9F9";
 
   // static const formBorder = "#F8F8F8";
   static const formBorder = "#c0c0c0";
@@ -34,17 +35,27 @@ class AppColors {
   static const hintTextColor = "#626672";
   static const textFieldOutlineBorderColor = "#626672";
 
-  // static const loginBtnColor = "#0065A0";
-  static const loginBtnColor = "#00387A"; //003779/00387A/003675/043b7b
+  static const loginBtnColor2 = "#254E7A";
+  static const loginBtnColor =
+      "#254E7A"; //003779/00387A/003675/043b7b//  254E7A
   static const blackTextColor = "#101010";
   static const whiteTextColor = "#fbfbfb";
   static const noFocusBorderColor = "#aaaaaa";
   static const colorBlack = "#070707";
   static const paleOrange = "#FFA869";
+
   static const currentStatus = "#FCAA00";
-  static const currentValue = "#FCAF23";
-  static const redAccent = "#D83924";
-  static const greenAccent = "#63BB41";
+  static const mainCardField = "#37474F";
+  static const currentValue = "#1F262A";
+  static const currentValueText = "#000000";
+  static const investedValueMain = "#2F4F4F"; //also sort and current filter
+  static const contrastContainer = "#CBE3EF"; //should be 60%
+  static const totInvestments = "#0D65D9";
+  static const fieldColor = "#96B0BD";
+  static const schemeColor = "#2B2B2C";
+
+  static const redAccent = "#EB5757"; //#EB5757
+  static const greenAccent = "#27AE60"; //27AE60
   static const orangeAccent = "#DB5C00";
   static const grey = "#757575";
   static const progressOuterContainerColor = "#404553";
