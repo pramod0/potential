@@ -582,34 +582,39 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                       textAlign: TextAlign.left),
                                 ],
                               ),
-                              Container(
-                                // width: 100 * MediaQuery.of(context).size.width / 360,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 6.0 *
-                                        MediaQuery.of(context).size.width /
-                                        360,
-                                    horizontal: 10 *
-                                        MediaQuery.of(context).size.width /
-                                        360),
-                                decoration: BoxDecoration(
-                                    color: hexToColor(
-                                            AppColors.installmentsBoxColor)
-                                        .withOpacity(0.3),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(4 *
-                                            MediaQuery.of(context).size.width /
-                                            360))),
-                                child: Text(
-                                    "Installment ${item.installmentNumber.toString().padLeft(2, '0')}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.installmentsColor),
-                                        fontSize: 12.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ),
+                              if (item.transType != "Redemption")
+                                Container(
+                                  // width: 100 * MediaQuery.of(context).size.width / 360,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 6.0 *
+                                          MediaQuery.of(context).size.width /
+                                          360,
+                                      horizontal: 10 *
+                                          MediaQuery.of(context).size.width /
+                                          360),
+                                  decoration: BoxDecoration(
+                                      color: hexToColor(
+                                              AppColors.installmentsBoxColor)
+                                          .withOpacity(0.3),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(4 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360))),
+                                  child: Text(
+                                      "Installment ${item.installmentNumber.toString().padLeft(2, '0')}",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.installmentsColor),
+                                          fontSize: 12.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ),
                             ],
                           ),
                         ),

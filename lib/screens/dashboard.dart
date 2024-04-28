@@ -970,70 +970,68 @@ class _DashboardState extends State<Dashboard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SubHeadingText(item: "P&L"),
-                                    SizedBox(
-                                      height: 6 *
-                                          MediaQuery.of(context).size.width /
-                                          360,
-                                    ),
-                                    ValueText(
-                                        item:
-                                            "${item.absReturns > 0.0 ? "+" : "-"} ${item.absReturns}%",
-                                        color: item.absReturns > 0.0
-                                            ? AppColors.greenAccent
-                                            : AppColors.redAccent)
-                                  ],
-                                ),
-                              ],
+                            Container(
+                              width:
+                                  82 * MediaQuery.of(context).size.width / 360,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SubHeadingText(item: "P&L"),
+                                  SizedBox(
+                                    height: 6 *
+                                        MediaQuery.of(context).size.width /
+                                        360,
+                                  ),
+                                  ValueText(
+                                      item:
+                                          "${item.absReturns > 0.0 ? "+" : "-"} ${item.absReturns}%",
+                                      color: item.absReturns > 0.0
+                                          ? AppColors.greenAccent
+                                          : AppColors.redAccent)
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SubHeadingText(item: "Invested"),
-                                    SizedBox(
-                                      height: 6 *
-                                          MediaQuery.of(context).size.width /
-                                          360,
-                                    ),
-                                    ValueText(
-                                        item:
-                                            "${AppStrings.rupeeSign} ${oCcy.format(item.invested).contains('.00') ? oCcy.format(item.invested).replaceAll('.00', '') : oCcy.format(item.invested)}",
-
-                                        // "Rs.${oCcy.format(item.invested)}",
-                                        color: AppColors.investedValueMain)
-                                  ],
-                                ),
-                              ],
+                            Container(
+                              width:
+                                  90 * MediaQuery.of(context).size.width / 360,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SubHeadingText(item: "Invested"),
+                                  SizedBox(
+                                    height: 6 *
+                                        MediaQuery.of(context).size.width /
+                                        360,
+                                  ),
+                                  ValueText(
+                                      item:
+                                          "${AppStrings.rupeeSign} ${oCcy.format(item.invested).contains('.00') ? oCcy.format(item.invested).replaceAll('.00', '') : oCcy.format(item.invested)}",
+                                      color: AppColors.investedValueMain)
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SubHeadingText(item: "Current"),
-                                SizedBox(
-                                  height: 6 *
-                                      MediaQuery.of(context).size.width /
-                                      360,
-                                ),
-                                ValueText(
-                                    item:
-                                        "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue)}",
-                                    color: AppColors.investedValueMain)
-                              ],
+                            Container(
+                              width:
+                                  82 * MediaQuery.of(context).size.width / 360,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SubHeadingText(item: "Current"),
+                                  SizedBox(
+                                    height: 6 *
+                                        MediaQuery.of(context).size.width /
+                                        360,
+                                  ),
+                                  ValueText(
+                                      item:
+                                          "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue)}",
+                                      color: AppColors.investedValueMain)
+                                ],
+                              ),
                             )
                           ],
                         ),
