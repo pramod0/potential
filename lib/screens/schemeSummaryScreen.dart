@@ -17,7 +17,7 @@ import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
 import 'package:potential/models/schemes.dart';
 
-final oCcy = NumberFormat("#,##0.00", "en_US");
+final oCcy = NumberFormat("#,##,##0.00", "en_US"); //changed from #,##0.00
 
 // class SchemeSummaryScreen extends StatefulWidget {
 //   final widget.schemeKey;
@@ -216,8 +216,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(
-                          left: 12 * MediaQuery.of(context).size.width / 360,
-                          right: 12 * MediaQuery.of(context).size.width / 360,
+                          left: 16 * MediaQuery.of(context).size.width / 360,
+                          right: 16 * MediaQuery.of(context).size.width / 360,
                           top: 16 * MediaQuery.of(context).size.width / 360,
                           bottom: 10 * MediaQuery.of(context).size.width / 360),
                       child: Column(
@@ -228,7 +228,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             style: kGoogleStyleTexts.copyWith(
                                 color: hexToColor(AppColors.blackTextColor)
                                     .withOpacity(0.8),
-                                fontSize: 18.0 *
+                                fontSize: 16.0 *
                                     MediaQuery.of(context).size.width /
                                     360,
                                 fontWeight: FontWeight.w700),
@@ -248,7 +248,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       shape: const RoundedRectangleBorder(
@@ -265,9 +265,9 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                           Container(
                             padding: EdgeInsets.only(
                               left:
-                                  12 * MediaQuery.of(context).size.width / 360,
+                                  16 * MediaQuery.of(context).size.width / 360,
                               right:
-                                  12 * MediaQuery.of(context).size.width / 360,
+                                  16 * MediaQuery.of(context).size.width / 360,
                               top: 10 * MediaQuery.of(context).size.width / 360,
                             ),
                             color: hexToColor(AppColors.whiteTextColor),
@@ -347,6 +347,12 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     "\u{20B9} ${oCcy.format(widget.schemeCurrent.currentValue).replaceFirst('.00', '')}",
                                     context),
                                 buildSummaryFieldRow(
+                                    "Latest N.A.V",
+                                    oCcy
+                                        .format(widget.schemeCurrent.currentNAV)
+                                        .replaceFirst('.00', ''),
+                                    context),
+                                buildSummaryFieldRow(
                                     AppStrings.invested,
                                     "\u{20B9} ${oCcy.format(widget.schemeCurrent.invested).replaceFirst('.00', '')}",
                                     context),
@@ -404,7 +410,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: 20 * MediaQuery.of(context).size.width / 360),
+                      horizontal: 26 * MediaQuery.of(context).size.width / 360),
                   child: Text(
                     "Transactions",
                     style: kGoogleStyleTexts.copyWith(
@@ -425,11 +431,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: Row(
                           children: [
                             Text(
-                              AppStrings.investments,
+                              "  " + AppStrings.investments,
                               style: kGoogleStyleTexts.copyWith(
                                   color: hexToColor(AppColors.blackTextColor),
                                   fontSize: 13.0 *

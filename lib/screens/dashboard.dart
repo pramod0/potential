@@ -356,7 +356,7 @@ class _DashboardState extends State<Dashboard> {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor:
-                  hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+                  hexToColor(AppColors.homeBG), //hexToColor("#121212"),
               title: Text(
                 "Dashboard",
                 style: kGoogleStyleTexts.copyWith(
