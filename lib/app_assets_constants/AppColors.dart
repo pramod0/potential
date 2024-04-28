@@ -32,6 +32,12 @@ class AppColors {
 
   //static const appThemeColor = "#141A26";
   static const iconColor = "#747880";
+  static const currentValue = "#1F262A";
+  static const currentValueText = "#000000";
+  static const investedValueMain = "#2F4F4F"; //also sort and current filter
+  static const contrastContainer = "#CBE3EF"; //should be 60%
+  static const totInvestments = "#0D65D9";
+  static const fieldColor = "#96B0BD";
   static const hintTextColor = "#626672";
   static const textFieldOutlineBorderColor = "#626672";
 
@@ -46,12 +52,6 @@ class AppColors {
 
   static const currentStatus = "#FCAA00";
   static const mainCardField = "#37474F";
-  static const currentValue = "#1F262A";
-  static const currentValueText = "#000000";
-  static const investedValueMain = "#2F4F4F"; //also sort and current filter
-  static const contrastContainer = "#CBE3EF"; //should be 60%
-  static const totInvestments = "#0D65D9";
-  static const fieldColor = "#96B0BD";
   static const schemeColor = "#2B2B2C";
 
   static const redAccent = "#EB5757"; //#EB5757

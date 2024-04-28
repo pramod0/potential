@@ -48,7 +48,7 @@ class _DashboardState extends State<Dashboard> {
     var banner = MaterialBanner(
         content: Text(
           "Error! You will need to ",
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
               color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
         ),
         leading: Icon(
@@ -68,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
               color: Colors.red.shade300,
               child: AutoSizeText(
                 "re-login",
-                style: kGoogleStyleTextsRoboto.copyWith(
+                style: kGoogleStyleTexts.copyWith(
                     color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
               ),
             ),
@@ -104,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
                   decoration: TextDecoration.underline),
             )
           ]),
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
               color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
         ),
       ),
@@ -124,7 +124,7 @@ class _DashboardState extends State<Dashboard> {
       //       padding: const EdgeInsets.all(3),
       //       child: AutoSizeText(
       //         "relogin",
-      //         style: kGoogleStyleTextsRoboto.copyWith(
+      //         style: kGoogleStyleTexts.copyWith(
       //             color: hexToColor(AppColors.whiteTextColor), fontSize: 15),
       //       ),
       //     ),
@@ -143,7 +143,7 @@ class _DashboardState extends State<Dashboard> {
         dismissDirection: DismissDirection.endToStart,
         content: AutoSizeText(
           text,
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
             color: color,
             fontSize: 15,
           ),
@@ -359,7 +359,7 @@ class _DashboardState extends State<Dashboard> {
                   hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
               title: Text(
                 "Dashboard",
-                style: kGoogleStyleTextsRoboto.copyWith(
+                style: kGoogleStyleTexts.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 20 * MediaQuery.of(context).size.width / 360,
                   color: hexToColor(AppColors.blackTextColor),
@@ -392,7 +392,7 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           Text(
                             "Hi, ${AllData.investorData.firstName}",
-                            style: kGoogleStyleTextsRoboto.copyWith(
+                            style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               wordSpacing: 1,
                               fontSize: 20,
@@ -405,7 +405,7 @@ class _DashboardState extends State<Dashboard> {
                           //   children: [
                           //     Text(
                           //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
-                          //       style: kGoogleStyleTextsRoboto.copyWith(
+                          //       style: kGoogleStyleTexts.copyWith(
                           //         color: hexToColor(AppColors.blackTextColor)
                           //             .withOpacity(0.87),
                           //         fontSize: 24.0,
@@ -414,7 +414,7 @@ class _DashboardState extends State<Dashboard> {
                           //     ),
                           //     Text(
                           //       "(${AllData.investorData.panCard})",
-                          //       style: kGoogleStyleTextsRoboto.copyWith(
+                          //       style: kGoogleStyleTexts.copyWith(
                           //         color: hexToColor(AppColors.blackTextColor)
                           //             .withOpacity(0.87),
                           //         fontSize: 15.0,
@@ -427,7 +427,7 @@ class _DashboardState extends State<Dashboard> {
                           // Manish jain told Pramod to hide this
                           // Text(
                           //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                          //   style: kGoogleStyleTextsRoboto.copyWith(
+                          //   style: kGoogleStyleTexts.copyWith(
                           //     color: hexToColor(AppColors.blackTextColor)
                           //         .withOpacity(0.87),
                           //     fontSize: 12.0,
@@ -444,7 +444,7 @@ class _DashboardState extends State<Dashboard> {
                           leading: Icon(Icons.person_rounded),
                           title: Text(
                             "Profile",
-                            style: kGoogleStyleTextsRoboto.copyWith(
+                            style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 20,
                               color: hexToColor(AppColors.blackTextColor),
@@ -460,7 +460,7 @@ class _DashboardState extends State<Dashboard> {
                           leading: const Icon(Icons.auto_graph),
                           title: Text(
                             "Investment Analysis",
-                            style: kGoogleStyleTextsRoboto.copyWith(
+                            style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               // fontFamily: 'gilroy',
                               fontSize: 20,
@@ -480,7 +480,7 @@ class _DashboardState extends State<Dashboard> {
                         //   leading: const Icon(Icons.auto_graph),
                         //   title: Text(
                         //     "Portfolio Analysis",
-                        //     style: kGoogleStyleTextsRoboto.copyWith(
+                        //     style: kGoogleStyleTexts.copyWith(
                         //       fontWeight: FontWeight.w700,
                         //       // fontFamily: 'gilroy',
                         //       fontSize: 20,
@@ -498,7 +498,7 @@ class _DashboardState extends State<Dashboard> {
                         //   leading: Icon(Icons.settings_outlined),
                         //   title: Text(
                         //     AppStrings.settings,
-                        //     style: kGoogleStyleTextsRoboto.copyWith(
+                        //     style: kGoogleStyleTexts.copyWith(
                         //       fontWeight: FontWeight.w700,
                         //       fontSize: 20,
                         //       color: hexToColor(AppColors.blackTextColor),
@@ -513,7 +513,7 @@ class _DashboardState extends State<Dashboard> {
                           leading: const Icon(Icons.logout_outlined),
                           title: Text(
                             AppStrings.logoutButtonText,
-                            style: kGoogleStyleTextsRoboto.copyWith(
+                            style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 20,
                               color: hexToColor(AppColors.blackTextColor),
@@ -532,7 +532,7 @@ class _DashboardState extends State<Dashboard> {
                           title: Text(
                             'version: $_version',
                             // textAlign: TextAlign.s,
-                            style: kGoogleStyleTextsRoboto.copyWith(
+                            style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
                               color: hexToColor(AppColors.blackTextColor),
@@ -574,7 +574,7 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Text(
                       "Welcome,",
-                      style: kGoogleStyleTextsRoboto.copyWith(
+                      style: kGoogleStyleTexts.copyWith(
                           color: hexToColor(AppColors.currentValueText),
                           fontSize:
                               12.0 * MediaQuery.of(context).size.width / 360,
@@ -587,7 +587,7 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         Text(
                           "${AllData.investorData.firstName?.trim()} ${AllData.investorData.lastName?.trim()}",
-                          style: kGoogleStyleTextsRoboto.copyWith(
+                          style: kGoogleStyleTexts.copyWith(
                               color: hexToColor(AppColors.currentValueText),
                               fontSize: 16.0 *
                                   MediaQuery.of(context).size.width /
@@ -608,7 +608,7 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         Text(
                           AppStrings.investments,
-                          style: kGoogleStyleTextsRoboto.copyWith(
+                          style: kGoogleStyleTexts.copyWith(
                               color: hexToColor(AppColors.currentValueText),
                               fontSize: 12.0 *
                                   MediaQuery.of(context).size.width /
@@ -617,7 +617,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         Text(
                           " (${AllData.investedData.fundData.length})",
-                          style: kGoogleStyleTextsRoboto.copyWith(
+                          style: kGoogleStyleTexts.copyWith(
                               color: hexToColor(AppColors.fieldColor),
                               fontSize: 10.0 *
                                   MediaQuery.of(context).size.width /
@@ -676,7 +676,7 @@ class _DashboardState extends State<Dashboard> {
                                 children: [
                                   Text(
                                     "Current Value",
-                                    style: kGoogleStyleTextsRoboto.copyWith(
+                                    style: kGoogleStyleTexts.copyWith(
                                       color: hexToColor(
                                           AppColors.currentValueText),
                                       fontSize: 12.0 *
@@ -691,7 +691,7 @@ class _DashboardState extends State<Dashboard> {
                                     children: [
                                       Text(
                                         "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
-                                        style: kGoogleStyleTextsRoboto.copyWith(
+                                        style: kGoogleStyleTexts.copyWith(
                                             color: hexToColor(
                                                 AppColors.currentValue),
                                             fontSize: 20.0 *
@@ -788,7 +788,7 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Text(
                       "Sort",
-                      style: kGoogleStyleTextsRoboto.copyWith(
+                      style: kGoogleStyleTexts.copyWith(
                           color: hexToColor(AppColors.investedValueMain),
                           fontSize:
                               11.0 * MediaQuery.of(context).size.width / 360,
@@ -854,7 +854,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       Text(
                         "Current ($sortFeature)",
-                        style: kGoogleStyleTextsRoboto.copyWith(
+                        style: kGoogleStyleTexts.copyWith(
                             color: hexToColor(AppColors.blackTextColor),
                             fontSize:
                                 11.0 * MediaQuery.of(context).size.width / 360),
@@ -940,7 +940,7 @@ class _DashboardState extends State<Dashboard> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Text(item.schemeName,
-                                  style: kGoogleStyleTextsRoboto.copyWith(
+                                  style: kGoogleStyleTexts.copyWith(
                                       color: hexToColor(AppColors.schemeColor),
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w600),
@@ -948,7 +948,7 @@ class _DashboardState extends State<Dashboard> {
                                   textAlign: TextAlign.left),
                             ),
                             Text(item.sinceDate.replaceAll('-', '/'),
-                                style: kGoogleStyleTextsRoboto.copyWith(
+                                style: kGoogleStyleTexts.copyWith(
                                     color: hexToColor(AppColors.fieldColor),
                                     fontSize: 12.0,
                                     height: 2,
@@ -1055,7 +1055,7 @@ class _DashboardState extends State<Dashboard> {
         buildMainCardField(context, "XIRR"),
         Text(
           "${AllData.investedData.xirr.toStringAsFixed(2)}%".toString(),
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
             color: hexToColor(AllData.investedData.xirr > 0.0
                 ? AppColors.greenAccent
                 : AppColors.redAccent),
@@ -1075,7 +1075,7 @@ class _DashboardState extends State<Dashboard> {
         Text(
           "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} ${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           // "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
             color: AllData.investedData.totalReturns > 0.0
                 ? hexToColor(AppColors.greenAccent)
                 : hexToColor(AppColors.redAccent),
@@ -1095,7 +1095,7 @@ class _DashboardState extends State<Dashboard> {
         buildMainCardField(context, "Total Returns"),
         Text(
           "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} ${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.totalReturns)}",
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
             color: AllData.investedData.totalReturns > 0.0
                 ? hexToColor(AppColors.greenAccent)
                 : hexToColor(AppColors.redAccent),
@@ -1115,7 +1115,7 @@ class _DashboardState extends State<Dashboard> {
         buildMainCardField(context, AppStrings.invested),
         Text(
           "${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.invested).contains('.00') ? oCcy.format(AllData.investedData.invested).replaceAll('.00', '') : oCcy.format(AllData.investedData.invested)}",
-          style: kGoogleStyleTextsRoboto.copyWith(
+          style: kGoogleStyleTexts.copyWith(
             color: hexToColor(AppColors.investedValueMain),
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
             fontWeight: FontWeight.w500,
@@ -1128,7 +1128,7 @@ class _DashboardState extends State<Dashboard> {
   Text buildMainCardField(BuildContext context, text) {
     return Text(
       text,
-      style: kGoogleStyleTextsRoboto.copyWith(
+      style: kGoogleStyleTexts.copyWith(
         color: hexToColor(AppColors.mainCardField),
         fontSize: 12.0 * MediaQuery.of(context).size.width / 360,
       ),
@@ -1155,13 +1155,13 @@ class _DashboardState extends State<Dashboard> {
                             children: [
                               Text(
                                 AppStrings.investments,
-                                style: kGoogleStyleTextsRoboto.copyWith(
+                                style: kGoogleStyleTexts.copyWith(
                                     color: hexToColor(AppColors.blackTextColor),
                                     fontSize: 15.0),
                               ),
                               Text(
                                 "(-)",
-                                style: kGoogleStyleTextsRoboto.copyWith(
+                                style: kGoogleStyleTexts.copyWith(
                                     color: hexToColor(AppColors.blackTextColor),
                                     fontSize: 13.0,
                                     fontWeight: FontWeight.w100),
@@ -1203,38 +1203,34 @@ class _DashboardState extends State<Dashboard> {
                                         children: [
                                           Text(
                                             AppStrings.invested,
-                                            style: kGoogleStyleTextsRoboto
-                                                .copyWith(
-                                                    color: hexToColor(AppColors
-                                                        .blackTextColor),
-                                                    fontSize: 12.0),
+                                            style: kGoogleStyleTexts.copyWith(
+                                                color: hexToColor(
+                                                    AppColors.blackTextColor),
+                                                fontSize: 12.0),
                                           ),
                                           Text(
                                             "${AppStrings.rupeeSign}----",
-                                            style: kGoogleStyleTextsRoboto
-                                                .copyWith(
-                                                    color: hexToColor(AppColors
-                                                        .blackTextColor),
-                                                    fontSize: 15.0),
+                                            style: kGoogleStyleTexts.copyWith(
+                                                color: hexToColor(
+                                                    AppColors.blackTextColor),
+                                                fontSize: 15.0),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             AppStrings.current,
-                                            style: kGoogleStyleTextsRoboto
-                                                .copyWith(
-                                                    color: hexToColor(AppColors
-                                                        .blackTextColor),
-                                                    fontSize: 12.0),
+                                            style: kGoogleStyleTexts.copyWith(
+                                                color: hexToColor(
+                                                    AppColors.blackTextColor),
+                                                fontSize: 12.0),
                                           ),
                                           Text(
                                             "${AppStrings.rupeeSign}----",
-                                            style: kGoogleStyleTextsRoboto
-                                                .copyWith(
-                                                    color: hexToColor(AppColors
-                                                        .blackTextColor),
-                                                    fontSize: 15.0),
+                                            style: kGoogleStyleTexts.copyWith(
+                                                color: hexToColor(
+                                                    AppColors.blackTextColor),
+                                                fontSize: 15.0),
                                           ),
                                         ],
                                       ),
@@ -1258,8 +1254,8 @@ class _DashboardState extends State<Dashboard> {
                                               ),
                                               Text(
                                                 " Total Returns",
-                                                style: kGoogleStyleTextsRoboto
-                                                    .copyWith(
+                                                style:
+                                                    kGoogleStyleTexts.copyWith(
                                                         color: hexToColor(
                                                             AppColors
                                                                 .blackTextColor),
@@ -1271,8 +1267,8 @@ class _DashboardState extends State<Dashboard> {
                                             children: [
                                               Text(
                                                 "+ ${AppStrings.rupeeSign}---- ",
-                                                style: kGoogleStyleTextsRoboto
-                                                    .copyWith(
+                                                style:
+                                                    kGoogleStyleTexts.copyWith(
                                                         color: hexToColor(
                                                             AppColors
                                                                 .blackTextColor),
@@ -1281,8 +1277,8 @@ class _DashboardState extends State<Dashboard> {
                                               ),
                                               Text(
                                                 "(--.--%)",
-                                                style: kGoogleStyleTextsRoboto
-                                                    .copyWith(
+                                                style:
+                                                    kGoogleStyleTexts.copyWith(
                                                         color: hexToColor(
                                                             AppColors
                                                                 .blackTextColor),
@@ -1296,19 +1292,17 @@ class _DashboardState extends State<Dashboard> {
                                           ),
                                           Text(
                                             "XIRR",
-                                            style: kGoogleStyleTextsRoboto
-                                                .copyWith(
-                                                    color: hexToColor(AppColors
-                                                        .blackTextColor),
-                                                    fontSize: 12.0),
+                                            style: kGoogleStyleTexts.copyWith(
+                                                color: hexToColor(
+                                                    AppColors.blackTextColor),
+                                                fontSize: 12.0),
                                           ),
                                           Text(
                                             "--.--%".toString(),
-                                            style: kGoogleStyleTextsRoboto
-                                                .copyWith(
-                                                    color: hexToColor(AppColors
-                                                        .blackTextColor),
-                                                    fontSize: 15.0),
+                                            style: kGoogleStyleTexts.copyWith(
+                                                color: hexToColor(
+                                                    AppColors.blackTextColor),
+                                                fontSize: 15.0),
                                           ),
                                         ],
                                       ),
@@ -1338,7 +1332,7 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       Text(
                         "Sort",
-                        style: kGoogleStyleTextsRoboto.copyWith(
+                        style: kGoogleStyleTexts.copyWith(
                             color: hexToColor(AppColors.blackTextColor),
                             fontSize: 14.0),
                       ),
@@ -1382,7 +1376,7 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         Text(
                           "<> ",
-                          style: kGoogleStyleTextsRoboto.copyWith(
+                          style: kGoogleStyleTexts.copyWith(
                               color: hexToColor(AppColors.currentValue)
                                   .withOpacity(0.7),
                               fontSize: 14.0,
@@ -1390,7 +1384,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         Text(
                           "Current ($sortFeature)",
-                          style: kGoogleStyleTextsRoboto.copyWith(
+                          style: kGoogleStyleTexts.copyWith(
                               color: hexToColor(AppColors.blackTextColor),
                               fontSize: 14.0),
                         ),
@@ -1419,7 +1413,7 @@ class _DashboardState extends State<Dashboard> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Select Order of sorting',
-                style: kGoogleStyleTextsRoboto.copyWith(
+                style: kGoogleStyleTexts.copyWith(
                     color: hexToColor(AppColors.blackTextColor),
                     fontSize: 14.0),
               ),
@@ -1431,7 +1425,7 @@ class _DashboardState extends State<Dashboard> {
                 tileColor: hexToColor(AppColors.blackTextColor),
                 title: Text(
                   'Ascending',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1454,7 +1448,7 @@ class _DashboardState extends State<Dashboard> {
                 tileColor: hexToColor(AppColors.blackTextColor),
                 title: Text(
                   'Descending',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1494,7 +1488,7 @@ class _DashboardState extends State<Dashboard> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Sort Investments By',
-                style: kGoogleStyleTextsRoboto.copyWith(
+                style: kGoogleStyleTexts.copyWith(
                     color: hexToColor(AppColors.blackTextColor),
                     fontSize: 14.0),
               ),
@@ -1505,7 +1499,7 @@ class _DashboardState extends State<Dashboard> {
               RadioListTile(
                 title: Text(
                   'Current',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1525,7 +1519,7 @@ class _DashboardState extends State<Dashboard> {
               RadioListTile(
                 title: Text(
                   'Invested',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1545,7 +1539,7 @@ class _DashboardState extends State<Dashboard> {
               RadioListTile(
                 title: Text(
                   '%XIRR',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1564,7 +1558,7 @@ class _DashboardState extends State<Dashboard> {
               RadioListTile(
                 title: Text(
                   '%Returns',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1583,7 +1577,7 @@ class _DashboardState extends State<Dashboard> {
               RadioListTile(
                 title: Text(
                   'Alphabetical',
-                  style: kGoogleStyleTextsRoboto.copyWith(
+                  style: kGoogleStyleTexts.copyWith(
                       color: hexToColor(AppColors.blackTextColor),
                       fontSize: 14.0),
                 ),
@@ -1621,7 +1615,7 @@ class SubHeadingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(item,
-        style: kGoogleStyleTextsRoboto.copyWith(
+        style: kGoogleStyleTexts.copyWith(
             color: hexToColor(AppColors.fieldColor),
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
             fontWeight: FontWeight.w600),
@@ -1644,7 +1638,7 @@ class ValueText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       item.toString(),
-      style: kGoogleStyleTextsRoboto.copyWith(
+      style: kGoogleStyleTexts.copyWith(
           fontWeight: FontWeight.w500,
           color: hexToColor(color),
           fontSize: 14.0 * MediaQuery.of(context).size.width / 360),
