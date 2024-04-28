@@ -34,6 +34,8 @@ class AppColors {
   static const iconColor = "#747880";
   static const currentValue = "#1F262A";
   static const currentValueText = "#000000";
+  static const installmentsColor = "#6F6F6F";
+  static const installmentsBoxColor = "#85CCFF";
   static const investedValueMain = "#2F4F4F"; //also sort and current filter
   static const contrastContainer = "#CBE3EF"; //should be 60%
   static const totInvestments = "#0D65D9";

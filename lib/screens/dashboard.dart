@@ -384,7 +384,7 @@ class _DashboardState extends State<Dashboard> {
                       margin: EdgeInsets.zero,
                       // padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.withOpacity(0.1),
+                        color: Colors.blueAccent.shade200.withOpacity(0.1),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -440,7 +440,7 @@ class _DashboardState extends State<Dashboard> {
                     Column(
                       children: [
                         ListTile(
-                          tileColor: hexToColor(AppColors.appThemeColor),
+                          tileColor: hexToColor(AppColors.homeBG),
                           leading: Icon(Icons.person_rounded),
                           title: Text(
                             "Profile",
@@ -456,7 +456,7 @@ class _DashboardState extends State<Dashboard> {
                           // onTap: _logout,
                         ),
                         ListTile(
-                          tileColor: hexToColor(AppColors.appThemeColor),
+                          tileColor: hexToColor(AppColors.homeBG),
                           leading: const Icon(Icons.auto_graph),
                           title: Text(
                             "Investment Analysis",
@@ -509,7 +509,7 @@ class _DashboardState extends State<Dashboard> {
                         //           builder: (context) => SettingsPage())),
                         // ),
                         ListTile(
-                          tileColor: hexToColor(AppColors.appThemeColor),
+                          tileColor: hexToColor(AppColors.homeBG),
                           leading: const Icon(Icons.logout_outlined),
                           title: Text(
                             AppStrings.logoutButtonText,
@@ -942,7 +942,9 @@ class _DashboardState extends State<Dashboard> {
                               child: Text(item.schemeName,
                                   style: kGoogleStyleTexts.copyWith(
                                       color: hexToColor(AppColors.schemeColor),
-                                      fontSize: 14.0,
+                                      fontSize: 14.0 *
+                                          MediaQuery.of(context).size.width /
+                                          360,
                                       fontWeight: FontWeight.w600),
                                   softWrap: true,
                                   textAlign: TextAlign.left),
@@ -950,7 +952,9 @@ class _DashboardState extends State<Dashboard> {
                             Text(item.sinceDate.replaceAll('-', '/'),
                                 style: kGoogleStyleTexts.copyWith(
                                     color: hexToColor(AppColors.fieldColor),
-                                    fontSize: 12.0,
+                                    fontSize: 12.0 *
+                                        MediaQuery.of(context).size.width /
+                                        360,
                                     height: 2,
                                     fontWeight: FontWeight.normal),
                                 softWrap: true,

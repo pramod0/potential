@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
@@ -13,6 +15,7 @@ import '../app_assets_constants/app_strings.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
+import 'package:potential/models/schemes.dart';
 
 final oCcy = NumberFormat("#,##0.00", "en_US");
 
@@ -285,7 +288,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                           360,
                                     ),
                                     Text(
-                                      "${widget.schemeCurrent.totalReturns > 0.0 ? "+" : "-"} \u{20B9}${oCcy.format(widget.schemeCurrent.totalReturns)} ",
+                                      "${widget.schemeCurrent.totalReturns > 0.0 ? "+" : "-"} \u{20B9} ${oCcy.format(widget.schemeCurrent.totalReturns)} ",
                                       style: kGoogleStyleTexts.copyWith(
                                           color: hexToColor(widget.schemeCurrent
                                                       .totalReturns >
@@ -360,7 +363,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 horizontal: 18.0 *
                                     MediaQuery.of(context).size.width /
                                     360,
-                                vertical: 10.0 *
+                                vertical: 12.0 *
                                     MediaQuery.of(context).size.width /
                                     360),
                             child: Row(
@@ -407,7 +410,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                     style: kGoogleStyleTexts.copyWith(
                         color: hexToColor(AppColors.blackTextColor),
                         fontSize:
-                            15.0 * MediaQuery.of(context).size.width / 360),
+                            16.0 * MediaQuery.of(context).size.width / 360),
                   ),
                 ),
                 Container(
@@ -429,15 +432,15 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                               AppStrings.investments,
                               style: kGoogleStyleTexts.copyWith(
                                   color: hexToColor(AppColors.blackTextColor),
-                                  fontSize: 15.0 *
+                                  fontSize: 13.0 *
                                       MediaQuery.of(context).size.width /
                                       360),
                             ),
                             Text(
-                              "(${AllData.schemeMap[widget.schemeKey]?.data.length})",
+                              " (${AllData.schemeMap[widget.schemeKey]?.data.length})",
                               style: kGoogleStyleTexts.copyWith(
                                   color: hexToColor(AppColors.blackTextColor),
-                                  fontSize: 13.0 *
+                                  fontSize: 11.0 *
                                       MediaQuery.of(context).size.width /
                                       360,
                                   fontWeight: FontWeight.w100),
@@ -446,27 +449,38 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                         ),
                       ),
                       Container(
+                        padding: EdgeInsets.zero,
                         alignment: Alignment.centerRight,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(
-                                10 * MediaQuery.of(context).size.width / 360))),
+                        // decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.all(Radius.circular(
+                        //         10 * MediaQuery.of(context).size.width / 360),
+                        //     ),
+                        // ),
                         child: Row(
                           children: [
                             Text(
                               "Sort",
                               style: kGoogleStyleTexts.copyWith(
-                                  color: hexToColor(AppColors.blackTextColor),
-                                  fontSize: 15.0),
+                                  color:
+                                      hexToColor(AppColors.investedValueMain),
+                                  fontSize: 12.0 *
+                                      MediaQuery.of(context).size.width /
+                                      360),
                             ),
                             IconButton(
+                              padding: EdgeInsets.zero,
                               icon: AnimatedContainer(
+                                margin: EdgeInsets.zero,
                                 duration: const Duration(seconds: 3),
                                 child: Transform.rotate(
                                   angle: srt == '0' ? 0 : 180 * 3.14 / 180,
                                   child: Icon(
                                     Icons.sort,
+                                    size: 12 *
+                                        MediaQuery.of(context).size.width /
+                                        360,
                                     color: hexToColor(AppColors
-                                        .loginBtnColor), //Colors.blueAccent,
+                                        .investedValueMain), //Colors.blueAccent,
                                   ),
                                 ),
                               ),
@@ -487,6 +501,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
             ),
           ),
           ListView.builder(
+            padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
@@ -500,8 +515,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 
               return Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: 6.0 * MediaQuery.of(context).size.width / 360,
-                    horizontal: 17 * MediaQuery.of(context).size.width / 360),
+                    vertical: 5.0 * MediaQuery.of(context).size.width / 360,
+                    horizontal: 16 * MediaQuery.of(context).size.width / 360),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   // color: Colors.transparent,
@@ -519,204 +534,163 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             5 * MediaQuery.of(context).size.width / 360),
                       ),
                     ),
-                    padding: EdgeInsets.all(
-                        11 * MediaQuery.of(context).size.width / 360),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 12 * MediaQuery.of(context).size.width / 360),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Folio Number",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  12 * MediaQuery.of(context).size.width / 360),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Folio Number",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item!.folioNumber.toString(),
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                              Container(
+                                // width: 100 * MediaQuery.of(context).size.width / 360,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 6.0 *
+                                        MediaQuery.of(context).size.width /
+                                        360,
+                                    horizontal: 10 *
+                                        MediaQuery.of(context).size.width /
+                                        360),
+                                decoration: BoxDecoration(
+                                    color: hexToColor(
+                                            AppColors.installmentsBoxColor)
+                                        .withOpacity(0.3),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(4 *
                                             MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(item!.folioNumber.toString(),
+                                            360))),
+                                child: Text(
+                                    "Installment ${item.installmentNumber.toString().padLeft(2, '0')}",
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
+                                            AppColors.installmentsColor),
+                                        fontSize: 12.0 *
                                             MediaQuery.of(context).size.width /
                                             360),
                                     softWrap: true,
                                     textAlign: TextAlign.left),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text("Installment No",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(item.installmentNumber.toString(),
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                              top: 10 * MediaQuery.of(context).size.width / 360,
+                              right:
+                                  12 * MediaQuery.of(context).size.width / 360,
+                              left:
+                                  12 * MediaQuery.of(context).size.width / 360),
+                          // color: hexToColor(AppColors.installmentsBoxColor)
+                          //     .withOpacity(0.3),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Transaction Type",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                                  AppColors.blackTextColor)
+                                              .withOpacity(0.65),
+                                          fontSize: 12.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(item.transType,
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.investedValueMain),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text("Amount",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.blackTextColor),
+                                          fontSize: 12.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                  Text(
+                                      "\u{20B9} ${oCcy.format(item.amount).replaceFirst('.00', '')}",
+                                      style: kGoogleStyleTexts.copyWith(
+                                          color: hexToColor(
+                                              AppColors.investedValueMain),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.0 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              360),
+                                      softWrap: true,
+                                      textAlign: TextAlign.left),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
-                          height: 5 * MediaQuery.of(context).size.width / 360,
+                          height: 4.0 * MediaQuery.of(context).size.width / 360,
                         ),
-                        Row(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Transaction Type",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(item.transType,
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text("Amount",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(
-                                    "\u{20B9}${oCcy.format(item.amount).replaceFirst('.00', '')}",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5 * MediaQuery.of(context).size.width / 360,
-                        ),
-                        const Divider(
-                          color: Colors.black26,
-                          //Colors.white70,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Date",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(item.date.replaceAll("-", "/"),
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text("Units",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(item.units.toString(),
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text("N.A.V.",
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.blackTextColor)
-                                                .withOpacity(0.65),
-                                        fontSize: 11.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                                Text(item.nav.toString(),
-                                    style: kGoogleStyleTexts.copyWith(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
-                                        fontSize: 13.0 *
-                                            MediaQuery.of(context).size.width /
-                                            360),
-                                    softWrap: true,
-                                    textAlign: TextAlign.left),
-                              ],
-                            ),
+                            buildListRow(context, "Date",
+                                item.date.replaceAll("-", "/")),
+                            buildListRow(
+                                context, "Units", item.units.toString()),
+                            buildListRow(context, "N.A.V", item.nav.toString()),
                           ],
                         ),
                       ],
@@ -729,6 +703,33 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           SizedBox(
             height: 10 * MediaQuery.of(context).size.width / 360,
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildListRow(BuildContext context, field, item) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical: 4.0 * MediaQuery.of(context).size.width / 360,
+          horizontal: 12 * MediaQuery.of(context).size.width / 360),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(field,
+              style: kGoogleStyleTexts.copyWith(
+                  color: hexToColor(AppColors.investedValueMain),
+                  fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
+              softWrap: true,
+              textAlign: TextAlign.left),
+          Text(item,
+              style: kGoogleStyleTexts.copyWith(
+                  color: hexToColor(AppColors.investedValueMain),
+                  fontSize: 12.0 * MediaQuery.of(context).size.width / 360,
+                  fontWeight: FontWeight.w600),
+              softWrap: true,
+              textAlign: TextAlign.left),
         ],
       ),
     );
