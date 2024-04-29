@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'dart:math';
 import 'package:intl/intl.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
@@ -465,7 +464,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                         child: Row(
                           children: [
                             Text(
-                              "Sort",
+                              "Sort (By Date)",
                               style: kGoogleStyleTexts.copyWith(
                                   color:
                                       hexToColor(AppColors.investedValueMain),
@@ -478,8 +477,10 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                               icon: AnimatedContainer(
                                 margin: EdgeInsets.zero,
                                 duration: const Duration(seconds: 3),
-                                child: Transform.rotate(
-                                  angle: srt == '0' ? 0 : 180 * 3.14 / 180,
+                                child: Transform(
+                                  alignment: Alignment.center,
+                                  transform:
+                                      Matrix4.rotationX(srt == '0' ? 0 : pi),
                                   child: Icon(
                                     Icons.sort,
                                     size: 12 *

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
@@ -794,40 +795,63 @@ class _DashboardState extends State<Dashboard> {
                               11.0 * MediaQuery.of(context).size.width / 360,
                           fontWeight: FontWeight.w500),
                     ),
+                    // IconButton(
+                    //   // icon: AnimatedContainer(
+                    //   //   duration: const Duration(seconds: 3),
+                    //   //   child: Transform.rotate(
+                    //   //     angle: srt == '0' ? 0 : 180 * 3.14 / 180,
+                    //   //     child: Icon(
+                    //   //       Icons.sort,
+                    //   //       color: hexToColor(AppColors.loginBtnColor)
+                    //   //           .withOpacity(0.6),
+                    //   //     ),
+                    //   //   ),
+                    //   // ),
+                    //   alignment: Alignment.center,
+                    //   icon: Icon(
+                    //     srt != '0'
+                    //         ? Icons.arrow_downward_outlined
+                    //         : Icons.arrow_upward_outlined,
+                    //     size: 16 * MediaQuery.of(context).size.width / 360,
+                    //     color: hexToColor(AppColors.investedValueMain),
+                    //   ),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       srt = (srt == '0') ? '1' : '0';
+                    //       // Navigator.of(context).pop();
+                    //     });
+                    //     // WidgetsBinding.instance
+                    //     //     .addPostFrameCallback((_) => );
+                    //     // showModalBottomSheet(
+                    //     //   context: context,
+                    //     //   builder: (BuildContext context) {
+                    //     //     return buildBottomSheetContainerForSorting(context);
+                    //     //   },
+                    //     // );
+                    //     //builderList
+                    //   },
+                    // ),
                     IconButton(
-                      // icon: AnimatedContainer(
-                      //   duration: const Duration(seconds: 3),
-                      //   child: Transform.rotate(
-                      //     angle: srt == '0' ? 0 : 180 * 3.14 / 180,
-                      //     child: Icon(
-                      //       Icons.sort,
-                      //       color: hexToColor(AppColors.loginBtnColor)
-                      //           .withOpacity(0.6),
-                      //     ),
-                      //   ),
-                      // ),
-                      alignment: Alignment.center,
-                      icon: Icon(
-                        srt != '0'
-                            ? Icons.arrow_downward_outlined
-                            : Icons.arrow_upward_outlined,
-                        size: 16 * MediaQuery.of(context).size.width / 360,
-                        color: hexToColor(AppColors.investedValueMain),
+                      padding: EdgeInsets.zero,
+                      icon: AnimatedContainer(
+                        margin: EdgeInsets.zero,
+                        duration: const Duration(seconds: 3),
+                        child: Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.rotationX(srt == '0' ? 0 : pi),
+                          child: Icon(
+                            Icons.sort,
+                            size: 12 * MediaQuery.of(context).size.width / 360,
+                            color: hexToColor(AppColors
+                                .investedValueMain), //Colors.blueAccent,
+                          ),
+                        ),
                       ),
                       onPressed: () {
                         setState(() {
                           srt = (srt == '0') ? '1' : '0';
                           // Navigator.of(context).pop();
                         });
-                        // WidgetsBinding.instance
-                        //     .addPostFrameCallback((_) => );
-                        // showModalBottomSheet(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return buildBottomSheetContainerForSorting(context);
-                        //   },
-                        // );
-                        //builderList
                       },
                     ),
                   ],
@@ -972,7 +996,7 @@ class _DashboardState extends State<Dashboard> {
                           children: [
                             Container(
                               width:
-                                  82 * MediaQuery.of(context).size.width / 360,
+                                  80 * MediaQuery.of(context).size.width / 360,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1006,8 +1030,9 @@ class _DashboardState extends State<Dashboard> {
                                         360,
                                   ),
                                   ValueText(
-                                      item:
-                                          "${AppStrings.rupeeSign} ${oCcy.format(item.invested).contains('.00') ? oCcy.format(item.invested).replaceAll('.00', '') : oCcy.format(item.invested)}",
+                                      item: (item.invested < 100000)
+                                          ? "${AppStrings.rupeeSign} ${oCcy.format(item.invested / 1000).contains('.00') ? oCcy.format(item.invested / 1000).replaceAll('.00', '') : oCcy.format(item.invested / 1000)} K"
+                                          : "${AppStrings.rupeeSign} ${oCcy.format(item.invested / 100000).contains('.00') ? oCcy.format(item.invested / 100000).replaceAll('.00', '') : oCcy.format(item.invested / 100000)} L",
                                       color: AppColors.investedValueMain)
                                 ],
                               ),
@@ -1027,9 +1052,10 @@ class _DashboardState extends State<Dashboard> {
                                         360,
                                   ),
                                   ValueText(
-                                      item:
-                                          "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue)}",
-                                      color: AppColors.investedValueMain)
+                                      item: (item.currentValue < 100000)
+                                          ? "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue / 1000).contains('.00') ? oCcy.format(item.currentValue / 1000).replaceAll('.00', '') : oCcy.format(item.currentValue / 1000)} K"
+                                          : "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue / 100000).contains('.00') ? oCcy.format(item.currentValue / 100000).replaceAll('.00', '') : oCcy.format(item.currentValue / 100000)} L",
+                                      color: AppColors.investedValueMain),
                                 ],
                               ),
                             )
