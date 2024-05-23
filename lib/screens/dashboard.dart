@@ -1028,7 +1028,7 @@ class _DashboardState extends State<Dashboard> {
                                   ),
                                   ValueText(
                                       item:
-                                          "${item.absReturns > 0.0 ? "+" : ""} ${item.absReturns}",
+                                          "${item.absReturns > 0.0 ? "+" : ""} ${item.absReturns}%",
                                       color:
                                           getConditionalColor(item.absReturns))
                                 ],
