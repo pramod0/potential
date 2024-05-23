@@ -500,7 +500,6 @@ class _DashboardState extends State<Dashboard> {
                           onTap: _logout,
                         ),
                         // Add some spacing
-
                         const Divider(), // Add a divider
                         ListTile(
                           // padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -898,6 +897,10 @@ class _DashboardState extends State<Dashboard> {
                 data.sort((a, b) => (int.parse(srt) == 1
                     ? a.invested.compareTo(b.invested)
                     : b.invested.compareTo(a.invested)));
+              } else if (sortFeature == "Start Date") {
+                data.sort((a, b) => (int.parse(srt) == 1
+                    ? a.sinceDate.compareTo(b.sinceDate)
+                    : b.sinceDate.compareTo(a.sinceDate)));
               } else {
                 data.sort((a, b) => (int.parse(srt) == 1
                     ? a.schemeName
@@ -1017,7 +1020,7 @@ class _DashboardState extends State<Dashboard> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SubHeadingText(item: "XIRR"),
+                                  const SubHeadingText(item: "P&L"),
                                   SizedBox(
                                     height: 6 *
                                         MediaQuery.of(context).size.width /
@@ -1025,10 +1028,9 @@ class _DashboardState extends State<Dashboard> {
                                   ),
                                   ValueText(
                                       item:
-                                          "${item.xirr > 0.0 ? "+" : ""} ${item.xirr}%",
-                                      color: item.xirr > 0.0
-                                          ? AppColors.greenAccent
-                                          : AppColors.redAccent)
+                                          "${item.absReturns > 0.0 ? "+" : ""} ${item.absReturns}",
+                                      color:
+                                          getConditionalColor(item.absReturns))
                                 ],
                               ),
                             ),
@@ -1082,11 +1084,9 @@ class _DashboardState extends State<Dashboard> {
                                         360,
                                   ),
                                   ValueText(
-                                      item: i == 1
-                                          ? "${AppStrings.rupeeSign} 25.67 L"
-                                          : (item.currentValue < 100000)
-                                              ? "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue / 1000).contains('.00') ? oCcy.format(item.currentValue / 1000).replaceAll('.00', '') : oCcy.format(item.currentValue / 1000)} K"
-                                              : "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue / 100000).contains('.00') ? oCcy.format(item.currentValue / 100000).replaceAll('.00', '') : oCcy.format(item.currentValue / 100000)} L",
+                                      item: (item.currentValue < 100000)
+                                          ? "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue / 1000).contains('.00') ? oCcy.format(item.currentValue / 1000).replaceAll('.00', '') : oCcy.format(item.currentValue / 1000)} K"
+                                          : "${AppStrings.rupeeSign} ${oCcy.format(item.currentValue / 100000).contains('.00') ? oCcy.format(item.currentValue / 100000).replaceAll('.00', '') : oCcy.format(item.currentValue / 100000)} L",
                                       color: AppColors.investedValueMain),
                                 ],
                               ),
@@ -1109,6 +1109,12 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  String getConditionalColor(item) {
+    return item == 0.0
+        ? AppColors.investedValueMain
+        : (item > 0.0 ? AppColors.greenAccent : AppColors.redAccent);
+  }
+
   Column buildXIRR(context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -1118,9 +1124,7 @@ class _DashboardState extends State<Dashboard> {
           "${AllData.investedData.xirr > 0.0 ? "+ " : ""}${AllData.investedData.xirr.toStringAsFixed(2)}%"
               .toString(),
           style: kGoogleStyleTexts.copyWith(
-            color: hexToColor(AllData.investedData.xirr > 0.0
-                ? AppColors.greenAccent
-                : AppColors.redAccent),
+            color: hexToColor(getConditionalColor(AllData.investedData.xirr)),
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -1138,9 +1142,8 @@ class _DashboardState extends State<Dashboard> {
           "${AllData.investedData.totalReturns > 0.0 ? "+ " : ""}${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           // "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
+            color: hexToColor(
+                getConditionalColor(AllData.investedData.totalReturns)),
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -1155,16 +1158,30 @@ class _DashboardState extends State<Dashboard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildMainCardField(context, "Total Returns"),
-        Text(
-          "${AllData.investedData.totalReturns > 0.0 ? "+ " : ""}${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.totalReturns)}",
-          style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
-            fontWeight: FontWeight.w500,
-            fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
-          ),
-          softWrap: true,
+        Row(
+          children: [
+            Text(
+              "${AllData.investedData.totalReturns > 0.0 ? "+ " : ""}${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.totalReturns)}",
+              style: kGoogleStyleTexts.copyWith(
+                color: hexToColor(
+                    getConditionalColor(AllData.investedData.totalReturns)),
+                fontWeight: FontWeight.w500,
+                fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
+              ),
+              softWrap: true,
+            ),
+            Text(
+              " (${AllData.investedData.absReturns > 0.0 ? (AllData.investedData.absReturns) : (AllData.investedData.absReturns * -1)}%)",
+              textAlign: TextAlign.end,
+              style: kGoogleStyleTexts.copyWith(
+                color: hexToColor(
+                    getConditionalColor(AllData.investedData.totalReturns)),
+                fontWeight: FontWeight.w500,
+                fontSize: 11.0 * MediaQuery.of(context).size.width / 360,
+              ),
+              softWrap: true,
+            ),
+          ],
         ),
       ],
     );
@@ -1178,9 +1195,8 @@ class _DashboardState extends State<Dashboard> {
         Text(
           "${AllData.investedData.sinceDaysCAGR > 0.0 ? "+ " : ""}${(AllData.investedData.sinceDaysCAGR)}%",
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
+            color: hexToColor(
+                getConditionalColor(AllData.investedData.sinceDaysCAGR)),
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -1608,6 +1624,26 @@ class _DashboardState extends State<Dashboard> {
                 selected: true,
                 activeColor: hexToColor(AppColors.loginBtnColor),
                 value: "Invested",
+                groupValue: sortFeature,
+                onChanged: (value) {
+                  setState(() {
+                    sortFeature = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+              RadioListTile(
+                title: Text(
+                  'Start Date',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: hexToColor(AppColors.blackTextColor),
+                      fontSize: 14.0),
+                ),
+                selected: true,
+                activeColor: hexToColor(AppColors.loginBtnColor),
+                value: "Start Date",
                 groupValue: sortFeature,
                 onChanged: (value) {
                   setState(() {
