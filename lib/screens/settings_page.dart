@@ -31,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
         children: [
           Text(
             'General',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 10.0),
           ListTile(
@@ -46,7 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
           const Divider(),
           Text(
             'Account',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 10.0),
           ListTile(
