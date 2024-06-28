@@ -25,7 +25,8 @@ class AppColors {
   //static const appThemeColor = "#181E2C";
   static const appThemeColor = "#F3F3F3";
   static const appThemeColorAppBar = "#F8F8F8";
-  static const homeBG = "#F7F9F9";
+  static const homeBG = "#F3F5F9"; //"#F4F7F7" "#F7F9F9"
+  static const appBarBG = "#FEFEFC"; //"#F4F7F7" "#F7F9F9"
 
   // static const formBorder = "#F8F8F8";
   static const formBorder = "#c0c0c0";

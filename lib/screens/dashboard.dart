@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -133,7 +135,7 @@ class _DashboardState extends State<Dashboard> {
       //
       // ]
     );
-    await ScaffoldMessenger.of(context).showMaterialBanner(banner);
+    ScaffoldMessenger.of(context).showMaterialBanner(banner);
     await Future.delayed(const Duration(milliseconds: 800));
     ScaffoldMessenger.of(context).clearMaterialBanners();
   }
@@ -370,79 +372,52 @@ class _DashboardState extends State<Dashboard> {
                 color: Colors.black,
               ),
             ),
-            drawer: Drawer(
-              elevation: 0,
-              backgroundColor: hexToColor(AppColors.homeBG),
+            // drawerDragStartBehavior: DragStartBehavior.start,
+            drawer: Container(
+              // elevation: 0,
+              decoration: BoxDecoration(
+                color: hexToColor(AppColors.homeBG),
+              ),
+              padding: EdgeInsets.zero,
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width * 0.75,
-              child: Container(
-                padding: EdgeInsets.zero,
-                child: ListView(
-                  // Important: Remove any padding from the ListView.
-                  // itemExtent: 100,
-                  // padding: EdgeInsets.zero,
-                  children: [
-                    DrawerHeader(
-                      margin: EdgeInsets.zero,
-                      // padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade200.withOpacity(0.1),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Hi, ${AllData.investorData.firstName}",
-                            style: kGoogleStyleTexts.copyWith(
-                              fontWeight: FontWeight.w700,
-                              wordSpacing: 1,
-                              fontSize: 20,
-                              color: hexToColor(AppColors.blackTextColor),
-                            ),
-                          ),
-                          // Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   children: [
-                          //     Text(
-                          //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
-                          //       style: kGoogleStyleTexts.copyWith(
-                          //         color: hexToColor(AppColors.blackTextColor)
-                          //             .withOpacity(0.87),
-                          //         fontSize: 24.0,
-                          //       ),
-                          //       textAlign: TextAlign.start,
-                          //     ),
-                          //     Text(
-                          //       "(${AllData.investorData.panCard})",
-                          //       style: kGoogleStyleTexts.copyWith(
-                          //         color: hexToColor(AppColors.blackTextColor)
-                          //             .withOpacity(0.87),
-                          //         fontSize: 15.0,
-                          //       ),
-                          //       textAlign: TextAlign.start,
-                          //     ),
-                          //   ],
-                          // ),
-
-                          // Manish jain told Pramod to hide this
-                          // Text(
-                          //   "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
-                          //   style: kGoogleStyleTexts.copyWith(
-                          //     color: hexToColor(AppColors.blackTextColor)
-                          //         .withOpacity(0.87),
-                          //     fontSize: 12.0,
-                          //   ),
-                          //   textAlign: TextAlign.left,
-                          // ),
-                        ],
-                      ),
+              child: Column(
+                // Important: Remove any padding from the ListView.
+                // itemExtent: 100,
+                // padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.20,
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent.shade200.withOpacity(0.1),
                     ),
-                    Column(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hi, ${AllData.investorData.firstName}",
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            wordSpacing: 1,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    // padding: const EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: Column(
                       children: [
                         ListTile(
                           tileColor: hexToColor(AppColors.homeBG),
-                          leading: Icon(Icons.person_rounded),
+                          leading: const Icon(Icons.person_rounded),
                           title: Text(
                             "Profile",
                             style: kGoogleStyleTexts.copyWith(
@@ -453,7 +428,7 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage())),
+                                  builder: (context) => const ProfilePage())),
                           // onTap: _logout,
                         ),
                         ListTile(
@@ -509,7 +484,9 @@ class _DashboardState extends State<Dashboard> {
                         //       MaterialPageRoute(
                         //           builder: (context) => SettingsPage())),
                         // ),
+                        const Spacer(),
                         ListTile(
+                          // leading: const SizedBox.shrink(),
                           tileColor: hexToColor(AppColors.homeBG),
                           leading: const Icon(Icons.logout_outlined),
                           title: Text(
@@ -522,8 +499,7 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           onTap: _logout,
                         ),
-
-                        const SizedBox(height: 8), // Add some spacing
+                        // Add some spacing
                         const Divider(), // Add a divider
                         ListTile(
                           // padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -542,10 +518,10 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
+                  ),
 
-                    // Flex(direction: Axis.vertical, children: [SizedBox()]),
-                  ],
-                ),
+                  // Flex(direction: Axis.vertical, children: [SizedBox()]),
+                ],
               ),
             ),
             backgroundColor: hexToColor(AppColors.homeBG),
@@ -565,8 +541,11 @@ class _DashboardState extends State<Dashboard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 0.0),
+            padding: EdgeInsets.only(
+              top: 7.5 * MediaQuery.of(context).size.width / 360,
+              left: 15.0 * MediaQuery.of(context).size.width / 360,
+              right: 15.0 * MediaQuery.of(context).size.width / 360,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -602,7 +581,9 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 7, bottom: 10),
+                  padding: EdgeInsets.only(
+                      top: 7 * MediaQuery.of(context).size.width / 360,
+                      bottom: 10 * MediaQuery.of(context).size.width / 360),
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: Row(
@@ -637,7 +618,7 @@ class _DashboardState extends State<Dashboard> {
                       borderRadius: BorderRadius.all(Radius.circular(
                           8 * MediaQuery.of(context).size.width / 360)),
                       side: BorderSide(
-                        width: 1,
+                        width: 1 * MediaQuery.of(context).size.width / 360,
                         color: hexToColor("#2196F3")
                             .withOpacity(0.2), //Colors.white30,
                       )),
@@ -650,10 +631,12 @@ class _DashboardState extends State<Dashboard> {
                         elevation: 0,
                         surfaceTintColor: hexToColor(AppColors.whiteTextColor),
                         margin: EdgeInsets.zero,
-                        shape: const RoundedRectangleBorder(
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8)),
+                              topLeft: Radius.circular(
+                                  8 * MediaQuery.of(context).size.width / 360),
+                              topRight: Radius.circular(
+                                  8 * MediaQuery.of(context).size.width / 360)),
                         ),
                         borderOnForeground: true,
                         color: hexToColor(AppColors.contrastContainer)
@@ -755,13 +738,14 @@ class _DashboardState extends State<Dashboard> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      buildAbsReturns(context),
+                                      // buildAbsReturns(context),
+                                      buildXIRR(context),
                                       SizedBox(
                                         height: 12 *
                                             MediaQuery.of(context).size.width /
                                             360,
                                       ),
-                                      buildXIRR(context),
+                                      buildCAGR(context),
                                     ],
                                   ),
                                 ],
@@ -913,6 +897,10 @@ class _DashboardState extends State<Dashboard> {
                 data.sort((a, b) => (int.parse(srt) == 1
                     ? a.invested.compareTo(b.invested)
                     : b.invested.compareTo(a.invested)));
+              } else if (sortFeature == "Start Date") {
+                data.sort((a, b) => (int.parse(srt) == 1
+                    ? a.sinceDate.compareTo(b.sinceDate)
+                    : b.sinceDate.compareTo(a.sinceDate)));
               } else {
                 data.sort((a, b) => (int.parse(srt) == 1
                     ? a.schemeName
@@ -959,10 +947,15 @@ class _DashboardState extends State<Dashboard> {
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width * 0.6,
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 2 *
+                                      MediaQuery.of(context).size.width /
+                                      360),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(5 *
+                                          MediaQuery.of(context).size.width /
+                                          360))),
                               child: Text(item.schemeName,
                                   style: kGoogleStyleTexts.copyWith(
                                       color: hexToColor(AppColors.schemeColor),
@@ -973,16 +966,40 @@ class _DashboardState extends State<Dashboard> {
                                   softWrap: true,
                                   textAlign: TextAlign.left),
                             ),
-                            Text(item.sinceDate.replaceAll('-', '/'),
-                                style: kGoogleStyleTexts.copyWith(
-                                    color: hexToColor(AppColors.fieldColor),
-                                    fontSize: 12.0 *
-                                        MediaQuery.of(context).size.width /
-                                        360,
-                                    height: 2,
-                                    fontWeight: FontWeight.normal),
-                                softWrap: true,
-                                textAlign: TextAlign.right),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                // Text("Since",
+                                //     style: kGoogleStyleTexts.copyWith(
+                                //         color: hexToColor(AppColors.fieldColor),
+                                //         fontSize: 12.0 *
+                                //             MediaQuery.of(context).size.width /
+                                //             360,
+                                //         height: 2 *
+                                //             MediaQuery.of(context).size.width /
+                                //             360,
+                                //         fontWeight: FontWeight.w600),
+                                //     softWrap: true,
+                                //     textAlign: TextAlign.right),
+                                Text(
+                                    DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                                        .format(
+                                      DateTime.parse(item.sinceDate),
+                                    ),
+                                    style: kGoogleStyleTexts.copyWith(
+                                        color: hexToColor(AppColors.fieldColor),
+                                        fontSize: 12.0 *
+                                            MediaQuery.of(context).size.width /
+                                            360,
+                                        height: 2 *
+                                            MediaQuery.of(context).size.width /
+                                            360,
+                                        fontWeight: FontWeight.w500),
+                                    softWrap: true,
+                                    textAlign: TextAlign.right),
+                              ],
+                            ),
                           ],
                         ),
                         Divider(
@@ -995,8 +1012,10 @@ class _DashboardState extends State<Dashboard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              width:
-                                  80 * MediaQuery.of(context).size.width / 360,
+                              // color: Colors.orangeAccent,
+                              // width:
+                              //     85 * MediaQuery.of(context).size.width / 360,
+                              padding: EdgeInsets.zero,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1009,16 +1028,22 @@ class _DashboardState extends State<Dashboard> {
                                   ),
                                   ValueText(
                                       item:
-                                          "${item.absReturns > 0.0 ? "+" : "-"} ${item.absReturns}%",
-                                      color: item.absReturns > 0.0
-                                          ? AppColors.greenAccent
-                                          : AppColors.redAccent)
+                                          "${item.absReturns > 0.0 ? "+" : ""} ${item.absReturns}%",
+                                      color:
+                                          getConditionalColor(item.absReturns))
                                 ],
                               ),
                             ),
                             Container(
-                              width:
-                                  90 * MediaQuery.of(context).size.width / 360,
+                              padding: EdgeInsets.only(
+                                left: 12 *
+                                    MediaQuery.of(context).size.width /
+                                    360,
+                              ),
+                              // color: Colors.redAccent,
+                              // width:
+                              //     108 * MediaQuery.of(context).size.width / 360,
+                              // padding: EdgeInsets.zero,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1037,9 +1062,16 @@ class _DashboardState extends State<Dashboard> {
                                 ],
                               ),
                             ),
+                            // Spacer(),
                             Container(
-                              width:
-                                  82 * MediaQuery.of(context).size.width / 360,
+                              padding: EdgeInsets.only(
+                                left: 12 *
+                                    MediaQuery.of(context).size.width /
+                                    360,
+                              ),
+                              // color: Colors.redAccent,
+                              // width:
+                              //     108 * MediaQuery.of(context).size.width / 360,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1058,7 +1090,8 @@ class _DashboardState extends State<Dashboard> {
                                       color: AppColors.investedValueMain),
                                 ],
                               ),
-                            )
+                            ),
+                            // const Spacer(),
                           ],
                         ),
                       ],
@@ -1076,17 +1109,22 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  String getConditionalColor(item) {
+    return item == 0.0
+        ? AppColors.investedValueMain
+        : (item > 0.0 ? AppColors.greenAccent : AppColors.redAccent);
+  }
+
   Column buildXIRR(context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         buildMainCardField(context, "XIRR"),
         Text(
-          "${AllData.investedData.xirr.toStringAsFixed(2)}%".toString(),
+          "${AllData.investedData.xirr > 0.0 ? "+ " : ""}${AllData.investedData.xirr.toStringAsFixed(2)}%"
+              .toString(),
           style: kGoogleStyleTexts.copyWith(
-            color: hexToColor(AllData.investedData.xirr > 0.0
-                ? AppColors.greenAccent
-                : AppColors.redAccent),
+            color: hexToColor(getConditionalColor(AllData.investedData.xirr)),
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -1101,12 +1139,11 @@ class _DashboardState extends State<Dashboard> {
       children: [
         buildMainCardField(context, "% Returns"),
         Text(
-          "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} ${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
+          "${AllData.investedData.totalReturns > 0.0 ? "+ " : ""}${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           // "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
+            color: hexToColor(
+                getConditionalColor(AllData.investedData.totalReturns)),
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -1121,12 +1158,45 @@ class _DashboardState extends State<Dashboard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildMainCardField(context, "Total Returns"),
+        Row(
+          children: [
+            Text(
+              "${AllData.investedData.totalReturns > 0.0 ? "+ " : ""}${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.totalReturns)}",
+              style: kGoogleStyleTexts.copyWith(
+                color: hexToColor(
+                    getConditionalColor(AllData.investedData.totalReturns)),
+                fontWeight: FontWeight.w500,
+                fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
+              ),
+              softWrap: true,
+            ),
+            Text(
+              " (${AllData.investedData.absReturns > 0.0 ? (AllData.investedData.absReturns) : (AllData.investedData.absReturns * -1)}%)",
+              textAlign: TextAlign.end,
+              style: kGoogleStyleTexts.copyWith(
+                color: hexToColor(
+                    getConditionalColor(AllData.investedData.totalReturns)),
+                fontWeight: FontWeight.w500,
+                fontSize: 11.0 * MediaQuery.of(context).size.width / 360,
+              ),
+              softWrap: true,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Column buildCAGR(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        buildMainCardField(context, "CAGR"),
         Text(
-          "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} ${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.totalReturns)}",
+          "${AllData.investedData.sinceDaysCAGR > 0.0 ? "+ " : ""}${(AllData.investedData.sinceDaysCAGR)}%",
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
+            color: hexToColor(
+                getConditionalColor(AllData.investedData.sinceDaysCAGR)),
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -1554,6 +1624,26 @@ class _DashboardState extends State<Dashboard> {
                 selected: true,
                 activeColor: hexToColor(AppColors.loginBtnColor),
                 value: "Invested",
+                groupValue: sortFeature,
+                onChanged: (value) {
+                  setState(() {
+                    sortFeature = value.toString();
+                    srt = "0";
+                    Navigator.of(context).pop();
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.trailing,
+              ),
+              RadioListTile(
+                title: Text(
+                  'Start Date',
+                  style: kGoogleStyleTexts.copyWith(
+                      color: hexToColor(AppColors.blackTextColor),
+                      fontSize: 14.0),
+                ),
+                selected: true,
+                activeColor: hexToColor(AppColors.loginBtnColor),
+                value: "Start Date",
                 groupValue: sortFeature,
                 onChanged: (value) {
                   setState(() {

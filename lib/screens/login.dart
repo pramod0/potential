@@ -252,47 +252,112 @@ class _LoginPageState extends State<LoginPage> {
                         const EdgeInsets.only(top: 10.0, left: 8, right: 8),
                     child: Form(
                       key: _formKey,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  AppStrings.emailID,
+                      child: AutofillGroup(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    AppStrings.emailID,
+                                    style: kGoogleStyleTexts.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: hexToColor(AppColors
+                                            .blackTextColor) //hexToColor("#ffffff"),
+                                        ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: maxLines * 25.0,
+                              child: TextFormField(
+                                  // onTap: () {
+                                  //   TextInput.finishAutofillContext();
+                                  // },
+                                  autofillHints: const [AutofillHints.username],
+                                  textInputAction: TextInputAction.next,
+                                  controller: usernameController,
+                                  onSaved: (val) =>
+                                      usernameController.text = val!,
+                                  keyboardType: TextInputType.text,
                                   style: kGoogleStyleTexts.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                      color: hexToColor(AppColors
-                                          .blackTextColor) //hexToColor("#ffffff"),
+                                      fontWeight: FontWeight.w400,
+                                      color:
+                                          hexToColor(AppColors.blackTextColor),
+                                      //hexToColor("#ffffff"),
+                                      fontSize: 15.0),
+                                  maxLines: 1,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide(
+                                        color: hexToColor(
+                                            AppColors.noFocusBorderColor),
+                                        width: 1.0,
                                       ),
-                                )),
-                          ),
-                          SizedBox(
-                            height: maxLines * 25.0,
-                            child: TextFormField(
-                                // onTap: () {
-                                //   TextInput.finishAutofillContext();
-                                // },
-                                autofillHints: const [AutofillHints.username],
-                                textInputAction: TextInputAction.next,
-                                controller: usernameController,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(8.0)),
+                                        borderSide: BorderSide(
+                                            color: hexToColor(
+                                                AppColors.hintTextColor))),
+                                    fillColor:
+                                        const Color.fromARGB(30, 173, 205, 219),
+                                    filled: true,
+                                    hintText: AppStrings.emailHintText,
+                                    hintStyle: kGoogleStyleTexts.copyWith(
+                                        color:
+                                            hexToColor(AppColors.hintTextColor),
+                                        //hexToColor("#ffffff"),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal),
+                                  )),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    AppStrings.userPassword,
+                                    style: kGoogleStyleTexts.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: hexToColor(AppColors
+                                            .blackTextColor) //hexToColor("#ffffff"),
+                                        ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: maxLines * 25.0,
+                              child: TextFormField(
+                                textInputAction: TextInputAction.done,
+                                textAlign: TextAlign.justify,
+                                controller: passwordController,
                                 onSaved: (val) =>
-                                    usernameController.text = val!,
+                                    passwordController.text = val!,
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
-                                    color: hexToColor(AppColors.blackTextColor),
-                                    //hexToColor("#ffffff"),
+                                    color: hexToColor(AppColors
+                                        .blackTextColor), //hexToColor("#ffffff"),
                                     fontSize: 15.0),
+                                autofillHints: const [AutofillHints.password],
                                 maxLines: 1,
+                                obscureText: !_showPassword,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 15),
-                                  border: InputBorder.none,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
@@ -301,101 +366,42 @@ class _LoginPageState extends State<LoginPage> {
                                       width: 1.0,
                                     ),
                                   ),
+                                  border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(8.0)),
                                       borderSide: BorderSide(
-                                          color: hexToColor(
-                                              AppColors.hintTextColor))),
+                                        color: hexToColor(
+                                            AppColors.blackTextColor),
+                                      )),
                                   fillColor:
                                       const Color.fromARGB(30, 173, 205, 219),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      _toggleVisibility();
+                                    },
+                                    child: Icon(
+                                      _showPassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color:
+                                          hexToColor(AppColors.blackTextColor),
+                                      //hexToColor(AppColors.whiteBorderColor),
+                                      size: 22,
+                                    ),
+                                  ),
                                   filled: true,
-                                  hintText: AppStrings.emailHintText,
+                                  hintText: AppStrings.passwordHintText,
                                   hintStyle: kGoogleStyleTexts.copyWith(
                                       color:
                                           hexToColor(AppColors.hintTextColor),
-                                      //hexToColor("#ffffff"),
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal),
-                                )),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  AppStrings.userPassword,
-                                  style: kGoogleStyleTexts.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                      color: hexToColor(AppColors
-                                          .blackTextColor) //hexToColor("#ffffff"),
-                                      ),
-                                )),
-                          ),
-                          SizedBox(
-                            height: maxLines * 25.0,
-                            child: TextFormField(
-                              textInputAction: TextInputAction.done,
-                              textAlign: TextAlign.justify,
-                              controller: passwordController,
-                              onSaved: (val) => passwordController.text = val!,
-                              keyboardType: TextInputType.text,
-                              style: kGoogleStyleTexts.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: hexToColor(AppColors
-                                      .blackTextColor), //hexToColor("#ffffff"),
-                                  fontSize: 15.0),
-                              autofillHints: const [AutofillHints.password],
-                              maxLines: 1,
-                              obscureText: !_showPassword,
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                    color: hexToColor(
-                                        AppColors.noFocusBorderColor),
-                                    width: 1.0,
-                                  ),
                                 ),
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(8.0)),
-                                    borderSide: BorderSide(
-                                      color:
-                                          hexToColor(AppColors.blackTextColor),
-                                    )),
-                                fillColor:
-                                    const Color.fromARGB(30, 173, 205, 219),
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    _toggleVisibility();
-                                  },
-                                  child: Icon(
-                                    _showPassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: hexToColor(AppColors.blackTextColor),
-                                    //hexToColor(AppColors.whiteBorderColor),
-                                    size: 22,
-                                  ),
-                                ),
-                                filled: true,
-                                hintText: AppStrings.passwordHintText,
-                                hintStyle: kGoogleStyleTexts.copyWith(
-                                    color: hexToColor(AppColors.hintTextColor),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

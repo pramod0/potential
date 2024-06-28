@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
                 // Username
                 Text(
                   "${AllData.investorData.firstName ?? ""} ${AllData.investorData.lastName ?? ""}",
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 10.0),
                 // Bio
