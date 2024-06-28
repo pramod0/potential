@@ -1,6 +1,6 @@
 name: potential
 description: Project for Mutual Fund Clients #Techmatha
-version: 1.0.5
+version: 2.0.6+5
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
