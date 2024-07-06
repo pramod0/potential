@@ -17,6 +17,8 @@ import 'package:potential/models/token.dart';
 import 'package:potential/screens/graph_page.dart';
 import 'package:potential/screens/profile_page.dart';
 import 'package:potential/screens/schemeSummaryScreen.dart';
+import 'package:potential/screens/sip_calculator.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
@@ -374,153 +376,132 @@ class _DashboardState extends State<Dashboard> {
             ),
             // drawerDragStartBehavior: DragStartBehavior.start,
             drawer: Container(
-              // elevation: 0,
+              alignment: Alignment.bottomCenter,
+              height: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
               decoration: BoxDecoration(
                 color: hexToColor(AppColors.homeBG),
               ),
               padding: EdgeInsets.zero,
-              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width * 0.75,
               child: Column(
-                // Important: Remove any padding from the ListView.
-                // itemExtent: 100,
-                // padding: EdgeInsets.zero,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.shade200.withOpacity(0.1),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Hi, ${AllData.investorData.firstName}",
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        height: MediaQuery.of(context).size.height * 0.20,
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent.shade200.withOpacity(0.1),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Hi, ${AllData.investorData.firstName}",
+                              style: kGoogleStyleTexts.copyWith(
+                                fontWeight: FontWeight.w700,
+                                wordSpacing: 1,
+                                fontSize: 20,
+                                color: hexToColor(AppColors.blackTextColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        tileColor: hexToColor(AppColors.homeBG),
+                        leading: const Icon(Icons.person_rounded),
+                        title: Text(
+                          "Profile",
                           style: kGoogleStyleTexts.copyWith(
                             fontWeight: FontWeight.w700,
-                            wordSpacing: 1,
                             fontSize: 20,
                             color: hexToColor(AppColors.blackTextColor),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    // padding: const EdgeInsets.all(10),
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    child: Column(
-                      children: [
-                        ListTile(
-                          tileColor: hexToColor(AppColors.homeBG),
-                          leading: const Icon(Icons.person_rounded),
-                          title: Text(
-                            "Profile",
-                            style: kGoogleStyleTexts.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                              color: hexToColor(AppColors.blackTextColor),
-                            ),
-                          ),
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const ProfilePage())),
-                          // onTap: _logout,
-                        ),
-                        ListTile(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ProfilePage())),
+                      ),
+                      ListTile(
                           tileColor: hexToColor(AppColors.homeBG),
                           leading: const Icon(Icons.auto_graph),
                           title: Text(
                             "Investment Analysis",
                             style: kGoogleStyleTexts.copyWith(
                               fontWeight: FontWeight.w700,
-                              // fontFamily: 'gilroy',
                               fontSize: 20,
                               color: hexToColor(AppColors.blackTextColor),
                             ),
                           ),
                           onTap: () => {
-                            // Navigator.of(context).pop(),
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const GraphAnalysisScreen()))
-                          },
-                          // onTap: _logout,
-                        ),
-                        // ListTile(
-                        //   tileColor: hexToColor(AppColors.appThemeColor),
-                        //   leading: const Icon(Icons.auto_graph),
-                        //   title: Text(
-                        //     "Portfolio Analysis",
-                        //     style: kGoogleStyleTexts.copyWith(
-                        //       fontWeight: FontWeight.w700,
-                        //       // fontFamily: 'gilroy',
-                        //       fontSize: 20,
-                        //       color: hexToColor(AppColors.blackTextColor),
-                        //     ),
-                        //   ),
-                        //   // onTap: () => Navigator.of(context).push(
-                        //   //     MaterialPageRoute(
-                        //   //         builder: (context) => GraphAnalysisScreen())),
-                        //   // onTap: _logout,
-                        // ),
-                        //  Hide settings for now
-                        // ListTile(
-                        //   tileColor: hexToColor(AppColors.appThemeColor),
-                        //   leading: Icon(Icons.settings_outlined),
-                        //   title: Text(
-                        //     AppStrings.settings,
-                        //     style: kGoogleStyleTexts.copyWith(
-                        //       fontWeight: FontWeight.w700,
-                        //       fontSize: 20,
-                        //       color: hexToColor(AppColors.blackTextColor),
-                        //     ),
-                        //   ),
-                        //   onTap: () => Navigator.of(context).push(
-                        //       MaterialPageRoute(
-                        //           builder: (context) => SettingsPage())),
-                        // ),
-                        const Spacer(),
-                        ListTile(
-                          // leading: const SizedBox.shrink(),
-                          tileColor: hexToColor(AppColors.homeBG),
-                          leading: const Icon(Icons.logout_outlined),
-                          title: Text(
-                            AppStrings.logoutButtonText,
-                            style: kGoogleStyleTexts.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                              color: hexToColor(AppColors.blackTextColor),
-                            ),
-                          ),
-                          onTap: _logout,
-                        ),
-                        // Add some spacing
-                        const Divider(), // Add a divider
-                        ListTile(
-                          // padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          // alignment: Alignment.bottomLeft,
-                          leading: const SizedBox.shrink(),
-                          // leading: const Icon(Icons.ver),
-                          title: Text(
-                            'version: $_version',
-                            // textAlign: TextAlign.s,
-                            style: kGoogleStyleTexts.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              color: hexToColor(AppColors.blackTextColor),
-                            ),
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChangeNotifierProvider(
+                                            lazy: true,
+                                            create:
+                                                (context) =>
+                                                    InvestmentDataProvider(),
+                                            child:
+                                                const GraphAnalysisScreen())))
+                              }),
+                      ListTile(
+                        tileColor: hexToColor(AppColors.homeBG),
+                        leading: const Icon(Icons.calculate_rounded),
+                        title: Text(
+                          "SIP Calculator",
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
                           ),
                         ),
-                      ],
-                    ),
+                        onTap: () => {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ChangeNotifierProvider(
+                                    lazy: true,
+                                    create: (context) => WealthProvider(),
+                                    child: const SipCalculator())),
+                          )
+                        },
+                      ),
+                    ],
                   ),
-
-                  // Flex(direction: Axis.vertical, children: [SizedBox()]),
+                  Column(
+                    children: [
+                      ListTile(
+                        tileColor: hexToColor(AppColors.homeBG),
+                        leading: const Icon(Icons.logout_outlined),
+                        title: Text(
+                          AppStrings.logoutButtonText,
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            color: hexToColor(AppColors.blackTextColor),
+                          ),
+                        ),
+                        onTap: _logout,
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: const SizedBox.shrink(),
+                        title: Text(
+                          'version: $_version',
+                          style: kGoogleStyleTexts.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                            color: hexToColor(AppColors.blackTextColor),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -982,11 +963,7 @@ class _DashboardState extends State<Dashboard> {
                                 //         fontWeight: FontWeight.w600),
                                 //     softWrap: true,
                                 //     textAlign: TextAlign.right),
-                                Text(
-                                    DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                                        .format(
-                                      DateTime.parse(item.sinceDate),
-                                    ),
+                                Text(formattedDate(item.sinceDate),
                                     style: kGoogleStyleTexts.copyWith(
                                         color: hexToColor(AppColors.fieldColor),
                                         fontSize: 12.0 *
@@ -1020,15 +997,20 @@ class _DashboardState extends State<Dashboard> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SubHeadingText(item: "P&L"),
+                                  const SubHeadingText(item: "Gains/Loss"),
                                   SizedBox(
                                     height: 6 *
                                         MediaQuery.of(context).size.width /
                                         360,
                                   ),
+                                  // ValueText(
+                                  //     item:
+                                  //         "${item.absReturns > 0.0 ? "+" : ""} ${item.absReturns}%",
+                                  //     color:
                                   ValueText(
-                                      item:
-                                          "${item.absReturns > 0.0 ? "+" : ""} ${item.absReturns}%",
+                                      item: (item.totalReturns < 100000)
+                                          ? "${AppStrings.rupeeSign} ${oCcy.format(item.totalReturns / 1000).contains('.00') ? oCcy.format(item.totalReturns / 1000).replaceAll('.00', '') : oCcy.format(item.totalReturns / 1000)} K"
+                                          : "${AppStrings.rupeeSign} ${oCcy.format(item.totalReturns / 100000).contains('.00') ? oCcy.format(item.totalReturns / 100000).replaceAll('.00', '') : oCcy.format(item.totalReturns / 100000)} L",
                                       color:
                                           getConditionalColor(item.absReturns))
                                 ],

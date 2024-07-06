@@ -57,6 +57,17 @@ class AppColors {
   static const mainCardField = "#37474F";
   static const schemeColor = "#2B2B2C";
 
+  //calculator
+  static const expectedColor = "#DDE59B";
+  static const gainedColor = "#FDAEA9";
+  static const investedColor = "#F0CA86";
+  static const fieldValueColor = "#D9EDFF";
+  static const switchLabelColor = "#F3F1F1";
+  static const switchTabColor = "#F3F1F1";
+  static const inputColor = "#2F4F4F";
+  static const switchLabelBorderColor = "#D7D7D7";
+  static const inputFieldBorderColor = "#C1CFD7"; //60%
+
   static const redAccent = "#EB5757"; //#EB5757
   static const greenAccent = "#27AE60"; //27AE60
   static const orangeAccent = "#DB5C00";

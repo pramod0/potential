@@ -358,9 +358,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     context),
                                 buildSummaryFieldRow(
                                     "Since",
-                                    DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                                        .format(DateTime.parse(
-                                            widget.schemeCurrent.sinceDate)),
+                                    formattedDate(
+                                        widget.schemeCurrent.sinceDate),
                                     context),
                               ],
                             ),
@@ -708,12 +707,10 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             buildListRow(
-                                context,
-                                "Date",
-                                DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                                    .format(
-                                  DateTime.parse(item.date),
-                                )),
+                              context,
+                              "Date",
+                              formattedDate(widget.schemeCurrent.sinceDate),
+                            ),
                             buildListRow(
                                 context, "Units", item.units.toString()),
                             buildListRow(context, "N.A.V", item.nav.toString()),

@@ -220,7 +220,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: AnimatedOpacity(
-                  opacity: isVisible ? 01 : 0,
+                  opacity: isVisible ? 1 : 0,
                   duration: const Duration(milliseconds: 500),
                   child: Container(
                     // height: 100,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/screens/graph_page.dart';
+import 'package:potential/screens/sip_calculator.dart';
 import 'package:potential/screens/splash.dart';
 import 'package:potential/utils/appTools.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +13,7 @@ import 'package:provider/provider.dart';
 void main() async {
   await configLoading();
 
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => InvestmentDataProvider()),
-  ], child: const MyApp()));
+  runApp(const MyApp());
 }
 
 configLoading() async {
