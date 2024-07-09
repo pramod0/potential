@@ -57,7 +57,7 @@ class SipCalculator extends StatelessWidget {
                           ),
                         ));
                       }),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Consumer<WealthProvider>(

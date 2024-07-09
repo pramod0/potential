@@ -44,25 +44,25 @@ class _InvestmentGraphState extends State<InvestmentGraph> {
       child: Stack(
         children: [
           SfCartesianChart(
-            primaryXAxis: CategoryAxis(
+            primaryXAxis: const CategoryAxis(
               majorGridLines:
-                  const MajorGridLines(width: 0), // Remove major grid lines
-              minorGridLines: const MinorGridLines(width: 0),
+                  MajorGridLines(width: 0), // Remove major grid lines
+              //minorGridLines: MinorGridLines(width: 0),
             ),
-            primaryYAxis: NumericAxis(
+            primaryYAxis: const NumericAxis(
               majorGridLines:
-                  const MajorGridLines(width: 0), // Remove major grid lines
+                  MajorGridLines(width: 0), // Remove major grid lines
               minorGridLines:
-                  const MinorGridLines(width: 0), // Remove minor grid lines
+                  MinorGridLines(width: 0), // Remove minor grid lines
             ),
             enableAxisAnimation: true,
-            series: <ChartSeries>[
+            series: <CartesianSeries>[
               ColumnSeries<InvestmentData, String>(
                 dataSource: widget.data,
                 xValueMapper: (InvestmentData investment, _) => investment.type,
                 yValueMapper: (InvestmentData investment, _) =>
                     investment.amount,
-                color: Color.fromRGBO(53, 92, 125, 1), // Default color for bars
+                color: const Color.fromRGBO(53, 92, 125, 1), // Default color for bars
                 pointColorMapper: (InvestmentData investment, _) =>
                     investment.color,
                 dataLabelSettings: const DataLabelSettings(isVisible: true),

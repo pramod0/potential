@@ -3,7 +3,7 @@ description: Project for Mutual Fund Clients #Techmatha
 version: 2.0.6+5
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: '>=3.1.5 <4.0.0'
 
 dependencies:
   flutter:
@@ -14,8 +14,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_easyloading: ^3.0.5
   shared_preferences: ^2.1.0
-  google_fonts: ^4.0.3
-  intl: ^0.17.0
+  google_fonts: ^6.2.0
+  intl: ^0.19.0
   provider: any
   jwt_decoder: any
   auto_size_text: ^3.0.0
@@ -28,7 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.13.1
 
 flutter_launcher_icons:
