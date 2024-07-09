@@ -20,7 +20,7 @@ class AllData {
       totalReturns: 0,
       absReturns: 0,
       xirr: 0,
-      irr: 0,
+      //
       sinceDaysCAGR: 0,
       fundData: []);
   static Map<String, SchemeData> schemeMap = <String, SchemeData>{};

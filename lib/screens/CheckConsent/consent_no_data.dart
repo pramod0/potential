@@ -35,7 +35,7 @@ class _StateConsentNoData extends State<ConsentNoData> {
           totalReturns: 0,
           absReturns: 0,
           xirr: 0,
-          irr: 0,
+          // irr: 0,
           sinceDaysCAGR: 0,
           fundData: []);
       AllData.schemeMap.clear();

@@ -1,12 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:potential/models/investor.dart';
 import 'package:potential/utils/appTools.dart';
 
-// import '../models/cancreation.dart';
 import '../screens/bottomTabs.dart';
 import '../utils/styleConstants.dart';
-// import '../utils/track.dart';
 
 class TabsPage extends StatefulWidget {
   int selectedIndex = 2;

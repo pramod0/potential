@@ -35,7 +35,6 @@ class _StateCheckCANNO extends State<CheckCANNO> {
           totalReturns: 0,
           absReturns: 0,
           xirr: 0,
-          irr: 0,
           sinceDaysCAGR: 0,
           fundData: []);
       AllData.schemeMap.clear();

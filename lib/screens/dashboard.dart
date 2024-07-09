@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -288,6 +286,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   String _version = "0.0.0";
+
   Future<void> _getVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
@@ -308,7 +307,7 @@ class _DashboardState extends State<Dashboard> {
           totalReturns: 0,
           absReturns: 0,
           xirr: 0,
-          irr: 0,
+          //  irr: 0,
           sinceDaysCAGR: 0,
           fundData: []);
       AllData.schemeMap.clear();

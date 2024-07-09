@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //     totalReturns: 0,
     //     absReturns: 0,
     //     xirr: 0,
-    //     irr: 0,
+    //     //     irr: 0,
     //     sinceDaysCAGR: 0,
     //     fundData: []);
     // AllData.schemeMap = {};
@@ -58,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
           totalReturns: 0,
           absReturns: 0,
           xirr: 0,
-          irr: 0,
           sinceDaysCAGR: 0,
           fundData: []);
       AllData.schemeMap.clear();

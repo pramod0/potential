@@ -44,12 +44,12 @@ class _InvestmentGraphState extends State<InvestmentGraph> {
       child: Stack(
         children: [
           SfCartesianChart(
-            primaryXAxis: const CategoryAxis(
+            primaryXAxis: CategoryAxis(
               majorGridLines:
                   MajorGridLines(width: 0), // Remove major grid lines
               //minorGridLines: MinorGridLines(width: 0),
             ),
-            primaryYAxis: const NumericAxis(
+            primaryYAxis: NumericAxis(
               majorGridLines:
                   MajorGridLines(width: 0), // Remove major grid lines
               minorGridLines:
@@ -62,7 +62,8 @@ class _InvestmentGraphState extends State<InvestmentGraph> {
                 xValueMapper: (InvestmentData investment, _) => investment.type,
                 yValueMapper: (InvestmentData investment, _) =>
                     investment.amount,
-                color: const Color.fromRGBO(53, 92, 125, 1), // Default color for bars
+                color: const Color.fromRGBO(53, 92, 125, 1),
+                // Default color for bars
                 pointColorMapper: (InvestmentData investment, _) =>
                     investment.color,
                 dataLabelSettings: const DataLabelSettings(isVisible: true),
@@ -111,6 +112,7 @@ class Transaction {
 
 class GraphValuesUtility {
   static List<Transaction> list = [];
+
   static createTransaction() async {
     if (list.isEmpty) {
       for (var element in AllData.investedData.fundData) {

@@ -349,8 +349,8 @@ class _LoginPageState extends State<LoginPage> {
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
-                                    color: hexToColor(AppColors
-                                        .blackTextColor), //hexToColor("#ffffff"),
+                                    color: hexToColor(AppColors.blackTextColor),
+                                    //hexToColor("#ffffff"),
                                     fontSize: 15.0),
                                 autofillHints: const [AutofillHints.password],
                                 maxLines: 1,

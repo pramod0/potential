@@ -1,6 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 
 import '../app_assets_constants/AppColors.dart';
 import '../utils/appTools.dart';
@@ -507,8 +508,11 @@ class WealthProvider with ChangeNotifier {
       TextEditingController(text: '14');
 
   double get monthlyInvestment => _monthlyInvestment;
+
   int get durationYears => _durationYears;
+
   double get percentage => _retPA;
+
   double? get futureValue => _futureValue;
 
   void setMonthlyInvestment(double value) {
@@ -544,7 +548,7 @@ class WealthProvider with ChangeNotifier {
   void calculateFutureSipValue() {
     _futureValue = calculateSip(_retPA, _monthlyInvestment, _durationYears);
     invested = monthlyInvestment * _durationYears * 12;
-    gains = ((_futureValue ?? 0) - invested);
+    gains = ((_futureValue) - invested);
     notifyListeners();
   }
 
@@ -558,7 +562,7 @@ class WealthProvider with ChangeNotifier {
   void calculateFutureLumpSumValue() {
     _futureValue = calculateLumpSum(_monthlyInvestment, _retPA, _durationYears);
     invested = monthlyInvestment;
-    gains = ((_futureValue ?? 0) - invested);
+    gains = ((_futureValue) - invested);
     notifyListeners();
   }
 

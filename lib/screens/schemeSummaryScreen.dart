@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
@@ -15,7 +15,6 @@ import '../app_assets_constants/app_strings.dart';
 import '../utils/AllData.dart';
 import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
-import 'package:potential/models/schemes.dart';
 
 final oCcy = NumberFormat("#,##,##0.00", "en_US"); //changed from #,##0.00
 
@@ -65,11 +64,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
   // void initState() {
   //   super.initState();
   // }
-
-  Future<bool> _onBackPressed(BuildContext context) async {
-    Navigator.of(context).pop();
-    return false;
-  }
+  //
+  // Future<bool> _onBackPressed(BuildContext context) async {
+  //   Navigator.of(context).pop();
+  //   return false;
+  // }
 
   Column buildXIRR(context) {
     return Column(
@@ -709,7 +708,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             buildListRow(
                               context,
                               "Date",
-                              formattedDate(widget.schemeCurrent.sinceDate),
+                              formattedDate(item.date),
                             ),
                             buildListRow(
                                 context, "Units", item.units.toString()),
