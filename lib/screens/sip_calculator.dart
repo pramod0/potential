@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../app_assets_constants/AppColors.dart';
-import '../utils/appTools.dart';
 
 class SipCalculator extends StatelessWidget {
   const SipCalculator({super.key});
@@ -19,7 +18,7 @@ class SipCalculator extends StatelessWidget {
         ),
       ),
       resizeToAvoidBottomInset: true,
-      backgroundColor: hexToColor(AppColors.homeBG),
+      backgroundColor: AppColors.homeBG,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -32,7 +31,7 @@ class SipCalculator extends StatelessWidget {
                   padding: EdgeInsets.all(
                       9 * MediaQuery.of(context).size.width / 360),
                   decoration: BoxDecoration(
-                      color: hexToColor(AppColors.switchTabColor),
+                      color: AppColors.switchTabColor,
                       borderRadius: BorderRadius.all(Radius.circular(
                           8 * MediaQuery.of(context).size.width / 360))),
                   child: Row(
@@ -44,10 +43,10 @@ class SipCalculator extends StatelessWidget {
                           style: ButtonStyle(
                             elevation: WidgetStateProperty.all(0),
                             backgroundColor: WidgetStateProperty.resolveWith(
-                                (state) => hexToColor(
+                                (state) =>
                                     context.read<WealthProvider>().current == 0
                                         ? AppColors.whiteTextColor
-                                        : AppColors.switchTabColor)),
+                                        : AppColors.switchTabColor),
                           ),
                           onPressed: () {
                             if (context.read<WealthProvider>().current == 1)
@@ -68,11 +67,11 @@ class SipCalculator extends StatelessWidget {
                             style: ButtonStyle(
                               elevation: WidgetStateProperty.all(0),
                               backgroundColor: WidgetStateProperty.resolveWith(
-                                  (state) => hexToColor(
+                                  (state) =>
                                       context.read<WealthProvider>().current ==
                                               1
                                           ? AppColors.whiteTextColor
-                                          : AppColors.switchTabColor)),
+                                          : AppColors.switchTabColor),
                             ),
                             onPressed: () {
                               if (context.read<WealthProvider>().current == 0)
@@ -94,7 +93,7 @@ class SipCalculator extends StatelessWidget {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: hexToColor(AppColors.expectedColor),
+                          color: AppColors.expectedColor,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -143,7 +142,7 @@ class SipCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(
                             9 * MediaQuery.of(context).size.width / 360),
                         decoration: BoxDecoration(
-                          color: hexToColor(AppColors.gainedColor),
+                          color: AppColors.gainedColor,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -190,7 +189,7 @@ class SipCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(
                             9 * MediaQuery.of(context).size.width / 360),
                         decoration: BoxDecoration(
-                          color: hexToColor(AppColors.investedColor),
+                          color: AppColors.investedColor,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -244,7 +243,7 @@ class SipCalculator extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(
                               width: 1,
-                              color: hexToColor(AppColors.inputFieldBorderColor)
+                              color: AppColors.inputFieldBorderColor
                                   .withOpacity(0.6)),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(6))),
@@ -265,12 +264,11 @@ class SipCalculator extends StatelessWidget {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: hexToColor(AppColors.fieldValueColor)
+                                  color: AppColors.fieldValueColor
                                       .withOpacity(0.23),
                                   border: Border.all(
                                       width: 1,
-                                      color: hexToColor(
-                                          AppColors.switchLabelBorderColor)),
+                                      color: AppColors.switchLabelBorderColor),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(10))),
                               child: TextField(
@@ -309,7 +307,7 @@ class SipCalculator extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(
                               width: 1,
-                              color: hexToColor(AppColors.inputFieldBorderColor)
+                              color: AppColors.inputFieldBorderColor
                                   .withOpacity(0.6)),
                           borderRadius: BorderRadius.all(Radius.circular(6))),
                       child: Row(
@@ -324,12 +322,11 @@ class SipCalculator extends StatelessWidget {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: hexToColor(AppColors.fieldValueColor)
+                                  color: AppColors.fieldValueColor
                                       .withOpacity(0.23),
                                   border: Border.all(
                                       width: 1,
-                                      color: hexToColor(
-                                          AppColors.switchLabelBorderColor)),
+                                      color: AppColors.switchLabelBorderColor),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               child: TextField(
@@ -367,7 +364,7 @@ class SipCalculator extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(
                             width: 1,
-                            color: hexToColor(AppColors.inputFieldBorderColor)
+                            color: AppColors.inputFieldBorderColor
                                 .withOpacity(0.6)),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
                     child: Row(
@@ -382,12 +379,11 @@ class SipCalculator extends StatelessWidget {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                color: hexToColor(AppColors.fieldValueColor)
-                                    .withOpacity(0.23),
+                                color:
+                                    AppColors.fieldValueColor.withOpacity(0.23),
                                 border: Border.all(
                                     width: 1,
-                                    color: hexToColor(
-                                        AppColors.switchLabelBorderColor)),
+                                    color: AppColors.switchLabelBorderColor),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: TextField(

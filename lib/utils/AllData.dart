@@ -49,7 +49,7 @@ class AllData {
 
   static setSchemeSummary(SchemeData schemeSummary) async {
     if (kDebugMode) {
-      print(schemeSummary.data[0].key);
+      // print(schemeSummary.data[0].key);
     }
     AllData.schemeMap
         .putIfAbsent(schemeSummary.data[0].key, () => schemeSummary);
@@ -58,9 +58,9 @@ class AllData {
 
   static printAll() {
     if (kDebugMode) {
-      print(AllData.investorData.toJson());
-      print(AllData.investedData.toJson());
-      print(AllData.schemeMap.toString());
+      // print(AllData.investorData.toJson());
+      // print(AllData.investedData.toJson());
+      // print(AllData.schemeMap.toString());
     }
   }
 
@@ -108,7 +108,7 @@ class AllData {
       return '${fund}_${scheme.toString()}';
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        // print(e);
       }
       // var schemes = "No";
       await EasyLoading.dismiss();

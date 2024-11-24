@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 
-import '../../utils/appTools.dart';
-
 class TakeConsentPage extends StatefulWidget {
   const TakeConsentPage({
     super.key,
@@ -30,7 +28,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: hexToColor("#28282B"),
+      backgroundColor: Color(0xFF28282B),
       appBar: AppBar(
         title: const Text("Consent Page"),
       ),
@@ -41,8 +39,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             Center(
               child: Text(
                 "Please Provide the details so that the Association can access your data to display it within the application.",
-                style: TextStyle(
-                    fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
+                style: TextStyle(fontSize: 20, color: AppColors.blackTextColor),
               ),
             ),
             const SizedBox(
@@ -50,8 +47,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             ),
             Text(
               "Common Account Number(CAN)",
-              style: TextStyle(
-                  fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
+              style: TextStyle(fontSize: 20, color: AppColors.blackTextColor),
             ),
             TextField(
               controller: TextEditingController(text: widget.can),
@@ -61,8 +57,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             ),
             Text(
               "Permanaent Account Number(PAN)",
-              style: TextStyle(
-                  fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
+              style: TextStyle(fontSize: 20, color: AppColors.blackTextColor),
             ),
             TextField(
               controller: TextEditingController(text: widget.pan),
@@ -72,8 +67,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             ),
             Text(
               "Mobile Number",
-              style: TextStyle(
-                  fontSize: 20, color: hexToColor(AppColors.blackTextColor)),
+              style: TextStyle(fontSize: 20, color: AppColors.blackTextColor),
             ),
             const TextField(),
             ElevatedButton(

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
-import 'package:potential/utils/constants.dart';
+import 'package:potential/utils/url_constants.dart';
 
 class ApiService {
   // Pramod: I do not understand the code myself. I wanted to make ApiService class singleton.
@@ -18,7 +18,8 @@ class ApiService {
 
   Future<String> signUp(String payload) async {
     // Replace this with your signup endpoint URL
-    Uri signupUri = Uri.parse('${Constants.domainURL}${Constants.signupURL}');
+    Uri signupUri =
+        Uri.parse('${URLConstants.domainURL}${URLConstants.signupURL}');
 
     try {
       Response response = await post(
@@ -32,12 +33,12 @@ class ApiService {
       if (response.statusCode == 200) {
         // Signup successful
         if (kDebugMode) {
-          print(response.body);
+          // print(response.body);
         }
       } else {
         // Signup failed
         if (kDebugMode) {
-          print(response.body);
+          // print(response.body);
         }
         // throw Exception('Signup failed');
       }
@@ -48,10 +49,11 @@ class ApiService {
   }
 
   Future<String> processLogin(String userName, String password) async {
-    Uri loginUri = Uri.parse('${Constants.domainURL}${Constants.loginURL}');
+    Uri loginUri =
+        Uri.parse('${URLConstants.domainURL}${URLConstants.loginURL}');
     final client = RetryClient(Client()); // Client is from http package
     if (kDebugMode) {
-      print(loginUri);
+      // print(loginUri);
     }
 
     try {
@@ -68,12 +70,12 @@ class ApiService {
           .timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
-        print(response.body);
+        // print(response.body);
       }
       return response.body;
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -100,7 +102,8 @@ class ApiService {
   // }
 
   Future<String> sendOTP({required String email}) async {
-    Uri sendOTPURI = Uri.parse('${Constants.domainURL}${Constants.sendOTP}');
+    Uri sendOTPURI =
+        Uri.parse('${URLConstants.domainURL}${URLConstants.sendOTP}');
     try {
       Response response = await post(sendOTPURI,
           headers: <String, String>{
@@ -111,19 +114,20 @@ class ApiService {
           })).timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
-        print(response.body);
+        // print(response.body);
       }
       return response.body.toString();
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
   }
 
   Future<String> resendOTP({required String email}) async {
-    Uri sendOTPURI = Uri.parse('${Constants.domainURL}${Constants.resendOTP}');
+    Uri sendOTPURI =
+        Uri.parse('${URLConstants.domainURL}${URLConstants.resendOTP}');
     try {
       Response response = await post(sendOTPURI,
           headers: <String, String>{
@@ -134,12 +138,12 @@ class ApiService {
           })).timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
-        print(response.body);
+        // print(response.body);
       }
       return response.body.toString();
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -151,7 +155,7 @@ class ApiService {
       required String pass,
       required String confirmPass}) async {
     Uri verifyOTPURI =
-        Uri.parse('${Constants.domainURL}${Constants.verifyOTP}');
+        Uri.parse('${URLConstants.domainURL}${URLConstants.verifyOTP}');
     try {
       Response response = await post(verifyOTPURI,
           headers: <String, String>{
@@ -165,12 +169,12 @@ class ApiService {
           })).timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
-        print(response.body);
+        // print(response.body);
       }
       return response.body.toString();
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -179,7 +183,7 @@ class ApiService {
   Future<String> dashboardAPI(String token, int limit, int offset) async {
     // Replace this with your signup endpoint URL
     Uri dashboardURI = Uri.parse(
-        '${Constants.domainURL}${Constants.dashboardURL}?limit=$limit&offset=$offset');
+        '${URLConstants.domainURL}${URLConstants.dashboardURL}?limit=$limit&offset=$offset');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     try {
@@ -191,7 +195,7 @@ class ApiService {
       if (response.statusCode == 200) {
         // Signup successful
         if (kDebugMode) {
-          print(response.body);
+          // print(response.body);
         }
         return response.body;
       } else {
@@ -204,7 +208,7 @@ class ApiService {
       }
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -214,7 +218,7 @@ class ApiService {
       String token, String fund, String scheme) async {
     // Replace this with your signup endpoint URL
     Uri dashboardURI = Uri.parse(
-        '${Constants.domainURL}${Constants.schemeSummaryURL}?fund=$fund&scheme=$scheme');
+        '${URLConstants.domainURL}${URLConstants.schemeSummaryURL}?fund=$fund&scheme=$scheme');
 
     try {
       Response response = await get(dashboardURI, headers: <String, String>{
@@ -231,14 +235,14 @@ class ApiService {
       } else {
         // Signup failed
         if (kDebugMode) {
-          print(response.body);
+          // print(response.body);
         }
         // return response.body;
         throw Exception('schemeSummary api failed');
       }
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -248,7 +252,8 @@ class ApiService {
     String token,
   ) async {
     // Replace this with your signup endpoint URL
-    Uri dashboardURI = Uri.parse('${Constants.domainURL}${Constants.logout}');
+    Uri dashboardURI =
+        Uri.parse('${URLConstants.domainURL}${URLConstants.logout}');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     // if (kDebugMode) {
@@ -274,14 +279,14 @@ class ApiService {
       } else {
         // Signup failed
         if (kDebugMode) {
-          print(response.body);
+          // print(response.body);
         }
         // return response.body;
         throw Exception('logout user api failed');
       }
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }
@@ -292,7 +297,7 @@ class ApiService {
   ) async {
     // Replace this with your signup endpoint URL
     Uri dashboardURI =
-        Uri.parse('${Constants.domainURL}${Constants.removeUser}');
+        Uri.parse('${URLConstants.domainURL}${URLConstants.removeUser}');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     // if (kDebugMode) {
@@ -318,14 +323,14 @@ class ApiService {
       } else {
         // Signup failed
         if (kDebugMode) {
-          print(response.body);
+          // print(response.body);
         }
         // return response.body;
         throw Exception('remove user api failed');
       }
     } on TimeoutException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
       throw Exception("Please try again after some time.");
     }

@@ -16,20 +16,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ApiService.dart';
 import '../app_assets_constants/app_strings.dart';
-// import '../models/cancreation.dart';
 import '../models/token.dart';
-import '../utils/appTools.dart';
-// import '../utils/googleSignIn.dart';
 import '../utils/networkUtil.dart';
 import '../utils/noGlowBehaviour.dart';
 import '../utils/styleConstants.dart';
-import 'CANcreationform/createAccount.dart';
+import 'CANcreationform/create_account.dart';
 import 'CheckConsent/check_can_no.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -46,10 +43,10 @@ class _LoginPageState extends State<LoginPage> {
   // late String _username = "";
   // late String _password = "";
 
-  final TextEditingController usernameController =
-      TextEditingController(text: ""); // for quick testing
+  final TextEditingController usernameController = TextEditingController(
+      text: "shubhamdathia7257@gmail.com"); // for quick testing
   final TextEditingController passwordController =
-      TextEditingController(text: "");
+      TextEditingController(text: "1234@Skd");
 
   @override
   void initState() {
@@ -161,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         await EasyLoading.dismiss();
         if (kDebugMode) {
-          print(responseBody);
+          // print(responseBody);
         }
         if (responseBody['message'] != null) {
           if (responseBody['message'] == "Incorrect Credentials !!") {
@@ -175,11 +172,11 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       if (kDebugMode) {
-        print("Exception occurred during login: $e");
+        // print("Exception occurred during login: $e");
       }
       // #TODO make below string constant
       showSnackBar("Server is currently unavailable. Please try again later.",
-          Colors.red);
+          AppColors.red);
       await EasyLoading.dismiss();
     }
   }
@@ -203,8 +200,7 @@ class _LoginPageState extends State<LoginPage> {
         behavior: NoGlowBehaviour(),
         child: Scaffold(
           key: _scaffoldKey,
-          backgroundColor:
-              hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+          backgroundColor: AppColors.appThemeColor, //"#121212"),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -224,12 +220,11 @@ class _LoginPageState extends State<LoginPage> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                AppStrings.loginNowText,
+                                AppStrings.loginNow,
                                 style: kGoogleStyleTexts.copyWith(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 40,
-                                  color: hexToColor(AppColors
-                                      .blackTextColor), //hexToColor("#ffffff"),
+                                  color: AppColors.blackTextColor, //"#ffffff"),
                                 ),
                               ),
                             ),
@@ -238,8 +233,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: kGoogleStyleTexts.copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
-                                color: hexToColor(AppColors
-                                    .blackTextColor), //hexToColor("#ffffff"),
+                                color: AppColors.blackTextColor, //"#ffffff"),
                               ),
                             ),
                           ],
@@ -263,12 +257,12 @@ class _LoginPageState extends State<LoginPage> {
                               child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    AppStrings.emailID,
+                                    AppStrings.email,
                                     style: kGoogleStyleTexts.copyWith(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 16,
-                                        color: hexToColor(AppColors
-                                            .blackTextColor) //hexToColor("#ffffff"),
+                                        color: AppColors
+                                            .blackTextColor //"#ffffff"),
                                         ),
                                   )),
                             ),
@@ -286,9 +280,8 @@ class _LoginPageState extends State<LoginPage> {
                                   keyboardType: TextInputType.text,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color:
-                                          hexToColor(AppColors.blackTextColor),
-                                      //hexToColor("#ffffff"),
+                                      color: AppColors.blackTextColor,
+                                      //"#ffffff"),
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -297,26 +290,23 @@ class _LoginPageState extends State<LoginPage> {
                                     border: InputBorder.none,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      borderSide: BorderSide(
-                                        color: hexToColor(
-                                            AppColors.noFocusBorderColor),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.noFocusBorderColor,
                                         width: 1.0,
                                       ),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: const BorderRadius.all(
+                                    focusedBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
                                             Radius.circular(8.0)),
                                         borderSide: BorderSide(
-                                            color: hexToColor(
-                                                AppColors.hintTextColor))),
+                                            color: AppColors.hintTextColor)),
                                     fillColor:
                                         const Color.fromARGB(30, 173, 205, 219),
                                     filled: true,
-                                    hintText: AppStrings.emailHintText,
+                                    hintText: AppStrings.emailHint,
                                     hintStyle: kGoogleStyleTexts.copyWith(
-                                        color:
-                                            hexToColor(AppColors.hintTextColor),
-                                        //hexToColor("#ffffff"),
+                                        color: AppColors.hintTextColor,
+                                        //"#ffffff"),
                                         fontSize: 15,
                                         fontWeight: FontWeight.normal),
                                   )),
@@ -326,17 +316,49 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10.0),
-                              child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    AppStrings.userPassword,
-                                    style: kGoogleStyleTexts.copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: hexToColor(AppColors
-                                            .blackTextColor) //hexToColor("#ffffff"),
-                                        ),
-                                  )),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        AppStrings.password,
+                                        style: kGoogleStyleTexts.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: AppColors
+                                                .blackTextColor //"#ffffff"),
+                                            ),
+                                      )),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: InkWell(
+                                      onTap: () {
+                                        usernameController.text = "";
+                                        passwordController.text = "";
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ForgotPasswordScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        "Forgot Password?",
+                                        // textAlign: TextAlign.right,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                                color:
+                                                    AppColors.loginBtnColor2),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: maxLines * 25.0,
@@ -349,8 +371,8 @@ class _LoginPageState extends State<LoginPage> {
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
-                                    color: hexToColor(AppColors.blackTextColor),
-                                    //hexToColor("#ffffff"),
+                                    color: AppColors.blackTextColor,
+                                    //"#ffffff"),
                                     fontSize: 15.0),
                                 autofillHints: const [AutofillHints.password],
                                 maxLines: 1,
@@ -360,19 +382,17 @@ class _LoginPageState extends State<LoginPage> {
                                       horizontal: 15),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
-                                      color: hexToColor(
-                                          AppColors.noFocusBorderColor),
+                                    borderSide: const BorderSide(
+                                      color: AppColors.noFocusBorderColor,
                                       width: 1.0,
                                     ),
                                   ),
                                   border: InputBorder.none,
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: const BorderRadius.all(
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
                                           Radius.circular(8.0)),
                                       borderSide: BorderSide(
-                                        color: hexToColor(
-                                            AppColors.blackTextColor),
+                                        color: AppColors.blackTextColor,
                                       )),
                                   fillColor:
                                       const Color.fromARGB(30, 173, 205, 219),
@@ -384,17 +404,15 @@ class _LoginPageState extends State<LoginPage> {
                                       _showPassword
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      color:
-                                          hexToColor(AppColors.blackTextColor),
-                                      //hexToColor(AppColors.whiteBorderColor),
+                                      color: AppColors.blackTextColor,
+                                      //AppColors.whiteBorderColor),
                                       size: 22,
                                     ),
                                   ),
                                   filled: true,
-                                  hintText: AppStrings.passwordHintText,
+                                  hintText: AppStrings.passwordHint,
                                   hintStyle: kGoogleStyleTexts.copyWith(
-                                      color:
-                                          hexToColor(AppColors.hintTextColor),
+                                      color: AppColors.hintTextColor,
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal),
                                 ),
@@ -405,27 +423,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 40,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: TextButton(
-                        onPressed: () {
-                          usernameController.text = "";
-                          passwordController.text = "";
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPasswordScreen(),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          "Forgot Password?",
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -434,13 +433,12 @@ class _LoginPageState extends State<LoginPage> {
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  hexToColor(AppColors.loginBtnColor),
+                              backgroundColor: AppColors.loginBtnColor,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
+                                  borderRadius: BorderRadius.circular(10))),
                           onPressed: login,
                           child: Text(
-                            AppStrings.loginButtonText,
+                            AppStrings.login,
                             style: kGoogleStyleTexts.copyWith(
                                 color: Colors.white, fontSize: 18.0),
                           )),
@@ -466,13 +464,13 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "${AppStrings.notSignedIn} ",
+                            "${AppStrings.doNotHaveAc} ",
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.blackTextColor),
+                                color: AppColors.blackTextColor,
                                 fontSize: 18.0),
                           ),
                           Text(
-                            AppStrings.signUpText,
+                            AppStrings.signUp,
                             style: kGoogleStyleTexts.copyWith(
                                 color: Colors.blueAccent, fontSize: 18.0),
                           ),

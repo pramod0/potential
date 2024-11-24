@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:potential/ApiService.dart';
 
 import '../app_assets_constants/AppColors.dart';
-import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
@@ -133,8 +132,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       _showNewPassword
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: hexToColor(AppColors.blackTextColor),
-                      //hexToColor(AppColors.whiteBorderColor),
+                      color: AppColors.blackTextColor,
+                      //AppColors.whiteBorderColor),
                       size: 22,
                     ),
                   ),
@@ -170,8 +169,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       _showConfirmPassword
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: hexToColor(AppColors.blackTextColor),
-                      //hexToColor(AppColors.whiteBorderColor),
+                      color: AppColors.blackTextColor,
+                      //AppColors.whiteBorderColor),
                       size: 22,
                     ),
                   ),
@@ -189,7 +188,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       );
                       bool success = jsonDecode(returned)["success"];
                       if (kDebugMode) {
-                        print(success);
+                        // print(success);
                       }
                       if (success) {
                         showSnackBar(
@@ -212,7 +211,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         bool success = jsonji["success"];
                         ;
                         if (kDebugMode) {
-                          print(success);
+                          // print(success);
                         }
                         if (success) {
                           //todo:show snackbar and got to login page pop
@@ -222,7 +221,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                           Navigator.of(context).pop();
                         } else {
                           // if (kDebugMode) {
-                          //   print(jsonji["error"][0]["message"].toString());
+                          //   // print(jsonji["error"][0]["message"].toString());
                           // }
                           if (jsonji["error"].runtimeType == [].runtimeType) {
                             showSnackBar(

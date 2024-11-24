@@ -78,9 +78,9 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         Text(
           "${AllData.investedData.xirr.toStringAsFixed(2)}%".toString(),
           style: kGoogleStyleTexts.copyWith(
-            color: hexToColor(AllData.investedData.xirr > 0.0
+            color: AllData.investedData.xirr > 0.0
                 ? AppColors.greenAccent
-                : AppColors.redAccent),
+                : AppColors.redAccent,
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -99,8 +99,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           // "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           style: kGoogleStyleTexts.copyWith(
             color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
+                ? AppColors.greenAccent
+                : AppColors.redAccent,
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -116,11 +116,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
       children: [
         buildMainCardField(context, "Total Returns"),
         Text(
-          "${AllData.investedData.totalReturns > 0.0 ? "+" : ""} ${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.totalReturns)}",
+          "${AllData.investedData.totalReturns > 0.0 ? "+" : ""} ${AppStrings.rupeeSymbol} ${oCcy.format(AllData.investedData.totalReturns)}",
           style: kGoogleStyleTexts.copyWith(
             color: AllData.investedData.totalReturns > 0.0
-                ? hexToColor(AppColors.greenAccent)
-                : hexToColor(AppColors.redAccent),
+                ? AppColors.greenAccent
+                : AppColors.redAccent,
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -136,9 +136,9 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
       children: [
         buildMainCardField(context, AppStrings.invested),
         Text(
-          "${AppStrings.rupeeSign} ${oCcy.format(AllData.investedData.invested).contains('.00') ? oCcy.format(AllData.investedData.invested).replaceAll('.00', '') : oCcy.format(AllData.investedData.invested)}",
+          "${AppStrings.rupeeSymbol} ${oCcy.format(AllData.investedData.invested).contains('.00') ? oCcy.format(AllData.investedData.invested).replaceAll('.00', '') : oCcy.format(AllData.investedData.invested)}",
           style: kGoogleStyleTexts.copyWith(
-            color: hexToColor(AppColors.investedValueMain),
+            color: AppColors.investedValueMain,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
             fontWeight: FontWeight.w500,
           ),
@@ -151,7 +151,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
     return Text(
       text,
       style: kGoogleStyleTexts.copyWith(
-        color: hexToColor(AppColors.mainCardField),
+        color: AppColors.mainCardField,
         fontSize: 12.0 * MediaQuery.of(context).size.width / 360,
       ),
     );
@@ -170,21 +170,20 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:
-              hexToColor(AppColors.homeBG), //hexToColor("#121212"),
+          backgroundColor: AppColors.homeBG, //const Color("#121212"),
           title: Text(
             "Scheme Analysis",
             style: kGoogleStyleTexts.copyWith(
               fontWeight: FontWeight.w700,
               fontSize: 20,
-              color: hexToColor(AppColors.blackTextColor),
+              color: AppColors.blackTextColor,
             ),
           ),
           iconTheme: const IconThemeData(
             color: Colors.black,
           ),
         ),
-        backgroundColor: hexToColor(AppColors.homeBG),
+        backgroundColor: AppColors.homeBG,
         body: SafeArea(child: buildMainDataScreen(context)),
       ),
     );
@@ -203,15 +202,14 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 children: [
                   Card(
                     elevation: 0,
-                    surfaceTintColor: hexToColor(AppColors.whiteTextColor),
+                    surfaceTintColor: AppColors.whiteTextColor,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(
                           0 * MediaQuery.of(context).size.width / 360)),
                     ),
                     // borderOnForeground: true,
-                    color: hexToColor(AppColors.contrastContainer)
-                        .withOpacity(0.6),
+                    color: AppColors.contrastContainer.withOpacity(0.6),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(
@@ -225,8 +223,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                           Text(
                             widget.schemeCurrent.schemeName,
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.blackTextColor)
-                                    .withOpacity(0.8),
+                                color:
+                                    AppColors.blackTextColor.withOpacity(0.8),
                                 fontSize: 16.0 *
                                     MediaQuery.of(context).size.width /
                                     360,
@@ -236,8 +234,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                           Text(
                             '(${widget.schemeCurrent.fundName})',
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.blackTextColor)
-                                    .withOpacity(0.8),
+                                color:
+                                    AppColors.blackTextColor.withOpacity(0.8),
                                 fontSize: 12.0 *
                                     MediaQuery.of(context).size.width /
                                     360),
@@ -256,9 +254,9 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                       borderOnForeground: true,
                       elevation: 0,
                       margin: EdgeInsets.zero,
-                      color: hexToColor(AppColors.whiteTextColor),
-                      surfaceTintColor: hexToColor(AppColors.whiteTextColor),
-                      //Colors.transparent, //hexToColor("#1D1D1D"),
+                      color: AppColors.whiteTextColor,
+                      surfaceTintColor: AppColors.whiteTextColor,
+                      //Colors.transparent, //const Color("#1D1D1D"),
                       child: Column(
                         children: [
                           Container(
@@ -269,7 +267,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                   16 * MediaQuery.of(context).size.width / 360,
                               top: 10 * MediaQuery.of(context).size.width / 360,
                             ),
-                            color: hexToColor(AppColors.whiteTextColor),
+                            color: AppColors.whiteTextColor,
                             child: Row(
                               children: [
                                 Row(
@@ -277,7 +275,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     Text(
                                       "Total returns:",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor("#697586")
+                                          color: const Color(0xFF697586)
                                               .withOpacity(0.87),
                                           fontSize: 14),
                                     ),
@@ -289,11 +287,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     Text(
                                       "${widget.schemeCurrent.totalReturns > 0.0 ? "+ " : "- "}\u{20B9} ${oCcy.format(widget.schemeCurrent.totalReturns > 0.0 ? widget.schemeCurrent.totalReturns : widget.schemeCurrent.totalReturns * -1)} ",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(widget.schemeCurrent
+                                          color: widget.schemeCurrent
                                                       .totalReturns >
                                                   0.0
                                               ? AppColors.greenAccent
-                                              : AppColors.redAccent),
+                                              : AppColors.redAccent,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16.0),
                                       softWrap: true,
@@ -301,11 +299,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     Text(
                                       "(${widget.schemeCurrent.absReturns.toStringAsFixed(8).toString().substring(0, widget.schemeCurrent.absReturns.toStringAsFixed(8).toString().length - 6)}%)",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(widget.schemeCurrent
+                                          color: widget.schemeCurrent
                                                       .totalReturns >
                                                   0.0
                                               ? AppColors.greenAccent
-                                              : AppColors.redAccent),
+                                              : AppColors.redAccent,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14.0),
                                       softWrap: true,
@@ -316,7 +314,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             ),
                           ),
                           Divider(
-                            color: hexToColor("#96B0BD")
+                            color: const Color(0xFF96B0BD)
                                 .withOpacity(0.3), //Colors.white30,
                             thickness: 1,
                           ),
@@ -352,6 +350,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                         .replaceFirst('.00', ''),
                                     context),
                                 buildSummaryFieldRow(
+                                    "As of",
+                                    formattedDateTypeDashToSlash(widget
+                                        .schemeCurrent.asOfDate
+                                        .toString()
+                                        .trim()),
+                                    context),
+                                buildSummaryFieldRow(
                                     AppStrings.invested,
                                     "\u{20B9} ${oCcy.format(widget.schemeCurrent.invested).replaceFirst('.00', '')}",
                                     context),
@@ -364,7 +369,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             ),
                           ),
                           Divider(
-                            color: hexToColor("#96B0BD")
+                            color: AppColors.dividerColor
                                 .withOpacity(0.3), //Colors.white30,
                             thickness: 1,
                           ),
@@ -419,7 +424,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 //   child: Text(
                 //     "Transactions",
                 //     style: kGoogleStyleTexts.copyWith(
-                //         color: hexToColor(AppColors.blackTextColor),
+                //         color: AppColors.blackTextColor),
                 //         fontSize:
                 //             16.0 * MediaQuery.of(context).size.width / 360),
                 //   ),
@@ -443,7 +448,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             Text(
                               "  Transactions",
                               style: kGoogleStyleTexts.copyWith(
-                                  color: hexToColor(AppColors.blackTextColor),
+                                  color: AppColors.blackTextColor,
                                   fontSize: 13.0 *
                                       MediaQuery.of(context).size.width /
                                       360),
@@ -451,7 +456,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             Text(
                               " (${AllData.schemeMap[widget.schemeKey]?.data.length})",
                               style: kGoogleStyleTexts.copyWith(
-                                  color: hexToColor(AppColors.blackTextColor),
+                                  color: AppColors.blackTextColor,
                                   fontSize: 11.0 *
                                       MediaQuery.of(context).size.width /
                                       360,
@@ -473,8 +478,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             Text(
                               "Sort (By Date)",
                               style: kGoogleStyleTexts.copyWith(
-                                  color:
-                                      hexToColor(AppColors.investedValueMain),
+                                  color: AppColors.investedValueMain,
                                   fontSize: 12.0 *
                                       MediaQuery.of(context).size.width /
                                       360),
@@ -493,8 +497,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     size: 12 *
                                         MediaQuery.of(context).size.width /
                                         360,
-                                    color: hexToColor(AppColors
-                                        .investedValueMain), //Colors.blueAccent,
+                                    color: AppColors
+                                        .investedValueMain, //Colors.blueAccent,
                                   ),
                                 ),
                               ),
@@ -535,8 +539,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                   width: MediaQuery.of(context).size.width,
                   // color: Colors.transparent,
                   decoration: BoxDecoration(
-                      color: hexToColor(
-                          AppColors.whiteTextColor), //Colors.black11,
+                      color: AppColors.whiteTextColor, //Colors.black11,
                       borderRadius: BorderRadius.all(Radius.circular(
                           10 * MediaQuery.of(context).size.width / 360))),
                   // padding: const EdgeInsets.symmetric(
@@ -566,8 +569,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 children: [
                                   Text("Folio Number",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
+                                          color: AppColors.blackTextColor
                                               .withOpacity(0.65),
                                           fontSize: 12.0 *
                                               MediaQuery.of(context)
@@ -578,8 +580,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                       textAlign: TextAlign.left),
                                   Text(item!.folioNumber.toString(),
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              AppColors.blackTextColor),
+                                          color: AppColors.blackTextColor,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14.0 *
                                               MediaQuery.of(context)
@@ -601,8 +602,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                           MediaQuery.of(context).size.width /
                                           360),
                                   decoration: BoxDecoration(
-                                      color: hexToColor(
-                                              AppColors.installmentsBoxColor)
+                                      color: AppColors.installmentsBoxColor
                                           .withOpacity(0.3),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(4 *
@@ -613,8 +613,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                   child: Text(
                                       "Installment ${item.installmentNumber.toString().padLeft(2, '0')}",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              AppColors.installmentsColor),
+                                          color: AppColors.installmentsColor,
                                           fontSize: 12.0 *
                                               MediaQuery.of(context)
                                                   .size
@@ -633,7 +632,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                   12 * MediaQuery.of(context).size.width / 360,
                               left:
                                   12 * MediaQuery.of(context).size.width / 360),
-                          // color: hexToColor(AppColors.installmentsBoxColor)
+                          // color: AppColors.installmentsBoxColor)
                           //     .withOpacity(0.3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -643,8 +642,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 children: [
                                   Text("Transaction Type",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                                  AppColors.blackTextColor)
+                                          color: AppColors.blackTextColor
                                               .withOpacity(0.65),
                                           fontSize: 12.0 *
                                               MediaQuery.of(context)
@@ -655,8 +653,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                       textAlign: TextAlign.left),
                                   Text(item.transType,
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              AppColors.investedValueMain),
+                                          color: AppColors.investedValueMain,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14.0 *
                                               MediaQuery.of(context)
@@ -672,8 +669,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 children: [
                                   Text("Amount",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              AppColors.blackTextColor),
+                                          color: AppColors.blackTextColor,
                                           fontSize: 12.0 *
                                               MediaQuery.of(context)
                                                   .size
@@ -684,8 +680,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                   Text(
                                       "\u{20B9} ${oCcy.format(item.amount).replaceFirst('.00', '')}",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: hexToColor(
-                                              AppColors.investedValueMain),
+                                          color: AppColors.investedValueMain,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14.0 *
                                               MediaQuery.of(context)
@@ -741,13 +736,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         children: [
           Text(field,
               style: kGoogleStyleTexts.copyWith(
-                  color: hexToColor(AppColors.investedValueMain),
+                  color: AppColors.investedValueMain,
                   fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
               softWrap: true,
               textAlign: TextAlign.left),
           Text(item,
               style: kGoogleStyleTexts.copyWith(
-                  color: hexToColor(AppColors.investedValueMain),
+                  color: AppColors.investedValueMain,
                   fontSize: 12.0 * MediaQuery.of(context).size.width / 360,
                   fontWeight: FontWeight.w600),
               softWrap: true,
@@ -758,6 +753,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
   }
 
   Widget buildSummaryFieldRow(fieldName, value, context) {
+    // print("value $value");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
@@ -766,13 +762,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           Text(
             fieldName,
             style: kGoogleStyleTexts.copyWith(
-                color: hexToColor(AppColors.mainCardField),
+                color: AppColors.mainCardField,
                 fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
           ),
           Text(
-            value,
+            value.toString(),
             style: kGoogleStyleTexts.copyWith(
-                color: hexToColor(AppColors.mainCardField),
+                color: AppColors.mainCardField,
                 fontWeight: FontWeight.w500,
                 fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
           ),
@@ -793,7 +789,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           vertical: 6.0 * MediaQuery.of(context).size.width / 360,
           horizontal: 10 * MediaQuery.of(context).size.width / 360),
       decoration: BoxDecoration(
-          color: hexToColor(AppColors.fieldColor).withOpacity(0.1),
+          color: AppColors.fieldColor.withOpacity(0.1),
           borderRadius: const BorderRadius.all(Radius.circular(4))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -802,7 +798,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           Text(
             fieldName,
             style: kGoogleStyleTexts.copyWith(
-                color: hexToColor(AppColors.fieldColor),
+                color: AppColors.fieldColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
             softWrap: true,
@@ -813,8 +809,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           Text(
             value.toString(),
             style: kGoogleStyleTexts.copyWith(
-                color: hexToColor(
-                    go ? AppColors.greenAccent : AppColors.redAccent),
+                color: go ? AppColors.greenAccent : AppColors.redAccent,
                 fontWeight: FontWeight.w600,
                 fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
             softWrap: true,
@@ -826,7 +821,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 
   Container buildBottomSheetContainerForSorting(BuildContext context) {
     return Container(
-      color: hexToColor(AppColors.appThemeColor), //hexToColor("#111111"),
+      color: AppColors.appThemeColor, //const Color("#111111"),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -838,23 +833,21 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
               child: Text(
                 'Select Order of sorting',
                 style: kGoogleStyleTexts.copyWith(
-                    color: hexToColor(AppColors.blackTextColor),
-                    fontSize: 17.0),
+                    color: AppColors.blackTextColor, fontSize: 17.0),
               ),
             ),
           ),
           Column(
             children: <Widget>[
               RadioListTile(
-                tileColor: hexToColor(AppColors.blackTextColor),
+                tileColor: AppColors.blackTextColor,
                 title: Text(
                   'Ascending',
                   style: kGoogleStyleTexts.copyWith(
-                      color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      color: AppColors.blackTextColor, fontSize: 17.0),
                 ),
                 value: "1",
-                activeColor: hexToColor(AppColors.loginBtnColor),
+                activeColor: AppColors.loginBtnColor,
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
@@ -867,15 +860,14 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 controlAffinity: ListTileControlAffinity.trailing,
               ),
               RadioListTile(
-                tileColor: hexToColor(AppColors.blackTextColor),
+                tileColor: AppColors.blackTextColor,
                 title: Text(
                   'Descending',
                   style: kGoogleStyleTexts.copyWith(
-                      color: hexToColor(AppColors.blackTextColor),
-                      fontSize: 17.0),
+                      color: AppColors.blackTextColor, fontSize: 17.0),
                 ),
                 value: "0",
-                activeColor: hexToColor(AppColors.loginBtnColor),
+                activeColor: AppColors.loginBtnColor,
                 groupValue: srt,
                 onChanged: (value) {
                   setState(() {
@@ -900,7 +892,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 
 // Container buildBottomSheetContainerForFilters(BuildContext context) {
 //   return Container(
-//     color: hexToColor("#111111"),
+//     color: "#111111"),
 //     child: Column(
 //       mainAxisAlignment: MainAxisAlignment.center,
 //       mainAxisSize: MainAxisSize.min,
@@ -912,7 +904,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 //             child: Text(
 //               'Sort Investments By',
 //               style: kGoogleStyleTexts.copyWith(
-//                   color: hexToColor(AppColors.blackTextColor),
+//                   color: AppColors.blackTextColor),
 //                   fontSize: 17.0),
 //             ),
 //           ),
@@ -923,11 +915,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 //               title: Text(
 //                 'Current',
 //                 style: kGoogleStyleTexts.copyWith(
-//                     color: hexToColor(AppColors.blackTextColor),
+//                     color: AppColors.blackTextColor),
 //                     fontSize: 17.0),
 //               ),
 //               selected: true,
-//               activeColor: hexToColor("#45b6fe"),
+//               activeColor: "#45b6fe"),
 //               value: "Current",
 //               groupValue: sortFeature,
 //               onChanged: (value) {
@@ -943,11 +935,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 //               title: Text(
 //                 'Current',
 //                 style: kGoogleStyleTexts.copyWith(
-//                     color: hexToColor(AppColors.blackTextColor),
+//                     color: AppColors.blackTextColor),
 //                     fontSize: 17.0),
 //               ),
 //               selected: true,
-//               activeColor: hexToColor("#45b6fe"),
+//               activeColor: "#45b6fe"),
 //               value: "Invested",
 //               groupValue: sortFeature,
 //               onChanged: (value) {
@@ -963,7 +955,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 //             //   title: Text(
 //             //     '%XIRR',
 //             //     style: kGoogleStyleTexts.copyWith(
-//             //         color: hexToColor(AppColors.blackTextColor),
+//             //         color: AppColors.blackTextColor),
 //             //         fontSize: 17.0),
 //             //   ),
 //             //   value: "%XIRR",
@@ -981,7 +973,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 //             //   title: Text(
 //             //     '%Returns',
 //             //     style: kGoogleStyleTexts.copyWith(
-//             //         color: hexToColor(AppColors.blackTextColor),
+//             //         color: AppColors.blackTextColor),
 //             //         fontSize: 17.0),
 //             //   ),
 //             //   value: "%Returns",
@@ -999,7 +991,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
 //             //   title: Text(
 //             //     'Alphabetical',
 //             //     style: kGoogleStyleTexts.copyWith(
-//             //         color: hexToColor(AppColors.blackTextColor),
+//             //         color: AppColors.blackTextColor),
 //             //         fontSize: 17.0),
 //             //   ),
 //             //   value: "Alphabetical",

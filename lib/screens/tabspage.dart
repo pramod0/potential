@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:potential/utils/appTools.dart';
 
 import '../screens/bottomTabs.dart';
 import '../utils/styleConstants.dart';
@@ -25,7 +24,7 @@ class _TabsPageState extends State<TabsPage> {
       widget.selectedIndex = index;
       _selectedIndex = widget.selectedIndex;
       if (kDebugMode) {
-        print(_selectedIndex);
+        // print(_selectedIndex);
       }
     });
   }
@@ -38,7 +37,7 @@ class _TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    String str = "#181818";
+    Color str = Color(0xFF181818);
     return Scaffold(
       body: Scaffold(
         body: IndexedStack(
@@ -48,7 +47,7 @@ class _TabsPageState extends State<TabsPage> {
           ],
         ),
       ),
-      backgroundColor: hexToColor(str),
+      backgroundColor: str,
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -60,7 +59,7 @@ class _TabsPageState extends State<TabsPage> {
             highlightColor: Colors.transparent,
           ),
           child: BottomNavigationBar(
-            backgroundColor: hexToColor(str),
+            backgroundColor: str,
             currentIndex: (_selectedIndex),
             selectedFontSize: 12,
             selectedIconTheme:

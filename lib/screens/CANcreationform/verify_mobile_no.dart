@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:potential/screens/tabspage.dart';
-// import 'package:potential/utils/AllData.dart';
-import 'package:potential/utils/appTools.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,8 +16,8 @@ import '../../utils/track.dart';
 
 class VerifyMobileNum extends StatefulWidget {
   const VerifyMobileNum({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<VerifyMobileNum> createState() => _CreateVerifyMobileNum();
@@ -89,7 +87,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   //   try {
   //     await FirebaseAuth.instance.signOut();
   //   } catch (e) {
-  //     print(e.toString());
+  //     // print(e.toString());
   //   }
   // }
 
@@ -202,7 +200,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
     //   print(height);
     // }
     return Scaffold(
-      backgroundColor: hexToColor("#121212"),
+      backgroundColor: AppColors.appThemeColor, //121212
       body: Column(
         children: [
           const SizedBox(
@@ -213,11 +211,11 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  AppStrings.mobileNO,
+                  AppStrings.mobileNumber,
                   style: kGoogleStyleTexts.copyWith(
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
-                    color: hexToColor("#ffffff"),
+                    color: AppColors.whiteTextColor,
                   ),
                 )),
           ),
@@ -231,7 +229,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
               keyboardType: TextInputType.number,
               style: kGoogleStyleTexts.copyWith(
                   fontWeight: FontWeight.w400,
-                  color: hexToColor("#0065A0"),
+                  color: AppColors.borderSideColor,
                   fontSize: 15.0),
               maxLines: 1,
               decoration: InputDecoration(
@@ -240,18 +238,18 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(
-                    color: hexToColor("#0065A0"),
+                    color: AppColors.borderSideColor,
                     width: 1.0,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: hexToColor("#0065A0"))),
+                    borderSide: BorderSide(color: AppColors.borderSideColor)),
                 fillColor: const Color.fromARGB(30, 173, 205, 219),
                 filled: true,
-                hintText: AppStrings.mobileNO,
+                hintText: AppStrings.mobileNumberHint,
                 hintStyle: kGoogleStyleTexts.copyWith(
-                    color: hexToColor("#5F93B1"),
+                    color: AppColors.hintTextColor2,
                     fontSize: 15,
                     fontWeight: FontWeight.normal),
               ),
@@ -341,7 +339,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: Text(AppStrings.verificationCode,
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w400,
-                    color: hexToColor(AppColors.blackTextColor),
+                    color: AppColors.blackTextColor,
                     fontSize: 15.0)),
           ),
           Form(
@@ -415,21 +413,21 @@ class otpFieldSingle extends StatelessWidget {
         keyboardType: TextInputType.number,
         style: kGoogleStyleTexts.copyWith(
             fontWeight: FontWeight.w400,
-            color: hexToColor("#0065A0"),
+            color: AppColors.borderSideColor,
             fontSize: 15.0),
         maxLines: 1,
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: hexToColor(AppColors.textFieldOutlineBorderColor)),
+            borderSide:
+                BorderSide(color: AppColors.textFieldOutlineBorderColor),
           ),
           focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-              borderSide: BorderSide(color: hexToColor("#ffffff"))),
+              borderSide: BorderSide(color: AppColors.whiteTextColor)),
           enabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             borderSide: BorderSide(
-              color: hexToColor("#0065A0"),
+              color: AppColors.borderSideColor,
             ),
           ),
         ),

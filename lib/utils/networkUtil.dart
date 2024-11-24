@@ -18,7 +18,7 @@ class NetWorkUtil {
       }
     } on SocketException catch (err) {
       if (kDebugMode) {
-        print(err);
+        // print(err);
       }
       internetConnection = false;
     }

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/app_strings.dart';
-import 'package:potential/utils/appTools.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/investments.dart';
@@ -46,7 +45,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
       );
     } catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
     }
   }
@@ -63,14 +62,13 @@ class _StateCheckCANNO extends State<CheckCANNO> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:
-              hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+          backgroundColor: AppColors.appThemeColor, //"#121212"),
           title: Text(
             "Dashboard",
             style: kGoogleStyleTexts.copyWith(
               fontWeight: FontWeight.w700,
               fontSize: 20,
-              color: hexToColor(AppColors.blackTextColor),
+              color: AppColors.blackTextColor,
             ),
           ),
           iconTheme: const IconThemeData(
@@ -79,7 +77,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
         ),
         drawer: Drawer(
           elevation: 0,
-          backgroundColor: hexToColor(AppColors.appThemeColor),
+          backgroundColor: AppColors.appThemeColor,
           width: MediaQuery.of(context).size.width * 0.75,
           child: ListView(
             // Important: Remove any padding from the ListView.
@@ -101,7 +99,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                         style: kGoogleStyleTexts.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 20,
-                          color: hexToColor(AppColors.blackTextColor),
+                          color: AppColors.blackTextColor,
                         ),
                       ),
                       // Column(
@@ -111,7 +109,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                       //     Text(
                       //       "${AllData.investorData.firstName} ${AllData.investorData.lastName}",
                       //       style: kGoogleStyleTexts.copyWith(
-                      //         color: hexToColor(AppColors.blackTextColor)
+                      //         color: AppColors.blackTextColor)
                       //             .withOpacity(0.87),
                       //         fontSize: 24.0,
                       //       ),
@@ -120,7 +118,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                       //     Text(
                       //       "(${AllData.investorData.panCard})",
                       //       style: kGoogleStyleTexts.copyWith(
-                      //         color: hexToColor(AppColors.blackTextColor)
+                      //         color: AppColors.blackTextColor)
                       //             .withOpacity(0.87),
                       //         fontSize: 15.0,
                       //       ),
@@ -131,8 +129,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                       Text(
                         "Last Fetch Time ${DateFormat('E, d MMM yyyy HH:mm:ss').format(AllData.lastFetchTime)}",
                         style: kGoogleStyleTexts.copyWith(
-                          color: hexToColor(AppColors.blackTextColor)
-                              .withOpacity(0.87),
+                          color: AppColors.blackTextColor.withOpacity(0.87),
                           fontSize: 12.0,
                         ),
                         textAlign: TextAlign.left,
@@ -144,14 +141,14 @@ class _StateCheckCANNO extends State<CheckCANNO> {
               Column(
                 children: [
                   ListTile(
-                    tileColor: hexToColor(AppColors.appThemeColor),
+                    tileColor: AppColors.appThemeColor,
                     leading: Icon(Icons.person_rounded),
                     title: Text(
                       "Profile",
                       style: kGoogleStyleTexts.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
-                        color: hexToColor(AppColors.blackTextColor),
+                        color: AppColors.blackTextColor,
                       ),
                     ),
                     onTap: () => Navigator.of(context).push(
@@ -160,14 +157,14 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                   ),
                   //  Hide settings for now
                   // ListTile(
-                  //   tileColor: hexToColor(AppColors.appThemeColor),
+                  //   tileColor: AppColors.appThemeColor),
                   //   leading: Icon(Icons.settings_outlined),
                   //   title: Text(
                   //     AppStrings.settings,
                   //     style: kGoogleStyleTexts.copyWith(
                   //       fontWeight: FontWeight.w700,
                   //       fontSize: 20,
-                  //       color: hexToColor(AppColors.blackTextColor),
+                  //       color: AppColors.blackTextColor),
                   //     ),
                   //   ),
                   //   onTap: () => Navigator.of(context).push(
@@ -175,14 +172,14 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                   //           builder: (context) => SettingsPage())),
                   // ),
                   ListTile(
-                    tileColor: hexToColor(AppColors.appThemeColor),
+                    tileColor: AppColors.appThemeColor,
                     leading: Icon(Icons.logout_outlined),
                     title: Text(
-                      AppStrings.logoutButtonText,
+                      AppStrings.logout,
                       style: kGoogleStyleTexts.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
-                        color: hexToColor(AppColors.blackTextColor),
+                        color: AppColors.blackTextColor,
                       ),
                     ),
                     onTap: _logout,
@@ -193,15 +190,14 @@ class _StateCheckCANNO extends State<CheckCANNO> {
             ],
           ),
         ),
-        backgroundColor: hexToColor(AppColors.appThemeColorAppBar),
+        backgroundColor: AppColors.appThemeColorAppBar,
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(
             child: Text(
-              AppStrings.pleaseRegisterText,
+              AppStrings.noRegistrationFound,
               style: kGoogleStyleTexts.copyWith(
-                  color: hexToColor(
-                      AppColors.blackTextColor), //hexToColor("#ffffff"),
+                  color: AppColors.blackTextColor, //"#ffffff"),
                   fontSize: 15,
                   fontWeight: FontWeight.normal),
               textAlign: TextAlign.center,
