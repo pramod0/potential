@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -208,6 +209,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                           },
                                           mainController: firstNameController,
                                           hintText: AppStrings.firstNameHint,
+                                          textInputType: TextInputType.name,
                                         ),
                                       ),
                                     ],
@@ -242,6 +244,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                           },
                                           mainController: lastNameController,
                                           hintText: AppStrings.lastNameHint,
+                                          textInputType: TextInputType.name,
                                         ),
                                       ),
                                     ],
@@ -278,6 +281,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               },
                               mainController: emailIDController,
                               hintText: AppStrings.emailHint,
+                              textInputType: TextInputType.emailAddress,
                             ),
                             const SizedBox(
                               height: 15,
@@ -314,6 +318,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               ],
                               mainController: mobileNOController,
                               hintText: AppStrings.mobileNumberHint,
+                              textInputType: TextInputType.phone,
                             ),
                             const SizedBox(
                               height: 15,
@@ -382,80 +387,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     ),
                                   )),
                             ),
-                            // TextFormField(
-                            //   textInputAction: TextInputAction.done,
-                            //   textAlign: TextAlign.justify,
-                            //   controller: confirmPasswordController,
-                            //   onSaved: (val) =>
-                            //       confirmPasswordController.text = val!,
-                            //   keyboardType: TextInputType.text,
-                            //   style: kGoogleStyleTexts.copyWith(
-                            //       fontWeight: FontWeight.w400,
-                            //       color: AppColors.blackTextColor,
-                            //       fontSize: 15.0),
-                            //   maxLines: 1,
-                            //   validator: (value) {
-                            //     if (value!.isEmpty) {
-                            //       return AppStrings.passwordRequired;
-                            //     }
-                            //     if (value.length < 8) {
-                            //       return AppStrings.passwordLength8Error;
-                            //     }
-                            //     if (value.length > 16) {
-                            //       return AppStrings.passwordLength16Error;
-                            //     }
-                            //     if (passwordController.text != value) {
-                            //       return AppStrings.confirmPasswordMismatch;
-                            //     }
-                            //     return null;
-                            //   },
-                            //   obscureText: !_showPassword2,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         const EdgeInsets.symmetric(horizontal: 15),
-                            //     border: const OutlineInputBorder(
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(10.0)),
-                            //       borderSide: BorderSide(
-                            //         color: AppColors.formBorder,
-                            //         width: 1.0,
-                            //       ),
-                            //     ),
-                            //     enabledBorder: const OutlineInputBorder(
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(10.0)),
-                            //       borderSide: BorderSide(
-                            //         color: AppColors.formBorder,
-                            //         width: 1.0,
-                            //       ),
-                            //     ),
-                            //     focusedBorder: const OutlineInputBorder(
-                            //         borderRadius:
-                            //             BorderRadius.all(Radius.circular(10.0)),
-                            //         borderSide: BorderSide(
-                            //             color: AppColors.hintTextColor)),
-                            //     fillColor:
-                            //         const Color.fromARGB(30, 173, 205, 219),
-                            //     suffixIcon: GestureDetector(
-                            //       onTap: () {
-                            //         _toggleVisibility2();
-                            //       },
-                            //       child: Icon(
-                            //         _showPassword2
-                            //             ? Icons.visibility_off
-                            //             : Icons.visibility,
-                            //         color: AppColors.blackTextColor,
-                            //         size: 22,
-                            //       ),
-                            //     ),
-                            //     filled: true,
-                            //     hintText: AppStrings.passwordHint,
-                            //     hintStyle: kGoogleStyleTexts.copyWith(
-                            //         color: AppColors.hintTextColor,
-                            //         fontSize: 15,
-                            //         fontWeight: FontWeight.normal),
-                            //   ),
-                            // ),
                             NormalTextFormField(
                               fieldValidator: (value) {
                                 if (value!.isEmpty) {
@@ -563,6 +494,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               ],
                               mainController: confirmPANCardController,
                               hintText: AppStrings.panCardHint,
+                              textInputType: TextInputType.text
                             ),
                           ],
                         ),
@@ -630,12 +562,14 @@ class NormalTextFormField extends StatelessWidget {
     this.fieldValidator,
     this.inputFormatters,
     this.textInputAction = TextInputAction.next,
+    this.textInputType = TextInputType.text,
     required this.hintText,
     required this.mainController,
   });
 
   final TextEditingController mainController;
   final TextInputAction textInputAction;
+  final TextInputType textInputType;
   final String hintText;
   final fieldValidator;
   final inputFormatters;
@@ -644,6 +578,7 @@ class NormalTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       textInputAction: textInputAction,
+      keyboardType: textInputType,
       controller: mainController,
       onSaved: (val) => mainController.text = val!,
       style: kGoogleStyleTexts.copyWith(
@@ -653,6 +588,7 @@ class NormalTextFormField extends StatelessWidget {
       ),
       maxLines: 1,
       validator: fieldValidator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 15),
@@ -704,12 +640,14 @@ class ObscuredTextFormField extends StatelessWidget {
     this.showData,
     this.suffixWidget,
     this.textInputAction = TextInputAction.next,
+    this.textInputType = TextInputType.visiblePassword,
     required this.hintText,
     required this.mainController,
   });
 
   final TextEditingController mainController;
   final TextInputAction textInputAction;
+  final TextInputType textInputType;
   final String hintText;
   final showData;
   final suffixWidget;
@@ -729,6 +667,7 @@ class ObscuredTextFormField extends StatelessWidget {
       ),
       maxLines: 1,
       validator: fieldValidator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       obscureText: !showData,
       decoration: InputDecoration(
