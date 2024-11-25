@@ -168,7 +168,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           builder: (BuildContext context, bool value, Widget? child) {
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(1.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   children: [
                     Padding(
