@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../app_assets_constants/AppColors.dart';
-import '../utils/appTools.dart';
 
 // Define a class to hold the investment data
 class InvestmentData {
@@ -116,7 +115,7 @@ class GraphValuesUtility {
   static createTransaction() async {
     if (list.isEmpty) {
       for (var element in AllData.investedData.fundData) {
-        print("${element.fundCode} ${element.schemeCode}");
+        // print("${element.fundCode} ${element.schemeCode}");
         element.invested != 0
             ? list.add(Transaction(
                 element.invested, DateTime.parse(element.sinceDate)))
@@ -286,7 +285,7 @@ class GraphAnalysisScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                  color: hexToColor(AppColors.whiteTextColor),
+                  color: AppColors.whiteTextColor,
                   //Colors.black.withOpacity(0.3),
                   border: Border.all(
                     color: Colors.black26.withOpacity(0.2),

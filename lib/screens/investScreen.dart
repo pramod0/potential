@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../app_assets_constants/app_strings.dart';
-// import '../utils/AllData.dart';
-import '../utils/appTools.dart';
 import '../utils/styleConstants.dart';
 
 class InvestScreen extends StatefulWidget {
@@ -25,7 +23,7 @@ class _InvestScreenState extends State<InvestScreen> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        backgroundColor: hexToColor("#121212"),
+        backgroundColor: const Color(0xFF121212),
         body: SafeArea(
           child: Column(
             //crossAxisAlignment: CrossAxisAlignment.center,

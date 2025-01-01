@@ -13,7 +13,6 @@ import '../models/investments.dart';
 import '../models/investor.dart';
 import '../models/token.dart';
 import '../utils/AllData.dart';
-import '../utils/appTools.dart';
 import '../utils/exit_dialogue.dart';
 import '../utils/styleConstants.dart';
 import 'dashboard.dart';
@@ -68,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
     }
   }
@@ -93,14 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor:
-                hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+            backgroundColor: AppColors.appThemeColor, //"#121212"),
             title: Text(
               "Dashboard",
               style: kGoogleStyleTexts.copyWith(
                 fontWeight: FontWeight.w700,
                 fontSize: 20,
-                color: hexToColor(AppColors.blackTextColor),
+                color: AppColors.blackTextColor,
               ),
             ),
             iconTheme: const IconThemeData(
@@ -108,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           drawer: Drawer(
-            backgroundColor: hexToColor(AppColors.appThemeColor),
+            backgroundColor: AppColors.appThemeColor,
             width: MediaQuery.of(context).size.width * 0.75,
             child: ListView(
               // Important: Remove any padding from the ListView.
@@ -116,33 +114,33 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: hexToColor(AppColors.currentValue),
+                  decoration: const BoxDecoration(
+                    color: AppColors.currentValue,
                   ),
                   child: Text(
                     "Hii, there...",
                     style: kGoogleStyleTexts.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
-                      color: hexToColor(AppColors.blackTextColor),
+                      color: AppColors.blackTextColor,
                     ),
                   ),
                 ),
                 ListTile(
-                    tileColor: hexToColor(AppColors.red),
+                    tileColor: AppColors.red,
                     title: Text(
-                      AppStrings.logoutButtonText,
+                      AppStrings.logout,
                       style: kGoogleStyleTexts.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
-                        color: hexToColor(AppColors.whiteTextColor),
+                        color: AppColors.whiteTextColor,
                       ),
                     ),
                     onTap: _logout),
               ],
             ),
           ),
-          backgroundColor: hexToColor(AppColors.appThemeColor),
+          backgroundColor: AppColors.appThemeColor,
           body: SafeArea(
               child: FutureBuilder(
             future: getData(),
@@ -155,23 +153,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       // Container(
                       //   width: MediaQuery.of(context).size.width,
                       //   decoration: const BoxDecoration(
-                      //       // color: hexToColor(AppColors.whiteTextColor),
+                      //       // color: AppColors.whiteTextColor),
                       //       borderRadius:
                       //           BorderRadius.all(Radius.circular(10))),
                       //   child: Card(
                       //     elevation: 0,
                       //     surfaceTintColor:
-                      //         hexToColor(AppColors.whiteTextColor),
+                      //         AppColors.whiteTextColor),
                       //     margin: EdgeInsets.zero,
                       //     shape: const RoundedRectangleBorder(
                       //         borderRadius:
                       //             BorderRadius.all(Radius.circular(8)),
                       //         side: BorderSide(
                       //           width: 0.6,
-                      //           color: Color(0x42000000), //Colors.white30,
+                      //           color: const Color0x42000000), //Colors.white30,
                       //         )),
                       //     borderOnForeground: true,
-                      //     color: hexToColor(AppColors
+                      //     color: AppColors
                       //         .whiteTextColor), //Colors.black.withOpacity(0.25),
                       //     child: Padding(
                       //       padding: const EdgeInsets.only(
@@ -205,14 +203,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       //           Text(
                       //             "Hello, Pramod",
                       //             style: kGoogleStyleTexts.copyWith(
-                      //               color: hexToColor(AppColors.blackTextColor)
+                      //               color: AppColors.blackTextColor)
                       //                   .withOpacity(0.87),
                       //               fontSize: 18.0,
                       //             ),
                       //             textAlign: TextAlign.start,
                       //           ),
                       //           const Divider(
-                      //             color: Color(0x42000000), //Colors.white30,
+                      //             color: const Color0x42000000), //Colors.white30,
                       //             thickness: 1.5,
                       //           ),
                       //           // SizedBox(
@@ -221,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //           //     width: MediaQuery.sizeOf(context).width,
                       //           //     height: 1,
                       //           //     decoration: BoxDecoration(
-                      //           //       color: hexToColor("#d1d1d1"),
+                      //           //       color: "#d1d1d1"),
                       //           //       shape: BoxShape.rectangle,
                       //           //     ),
                       //           //   ),
@@ -260,25 +258,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Card(
                         elevation: 0,
-                        surfaceTintColor: hexToColor(AppColors.whiteTextColor),
+                        surfaceTintColor: AppColors.whiteTextColor,
                         margin: EdgeInsets.zero,
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                             side: BorderSide(
                               width: 0.6,
-                              color: Color(0x42000000), //Colors.white30,
+                              color: const Color(0x42000000), //Colors.white30,
                             )),
                         borderOnForeground: true,
-                        // color: hexToColor(AppColors.loginBtnColor)
+                        // color: AppColors.loginBtnColor)
                         //     .withOpacity(
                         //         0.9), //Colors.black.withOpacity(0.25),
                         child: Container(
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  hexToColor(AppColors.loginBtnColor),
-                                  // hexToColor(AppColors.loginBtnColor),
-                                  // hexToColor(AppColors.),
+                                  AppColors.loginBtnColor,
+                                  // AppColors.loginBtnColor),
+                                  // AppColors.),
                                   Colors.blueAccent.shade700
                                   // Colors.pinkAccent.shade700
                                 ],
@@ -298,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //   "Portfolio Summary",
                               //   style: kGoogleStyleTexts.copyWith(
                               //       color:
-                              //           hexToColor(AppColors.blackTextColor)
+                              //           AppColors.blackTextColor)
                               //               .withOpacity(0.87),
                               //       fontSize: 18.0),
                               // ),
@@ -306,14 +304,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "Hello, ${AllData.investorData.firstName} (${AllData.investorData.panCard})",
                                 style: kGoogleStyleTexts.copyWith(
-                                  color: hexToColor(AppColors.blackTextColor)
+                                  color: AppColors.blackTextColor
                                       .withOpacity(0.87),
                                   fontSize: 18.0,
                                 ),
                                 textAlign: TextAlign.start,
                               ),
                               const Divider(
-                                color: Color(0x42000000), //Colors.white30,
+                                color:
+                                    const Color(0x42000000), //Colors.white30,
                                 thickness: 1.5,
                               ),
 
@@ -323,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //     width: MediaQuery.sizeOf(context).width,
                               //     height: 1,
                               //     decoration: BoxDecoration(
-                              //       color: hexToColor("#d1d1d1"),
+                              //       color: "#d1d1d1"),
                               //       shape: BoxShape.rectangle,
                               //     ),
                               //   ),
@@ -346,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //     Text(
                                         //       AppStrings.current,
                                         //       style: kGoogleStyleTexts.copyWith(
-                                        //           color: hexToColor(AppColors
+                                        //           color: AppColors
                                         //                   .whiteTextColor)
                                         //               .withOpacity(0.68),
                                         //           fontSize: 14.0),
@@ -354,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //     Text(
                                         //       "\u{20B9} ${oCcy.format(AllData.investedData.current)}",
                                         //       style: kGoogleStyleTexts.copyWith(
-                                        //           color: hexToColor(AppColors
+                                        //           color: AppColors
                                         //                   .whiteTextColor)
                                         //               .withOpacity(0.9),
                                         //           fontSize: 24.0),
@@ -371,8 +370,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Text(
                                               AppStrings.returns,
                                               style: kGoogleStyleTexts.copyWith(
-                                                  color: hexToColor(AppColors
-                                                          .whiteTextColor)
+                                                  color: AppColors
+                                                      .whiteTextColor
                                                       .withOpacity(0.68),
                                                   fontSize: 12.0),
                                             ),
@@ -382,23 +381,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} \u{20B9} ${oCcy.format(AllData.investedData.totalReturns)}",
                                                   style: kGoogleStyleTexts
                                                       .copyWith(
-                                                          color: hexToColor(
-                                                              AppColors
-                                                                  .greenAccent),
+                                                          color: AppColors
+                                                              .greenAccent,
                                                           fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   " (${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%)",
                                                   style: kGoogleStyleTexts.copyWith(
-                                                      color: hexToColor(AllData
-                                                                      .investedData
-                                                                      .totalReturns >
-                                                                  0.0
-                                                              ? AppColors
-                                                                  .greenAccent
-                                                              : AppColors
-                                                                  .redAccent)
-                                                          .withOpacity(0.75),
+                                                      color: AllData
+                                                                  .investedData
+                                                                  .totalReturns >
+                                                              0.0
+                                                          ? AppColors
+                                                              .greenAccent
+                                                          : AppColors.redAccent
+                                                              .withOpacity(
+                                                                  0.75),
                                                       fontSize: 12.0),
                                                   softWrap: true,
                                                 ),
@@ -416,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //     Text(
                                         //       "IRR",
                                         //       style: kGoogleStyleTexts.copyWith(
-                                        //           color: hexToColor(AppColors
+                                        //           color: AppColors
                                         //                   .blackTextColor)
                                         //               .withOpacity(0.68),
                                         //           fontSize: 14.0),
@@ -424,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //     Text(
                                         //       '${AllData.investedData.irr}%',
                                         //       style: kGoogleStyleTexts.copyWith(
-                                        //           color: hexToColor(
+                                        //           color:
                                         //                   AllData.investedData
                                         //                               .irr >
                                         //                           0.0
@@ -454,7 +452,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //               width: 4,
                                   //               height: 4,
                                   //               decoration: BoxDecoration(
-                                  //                 color: hexToColor(
+                                  //                 color:
                                   //                     AppColors.currentValue),
                                   //                 shape: BoxShape.circle,
                                   //               ),
@@ -462,7 +460,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //             Text(
                                   //               " Total Returns",
                                   //               style: kGoogleStyleTexts.copyWith(
-                                  //                   color: hexToColor(AppColors
+                                  //                   color: AppColors
                                   //                           .blackTextColor)
                                   //                       .withOpacity(0.68),
                                   //                   fontSize: 14.0),
@@ -472,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //         Text(
                                   //           "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} \u{20B9}${oCcy.format(AllData.investedData.totalReturns)}",
                                   //           style: kGoogleStyleTexts.copyWith(
-                                  //               color: hexToColor(AllData
+                                  //               color: AllData
                                   //                               .investedData
                                   //                               .totalReturns >
                                   //                           0.0
@@ -498,7 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //               width: 4,
                                   //               height: 4,
                                   //               decoration: BoxDecoration(
-                                  //                 color: hexToColor(
+                                  //                 color:
                                   //                     AppColors.currentValue),
                                   //                 shape: BoxShape.circle,
                                   //               ),
@@ -506,7 +504,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //             Text(
                                   //               " % Returns",
                                   //               style: kGoogleStyleTexts.copyWith(
-                                  //                   color: hexToColor(AppColors
+                                  //                   color: AppColors
                                   //                           .blackTextColor)
                                   //                       .withOpacity(0.68),
                                   //                   fontSize: 14.0),
@@ -516,7 +514,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //         Text(
                                   //           "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
                                   //           style: kGoogleStyleTexts.copyWith(
-                                  //               color: hexToColor(AllData
+                                  //               color: AllData
                                   //                               .investedData
                                   //                               .totalReturns >
                                   //                           0.0
@@ -542,7 +540,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //     //           width: 4,
                                   //     //           height: 4,
                                   //     //           decoration: BoxDecoration(
-                                  //     //             color: hexToColor(
+                                  //     //             color:
                                   //     //                 AppColors.currentValue),
                                   //     //             shape: BoxShape.circle,
                                   //     //           ),
@@ -550,7 +548,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //     //         Text(
                                   //     //           " XIRR",
                                   //     //           style: kGoogleStyleTexts.copyWith(
-                                  //     //               color: hexToColor(AppColors
+                                  //     //               color: AppColors
                                   //     //                       .blackTextColor)
                                   //     //                   .withOpacity(0.68),
                                   //     //               fontSize: 14.0),
@@ -561,7 +559,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //     //       "${AllData.investedData.xirr.toStringAsFixed(2)}%"
                                   //     //           .toString(),
                                   //     //       style: kGoogleStyleTexts.copyWith(
-                                  //     //           color: hexToColor(AllData
+                                  //     //           color: AllData
                                   //     //                       .investedData
                                   //     //                       .xirr >
                                   //     //                   0.0
@@ -592,14 +590,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.all(8),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              // color: hexToColor(AppColors.currentValue)
+                              // color: AppColors.currentValue)
                               //     .withOpacity(0.7),
                               gradient: LinearGradient(
                                 colors: [
-                                  hexToColor(AppColors.loginBtnColor),
-                                  // hexToColor(AppColors.loginBtnColor),
-                                  // hexToColor(AppColors.loginBtnColor),
-                                  // hexToColor(AppColors.),
+                                  AppColors.loginBtnColor,
+                                  // const Color(AppColors.loginBtnColor),
+                                  // const Color(AppColors.loginBtnColor),
+                                  // const Color(AppColors.),
                                   Colors.blueAccent.shade700
                                   // Colors.pinkAccent.shade700
                                 ],
@@ -614,8 +612,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             AppStrings.reports,
                             style: kGoogleStyleTexts.copyWith(
-                                color: hexToColor(AppColors.whiteTextColor)
-                                    .withOpacity(0.9),
+                                color:
+                                    AppColors.whiteTextColor.withOpacity(0.9),
                                 fontSize: 20.0),
                           ),
                         ),
@@ -637,7 +635,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<String> getData() async {
     if (AllData.investedData.sinceDaysCAGR > 0) {
       if (kDebugMode) {
-        print("Api call saved here!!!");
+        // print("Api call saved here!!!");
       }
       return Future.value("Data Downloaded Successfully");
     }
@@ -668,7 +666,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return Future.value("Data Downloaded Successfully");
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        // print(e);
       }
       // var schemes = "No";
       await EasyLoading.dismiss();

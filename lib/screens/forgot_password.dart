@@ -83,7 +83,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     var ret = jsonDecode(returned);
                     bool success = jsonDecode(returned)["success"];
                     if (kDebugMode) {
-                      print(success);
+                      // print(success);
                     }
                     if (success) {
                       showSnackBar("OTP Sent Sucessfully", Colors.blueAccent);
@@ -96,7 +96,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                       );
                     } else {
-                      print(ret);
+                      // print(ret);
                       if (ret["message"] ==
                           "Cannot read property 'update' of null") {
                         showSnackBar(

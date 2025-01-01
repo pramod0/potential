@@ -21,15 +21,18 @@ dependencies:
   auto_size_text: ^3.0.0
   font_awesome_flutter: ^10.4.0
   http: ^1.1.0
-  syncfusion_flutter_charts: any
-  package_info: any
+  syncfusion_flutter_charts:
+  package_info_plus: ^6.0.0
+  local_auth:
+  flutter_riverpod:
+  flutter_secure_storage:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^4.0.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
 
 flutter_launcher_icons:
   android: "launcher_icon"

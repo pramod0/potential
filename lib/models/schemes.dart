@@ -9,10 +9,10 @@ class SchemeData {
   SchemeData.fromJson(Map<String, dynamic> json) {
     length = json['length'];
     if (kDebugMode) {
-      print("object");
+      // print("object");
     }
     if (kDebugMode) {
-      print(length);
+      // print(length);
     }
     if (json['data'] != null) {
       data = <Data>[];

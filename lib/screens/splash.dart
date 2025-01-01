@@ -8,8 +8,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/app_assets_constants/AppImages.dart';
+import 'package:potential/models/biometric_auth_state.dart';
 import 'package:potential/models/investments.dart';
 import 'package:potential/screens/CheckConsent/check_can_no.dart';
+import 'package:potential/screens/biometric/authPage.dart';
 import 'package:potential/screens/dashboard.dart';
 // import 'package:potential/app_assets_constants/AppImages.dart';
 import 'package:potential/screens/login.dart';
@@ -19,11 +21,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/investor.dart';
 import '../models/token.dart';
 import '../utils/AllData.dart';
-import '../utils/appTools.dart';
 import '../utils/networkUtil.dart';
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+  const Splash({super.key});
 
   @override
   State<Splash> createState() => _SplashState();
@@ -68,7 +69,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         isVisible = true;
       });
       // await showSnackBar("No Internet Connection", Colors.red);
-      Future.delayed(const Duration(seconds: 3))
+      await Future.delayed(const Duration(seconds: 3))
           .whenComplete(() => SystemNavigator.pop(animated: true));
       setState(() {
         isVisible = false;
@@ -88,7 +89,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         await EasyLoading.dismiss();
         var t2 = DateTime.now();
         if (kDebugMode) {
-          print("T2-t1: ${t2.difference(t1)}");
+          // print("T2-t1: ${t2.difference(t1)}");
         }
         Navigator.of(context).pushReplacement(_createRoute());
         return;
@@ -101,7 +102,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             .inHours;
 
         if (kDebugMode) {
-          print("Expiry TimeStamp ********* ${expired['exp']}, h: $h");
+          // print("Expiry TimeStamp ********* ${expired['exp']}, h: $h");
         }
         // var response;
         if (h < 0) {
@@ -116,10 +117,13 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       }
     }
     // For checking time difference in preprocessing from api
-    var t2 = DateTime.now();
-    if (kDebugMode) {
-      print("T2-t1: ${t2.difference(t1)}");
-    }
+    // var t2 = DateTime.now();
+    // if (kDebugMode) {
+    //   print("T2-t1: ${t2.difference(t1)}");
+    // }
+    // await BiometricDetails().loadSettings().then((val) {
+    //   Navigator.of(context).pushReplacement(_createRoute());
+    // });
     Navigator.of(context).pushReplacement(_createRoute());
     await EasyLoading.dismiss();
     return;
@@ -152,7 +156,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
     return Scaffold(
       body: Container(
-        color: hexToColor(AppColors.appThemeColor), //hexToColor("#121212"),
+        color: AppColors.appThemeColor, //const Color("#121212"),
         child: Stack(
           children: [
             // Align(
@@ -182,7 +186,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
               alignment: Alignment.center,
               // child: Icon(
               //   Icons.import_contacts_rounded,
-              //   color: hexToColor("#237463"), //#237463
+              //   color: const Color("#237463"), //#237463
               //   size: 100,
               //   // width: MediaQuery.of(context).size.width,
               //   // height: 150,
@@ -193,7 +197,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 children: [
                   // Icon(
                   //   Icons.volunteer_activism,
-                  //   color: hexToColor(AppColors.loginBtnColor), //#237463
+                  //   color: AppColors.loginBtnColor), //#237463
                   //   size: 100,
                   //   // width: MediaQuery.of(context).size.width,
                   //   // height: 150,
@@ -206,7 +210,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                   Text(
                     "14 takka",
                     style: kGoogleStyleTexts.copyWith(
-                        color: hexToColor(AppColors.loginBtnColor),
+                        color: AppColors.loginBtnColor,
                         fontWeight: FontWeight.w800,
                         // textBaseline: TextBaseline.alphabetic,
                         fontSize: 35),
@@ -227,8 +231,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                     width: MediaQuery.of(context).size.width * 0.75,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color:
-                          hexToColor(AppColors.blackTextColor).withOpacity(0.8),
+                      color: AppColors.blackTextColor.withOpacity(0.8),
                     ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -249,7 +252,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                             textAlign: TextAlign.left,
                             style: kGoogleStyleTexts.copyWith(
                               fontFamily: "inter",
-                              color: hexToColor(AppColors.whiteTextColor),
+                              color: AppColors.whiteTextColor,
                               fontWeight: FontWeight.w400,
                               fontSize: 16.0 *
                                   (MediaQuery.of(context).size.width / 414),
@@ -273,9 +276,12 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => !LoggedIn
             ? const LoginPage()
-            : (AllData.investedData.sinceDaysCAGR == 0
+            : (AllData.investedData.fundData.isEmpty
                 ? const CheckCANNO()
-                : const Dashboard()),
+                : BiometricDetails().biometricOn &&
+                        (BiometricDetails().userConsentToBioMetric)
+                    ? AuthPage()
+                    : const Dashboard()),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;

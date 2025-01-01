@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:potential/utils/styleConstants.dart';
 
 import '../app_assets_constants/AppColors.dart';
-import 'appTools.dart';
 
 class ExitDialogue extends StatelessWidget {
   const ExitDialogue({
@@ -15,11 +14,11 @@ class ExitDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      backgroundColor: hexToColor(AppColors.appThemeColor),
+      backgroundColor: AppColors.appThemeColor,
       title: Text(
         "Exit App",
         style: kGoogleStyleTexts.copyWith(
-            color: hexToColor(AppColors.blackTextColor), fontSize: 18.0),
+            color: AppColors.blackTextColor, fontSize: 18.0),
       ),
       content: Builder(
         builder: (context) {
@@ -32,7 +31,7 @@ class ExitDialogue extends StatelessWidget {
                 Text(
                   "Are you sure you want to exit the app?",
                   style: kGoogleStyleTexts.copyWith(
-                    color: hexToColor(AppColors.blackTextColor),
+                    color: AppColors.blackTextColor,
                     fontSize: 15.0,
                   ),
                   textScaler: const TextScaler.linear(0.6 / 0.7),
@@ -70,7 +69,7 @@ class ExitDialogue extends StatelessWidget {
                         // height: 45,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffC93131),
+                                backgroundColor: Color(0xffC93131),
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0))),
