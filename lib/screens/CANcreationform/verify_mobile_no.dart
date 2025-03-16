@@ -25,8 +25,7 @@ class VerifyMobileNum extends StatefulWidget {
 
 class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
   final maxLines = 2;
-  final TextEditingController mobileNOController =
-      TextEditingController(text: "");
+  final TextEditingController mobileNOController = TextEditingController(text: "");
   final TextEditingController otpController1 = TextEditingController(text: "");
   final TextEditingController otpController2 = TextEditingController(text: "");
   final TextEditingController otpController3 = TextEditingController(text: "");
@@ -228,9 +227,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
               onSaved: (val) => mobileNOController.text = val!,
               keyboardType: TextInputType.number,
               style: kGoogleStyleTexts.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.borderSideColor,
-                  fontSize: 15.0),
+                  fontWeight: FontWeight.w400, color: AppColors.borderSideColor, fontSize: 15.0),
               maxLines: 1,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 15),
@@ -249,9 +246,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
                 filled: true,
                 hintText: AppStrings.mobileNumberHint,
                 hintStyle: kGoogleStyleTexts.copyWith(
-                    color: AppColors.hintTextColor2,
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal),
+                    color: AppColors.hintTextColor2, fontSize: 15, fontWeight: FontWeight.normal),
               ),
             ),
           ),
@@ -264,17 +259,13 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
               onPressed: () {
-                mobileNOController.text == ""
-                    ? null
-                    : verifyPhoneNumber(context);
+                mobileNOController.text == "" ? null : verifyPhoneNumber(context);
               },
               child: Text(
                 AppStrings.generateOTP,
-                style: kGoogleStyleTexts.copyWith(
-                    color: Colors.white, fontSize: 18.0),
+                style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
               ),
             ),
           ),
@@ -282,9 +273,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             height: 20,
           ),
           Container(
-            child: Track.isOTPGenerated == false
-                ? Container()
-                : otpField(height, width),
+            child: Track.isOTPGenerated == false ? Container() : otpField(height, width),
           ),
           const SizedBox(
             height: 20,
@@ -295,8 +284,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -308,8 +296,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
               },
               child: Text(
                 AppStrings.verifyLater,
-                style: kGoogleStyleTexts.copyWith(
-                    color: Colors.white, fontSize: 18.0),
+                style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
               ),
             ),
           ),
@@ -319,10 +306,7 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
           Text(
             authStatus == "" ? "" : authStatus!,
             style: TextStyle(
-                color: authStatus!.contains("fail") ||
-                        authStatus!.contains("TIMEOUT")
-                    ? Colors.red
-                    : Colors.green),
+                color: authStatus!.contains("fail") || authStatus!.contains("TIMEOUT") ? Colors.red : Colors.green),
           )
         ],
       ),
@@ -338,38 +322,18 @@ class _CreateVerifyMobileNum extends State<VerifyMobileNum> {
             alignment: Alignment.centerLeft,
             child: Text(AppStrings.verificationCode,
                 style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.blackTextColor,
-                    fontSize: 15.0)),
+                    fontWeight: FontWeight.w400, color: AppColors.blackTextColor, fontSize: 15.0)),
           ),
           Form(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                otpFieldSingle(
-                    otpController: otpController1,
-                    height: height,
-                    width: width),
-                otpFieldSingle(
-                    otpController: otpController2,
-                    height: height,
-                    width: width),
-                otpFieldSingle(
-                    otpController: otpController3,
-                    height: height,
-                    width: width),
-                otpFieldSingle(
-                    otpController: otpController4,
-                    height: height,
-                    width: width),
-                otpFieldSingle(
-                    otpController: otpController5,
-                    height: height,
-                    width: width),
-                otpFieldSingle(
-                    otpController: otpController6,
-                    height: height,
-                    width: width),
+                otpFieldSingle(otpController: otpController1, height: height, width: width),
+                otpFieldSingle(otpController: otpController2, height: height, width: width),
+                otpFieldSingle(otpController: otpController3, height: height, width: width),
+                otpFieldSingle(otpController: otpController4, height: height, width: width),
+                otpFieldSingle(otpController: otpController5, height: height, width: width),
+                otpFieldSingle(otpController: otpController6, height: height, width: width),
               ],
             ),
           ),
@@ -411,15 +375,12 @@ class otpFieldSingle extends StatelessWidget {
         },
         onSaved: (val) => otpController.text = val!,
         keyboardType: TextInputType.number,
-        style: kGoogleStyleTexts.copyWith(
-            fontWeight: FontWeight.w400,
-            color: AppColors.borderSideColor,
-            fontSize: 15.0),
+        style:
+            kGoogleStyleTexts.copyWith(fontWeight: FontWeight.w400, color: AppColors.borderSideColor, fontSize: 15.0),
         maxLines: 1,
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppColors.textFieldOutlineBorderColor),
+            borderSide: BorderSide(color: AppColors.textFieldOutlineBorderColor),
           ),
           focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),

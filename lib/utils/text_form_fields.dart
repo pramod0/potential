@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:potential/utils/styleConstants.dart';
 
@@ -71,10 +70,8 @@ class NormalTextFormField extends StatelessWidget {
         fillColor: const Color.fromARGB(30, 173, 205, 219),
         filled: true,
         hintText: hintText,
-        hintStyle: kGoogleStyleTexts.copyWith(
-            color: AppColors.hintTextColor,
-            fontSize: 15,
-            fontWeight: FontWeight.normal),
+        hintStyle:
+            kGoogleStyleTexts.copyWith(color: AppColors.hintTextColor, fontSize: 15, fontWeight: FontWeight.normal),
       ),
     );
   }
@@ -152,10 +149,8 @@ class ObscuredTextFormField extends StatelessWidget {
         fillColor: const Color.fromARGB(30, 173, 205, 219),
         filled: true,
         hintText: hintText,
-        hintStyle: kGoogleStyleTexts.copyWith(
-            color: AppColors.hintTextColor,
-            fontSize: 15,
-            fontWeight: FontWeight.normal),
+        hintStyle:
+            kGoogleStyleTexts.copyWith(color: AppColors.hintTextColor, fontSize: 15, fontWeight: FontWeight.normal),
       ),
     );
   }

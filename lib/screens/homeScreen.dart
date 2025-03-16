@@ -38,10 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //     sinceDaysCAGR: 0,
     //     fundData: []);
     // AllData.schemeMap = {};
-    await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => const ExitDialogue());
+    await showDialog(barrierDismissible: false, context: context, builder: (context) => const ExitDialogue());
     return false;
     // return false;
   }
@@ -52,13 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       SharedPreferences inst = await SharedPreferences.getInstance();
       inst.clear();
       AllData.investedData = InvestedData(
-          invested: 0,
-          current: 0,
-          totalReturns: 0,
-          absReturns: 0,
-          xirr: 0,
-          sinceDaysCAGR: 0,
-          fundData: []);
+          invested: 0, current: 0, totalReturns: 0, absReturns: 0, xirr: 0, sinceDaysCAGR: 0, fundData: []);
       AllData.schemeMap.clear();
       AllData.investorData = User();
       Navigator.pushReplacement(
@@ -285,10 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 end: Alignment.topRight,
                                 transform: const GradientRotation(0.1),
                               ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, bottom: 20, top: 15),
+                              borderRadius: const BorderRadius.all(Radius.circular(10))),
+                          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -304,15 +293,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "Hello, ${AllData.investorData.firstName} (${AllData.investorData.panCard})",
                                 style: kGoogleStyleTexts.copyWith(
-                                  color: AppColors.blackTextColor
-                                      .withOpacity(0.87),
+                                  color: AppColors.blackTextColor.withOpacity(0.87),
                                   fontSize: 18.0,
                                 ),
                                 textAlign: TextAlign.start,
                               ),
                               const Divider(
-                                color:
-                                    const Color(0x42000000), //Colors.white30,
+                                color: const Color(0x42000000), //Colors.white30,
                                 thickness: 1.5,
                               ),
 
@@ -328,15 +315,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               //   ),
                               // ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         // Column(
                                         //   crossAxisAlignment:
@@ -364,39 +349,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //   height: 10,
                                         // ),
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               AppStrings.returns,
                                               style: kGoogleStyleTexts.copyWith(
-                                                  color: AppColors
-                                                      .whiteTextColor
-                                                      .withOpacity(0.68),
-                                                  fontSize: 12.0),
+                                                  color: AppColors.whiteTextColor.withOpacity(0.68), fontSize: 12.0),
                                             ),
                                             Row(
                                               children: [
                                                 Text(
                                                   "${AllData.investedData.totalReturns > 0.0 ? "+" : "-"} \u{20B9} ${oCcy.format(AllData.investedData.totalReturns)}",
-                                                  style: kGoogleStyleTexts
-                                                      .copyWith(
-                                                          color: AppColors
-                                                              .greenAccent,
-                                                          fontSize: 15.0),
+                                                  style: kGoogleStyleTexts.copyWith(
+                                                      color: AppColors.greenAccent, fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   " (${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%)",
                                                   style: kGoogleStyleTexts.copyWith(
-                                                      color: AllData
-                                                                  .investedData
-                                                                  .totalReturns >
-                                                              0.0
-                                                          ? AppColors
-                                                              .greenAccent
-                                                          : AppColors.redAccent
-                                                              .withOpacity(
-                                                                  0.75),
+                                                      color: AllData.investedData.totalReturns > 0.0
+                                                          ? AppColors.greenAccent
+                                                          : AppColors.redAccent.withOpacity(0.75),
                                                       fontSize: 12.0),
                                                   softWrap: true,
                                                 ),
@@ -606,15 +578,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 end: Alignment.topRight,
                                 // transform: const GradientRotation(0),
                               ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
+                              borderRadius: const BorderRadius.all(Radius.circular(10))),
                           width: MediaQuery.of(context).size.width,
                           child: Text(
                             AppStrings.reports,
                             style: kGoogleStyleTexts.copyWith(
-                                color:
-                                    AppColors.whiteTextColor.withOpacity(0.9),
-                                fontSize: 20.0),
+                                color: AppColors.whiteTextColor.withOpacity(0.9), fontSize: 20.0),
                           ),
                         ),
                       ),
@@ -624,9 +593,7 @@ class _HomeScreenState extends State<HomeScreen> {
               } else if (snapshot.hasData && snapshot.data == "No Data Error") {
                 return const Text("It is okay!!!");
               }
-              return const Align(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator());
+              return const Align(alignment: Alignment.center, child: CircularProgressIndicator());
             },
           ))),
     );
@@ -645,8 +612,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       var token = Token.instance.token;
-      var responseBody =
-          jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
+      var responseBody = jsonDecode(await ApiService().dashboardAPI(token, 10, 0));
       // if (kDebugMode) {
       //   print(responseBody.toString());
       // }
@@ -659,8 +625,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //   print(investedData.invested);
       // }
       var prefs = SharedPreferences.getInstance();
-      prefs.then((pref) =>
-          pref.setString('investedData', jsonEncode(responseBody['data'])));
+      prefs.then((pref) => pref.setString('investedData', jsonEncode(responseBody['data'])));
 
       AllData.setInvestmentData(investedData);
       return Future.value("Data Downloaded Successfully");

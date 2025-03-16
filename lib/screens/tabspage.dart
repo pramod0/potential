@@ -50,8 +50,7 @@ class _TabsPageState extends State<TabsPage> {
       backgroundColor: str,
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
         child: Theme(
           data: ThemeData(
@@ -62,11 +61,9 @@ class _TabsPageState extends State<TabsPage> {
             backgroundColor: str,
             currentIndex: (_selectedIndex),
             selectedFontSize: 12,
-            selectedIconTheme:
-                const IconThemeData(color: Colors.white, size: 20),
+            selectedIconTheme: const IconThemeData(color: Colors.white, size: 20),
             selectedItemColor: Colors.white,
-            selectedLabelStyle:
-                kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 15.0),
+            selectedLabelStyle: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 15.0),
             unselectedIconTheme: const IconThemeData(
               color: Colors.white70,
             ),

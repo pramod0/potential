@@ -43,10 +43,9 @@ class _LoginPageState extends State<LoginPage> {
   // late String _username = "";
   // late String _password = "";
 
-  final TextEditingController usernameController = TextEditingController(
-      text: "shubhamdathia7257@gmail.com"); // for quick testing
-  final TextEditingController passwordController =
-      TextEditingController(text: "1234@Skd");
+  final TextEditingController usernameController =
+      TextEditingController(text: "shubhamdathia7257@gmail.com"); // for quick testing
+  final TextEditingController passwordController = TextEditingController(text: "1234@Skd");
 
   @override
   void initState() {
@@ -117,8 +116,7 @@ class _LoginPageState extends State<LoginPage> {
         await EasyLoading.dismiss();
         return;
       }
-      var responseBody =
-          jsonDecode(await ApiService().processLogin(userName, password));
+      var responseBody = jsonDecode(await ApiService().processLogin(userName, password));
       //await EasyLoading.dismiss();
 
       if (responseBody['success'] == true) {
@@ -130,8 +128,7 @@ class _LoginPageState extends State<LoginPage> {
         prefs.then((pref) => pref.setString('token', token));
         User investorData = User.fromJson(responseBody['data']['userData']);
 
-        prefs.then((pref) => pref.setString(
-            'investorData', jsonEncode(responseBody['data']['userData'])));
+        prefs.then((pref) => pref.setString('investorData', jsonEncode(responseBody['data']['userData'])));
         AllData.setInvestorData(investorData);
 
         await EasyLoading.dismiss();
@@ -140,11 +137,9 @@ class _LoginPageState extends State<LoginPage> {
         if (responseBody['data']['can'] == 'No') {
           usernameController.text = "";
           passwordController.text = "";
-          await EasyLoading
-              .dismiss(); // isn't EasyLoading been dismissed already?
+          await EasyLoading.dismiss(); // isn't EasyLoading been dismissed already?
           if (!context.mounted) return;
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CheckCANNO()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckCANNO()));
           return;
         }
         TextInput.finishAutofillContext();
@@ -153,8 +148,7 @@ class _LoginPageState extends State<LoginPage> {
         if (!context.mounted) {
           return; // it resolves error of using context across async functions
         }
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const Dashboard()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Dashboard()));
       } else {
         await EasyLoading.dismiss();
         if (kDebugMode) {
@@ -175,8 +169,7 @@ class _LoginPageState extends State<LoginPage> {
         // print("Exception occurred during login: $e");
       }
       // #TODO make below string constant
-      showSnackBar("Server is currently unavailable. Please try again later.",
-          AppColors.red);
+      showSnackBar("Server is currently unavailable. Please try again later.", AppColors.red);
       await EasyLoading.dismiss();
     }
   }
@@ -242,8 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10.0, left: 8, right: 8),
+                    padding: const EdgeInsets.only(top: 10.0, left: 8, right: 8),
                     child: Form(
                       key: _formKey,
                       child: AutofillGroup(
@@ -261,8 +253,7 @@ class _LoginPageState extends State<LoginPage> {
                                     style: kGoogleStyleTexts.copyWith(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 16,
-                                        color: AppColors
-                                            .blackTextColor //"#ffffff"),
+                                        color: AppColors.blackTextColor //"#ffffff"),
                                         ),
                                   )),
                             ),
@@ -275,8 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                                   autofillHints: const [AutofillHints.username],
                                   textInputAction: TextInputAction.next,
                                   controller: usernameController,
-                                  onSaved: (val) =>
-                                      usernameController.text = val!,
+                                  onSaved: (val) => usernameController.text = val!,
                                   keyboardType: TextInputType.text,
                                   style: kGoogleStyleTexts.copyWith(
                                       fontWeight: FontWeight.w400,
@@ -285,8 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                                       fontSize: 15.0),
                                   maxLines: 1,
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 15),
                                     border: InputBorder.none,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
@@ -296,12 +285,9 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     focusedBorder: const OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8.0)),
-                                        borderSide: BorderSide(
-                                            color: AppColors.hintTextColor)),
-                                    fillColor:
-                                        const Color.fromARGB(30, 173, 205, 219),
+                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                        borderSide: BorderSide(color: AppColors.hintTextColor)),
+                                    fillColor: const Color.fromARGB(30, 173, 205, 219),
                                     filled: true,
                                     hintText: AppStrings.emailHint,
                                     hintStyle: kGoogleStyleTexts.copyWith(
@@ -317,8 +303,7 @@ class _LoginPageState extends State<LoginPage> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10.0),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Align(
                                       alignment: Alignment.centerLeft,
@@ -327,8 +312,7 @@ class _LoginPageState extends State<LoginPage> {
                                         style: kGoogleStyleTexts.copyWith(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16,
-                                            color: AppColors
-                                                .blackTextColor //"#ffffff"),
+                                            color: AppColors.blackTextColor //"#ffffff"),
                                             ),
                                       )),
                                   Align(
@@ -340,8 +324,7 @@ class _LoginPageState extends State<LoginPage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                ForgotPasswordScreen(),
+                                            builder: (context) => ForgotPasswordScreen(),
                                           ),
                                         );
                                       },
@@ -351,9 +334,7 @@ class _LoginPageState extends State<LoginPage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge
-                                            ?.copyWith(
-                                                color:
-                                                    AppColors.loginBtnColor2),
+                                            ?.copyWith(color: AppColors.loginBtnColor2),
                                       ),
                                     ),
                                   ),
@@ -366,8 +347,7 @@ class _LoginPageState extends State<LoginPage> {
                                 textInputAction: TextInputAction.done,
                                 textAlign: TextAlign.justify,
                                 controller: passwordController,
-                                onSaved: (val) =>
-                                    passwordController.text = val!,
+                                onSaved: (val) => passwordController.text = val!,
                                 keyboardType: TextInputType.text,
                                 style: kGoogleStyleTexts.copyWith(
                                     fontWeight: FontWeight.w400,
@@ -378,8 +358,7 @@ class _LoginPageState extends State<LoginPage> {
                                 maxLines: 1,
                                 obscureText: !_showPassword,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 15),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: const BorderSide(
@@ -389,21 +368,17 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   border: InputBorder.none,
                                   focusedBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(8.0)),
+                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                       borderSide: BorderSide(
                                         color: AppColors.blackTextColor,
                                       )),
-                                  fillColor:
-                                      const Color.fromARGB(30, 173, 205, 219),
+                                  fillColor: const Color.fromARGB(30, 173, 205, 219),
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       _toggleVisibility();
                                     },
                                     child: Icon(
-                                      _showPassword
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
+                                      _showPassword ? Icons.visibility_off : Icons.visibility,
                                       color: AppColors.blackTextColor,
                                       //AppColors.whiteBorderColor),
                                       size: 22,
@@ -412,9 +387,7 @@ class _LoginPageState extends State<LoginPage> {
                                   filled: true,
                                   hintText: AppStrings.passwordHint,
                                   hintStyle: kGoogleStyleTexts.copyWith(
-                                      color: AppColors.hintTextColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal),
+                                      color: AppColors.hintTextColor, fontSize: 15, fontWeight: FontWeight.normal),
                                 ),
                               ),
                             ),
@@ -434,13 +407,11 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.loginBtnColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                           onPressed: login,
                           child: Text(
                             AppStrings.login,
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.white, fontSize: 18.0),
+                            style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 18.0),
                           )),
                     ),
                   ),
@@ -465,14 +436,11 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Text(
                             "${AppStrings.doNotHaveAc} ",
-                            style: kGoogleStyleTexts.copyWith(
-                                color: AppColors.blackTextColor,
-                                fontSize: 18.0),
+                            style: kGoogleStyleTexts.copyWith(color: AppColors.blackTextColor, fontSize: 18.0),
                           ),
                           Text(
                             AppStrings.signUp,
-                            style: kGoogleStyleTexts.copyWith(
-                                color: Colors.blueAccent, fontSize: 18.0),
+                            style: kGoogleStyleTexts.copyWith(color: Colors.blueAccent, fontSize: 18.0),
                           ),
                         ],
                       ),

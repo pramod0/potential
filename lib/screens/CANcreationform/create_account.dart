@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:potential/app_assets_constants/AppColors.dart';
 import 'package:potential/utils/appTools.dart';
 import 'package:potential/utils/noGlowBehaviour.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../app_assets_constants/app_strings.dart';
 import '../../utils/networkUtil.dart';
 import '../../utils/styleConstants.dart';
@@ -33,25 +35,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   ValueNotifier<bool> isLoading = ValueNotifier(false);
-  final TextEditingController firstNameController =
-      TextEditingController(text: ""); // for quick testing
-  final TextEditingController lastNameController =
-      TextEditingController(text: ""); // for quick testing
-  final TextEditingController emailIDController =
-      TextEditingController(text: ""); // for quick testing
-  final TextEditingController mobileNOController =
-      TextEditingController(text: ""); // for quick testing
-  final TextEditingController passwordController =
-      TextEditingController(text: "");
-  final TextEditingController confirmPasswordController =
-      TextEditingController(text: "");
-  final TextEditingController panCardController =
-      TextEditingController(text: "");
-  final TextEditingController confirmPANCardController =
-      TextEditingController(text: "");
+  final TextEditingController firstNameController = TextEditingController(text: ""); // for quick testing
+  final TextEditingController lastNameController = TextEditingController(text: ""); // for quick testing
+  final TextEditingController emailIDController = TextEditingController(text: ""); // for quick testing
+  final TextEditingController mobileNOController = TextEditingController(text: ""); // for quick testing
+  final TextEditingController passwordController = TextEditingController(text: "");
+  final TextEditingController confirmPasswordController = TextEditingController(text: "");
+  final TextEditingController panCardController = TextEditingController(text: "");
+  final TextEditingController confirmPANCardController = TextEditingController(text: "");
 
-  EdgeInsets labelPadding =
-      const EdgeInsets.only(bottom: 10.0, left: 15.0, right: 12.0);
+  EdgeInsets labelPadding = const EdgeInsets.only(bottom: 10.0, left: 15.0, right: 12.0);
 
   void _toggleVisibility() {
     setState(() {
@@ -200,8 +193,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         child: NormalTextFormField(
                                           fieldValidator: (value) {
                                             if (value!.isEmpty) {
-                                              return AppStrings
-                                                  .firstNameRequired;
+                                              return AppStrings.firstNameRequired;
                                             }
                                             return null;
                                           },
@@ -235,8 +227,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         child: NormalTextFormField(
                                           fieldValidator: (value) {
                                             if (value!.isEmpty) {
-                                              return AppStrings
-                                                  .lastNameRequired;
+                                              return AppStrings.lastNameRequired;
                                             }
                                             return null;
                                           },
@@ -304,9 +295,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 if (value!.isEmpty) {
                                   return AppStrings.mobileNumberRequired;
                                 }
-                                if (value.length < 10 ||
-                                    value.length > 10 ||
-                                    !mobileRegex.hasMatch(value)) {
+                                if (value.length < 10 || value.length > 10 || !mobileRegex.hasMatch(value)) {
                                   return AppStrings.invalidMobile;
                                 }
                                 return null;
@@ -354,17 +343,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   _toggleVisibility();
                                 },
                                 child: Icon(
-                                  _showPassword
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
+                                  _showPassword ? Icons.visibility_off : Icons.visibility,
                                   color: AppColors.blackTextColor,
                                   size: 22,
                                 ),
                               ),
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                                UpperCaseTextFormatter()
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(10), UpperCaseTextFormatter()],
                               mainController: passwordController,
                               hintText: AppStrings.passwordHint,
                             ),
@@ -401,10 +385,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 }
                                 return null;
                               },
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                                UpperCaseTextFormatter()
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(10), UpperCaseTextFormatter()],
                               mainController: confirmPasswordController,
                               hintText: AppStrings.passwordHint,
                             ),
@@ -436,19 +417,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 }
                                 return null;
                               },
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                                UpperCaseTextFormatter()
-                              ],
+                              inputFormatters: [LengthLimitingTextInputFormatter(10), UpperCaseTextFormatter()],
                               showData: _showPAN,
                               suffixWidget: GestureDetector(
                                 onTap: () {
                                   _toggleVisibility2();
                                 },
                                 child: Icon(
-                                  _showPAN
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
+                                  _showPAN ? Icons.visibility_off : Icons.visibility,
                                   color: AppColors.blackTextColor,
                                   size: 22,
                                 ),
@@ -474,26 +450,22 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   )),
                             ),
                             NormalTextFormField(
-                              fieldValidator: (value) {
-                                if (value!.isEmpty) {
-                                  return AppStrings.panCardRequired;
-                                }
-                                if (!panRegex.hasMatch(value)) {
-                                  return AppStrings.invalidPAN;
-                                }
-                                if (panCardController.text != value) {
-                                  return AppStrings.confirmPasswordMismatch;
-                                }
-                                return null;
-                              },
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                                UpperCaseTextFormatter()
-                              ],
-                              mainController: confirmPANCardController,
-                              hintText: AppStrings.panCardHint,
-                              textInputType: TextInputType.text
-                            ),
+                                fieldValidator: (value) {
+                                  if (value!.isEmpty) {
+                                    return AppStrings.panCardRequired;
+                                  }
+                                  if (!panRegex.hasMatch(value)) {
+                                    return AppStrings.invalidPAN;
+                                  }
+                                  if (panCardController.text != value) {
+                                    return AppStrings.confirmPasswordMismatch;
+                                  }
+                                  return null;
+                                },
+                                inputFormatters: [LengthLimitingTextInputFormatter(10), UpperCaseTextFormatter()],
+                                mainController: confirmPANCardController,
+                                hintText: AppStrings.panCardHint,
+                                textInputType: TextInputType.text),
                           ],
                         ),
                       ),
@@ -507,15 +479,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.loginBtnColor,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25)))),
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25)))),
                           onPressed: register,
                           child: Text(
                             AppStrings.signUp,
-                            style: kGoogleStyleTexts.copyWith(
-                                color: AppColors.whiteTextColor,
-                                fontSize: 18.0),
+                            style: kGoogleStyleTexts.copyWith(color: AppColors.whiteTextColor, fontSize: 18.0),
                           )),
                     ),
                     InkWell(
@@ -530,14 +498,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           children: [
                             Text(
                               "${AppStrings.alreadyHaveAc} ",
-                              style: kGoogleStyleTexts.copyWith(
-                                  color: AppColors.blackTextColor,
-                                  fontSize: 18.0),
+                              style: kGoogleStyleTexts.copyWith(color: AppColors.blackTextColor, fontSize: 18.0),
                             ),
                             Text(
                               AppStrings.signIn,
-                              style: kGoogleStyleTexts.copyWith(
-                                  color: Colors.blueAccent, fontSize: 18.0),
+                              style: kGoogleStyleTexts.copyWith(color: Colors.blueAccent, fontSize: 18.0),
                             ),
                           ],
                         ),
@@ -554,11 +519,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 }
 
-
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     // print(oldValue.text);
     return newValue.copyWith(text: newValue.text.toUpperCase());
   }

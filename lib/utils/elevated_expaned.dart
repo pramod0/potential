@@ -27,8 +27,7 @@ class ExpandedElevatedButton extends StatelessWidget {
           //   backgroundColor: MaterialStateProperty.all(buttonColor),
           // ),
           padding: EdgeInsets.zero,
-          borderRadius: BorderRadius.circular(
-              32 / 896 * MediaQuery.of(context).size.height),
+          borderRadius: BorderRadius.circular(32 / 896 * MediaQuery.of(context).size.height),
           color: CupertinoColors.systemBlue.withOpacity(0.1),
           onPressed: onPressed,
           child: Text(

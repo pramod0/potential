@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -38,8 +37,7 @@ class BiometricDetails with ChangeNotifier {
     _isBiometricOn = await _storage.read(key: 'isBiometricOn') == 'true';
     _isFaceOn = await _storage.read(key: 'isFaceOn') == 'true';
     _isFingerPrintOn = await _storage.read(key: 'isFingerPrintOn') == 'true';
-    _isUserConsentToBioMetric =
-        await _storage.read(key: 'isUserConsentToBioMetric') == 'true';
+    _isUserConsentToBioMetric = await _storage.read(key: 'isUserConsentToBioMetric') == 'true';
 
     _printAll();
     // Check system biometric and app lock compatibility
@@ -55,11 +53,8 @@ class BiometricDetails with ChangeNotifier {
   }) async {
     await _storage.write(key: 'isBiometricOn', value: isBiometricOn.toString());
     await _storage.write(key: 'isFaceOn', value: isFaceOn.toString());
-    await _storage.write(
-        key: 'isFingerPrintOn', value: isFingerPrintOn.toString());
-    await _storage.write(
-        key: 'isUserConsentToBioMetric',
-        value: isUserConsentToBioMetric.toString());
+    await _storage.write(key: 'isFingerPrintOn', value: isFingerPrintOn.toString());
+    await _storage.write(key: 'isUserConsentToBioMetric', value: isUserConsentToBioMetric.toString());
 
     _isBiometricOn = isBiometricOn;
     _isFaceOn = isFaceOn;
@@ -88,6 +83,6 @@ class BiometricDetails with ChangeNotifier {
   }
 }
 
-// Riverpod Provider for BiometricDetails
-final biometricProvider =
-    Provider<BiometricDetails>((ref) => BiometricDetails());
+// Getx Provider for BiometricDetails
+// final biometricProvider =
+//     Provider<BiometricDetails>((ref) => BiometricDetails());

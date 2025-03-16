@@ -18,8 +18,7 @@ class ApiService {
 
   Future<String> signUp(String payload) async {
     // Replace this with your signup endpoint URL
-    Uri signupUri =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.signupURL}');
+    Uri signupUri = Uri.parse('${URLConstants.domainURL}${URLConstants.signupURL}');
 
     try {
       Response response = await post(
@@ -49,8 +48,7 @@ class ApiService {
   }
 
   Future<String> processLogin(String userName, String password) async {
-    Uri loginUri =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.loginURL}');
+    Uri loginUri = Uri.parse('${URLConstants.domainURL}${URLConstants.loginURL}');
     final client = RetryClient(Client()); // Client is from http package
     if (kDebugMode) {
       // print(loginUri);
@@ -62,11 +60,7 @@ class ApiService {
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },
-              body: jsonEncode(<String, String>{
-                'email': userName,
-                'password': password,
-                "deviceType": "android"
-              }))
+              body: jsonEncode(<String, String>{'email': userName, 'password': password, "deviceType": "android"}))
           .timeout(const Duration(seconds: 10)); // end of http.post
       // print(response.body.toString());
       if (kDebugMode) {
@@ -102,8 +96,7 @@ class ApiService {
   // }
 
   Future<String> sendOTP({required String email}) async {
-    Uri sendOTPURI =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.sendOTP}');
+    Uri sendOTPURI = Uri.parse('${URLConstants.domainURL}${URLConstants.sendOTP}');
     try {
       Response response = await post(sendOTPURI,
           headers: <String, String>{
@@ -126,8 +119,7 @@ class ApiService {
   }
 
   Future<String> resendOTP({required String email}) async {
-    Uri sendOTPURI =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.resendOTP}');
+    Uri sendOTPURI = Uri.parse('${URLConstants.domainURL}${URLConstants.resendOTP}');
     try {
       Response response = await post(sendOTPURI,
           headers: <String, String>{
@@ -150,12 +142,8 @@ class ApiService {
   }
 
   Future<String> verifyOTP(
-      {required String email,
-      required String otp,
-      required String pass,
-      required String confirmPass}) async {
-    Uri verifyOTPURI =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.verifyOTP}');
+      {required String email, required String otp, required String pass, required String confirmPass}) async {
+    Uri verifyOTPURI = Uri.parse('${URLConstants.domainURL}${URLConstants.verifyOTP}');
     try {
       Response response = await post(verifyOTPURI,
           headers: <String, String>{
@@ -182,8 +170,7 @@ class ApiService {
 
   Future<String> dashboardAPI(String token, int limit, int offset) async {
     // Replace this with your signup endpoint URL
-    Uri dashboardURI = Uri.parse(
-        '${URLConstants.domainURL}${URLConstants.dashboardURL}?limit=$limit&offset=$offset');
+    Uri dashboardURI = Uri.parse('${URLConstants.domainURL}${URLConstants.dashboardURL}?limit=$limit&offset=$offset');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     try {
@@ -214,11 +201,9 @@ class ApiService {
     }
   }
 
-  Future<String> schemeSummaryAPI(
-      String token, String fund, String scheme) async {
+  Future<String> schemeSummaryAPI(String token, String fund, String scheme) async {
     // Replace this with your signup endpoint URL
-    Uri dashboardURI = Uri.parse(
-        '${URLConstants.domainURL}${URLConstants.schemeSummaryURL}?fund=$fund&scheme=$scheme');
+    Uri dashboardURI = Uri.parse('${URLConstants.domainURL}${URLConstants.schemeSummaryURL}?fund=$fund&scheme=$scheme');
 
     try {
       Response response = await get(dashboardURI, headers: <String, String>{
@@ -252,8 +237,7 @@ class ApiService {
     String token,
   ) async {
     // Replace this with your signup endpoint URL
-    Uri dashboardURI =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.logout}');
+    Uri dashboardURI = Uri.parse('${URLConstants.domainURL}${URLConstants.logout}');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     // if (kDebugMode) {
@@ -296,8 +280,7 @@ class ApiService {
     String token,
   ) async {
     // Replace this with your signup endpoint URL
-    Uri dashboardURI =
-        Uri.parse('${URLConstants.domainURL}${URLConstants.removeUser}');
+    Uri dashboardURI = Uri.parse('${URLConstants.domainURL}${URLConstants.removeUser}');
     // http://localhost:7070/api/dashboard?limit=100&offset=0
 
     // if (kDebugMode) {

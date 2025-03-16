@@ -44,27 +44,22 @@ class _InvestmentGraphState extends State<InvestmentGraph> {
         children: [
           SfCartesianChart(
             primaryXAxis: CategoryAxis(
-              majorGridLines:
-                  MajorGridLines(width: 0), // Remove major grid lines
+              majorGridLines: MajorGridLines(width: 0), // Remove major grid lines
               //minorGridLines: MinorGridLines(width: 0),
             ),
             primaryYAxis: NumericAxis(
-              majorGridLines:
-                  MajorGridLines(width: 0), // Remove major grid lines
-              minorGridLines:
-                  MinorGridLines(width: 0), // Remove minor grid lines
+              majorGridLines: MajorGridLines(width: 0), // Remove major grid lines
+              minorGridLines: MinorGridLines(width: 0), // Remove minor grid lines
             ),
             enableAxisAnimation: true,
             series: <CartesianSeries>[
               ColumnSeries<InvestmentData, String>(
                 dataSource: widget.data,
                 xValueMapper: (InvestmentData investment, _) => investment.type,
-                yValueMapper: (InvestmentData investment, _) =>
-                    investment.amount,
+                yValueMapper: (InvestmentData investment, _) => investment.amount,
                 color: const Color.fromRGBO(53, 92, 125, 1),
                 // Default color for bars
-                pointColorMapper: (InvestmentData investment, _) =>
-                    investment.color,
+                pointColorMapper: (InvestmentData investment, _) => investment.color,
                 dataLabelSettings: const DataLabelSettings(isVisible: true),
               ),
             ],
@@ -117,16 +112,14 @@ class GraphValuesUtility {
       for (var element in AllData.investedData.fundData) {
         // print("${element.fundCode} ${element.schemeCode}");
         element.invested != 0
-            ? list.add(Transaction(
-                element.invested, DateTime.parse(element.sinceDate)))
+            ? list.add(Transaction(element.invested, DateTime.parse(element.sinceDate)))
             : print("Omitted");
       }
     }
     print(list[0].date);
   }
 
-  static double calculateFDTillDate(
-      List<Transaction> transactions, double rate) {
+  static double calculateFDTillDate(List<Transaction> transactions, double rate) {
     double totalFD = 0;
 
     // Iterate over transactions
@@ -138,15 +131,13 @@ class GraphValuesUtility {
       double fdAmount = (transaction.amount * rate * days) / (100 * 365);
 
       // Add FD amount to total
-      totalFD +=
-          (fdAmount + transaction.amount); // calculated for each transaction
+      totalFD += (fdAmount + transaction.amount); // calculated for each transaction
     }
 
     return totalFD;
   }
 
-  static double calculateSimpleInterestTillDate(
-      List<Transaction> transactions, double rate) {
+  static double calculateSimpleInterestTillDate(List<Transaction> transactions, double rate) {
     double totalInterest = 0;
 
     // Iterate over transactions
@@ -166,8 +157,7 @@ class GraphValuesUtility {
     return totalInterest;
   }
 
-  static double calculateSimpleInterest(
-      double principal, double rate, DateTime investedDate) {
+  static double calculateSimpleInterest(double principal, double rate, DateTime investedDate) {
     // Get today's date
     DateTime today = DateTime.now();
 
@@ -180,8 +170,7 @@ class GraphValuesUtility {
     return interest;
   }
 
-  static double calculateFDSimpleInterestToToday(
-      double principal, double rate, DateTime investedDate) {
+  static double calculateFDSimpleInterestToToday(double principal, double rate, DateTime investedDate) {
     // Get today's date
     DateTime today = DateTime.now();
 
@@ -223,13 +212,11 @@ class GraphAnalysisScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     GraphValuesUtility.list = [];
     GraphValuesUtility.createTransaction();
-    final investmentProvider =
-        Provider.of<InvestmentDataProvider>(context, listen: true);
+    final investmentProvider = Provider.of<InvestmentDataProvider>(context, listen: true);
 
     // Mock data
     investmentProvider.setInvestments([
-      InvestmentData("Invested", AllData.investedData.invested.roundToDouble(),
-          Colors.blueAccent.shade100),
+      InvestmentData("Invested", AllData.investedData.invested.roundToDouble(), Colors.blueAccent.shade100),
       InvestmentData(
           "Savings",
           // (AllData.investedData.invested +
@@ -257,8 +244,7 @@ class GraphAnalysisScreen extends StatelessWidget {
             6.51,
           ).roundToDouble(),
           Colors.redAccent),
-      InvestmentData("Mutual Fund",
-          AllData.investedData.current.roundToDouble(), Colors.greenAccent),
+      InvestmentData("Mutual Fund", AllData.investedData.current.roundToDouble(), Colors.greenAccent),
     ]);
 
     // final double totalInvestment = investmentProvider.investments
@@ -298,12 +284,9 @@ class GraphAnalysisScreen extends StatelessWidget {
                   const Text("*Note:"),
                   const Text(
                       "1. The average interest rate for a fixed deposit is approximately 6.19%, and for senior citizens it is approximately 6.83%."),
-                  const Text(
-                      "2. The average savings account interest rate is approximately 3.08%"),
-                  const Text(
-                      "3. For Calculations we have taken FD rate as 6.51% and Savings rate as 3.08%"),
-                  Text(
-                      "4. These are approx. values as of Date-${DateTime.now().toString().substring(0, 11)}"),
+                  const Text("2. The average savings account interest rate is approximately 3.08%"),
+                  const Text("3. For Calculations we have taken FD rate as 6.51% and Savings rate as 3.08%"),
+                  Text("4. These are approx. values as of Date-${DateTime.now().toString().substring(0, 11)}"),
                 ],
               ),
             ),

@@ -33,8 +33,7 @@ class SchemeSummaryScreen extends StatefulWidget {
   final schemeKey;
   final schemeCurrent;
 
-  const SchemeSummaryScreen(
-      {super.key, required this.schemeKey, required this.schemeCurrent});
+  const SchemeSummaryScreen({super.key, required this.schemeKey, required this.schemeCurrent});
 
   @override
   State<StatefulWidget> createState() {
@@ -44,9 +43,7 @@ class SchemeSummaryScreen extends StatefulWidget {
 }
 
 class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
-    with
-        TickerProviderStateMixin,
-        AutomaticKeepAliveClientMixin<SchemeSummaryScreen> {
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<SchemeSummaryScreen> {
   String sortFeature = "Current";
   String srt = '0';
 
@@ -78,9 +75,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         Text(
           "${AllData.investedData.xirr.toStringAsFixed(2)}%".toString(),
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.xirr > 0.0
-                ? AppColors.greenAccent
-                : AppColors.redAccent,
+            color: AllData.investedData.xirr > 0.0 ? AppColors.greenAccent : AppColors.redAccent,
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -98,9 +93,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           "${AllData.investedData.totalReturns > 0.0 ? "+ " : ""}${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           // "${AllData.investedData.absReturns.toStringAsFixed(8).toString().substring(0, AllData.investedData.absReturns.toStringAsFixed(8).toString().length - 6)}%",
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? AppColors.greenAccent
-                : AppColors.redAccent,
+            color: AllData.investedData.totalReturns > 0.0 ? AppColors.greenAccent : AppColors.redAccent,
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -118,9 +111,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         Text(
           "${AllData.investedData.totalReturns > 0.0 ? "+" : ""} ${AppStrings.rupeeSymbol} ${oCcy.format(AllData.investedData.totalReturns)}",
           style: kGoogleStyleTexts.copyWith(
-            color: AllData.investedData.totalReturns > 0.0
-                ? AppColors.greenAccent
-                : AppColors.redAccent,
+            color: AllData.investedData.totalReturns > 0.0 ? AppColors.greenAccent : AppColors.redAccent,
             fontWeight: FontWeight.w500,
             fontSize: 14.0 * MediaQuery.of(context).size.width / 360,
           ),
@@ -205,8 +196,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                     surfaceTintColor: AppColors.whiteTextColor,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(
-                          0 * MediaQuery.of(context).size.width / 360)),
+                      borderRadius: BorderRadius.all(Radius.circular(0 * MediaQuery.of(context).size.width / 360)),
                     ),
                     // borderOnForeground: true,
                     color: AppColors.contrastContainer.withOpacity(0.6),
@@ -223,22 +213,16 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                           Text(
                             widget.schemeCurrent.schemeName,
                             style: kGoogleStyleTexts.copyWith(
-                                color:
-                                    AppColors.blackTextColor.withOpacity(0.8),
-                                fontSize: 16.0 *
-                                    MediaQuery.of(context).size.width /
-                                    360,
+                                color: AppColors.blackTextColor.withOpacity(0.8),
+                                fontSize: 16.0 * MediaQuery.of(context).size.width / 360,
                                 fontWeight: FontWeight.w700),
                             textAlign: TextAlign.start,
                           ),
                           Text(
                             '(${widget.schemeCurrent.fundName})',
                             style: kGoogleStyleTexts.copyWith(
-                                color:
-                                    AppColors.blackTextColor.withOpacity(0.8),
-                                fontSize: 12.0 *
-                                    MediaQuery.of(context).size.width /
-                                    360),
+                                color: AppColors.blackTextColor.withOpacity(0.8),
+                                fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -261,10 +245,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                         children: [
                           Container(
                             padding: EdgeInsets.only(
-                              left:
-                                  16 * MediaQuery.of(context).size.width / 360,
-                              right:
-                                  16 * MediaQuery.of(context).size.width / 360,
+                              left: 16 * MediaQuery.of(context).size.width / 360,
+                              right: 16 * MediaQuery.of(context).size.width / 360,
                               top: 10 * MediaQuery.of(context).size.width / 360,
                             ),
                             color: AppColors.whiteTextColor,
@@ -275,21 +257,15 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     Text(
                                       "Total returns:",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: const Color(0xFF697586)
-                                              .withOpacity(0.87),
-                                          fontSize: 14),
+                                          color: const Color(0xFF697586).withOpacity(0.87), fontSize: 14),
                                     ),
                                     SizedBox(
-                                      width: 4 *
-                                          MediaQuery.of(context).size.width /
-                                          360,
+                                      width: 4 * MediaQuery.of(context).size.width / 360,
                                     ),
                                     Text(
                                       "${widget.schemeCurrent.totalReturns > 0.0 ? "+ " : "- "}\u{20B9} ${oCcy.format(widget.schemeCurrent.totalReturns > 0.0 ? widget.schemeCurrent.totalReturns : widget.schemeCurrent.totalReturns * -1)} ",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: widget.schemeCurrent
-                                                      .totalReturns >
-                                                  0.0
+                                          color: widget.schemeCurrent.totalReturns > 0.0
                                               ? AppColors.greenAccent
                                               : AppColors.redAccent,
                                           fontWeight: FontWeight.bold,
@@ -299,9 +275,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                     Text(
                                       "(${widget.schemeCurrent.absReturns.toStringAsFixed(8).toString().substring(0, widget.schemeCurrent.absReturns.toStringAsFixed(8).toString().length - 6)}%)",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: widget.schemeCurrent
-                                                      .totalReturns >
-                                                  0.0
+                                          color: widget.schemeCurrent.totalReturns > 0.0
                                               ? AppColors.greenAccent
                                               : AppColors.redAccent,
                                           fontWeight: FontWeight.bold,
@@ -314,91 +288,57 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                             ),
                           ),
                           Divider(
-                            color: const Color(0xFF96B0BD)
-                                .withOpacity(0.3), //Colors.white30,
+                            color: const Color(0xFF96B0BD).withOpacity(0.3), //Colors.white30,
                             thickness: 1,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                              left:
-                                  20 * MediaQuery.of(context).size.width / 360,
-                              right:
-                                  20 * MediaQuery.of(context).size.width / 360,
+                              left: 20 * MediaQuery.of(context).size.width / 360,
+                              right: 20 * MediaQuery.of(context).size.width / 360,
                               top: 6 * MediaQuery.of(context).size.width / 360,
-                              bottom:
-                                  6 * MediaQuery.of(context).size.width / 360,
+                              bottom: 6 * MediaQuery.of(context).size.width / 360,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               // crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                buildSummaryFieldRow(
-                                    "Total Units",
-                                    oCcy
-                                        .format(
-                                            widget.schemeCurrent.unitHolding)
-                                        .replaceFirst('.00', ''),
-                                    context),
+                                buildSummaryFieldRow("Total Units",
+                                    oCcy.format(widget.schemeCurrent.unitHolding).replaceFirst('.00', ''), context),
                                 buildSummaryFieldRow(
                                     AppStrings.current,
                                     "\u{20B9} ${oCcy.format(widget.schemeCurrent.currentValue).replaceFirst('.00', '')}",
                                     context),
-                                buildSummaryFieldRow(
-                                    "Latest N.A.V",
-                                    oCcy
-                                        .format(widget.schemeCurrent.currentNAV)
-                                        .replaceFirst('.00', ''),
-                                    context),
+                                buildSummaryFieldRow("Latest N.A.V",
+                                    oCcy.format(widget.schemeCurrent.currentNAV).replaceFirst('.00', ''), context),
                                 buildSummaryFieldRow(
                                     "As of",
-                                    formattedDateTypeDashToSlash(widget
-                                        .schemeCurrent.asOfDate
-                                        .toString()
-                                        .trim()),
+                                    formattedDateTypeDashToSlash(widget.schemeCurrent.asOfDate.toString().trim()),
                                     context),
                                 buildSummaryFieldRow(
                                     AppStrings.invested,
                                     "\u{20B9} ${oCcy.format(widget.schemeCurrent.invested).replaceFirst('.00', '')}",
                                     context),
-                                buildSummaryFieldRow(
-                                    "Since",
-                                    formattedDate(
-                                        widget.schemeCurrent.sinceDate),
-                                    context),
+                                buildSummaryFieldRow("Since", formattedDate(widget.schemeCurrent.sinceDate), context),
                               ],
                             ),
                           ),
                           Divider(
-                            color: AppColors.dividerColor
-                                .withOpacity(0.3), //Colors.white30,
+                            color: AppColors.dividerColor.withOpacity(0.3), //Colors.white30,
                             thickness: 1,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 18.0 *
-                                    MediaQuery.of(context).size.width /
-                                    360,
-                                vertical: 12.0 *
-                                    MediaQuery.of(context).size.width /
-                                    360),
+                                horizontal: 18.0 * MediaQuery.of(context).size.width / 360,
+                                vertical: 12.0 * MediaQuery.of(context).size.width / 360),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 buildSummaryFieldColumnContainer(
-                                    "Since Days",
-                                    widget.schemeCurrent.sinceDays,
-                                    true,
-                                    context),
+                                    "Since Days", widget.schemeCurrent.sinceDays, true, context),
+                                buildSummaryFieldColumnContainer("CAGR", widget.schemeCurrent.sinceDaysCAGR,
+                                    widget.schemeCurrent.sinceDaysCAGR > 0.0, context),
                                 buildSummaryFieldColumnContainer(
-                                    "CAGR",
-                                    widget.schemeCurrent.sinceDaysCAGR,
-                                    widget.schemeCurrent.sinceDaysCAGR > 0.0,
-                                    context),
-                                buildSummaryFieldColumnContainer(
-                                    "XIRR",
-                                    widget.schemeCurrent.xirr,
-                                    widget.schemeCurrent.xirr > 0.0,
-                                    context)
+                                    "XIRR", widget.schemeCurrent.xirr, widget.schemeCurrent.xirr > 0.0, context)
                               ],
                             ),
                           )
@@ -412,8 +352,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           ),
           Container(
             // padding: EdgeInsets.zero,
-            padding: EdgeInsets.only(
-                top: 8.0 * MediaQuery.of(context).size.width / 360),
+            padding: EdgeInsets.only(top: 8.0 * MediaQuery.of(context).size.width / 360),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -433,10 +372,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.transparent,
-                      borderRadius: BorderRadius.all(Radius.circular(
-                          10 * MediaQuery.of(context).size.width / 360))),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 20 * MediaQuery.of(context).size.width / 360),
+                      borderRadius: BorderRadius.all(Radius.circular(10 * MediaQuery.of(context).size.width / 360))),
+                  padding: EdgeInsets.symmetric(horizontal: 20 * MediaQuery.of(context).size.width / 360),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -449,17 +386,13 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                               "  Transactions",
                               style: kGoogleStyleTexts.copyWith(
                                   color: AppColors.blackTextColor,
-                                  fontSize: 13.0 *
-                                      MediaQuery.of(context).size.width /
-                                      360),
+                                  fontSize: 13.0 * MediaQuery.of(context).size.width / 360),
                             ),
                             Text(
                               " (${AllData.schemeMap[widget.schemeKey]?.data.length})",
                               style: kGoogleStyleTexts.copyWith(
                                   color: AppColors.blackTextColor,
-                                  fontSize: 11.0 *
-                                      MediaQuery.of(context).size.width /
-                                      360,
+                                  fontSize: 11.0 * MediaQuery.of(context).size.width / 360,
                                   fontWeight: FontWeight.w100),
                             )
                           ],
@@ -479,9 +412,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                               "Sort (By Date)",
                               style: kGoogleStyleTexts.copyWith(
                                   color: AppColors.investedValueMain,
-                                  fontSize: 12.0 *
-                                      MediaQuery.of(context).size.width /
-                                      360),
+                                  fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
                             ),
                             IconButton(
                               padding: EdgeInsets.zero,
@@ -490,15 +421,11 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 duration: const Duration(seconds: 3),
                                 child: Transform(
                                   alignment: Alignment.center,
-                                  transform:
-                                      Matrix4.rotationX(srt == '0' ? 0 : pi),
+                                  transform: Matrix4.rotationX(srt == '0' ? 0 : pi),
                                   child: Icon(
                                     Icons.sort,
-                                    size: 12 *
-                                        MediaQuery.of(context).size.width /
-                                        360,
-                                    color: AppColors
-                                        .investedValueMain, //Colors.blueAccent,
+                                    size: 12 * MediaQuery.of(context).size.width / 360,
+                                    color: AppColors.investedValueMain, //Colors.blueAccent,
                                   ),
                                 ),
                               ),
@@ -540,53 +467,38 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                   // color: Colors.transparent,
                   decoration: BoxDecoration(
                       color: AppColors.whiteTextColor, //Colors.black11,
-                      borderRadius: BorderRadius.all(Radius.circular(
-                          10 * MediaQuery.of(context).size.width / 360))),
+                      borderRadius: BorderRadius.all(Radius.circular(10 * MediaQuery.of(context).size.width / 360))),
                   // padding: const EdgeInsets.symmetric(
                   //     horizontal: 08, vertical: 07),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(
-                            5 * MediaQuery.of(context).size.width / 360),
+                        Radius.circular(5 * MediaQuery.of(context).size.width / 360),
                       ),
                     ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12 * MediaQuery.of(context).size.width / 360),
+                    padding: EdgeInsets.symmetric(vertical: 12 * MediaQuery.of(context).size.width / 360),
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  12 * MediaQuery.of(context).size.width / 360),
+                          padding: EdgeInsets.symmetric(horizontal: 12 * MediaQuery.of(context).size.width / 360),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("Folio Number",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: AppColors.blackTextColor
-                                              .withOpacity(0.65),
-                                          fontSize: 12.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          color: AppColors.blackTextColor.withOpacity(0.65),
+                                          fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
                                   Text(item!.folioNumber.toString(),
                                       style: kGoogleStyleTexts.copyWith(
                                           color: AppColors.blackTextColor,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 14.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          fontSize: 14.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
                                 ],
@@ -595,30 +507,16 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 Container(
                                   // width: 100 * MediaQuery.of(context).size.width / 360,
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 6.0 *
-                                          MediaQuery.of(context).size.width /
-                                          360,
-                                      horizontal: 10 *
-                                          MediaQuery.of(context).size.width /
-                                          360),
+                                      vertical: 6.0 * MediaQuery.of(context).size.width / 360,
+                                      horizontal: 10 * MediaQuery.of(context).size.width / 360),
                                   decoration: BoxDecoration(
-                                      color: AppColors.installmentsBoxColor
-                                          .withOpacity(0.3),
+                                      color: AppColors.installmentsBoxColor.withOpacity(0.3),
                                       borderRadius: BorderRadius.all(
-                                          Radius.circular(4 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360))),
-                                  child: Text(
-                                      "Installment ${item.installmentNumber.toString().padLeft(2, '0')}",
+                                          Radius.circular(4 * MediaQuery.of(context).size.width / 360))),
+                                  child: Text("Installment ${item.installmentNumber.toString().padLeft(2, '0')}",
                                       style: kGoogleStyleTexts.copyWith(
                                           color: AppColors.installmentsColor,
-                                          fontSize: 12.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
                                 ),
@@ -628,10 +526,8 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                         Container(
                           padding: EdgeInsets.only(
                               top: 10 * MediaQuery.of(context).size.width / 360,
-                              right:
-                                  12 * MediaQuery.of(context).size.width / 360,
-                              left:
-                                  12 * MediaQuery.of(context).size.width / 360),
+                              right: 12 * MediaQuery.of(context).size.width / 360,
+                              left: 12 * MediaQuery.of(context).size.width / 360),
                           // color: AppColors.installmentsBoxColor)
                           //     .withOpacity(0.3),
                           child: Row(
@@ -642,24 +538,15 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                 children: [
                                   Text("Transaction Type",
                                       style: kGoogleStyleTexts.copyWith(
-                                          color: AppColors.blackTextColor
-                                              .withOpacity(0.65),
-                                          fontSize: 12.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          color: AppColors.blackTextColor.withOpacity(0.65),
+                                          fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
                                   Text(item.transType,
                                       style: kGoogleStyleTexts.copyWith(
                                           color: AppColors.investedValueMain,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 14.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          fontSize: 14.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
                                 ],
@@ -670,23 +557,14 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                                   Text("Amount",
                                       style: kGoogleStyleTexts.copyWith(
                                           color: AppColors.blackTextColor,
-                                          fontSize: 12.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
-                                  Text(
-                                      "\u{20B9} ${oCcy.format(item.amount).replaceFirst('.00', '')}",
+                                  Text("\u{20B9} ${oCcy.format(item.amount).replaceFirst('.00', '')}",
                                       style: kGoogleStyleTexts.copyWith(
                                           color: AppColors.investedValueMain,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 14.0 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360),
+                                          fontSize: 14.0 * MediaQuery.of(context).size.width / 360),
                                       softWrap: true,
                                       textAlign: TextAlign.left),
                                 ],
@@ -705,8 +583,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                               "Date",
                               formattedDate(item.date),
                             ),
-                            buildListRow(
-                                context, "Units", item.units.toString()),
+                            buildListRow(context, "Units", item.units.toString()),
                             buildListRow(context, "N.A.V", item.nav.toString()),
                           ],
                         ),
@@ -736,8 +613,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
         children: [
           Text(field,
               style: kGoogleStyleTexts.copyWith(
-                  color: AppColors.investedValueMain,
-                  fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
+                  color: AppColors.investedValueMain, fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
               softWrap: true,
               textAlign: TextAlign.left),
           Text(item,
@@ -762,8 +638,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           Text(
             fieldName,
             style: kGoogleStyleTexts.copyWith(
-                color: AppColors.mainCardField,
-                fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
+                color: AppColors.mainCardField, fontSize: 12.0 * MediaQuery.of(context).size.width / 360),
           ),
           Text(
             value.toString(),
@@ -789,8 +664,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
           vertical: 6.0 * MediaQuery.of(context).size.width / 360,
           horizontal: 10 * MediaQuery.of(context).size.width / 360),
       decoration: BoxDecoration(
-          color: AppColors.fieldColor.withOpacity(0.1),
-          borderRadius: const BorderRadius.all(Radius.circular(4))),
+          color: AppColors.fieldColor.withOpacity(0.1), borderRadius: const BorderRadius.all(Radius.circular(4))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -832,8 +706,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Select Order of sorting',
-                style: kGoogleStyleTexts.copyWith(
-                    color: AppColors.blackTextColor, fontSize: 17.0),
+                style: kGoogleStyleTexts.copyWith(color: AppColors.blackTextColor, fontSize: 17.0),
               ),
             ),
           ),
@@ -843,8 +716,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 tileColor: AppColors.blackTextColor,
                 title: Text(
                   'Ascending',
-                  style: kGoogleStyleTexts.copyWith(
-                      color: AppColors.blackTextColor, fontSize: 17.0),
+                  style: kGoogleStyleTexts.copyWith(color: AppColors.blackTextColor, fontSize: 17.0),
                 ),
                 value: "1",
                 activeColor: AppColors.loginBtnColor,
@@ -863,8 +735,7 @@ class _SchemeSummaryScreenState extends State<SchemeSummaryScreen>
                 tileColor: AppColors.blackTextColor,
                 title: Text(
                   'Descending',
-                  style: kGoogleStyleTexts.copyWith(
-                      color: AppColors.blackTextColor, fontSize: 17.0),
+                  style: kGoogleStyleTexts.copyWith(color: AppColors.blackTextColor, fontSize: 17.0),
                 ),
                 value: "0",
                 activeColor: AppColors.loginBtnColor,

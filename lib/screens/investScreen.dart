@@ -29,8 +29,7 @@ class _InvestScreenState extends State<InvestScreen> {
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0, bottom: 0.0),
                 child: Column(
                   children: [
                     Column(
@@ -43,8 +42,7 @@ class _InvestScreenState extends State<InvestScreen> {
                               children: [
                                 Text(
                                   AppStrings.investments,
-                                  style: kGoogleStyleTexts.copyWith(
-                                      color: Colors.white, fontSize: 15.0),
+                                  style: kGoogleStyleTexts.copyWith(color: Colors.white, fontSize: 15.0),
                                 ),
                               ],
                             ),

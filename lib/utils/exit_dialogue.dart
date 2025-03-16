@@ -17,8 +17,7 @@ class ExitDialogue extends StatelessWidget {
       backgroundColor: AppColors.appThemeColor,
       title: Text(
         "Exit App",
-        style: kGoogleStyleTexts.copyWith(
-            color: AppColors.blackTextColor, fontSize: 18.0),
+        style: kGoogleStyleTexts.copyWith(color: AppColors.blackTextColor, fontSize: 18.0),
       ),
       content: Builder(
         builder: (context) {
@@ -37,8 +36,7 @@ class ExitDialogue extends StatelessWidget {
                   textScaler: const TextScaler.linear(0.6 / 0.7),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(left: 5, right: 5.0, top: 15.0),
+                  padding: const EdgeInsets.only(left: 5, right: 5.0, top: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -48,10 +46,8 @@ class ExitDialogue extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                side: const BorderSide(
-                                    width: 0.5, color: Colors.black26)),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                                side: const BorderSide(width: 0.5, color: Colors.black26)),
                             onPressed: () {
                               Navigator.of(context).pop(false);
                             },
@@ -71,11 +67,9 @@ class ExitDialogue extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xffC93131),
                                 elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0))),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
                             onPressed: () async {
-                              SystemChannels.platform
-                                  .invokeMethod('SystemNavigator.pop');
+                              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                             },
                             child: AutoSizeText(
                               "Exit",

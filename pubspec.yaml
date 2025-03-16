@@ -24,8 +24,14 @@ dependencies:
   syncfusion_flutter_charts:
   package_info_plus: ^6.0.0
   local_auth:
-  flutter_riverpod:
+  get:
   flutter_secure_storage:
+  get_storage:
+  permission_handler:
+  connectivity_plus: any
+  fluttertoast: any
+  flutter_screenutil: any
+  lottie: any
 
 dev_dependencies:
   flutter_test:

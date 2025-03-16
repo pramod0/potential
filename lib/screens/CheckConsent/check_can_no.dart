@@ -29,13 +29,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
       SharedPreferences inst = await SharedPreferences.getInstance();
       inst.clear();
       AllData.investedData = InvestedData(
-          invested: 0,
-          current: 0,
-          totalReturns: 0,
-          absReturns: 0,
-          xirr: 0,
-          sinceDaysCAGR: 0,
-          fundData: []);
+          invested: 0, current: 0, totalReturns: 0, absReturns: 0, xirr: 0, sinceDaysCAGR: 0, fundData: []);
       AllData.schemeMap.clear();
       AllData.investorData = User();
       if (!context.mounted) return;
@@ -151,8 +145,7 @@ class _StateCheckCANNO extends State<CheckCANNO> {
                         color: AppColors.blackTextColor,
                       ),
                     ),
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ProfilePage())),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage())),
                     // onTap: _logout,
                   ),
                   //  Hide settings for now

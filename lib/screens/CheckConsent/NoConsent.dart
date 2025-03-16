@@ -20,8 +20,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   showSnackBar(String text, Color color) {
-    _scaffoldKey.currentState
-        ?.showSnackBar(SnackBar(content: Text(text), backgroundColor: color));
+    _scaffoldKey.currentState?.showSnackBar(SnackBar(content: Text(text), backgroundColor: color));
   }
 
   @override
@@ -72,8 +71,7 @@ class _StateCheckCANNO extends State<TakeConsentPage> {
             const TextField(),
             ElevatedButton(
                 onPressed: () {
-                  showSnackBar("Added Consent Application Wait for few minutes",
-                      Colors.red);
+                  showSnackBar("Added Consent Application Wait for few minutes", Colors.red);
                 },
                 child: const Text("Submit")),
           ],

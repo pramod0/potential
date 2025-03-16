@@ -118,8 +118,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 },
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
-                  FocusScope.of(context)
-                      .requestFocus(_confirmPasswordFocusNode);
+                  FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
                 },
                 decoration: InputDecoration(
                   suffixIcon: GestureDetector(
@@ -129,9 +128,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       });
                     },
                     child: Icon(
-                      _showNewPassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
+                      _showNewPassword ? Icons.visibility_off : Icons.visibility,
                       color: AppColors.blackTextColor,
                       //AppColors.whiteBorderColor),
                       size: 22,
@@ -166,9 +163,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       });
                     },
                     child: Icon(
-                      _showConfirmPassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
+                      _showConfirmPassword ? Icons.visibility_off : Icons.visibility,
                       color: AppColors.blackTextColor,
                       //AppColors.whiteBorderColor),
                       size: 22,
@@ -191,8 +186,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         // print(success);
                       }
                       if (success) {
-                        showSnackBar(
-                            "OTP sent Successfully", Colors.blueAccent);
+                        showSnackBar("OTP sent Successfully", Colors.blueAccent);
                       } else {
                         showSnackBar("Unable to send OTP", Colors.redAccent);
                       }
@@ -215,8 +209,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         }
                         if (success) {
                           //todo:show snackbar and got to login page pop
-                          showSnackBar("Password changed Sucessfully",
-                              Colors.blueAccent);
+                          showSnackBar("Password changed Sucessfully", Colors.blueAccent);
                           if (!context.mounted) return;
                           Navigator.of(context).pop();
                         } else {
@@ -224,12 +217,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                           //   // print(jsonji["error"][0]["message"].toString());
                           // }
                           if (jsonji["error"].runtimeType == [].runtimeType) {
-                            showSnackBar(
-                                jsonji["error"][0]["message"].toString(),
-                                Colors.redAccent);
+                            showSnackBar(jsonji["error"][0]["message"].toString(), Colors.redAccent);
                           } else {
-                            showSnackBar(
-                                jsonji["error"].toString(), Colors.redAccent);
+                            showSnackBar(jsonji["error"].toString(), Colors.redAccent);
                           }
                           if (!context.mounted) return;
                         }

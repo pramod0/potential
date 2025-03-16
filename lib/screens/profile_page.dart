@@ -30,13 +30,13 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 20.0),
                 // Username
                 Text(
-                  "${AllData.investorData.firstName ?? ""} ${AllData.investorData.lastName ?? ""}",
+                  "${"Shambhu" ?? (AllData.investorData.firstName ?? "")} ${"Ramani" ?? (AllData.investorData.lastName ?? "")}",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 10.0),
                 // Bio
                 Text(
-                  AllData.investorData.email ?? "",
+                  "sr" ?? AllData.investorData.email ?? "",
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 4.0),

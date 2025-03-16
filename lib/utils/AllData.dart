@@ -25,8 +25,7 @@ class AllData {
       fundData: []);
   static Map<String, SchemeData> schemeMap = <String, SchemeData>{};
   static late User investorData;
-  static DateTime lastFetchTime =
-      DateTime.now(); // Define your refresh interval
+  static DateTime lastFetchTime = DateTime.now(); // Define your refresh interval
 
   /// private constructor
   AllData._sharedInstance();
@@ -51,8 +50,7 @@ class AllData {
     if (kDebugMode) {
       // print(schemeSummary.data[0].key);
     }
-    AllData.schemeMap
-        .putIfAbsent(schemeSummary.data[0].key, () => schemeSummary);
+    AllData.schemeMap.putIfAbsent(schemeSummary.data[0].key, () => schemeSummary);
     AllData.lastFetchTime = DateTime.now();
   }
 
@@ -78,8 +76,7 @@ class AllData {
       // if (kDebugMode) {
       //   print(token);
       // }
-      var responseBody =
-          jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
+      var responseBody = jsonDecode(await ApiService().schemeSummaryAPI(token, fund, scheme));
 
       // if (kDebugMode) {
       //   print("summary");
@@ -99,8 +96,7 @@ class AllData {
       //   print(schemeData.length);
       // }
       var prefs = SharedPreferences.getInstance();
-      prefs.then(
-          (pref) => pref.setString('allSchemes', AllData.schemeMap.toString()));
+      prefs.then((pref) => pref.setString('allSchemes', AllData.schemeMap.toString()));
       await EasyLoading.dismiss();
       // if (kDebugMode) {
       //   print(schemeData.length);

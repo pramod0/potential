@@ -153,8 +153,7 @@ class _StateConsentNoData extends State<ConsentNoData> {
                         color: AppColors.blackTextColor,
                       ),
                     ),
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ProfilePage())),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage())),
                     // onTap: _logout,
                   ),
                   //  Hide settings for now

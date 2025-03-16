@@ -5,7 +5,7 @@
 // import 'package:potential/screens/tabspage.dart';
 // import 'package:potential/utils/track.dart';
 //
-// import '../screens/CANcreationform/verifyMobileNo.dart';
+// import '../screens/CANcreationform/verify_mobile_no.dart';
 // import '../screens/homeScreen.dart';
 // import '../screens/login.dart';
 //

@@ -15,8 +15,7 @@ class TabNavigationItem {
   final Icon icon;
   final prefs = SharedPreferences.getInstance();
 
-  TabNavigationItem(
-      {required this.page, required this.title, required this.icon});
+  TabNavigationItem({required this.page, required this.title, required this.icon});
 
   static List<TabNavigationItem> get items => [
         TabNavigationItem(

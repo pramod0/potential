@@ -28,29 +28,24 @@ class SipCalculator extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Container(
-                  padding: EdgeInsets.all(
-                      9 * MediaQuery.of(context).size.width / 360),
+                  padding: EdgeInsets.all(9 * MediaQuery.of(context).size.width / 360),
                   decoration: BoxDecoration(
                       color: AppColors.switchTabColor,
-                      borderRadius: BorderRadius.all(Radius.circular(
-                          8 * MediaQuery.of(context).size.width / 360))),
+                      borderRadius: BorderRadius.all(Radius.circular(8 * MediaQuery.of(context).size.width / 360))),
                   child: Row(
                     children: [
-                      Consumer<WealthProvider>(
-                          builder: (context, sipProvider, child) {
+                      Consumer<WealthProvider>(builder: (context, sipProvider, child) {
                         return Expanded(
                             child: ElevatedButton(
                           style: ButtonStyle(
                             elevation: WidgetStateProperty.all(0),
-                            backgroundColor: WidgetStateProperty.resolveWith(
-                                (state) =>
-                                    context.read<WealthProvider>().current == 0
-                                        ? AppColors.whiteTextColor
-                                        : AppColors.switchTabColor),
+                            backgroundColor: WidgetStateProperty.resolveWith((state) =>
+                                context.read<WealthProvider>().current == 0
+                                    ? AppColors.whiteTextColor
+                                    : AppColors.switchTabColor),
                           ),
                           onPressed: () {
-                            if (context.read<WealthProvider>().current == 1)
-                              context.read<WealthProvider>().setMode(0);
+                            if (context.read<WealthProvider>().current == 1) context.read<WealthProvider>().setMode(0);
                           },
                           child: const Text(
                             "SIP",
@@ -60,18 +55,15 @@ class SipCalculator extends StatelessWidget {
                       const SizedBox(
                         width: 15,
                       ),
-                      Consumer<WealthProvider>(
-                          builder: (context, sipProvider, child) {
+                      Consumer<WealthProvider>(builder: (context, sipProvider, child) {
                         return Expanded(
                           child: ElevatedButton(
                             style: ButtonStyle(
                               elevation: WidgetStateProperty.all(0),
-                              backgroundColor: WidgetStateProperty.resolveWith(
-                                  (state) =>
-                                      context.read<WealthProvider>().current ==
-                                              1
-                                          ? AppColors.whiteTextColor
-                                          : AppColors.switchTabColor),
+                              backgroundColor: WidgetStateProperty.resolveWith((state) =>
+                                  context.read<WealthProvider>().current == 1
+                                      ? AppColors.whiteTextColor
+                                      : AppColors.switchTabColor),
                             ),
                             onPressed: () {
                               if (context.read<WealthProvider>().current == 0)
@@ -98,37 +90,21 @@ class SipCalculator extends StatelessWidget {
                             Radius.circular(10),
                           ),
                         ),
-                        padding: EdgeInsets.all(
-                            9 * MediaQuery.of(context).size.width / 360),
+                        padding: EdgeInsets.all(9 * MediaQuery.of(context).size.width / 360),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(
-                                  top: 12 *
-                                      MediaQuery.of(context).size.width /
-                                      360),
+                              padding: EdgeInsets.only(top: 12 * MediaQuery.of(context).size.width / 360),
                               child: Text('Expected\nAmount',
-                                  style: TextStyle(
-                                      fontSize: 12 *
-                                          MediaQuery.of(context).size.width /
-                                          360)),
+                                  style: TextStyle(fontSize: 12 * MediaQuery.of(context).size.width / 360)),
                             ),
                             Consumer<WealthProvider>(
                               builder: (context, sipProvider, child) {
                                 return Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 20 *
-                                          MediaQuery.of(context).size.width /
-                                          360),
-                                  child: Text(
-                                      '\u{20B9} ${sipProvider.futureValue?.toStringAsFixed(2)}',
-                                      style: TextStyle(
-                                          fontSize: 13 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360)),
+                                  padding: EdgeInsets.only(top: 20 * MediaQuery.of(context).size.width / 360),
+                                  child: Text('\u{20B9} ${sipProvider.futureValue?.toStringAsFixed(2)}',
+                                      style: TextStyle(fontSize: 13 * MediaQuery.of(context).size.width / 360)),
                                 );
                               },
                             ),
@@ -139,8 +115,7 @@ class SipCalculator extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.all(
-                            9 * MediaQuery.of(context).size.width / 360),
+                        padding: EdgeInsets.all(9 * MediaQuery.of(context).size.width / 360),
                         decoration: BoxDecoration(
                           color: AppColors.gainedColor,
                           borderRadius: const BorderRadius.all(
@@ -151,31 +126,16 @@ class SipCalculator extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(
-                                  top: 12 *
-                                      MediaQuery.of(context).size.width /
-                                      360),
+                              padding: EdgeInsets.only(top: 12 * MediaQuery.of(context).size.width / 360),
                               child: Text('Gained\nAmount',
-                                  style: TextStyle(
-                                      fontSize: 12 *
-                                          MediaQuery.of(context).size.width /
-                                          360)),
+                                  style: TextStyle(fontSize: 12 * MediaQuery.of(context).size.width / 360)),
                             ),
                             Consumer<WealthProvider>(
                               builder: (context, sipProvider, child) {
                                 return Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 20 *
-                                          MediaQuery.of(context).size.width /
-                                          360),
-                                  child: Text(
-                                      '\u{20B9} ${sipProvider.gains.toStringAsFixed(2)}',
-                                      style: TextStyle(
-                                          fontSize: 13 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360)),
+                                  padding: EdgeInsets.only(top: 20 * MediaQuery.of(context).size.width / 360),
+                                  child: Text('\u{20B9} ${sipProvider.gains.toStringAsFixed(2)}',
+                                      style: TextStyle(fontSize: 13 * MediaQuery.of(context).size.width / 360)),
                                 );
                               },
                             ),
@@ -186,8 +146,7 @@ class SipCalculator extends StatelessWidget {
                     SizedBox(width: 16),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.all(
-                            9 * MediaQuery.of(context).size.width / 360),
+                        padding: EdgeInsets.all(9 * MediaQuery.of(context).size.width / 360),
                         decoration: BoxDecoration(
                           color: AppColors.investedColor,
                           borderRadius: const BorderRadius.all(
@@ -198,31 +157,16 @@ class SipCalculator extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(
-                                  top: 12 *
-                                      MediaQuery.of(context).size.width /
-                                      360),
+                              padding: EdgeInsets.only(top: 12 * MediaQuery.of(context).size.width / 360),
                               child: Text('Invested\nAmount',
-                                  style: TextStyle(
-                                      fontSize: 12 *
-                                          MediaQuery.of(context).size.width /
-                                          360)),
+                                  style: TextStyle(fontSize: 12 * MediaQuery.of(context).size.width / 360)),
                             ),
                             Consumer<WealthProvider>(
                               builder: (context, sipProvider, child) {
                                 return Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 20 *
-                                          MediaQuery.of(context).size.width /
-                                          360),
-                                  child: Text(
-                                      '\u{20B9} ${sipProvider.invested.round()}',
-                                      style: TextStyle(
-                                          fontSize: 13 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              360)),
+                                  padding: EdgeInsets.only(top: 20 * MediaQuery.of(context).size.width / 360),
+                                  child: Text('\u{20B9} ${sipProvider.invested.round()}',
+                                      style: TextStyle(fontSize: 13 * MediaQuery.of(context).size.width / 360)),
                                 );
                               },
                             ),
@@ -238,25 +182,17 @@ class SipCalculator extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: AppColors.inputFieldBorderColor
-                                  .withOpacity(0.6)),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(6))),
+                          border: Border.all(width: 1, color: AppColors.inputFieldBorderColor.withOpacity(0.6)),
+                          borderRadius: const BorderRadius.all(Radius.circular(6))),
                       child: Row(
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.5,
-                            child: Consumer<WealthProvider>(
-                                builder: (context, sipProvider, child) {
+                            child: Consumer<WealthProvider>(builder: (context, sipProvider, child) {
                               return Text(
-                                sipProvider.current == 0
-                                    ? 'Monthly Investment'
-                                    : 'LumpSum Investment',
+                                sipProvider.current == 0 ? 'Monthly Investment' : 'LumpSum Investment',
                                 style: TextStyle(fontSize: 12),
                               );
                             }),
@@ -264,30 +200,20 @@ class SipCalculator extends StatelessWidget {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: AppColors.fieldValueColor
-                                      .withOpacity(0.23),
-                                  border: Border.all(
-                                      width: 1,
-                                      color: AppColors.switchLabelBorderColor),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
+                                  color: AppColors.fieldValueColor.withOpacity(0.23),
+                                  border: Border.all(width: 1, color: AppColors.switchLabelBorderColor),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10))),
                               child: TextField(
-                                controller: context
-                                    .read<WealthProvider>()
-                                    .controllerInvestment,
+                                controller: context.read<WealthProvider>().controllerInvestment,
                                 decoration: InputDecoration(
                                   prefix: Text(" \u{20B9} "),
                                   suffix: Text("  "),
-                                  border: InputBorder
-                                      .none, // This removes the underline
+                                  border: InputBorder.none, // This removes the underline
                                 ),
                                 keyboardType: TextInputType.number,
                                 onChanged: (value) {
                                   try {
-                                    context
-                                        .read<WealthProvider>()
-                                        .setMonthlyInvestment(
-                                            double.parse(value));
+                                    context.read<WealthProvider>().setMonthlyInvestment(double.parse(value));
                                   } catch (e) {
                                     // handle the error
                                   }
@@ -302,13 +228,9 @@ class SipCalculator extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: AppColors.inputFieldBorderColor
-                                  .withOpacity(0.6)),
+                          border: Border.all(width: 1, color: AppColors.inputFieldBorderColor.withOpacity(0.6)),
                           borderRadius: BorderRadius.all(Radius.circular(6))),
                       child: Row(
                         children: [
@@ -322,29 +244,20 @@ class SipCalculator extends StatelessWidget {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: AppColors.fieldValueColor
-                                      .withOpacity(0.23),
-                                  border: Border.all(
-                                      width: 1,
-                                      color: AppColors.switchLabelBorderColor),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                                  color: AppColors.fieldValueColor.withOpacity(0.23),
+                                  border: Border.all(width: 1, color: AppColors.switchLabelBorderColor),
+                                  borderRadius: BorderRadius.all(Radius.circular(10))),
                               child: TextField(
-                                controller: context
-                                    .read<WealthProvider>()
-                                    .controllerDuration,
+                                controller: context.read<WealthProvider>().controllerDuration,
                                 decoration: const InputDecoration(
                                   prefix: Text("    "),
                                   suffix: Text("yrs "),
-                                  border: InputBorder
-                                      .none, // This removes the underline
+                                  border: InputBorder.none, // This removes the underline
                                 ),
                                 keyboardType: TextInputType.number,
                                 onChanged: (value) {
                                   try {
-                                    context
-                                        .read<WealthProvider>()
-                                        .setDurationYears(int.parse(value));
+                                    context.read<WealthProvider>().setDurationYears(int.parse(value));
                                   } catch (e) {
                                     // handle the error
                                   }
@@ -362,10 +275,7 @@ class SipCalculator extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1,
-                            color: AppColors.inputFieldBorderColor
-                                .withOpacity(0.6)),
+                        border: Border.all(width: 1, color: AppColors.inputFieldBorderColor.withOpacity(0.6)),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
                     child: Row(
                       children: [
@@ -379,29 +289,20 @@ class SipCalculator extends StatelessWidget {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                color:
-                                    AppColors.fieldValueColor.withOpacity(0.23),
-                                border: Border.all(
-                                    width: 1,
-                                    color: AppColors.switchLabelBorderColor),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                color: AppColors.fieldValueColor.withOpacity(0.23),
+                                border: Border.all(width: 1, color: AppColors.switchLabelBorderColor),
+                                borderRadius: BorderRadius.all(Radius.circular(10))),
                             child: TextField(
-                              controller: context
-                                  .read<WealthProvider>()
-                                  .controllerExpectedRtn,
+                              controller: context.read<WealthProvider>().controllerExpectedRtn,
                               decoration: const InputDecoration(
                                 prefix: Text("    "),
                                 suffix: Text("%    "),
-                                border: InputBorder
-                                    .none, // This removes the underline
+                                border: InputBorder.none, // This removes the underline
                               ),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 try {
-                                  context
-                                      .read<WealthProvider>()
-                                      .setSelectedPercent(double.parse(value));
+                                  context.read<WealthProvider>().setSelectedPercent(double.parse(value));
                                 } catch (e) {
                                   // handle the error
                                 }
@@ -428,16 +329,14 @@ class SipCalculator extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
-                      text:
-                          'SIP involves regular monthly investments, not a lump sum.\n',
+                      text: 'SIP involves regular monthly investments, not a lump sum.\n',
                     ),
                     TextSpan(
                       text: '• Compounding Effect: ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
-                      text:
-                          'Returns are compounded monthly, leading to a more accurate reflection of growth.\n',
+                      text: 'Returns are compounded monthly, leading to a more accurate reflection of growth.\n',
                     ),
                     TextSpan(
                       text: '• Different Calculation Method: ',
@@ -473,8 +372,7 @@ class SipCalculator extends StatelessWidget {
   }
 }
 
-double calculateSip(
-    double ratePA, double monthlyInvestment, int durationYears) {
+double calculateSip(double ratePA, double monthlyInvestment, int durationYears) {
   double r = ratePA;
   r = (r / 12.0) / 100.0;
   int n = durationYears * 12;
@@ -497,11 +395,9 @@ class WealthProvider with ChangeNotifier {
     calculateFuture();
   }
 
-  TextEditingController controllerInvestment =
-      TextEditingController(text: '1000');
+  TextEditingController controllerInvestment = TextEditingController(text: '1000');
   TextEditingController controllerDuration = TextEditingController(text: '1');
-  TextEditingController controllerExpectedRtn =
-      TextEditingController(text: '14');
+  TextEditingController controllerExpectedRtn = TextEditingController(text: '14');
 
   double get monthlyInvestment => _monthlyInvestment;
 

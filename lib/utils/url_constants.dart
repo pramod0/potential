@@ -1,5 +1,5 @@
 class URLConstants {
-  static const String domainURL = "http://128.199.68.236:7070/api";
+  static const String domainURL = "http://192.168.0.101:7070/api";
   static const String mainToUse = "http://128.199.68.236:7070/api";
   static const String signupURL = "/signup";
   static const String loginURL = "/login";

@@ -5,11 +5,8 @@ class CANIndFillEezzReq {
   CANIndFillEezzReq({this.rEQHEADER, this.rEQBODY});
 
   CANIndFillEezzReq.fromJson(Map<String, dynamic> json) {
-    rEQHEADER = json['REQ_HEADER'] != null
-        ? REQHEADER.fromJson(json['REQ_HEADER'])
-        : null;
-    rEQBODY =
-        json['REQ_BODY'] != null ? REQBODY.fromJson(json['REQ_BODY']) : null;
+    rEQHEADER = json['REQ_HEADER'] != null ? REQHEADER.fromJson(json['REQ_HEADER']) : null;
+    rEQBODY = json['REQ_BODY'] != null ? REQBODY.fromJson(json['REQ_BODY']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -103,25 +100,16 @@ class REQBODY {
     rEGTYPE = json['REG_TYPE'];
     pROOFUPLOADBYCAN = json['PROOF_UPLOAD_BY_CAN'];
     eNABLEONLINEACCESSFLAG = json['ENABLE_ONLINE_ACCESS_FLAG'];
-    eNTITYEMAILDETAILS = json['ENTITY_EMAIL_DETAILS'] != null
-        ? ENTITYEMAILDETAILS.fromJson(json['ENTITY_EMAIL_DETAILS'])
-        : null;
+    eNTITYEMAILDETAILS =
+        json['ENTITY_EMAIL_DETAILS'] != null ? ENTITYEMAILDETAILS.fromJson(json['ENTITY_EMAIL_DETAILS']) : null;
     hOLDINGTYPE = json['HOLDING_TYPE'];
     iNVCATEGORY = json['INV_CATEGORY'];
     tAXSTATUS = json['TAX_STATUS'];
     hOLDERCOUNT = json['HOLDER_COUNT'];
-    hOLDERRECORDS = json['HOLDER_RECORDS'] != null
-        ? HOLDERRECORDS.fromJson(json['HOLDER_RECORDS'])
-        : null;
-    aRNDETAILS = json['ARN_DETAILS'] != null
-        ? ARNDETAILS.fromJson(json['ARN_DETAILS'])
-        : null;
-    bANKDETAILS = json['BANK_DETAILS'] != null
-        ? BANKDETAILS.fromJson(json['BANK_DETAILS'])
-        : null;
-    nOMINEEDETAILS = json['NOMINEE_DETAILS'] != null
-        ? NOMINEEDETAILS.fromJson(json['NOMINEE_DETAILS'])
-        : null;
+    hOLDERRECORDS = json['HOLDER_RECORDS'] != null ? HOLDERRECORDS.fromJson(json['HOLDER_RECORDS']) : null;
+    aRNDETAILS = json['ARN_DETAILS'] != null ? ARNDETAILS.fromJson(json['ARN_DETAILS']) : null;
+    bANKDETAILS = json['BANK_DETAILS'] != null ? BANKDETAILS.fromJson(json['BANK_DETAILS']) : null;
+    nOMINEEDETAILS = json['NOMINEE_DETAILS'] != null ? NOMINEEDETAILS.fromJson(json['NOMINEE_DETAILS']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -176,9 +164,7 @@ class HOLDERRECORDS {
   HOLDERRECORDS({this.hOLDERRECORD});
 
   HOLDERRECORDS.fromJson(Map<String, dynamic> json) {
-    hOLDERRECORD = json['HOLDER_RECORD'] != null
-        ? HOLDERRECORD.fromJson(json['HOLDER_RECORD'])
-        : null;
+    hOLDERRECORD = json['HOLDER_RECORD'] != null ? HOLDERRECORD.fromJson(json['HOLDER_RECORD']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -225,15 +211,9 @@ class HOLDERRECORD {
     aADHAARNO = json['AADHAAR_NO'];
     rELATIONSHIP = json['RELATIONSHIP'];
     rELPROOF = json['REL_PROOF'];
-    cONTACTDETAIL = json['CONTACT_DETAIL'] != null
-        ? CONTACTDETAIL.fromJson(json['CONTACT_DETAIL'])
-        : null;
-    oTHERDETAIL = json['OTHER_DETAIL'] != null
-        ? OTHERDETAIL.fromJson(json['OTHER_DETAIL'])
-        : null;
-    fATCADETAIL = json['FATCA_DETAIL'] != null
-        ? FATCADETAIL.fromJson(json['FATCA_DETAIL'])
-        : null;
+    cONTACTDETAIL = json['CONTACT_DETAIL'] != null ? CONTACTDETAIL.fromJson(json['CONTACT_DETAIL']) : null;
+    oTHERDETAIL = json['OTHER_DETAIL'] != null ? OTHERDETAIL.fromJson(json['OTHER_DETAIL']) : null;
+    fATCADETAIL = json['FATCA_DETAIL'] != null ? FATCADETAIL.fromJson(json['FATCA_DETAIL']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -408,9 +388,7 @@ class FATCADETAIL {
     nATIONALITY = json['NATIONALITY'];
     nATIONALITYOTH = json['NATIONALITY_OTH'];
     tAXRESFLAG = json['TAX_RES_FLAG'];
-    tAXSRECORDS = json['TAXS_RECORDS'] != null
-        ? TAXSRECORDS.fromJson(json['TAXS_RECORDS'])
-        : null;
+    tAXSRECORDS = json['TAXS_RECORDS'] != null ? TAXSRECORDS.fromJson(json['TAXS_RECORDS']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -436,9 +414,7 @@ class TAXSRECORDS {
   TAXSRECORDS({this.tAXRECORD});
 
   TAXSRECORDS.fromJson(Map<String, dynamic> json) {
-    tAXRECORD = json['TAX_RECORD'] != null
-        ? TAXRECORD.fromJson(json['TAX_RECORD'])
-        : null;
+    tAXRECORD = json['TAX_RECORD'] != null ? TAXRECORD.fromJson(json['TAX_RECORD']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -458,13 +434,7 @@ class TAXRECORD {
   String? iDENTITYPE;
   String? iDENTITYPEOTH;
 
-  TAXRECORD(
-      {this.sEQNUM,
-      this.tAXCOUNTRY,
-      this.tAXCOUNTRYOTH,
-      this.tAXREFNO,
-      this.iDENTITYPE,
-      this.iDENTITYPEOTH});
+  TAXRECORD({this.sEQNUM, this.tAXCOUNTRY, this.tAXCOUNTRYOTH, this.tAXREFNO, this.iDENTITYPE, this.iDENTITYPEOTH});
 
   TAXRECORD.fromJson(Map<String, dynamic> json) {
     sEQNUM = json['SEQ_NUM'];
@@ -515,9 +485,7 @@ class BANKDETAILS {
   BANKDETAILS({this.bANKRECORD});
 
   BANKDETAILS.fromJson(Map<String, dynamic> json) {
-    bANKRECORD = json['BANK_RECORD'] != null
-        ? BANKRECORD.fromJson(json['BANK_RECORD'])
-        : null;
+    bANKRECORD = json['BANK_RECORD'] != null ? BANKRECORD.fromJson(json['BANK_RECORD']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -584,9 +552,7 @@ class NOMINEEDETAILS {
   NOMINEEDETAILS.fromJson(Map<String, dynamic> json) {
     nOMDECLLVL = json['NOM_DECL_LVL'];
     nOMINOPTFLAG = json['NOMIN_OPT_FLAG'];
-    nOMINEESRECORDS = json['NOMINEES_RECORDS'] != null
-        ? NOMINEESRECORDS.fromJson(json['NOMINEES_RECORDS'])
-        : null;
+    nOMINEESRECORDS = json['NOMINEES_RECORDS'] != null ? NOMINEESRECORDS.fromJson(json['NOMINEES_RECORDS']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -606,9 +572,7 @@ class NOMINEESRECORDS {
   NOMINEESRECORDS({this.nOMINEERECORD});
 
   NOMINEESRECORDS.fromJson(Map<String, dynamic> json) {
-    nOMINEERECORD = json['NOMINEE_RECORD'] != null
-        ? NOMINEERECORD.fromJson(json['NOMINEE_RECORD'])
-        : null;
+    nOMINEERECORD = json['NOMINEE_RECORD'] != null ? NOMINEERECORD.fromJson(json['NOMINEE_RECORD']) : null;
   }
 
   Map<String, dynamic> toJson() {

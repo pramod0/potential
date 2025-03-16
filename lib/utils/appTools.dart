@@ -9,9 +9,7 @@ String formattedDate(date) {
 }
 
 String formattedDateTypeDashToSlash(date) {
-  return date
-      .toString()
-      .replaceAll('-', '/'); //.toString().replaceAll('-', '/')
+  return date.toString().replaceAll('-', '/'); //.toString().replaceAll('-', '/')
 }
 
 const Pattern emailPattern =

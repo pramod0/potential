@@ -97,13 +97,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       );
                     } else {
                       // print(ret);
-                      if (ret["message"] ==
-                          "Cannot read property 'update' of null") {
-                        showSnackBar(
-                            "Email ID not registered", Colors.redAccent);
+                      if (ret["message"] == "Cannot read property 'update' of null") {
+                        showSnackBar("Email ID not registered", Colors.redAccent);
                       } else {
-                        showSnackBar(
-                            "Try again after some time", Colors.redAccent);
+                        showSnackBar("Try again after some time", Colors.redAccent);
                       }
                       // Navigator.of(context).pop();
                     }

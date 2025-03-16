@@ -69,8 +69,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         isVisible = true;
       });
       // await showSnackBar("No Internet Connection", Colors.red);
-      await Future.delayed(const Duration(seconds: 3))
-          .whenComplete(() => SystemNavigator.pop(animated: true));
+      await Future.delayed(const Duration(seconds: 3)).whenComplete(() => SystemNavigator.pop(animated: true));
       setState(() {
         isVisible = false;
       });
@@ -95,11 +94,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         return;
       }
       if (expired.isNotEmpty) {
-        int h = DateTime.now()
-            .difference(DateTime.fromMillisecondsSinceEpoch(
-                expired['exp'] * 1000,
-                isUtc: true))
-            .inHours;
+        int h =
+            DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(expired['exp'] * 1000, isUtc: true)).inHours;
 
         if (kDebugMode) {
           // print("Expiry TimeStamp ********* ${expired['exp']}, h: $h");
@@ -108,11 +104,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         if (h < 0) {
           Token(token); // initialize token
           LoggedIn = true;
-          await AllData.setInvestorData(
-              User.fromJson(await jsonDecode(pref.getString('investorData')!)));
+          await AllData.setInvestorData(User.fromJson(await jsonDecode(pref.getString('investorData')!)));
           // await EasyLoading.dismiss();
-          await AllData.setInvestmentData(InvestedData.fromJson(
-              await jsonDecode(pref.getString('investedData')!)));
+          await AllData.setInvestmentData(InvestedData.fromJson(await jsonDecode(pref.getString('investedData')!)));
         }
       }
     }
@@ -134,8 +128,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     isLoggedIn();
     super.initState();
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 1500), vsync: this);
+    controller = AnimationController(duration: const Duration(milliseconds: 1500), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.forward();
 
@@ -151,8 +144,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     //   statusBarColor: Colors.transparent,
     // ));
 
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return Scaffold(
       body: Container(
@@ -235,8 +227,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                     ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal:
-                            MediaQuery.of(context).size.width * 20 / 896,
+                        horizontal: MediaQuery.of(context).size.width * 20 / 896,
                         vertical: MediaQuery.of(context).size.height * 20 / 896,
                       ),
                       child: Row(
@@ -254,8 +245,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                               fontFamily: "inter",
                               color: AppColors.whiteTextColor,
                               fontWeight: FontWeight.w400,
-                              fontSize: 16.0 *
-                                  (MediaQuery.of(context).size.width / 414),
+                              fontSize: 16.0 * (MediaQuery.of(context).size.width / 414),
                               height: 1.5,
                             ),
                           ),
@@ -278,16 +268,14 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             ? const LoginPage()
             : (AllData.investedData.fundData.isEmpty
                 ? const CheckCANNO()
-                : BiometricDetails().biometricOn &&
-                        (BiometricDetails().userConsentToBioMetric)
+                : BiometricDetails().biometricOn && (BiometricDetails().userConsentToBioMetric)
                     ? AuthPage()
                     : const Dashboard()),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
           const curve = Curves.ease;
-          var tween =
-              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
           return SlideTransition(
             position: animation.drive(tween),
